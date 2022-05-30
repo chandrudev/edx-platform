@@ -280,7 +280,7 @@ from openedx.core.djangolib.js_utils import (
                   </div> -->
                 </li>
                 <li class="field text required" id="field-liveclass-repeatcriteria"  style="display: none;">
-                                          <label for="new-liveclass-repeattype">${_("Recurrence Criteria")}</label>
+                                          <label for="new-liveclass-repeattype">${_("Recurrence Criterias")}</label>
 
                   <table>
                     <tr>
@@ -359,6 +359,9 @@ from openedx.core.djangolib.js_utils import (
             <input type="hidden" value="${allow_unicode_course_id}" class="allow-unicode-course-id" />
             <input type="submit" value="${_('Create')}" class="action action-primary new-liveclass-save" />
             <input type="button" value="${_('Cancel')}" class="action action-secondary action-cancel new-liveclass-cancel" />
+             </br></br>
+             <input class="new-liveclass-username" id="new-liveclass-username" type="text" name="new-liveclass-username" required placeholder="${_('Enter Email')}" aria-describedby="tip-new-liveclass-username tip-error-new-liveclass-username" />
+            <input type="button" value="${_('Assign User')}" class="action action-primary new-liveclass-user" />
           </div>
         </form>
       </div>
@@ -809,6 +812,13 @@ from openedx.core.djangolib.js_utils import (
 
   %endif
 </div>
+<script>
+  // var element = document.getElementsByClassName('view-users')
+  // element.onclick = function(e){
+  //   alert('data')
+  //  }
+
+</script>
 </%block>
 
 
