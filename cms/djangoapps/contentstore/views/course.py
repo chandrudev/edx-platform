@@ -888,7 +888,7 @@ def _create_or_rerun_course(request):
         run = request.json.get('run')
         has_course_creator_role = is_content_creator(request.user, org)
         #log.info(org)
-        course_type = request.json.get('course_type')
+        #course_type = request.json.get('course_type')
 
         if not has_course_creator_role:
             #log.info( request.user.id,org,course,)
@@ -912,7 +912,7 @@ def _create_or_rerun_course(request):
         # existing xml courses this cannot be changed in CourseBlock.
         # # TODO get rid of defining wiki slug in this org/course/run specific way and reconcile
         # w/ xmodule.course_module.CourseBlock.__init__
-        wiki_slug = f"{org}.{course}.{run}.{course_type}"
+        wiki_slug = f"{org}.{course}.{run}"
         definition_data = {'wiki_slug': wiki_slug}
         fields.update(definition_data)
 
@@ -923,7 +923,7 @@ def _create_or_rerun_course(request):
             
             source_course_key = CourseKey.from_string(source_course_key)
             #log.info(source_course_key)
-            destination_course_key = rerun_course(request.user, source_course_key, org, course, run, fields , course_type)
+            destination_course_key = rerun_course(request.user, source_course_key, org, course, run, fields)
             #log.info( request.user.id,org,course,)
             # log.info(request)
             return JsonResponse({
@@ -933,7 +933,7 @@ def _create_or_rerun_course(request):
         
         else:
             try:
-                new_course = create_new_course(request.user, org, course, run, fields, course_type)
+                new_course = create_new_course(request.user, org, course, run, fields)
                 return JsonResponse({
                     'url': reverse_course_url('course_handler', new_course.id),
                     'course_key': str(new_course.id),
@@ -968,7 +968,7 @@ def _create_or_rerun_course(request):
             request.user.id,
             org,
             course,
-            course_type,
+            
         )
         return JsonResponse({
             'error': _('User does not have the permission to create courses in this organization '
@@ -977,7 +977,7 @@ def _create_or_rerun_course(request):
         )
 
 
-def create_new_course(user, org, number, run, fields , course_type):
+def create_new_course(user, org, number, run, fields ):
     """
     Create a new course run.
 
@@ -992,10 +992,10 @@ def create_new_course(user, org, number, run, fields , course_type):
             'you selected does not exist in the system, you will need to add it to the system'
         ))
     store_for_new_course = modulestore().default_modulestore.get_modulestore_type()
-    new_course = create_new_course_in_store(store_for_new_course, user, org, number, run, fields , course_type)
+    new_course = create_new_course_in_store(store_for_new_course, user, org, number, run, fields )
     add_organization_course(org_data, new_course.id)
     #log.info(fields)
-    log.info( "-->>>>>>>>>>>>>>>>>>>>>",user,org ,course_type)
+    log.info( "-->>>>>>>>>>>>>>>>>>>>>",user,org )
     
     return new_course
 
@@ -1003,7 +1003,7 @@ def create_new_course(user, org, number, run, fields , course_type):
 
 
 
-def create_new_course_in_store(store, user, org, number, run, fields , course_type):
+def create_new_course_in_store(store, user, org, number, run, fields):
     """
     Create course in store w/ handling instructor enrollment, permissions, and defaulting the wiki slug.
     Separated out b/c command line course creation uses this as well as the web interface.
@@ -1022,7 +1022,7 @@ def create_new_course_in_store(store, user, org, number, run, fields , course_ty
             number,
             run,
             user.id,
-            course_type,
+            
             fields=fields,
         )
 
@@ -1034,7 +1034,7 @@ def create_new_course_in_store(store, user, org, number, run, fields , course_ty
     return new_course
 
 
-def rerun_course(user, source_course_key, org, number, run, fields, course_type, background=True):
+def rerun_course(user, source_course_key, org, number, run, fields, background=True):
     """
     Rerun an existing course.
     """
@@ -1045,7 +1045,7 @@ def rerun_course(user, source_course_key, org, number, run, fields, course_type,
     # create destination course key
     store = modulestore()
     with store.default_store('split'):
-        destination_course_key = store.make_course_key(org, number, run, course_type)
+        destination_course_key = store.make_course_key(org, number, run)
 
     # verify org course and run don't already exist
     if store.has_course(destination_course_key, ignore_case=True):
