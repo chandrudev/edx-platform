@@ -8,18 +8,15 @@
          var keyLengthViolationMessage = gettext('The combined length of the organization and library code fields' +
            ' cannot be more than <%- limit %> characters.');
         
-         CreateUtilsFactory.call(this, selectors, classes);
-       
+         //CreateUtilsFactory.call(this, selectors, classes);
+        // alert('sd')
          this.create = function(liveclassInfo, errorHandler) {
              $.postJSON(
                  '/live_class/details/',
                  liveclassInfo
              ).done(function(data) {
                 errorHandler(data);
-                // alert(window.location.href)
-                //alert("d"+data)
-                // window.location.reload()
-                 //ViewUtils.redirect(window.location.href);
+                
              }).fail(function(jqXHR, textStatus, errorThrown) {
                  var reason = errorThrown;
                  if (jqXHR.responseText) {

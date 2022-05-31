@@ -153,7 +153,6 @@ define(['domReady', 'jquery', 'underscore', 'js/utils/cancel_on_escape', 'js/vie
  number: number,
  display_name: display_name
  };
-
  analytics.track('Created a Library', lib_info);
  CreateLibraryUtils.create(lib_info, function(errorMessage) {
  var msg = edx.HtmlUtils.joinHtml(edx.HtmlUtils.HTML('<p>'), errorMessage, edx.HtmlUtils.HTML('</p>'));
@@ -179,6 +178,7 @@ define(['domReady', 'jquery', 'underscore', 'js/utils/cancel_on_escape', 'js/vie
 
 
  var saveNewLiveClass= function(e) {
+    
  e.preventDefault();
 
  
@@ -207,9 +207,10 @@ define(['domReady', 'jquery', 'underscore', 'js/utils/cancel_on_escape', 'js/vie
  'is_recurrence_meeting':false,
  'meeting_link':data.url
  };
- analytics.track('Created a LiveClass', lib_info);
-
+ //analytics.track('Created a LiveClass', lib_info);
+//alert(JSON.stringify(lib_info))
  CreateLiveClassUtils.create(lib_info, function(errorMessage) {
+ 
  if(errorMessage.id==undefined)
  {
  var msg = edx.HtmlUtils.joinHtml(edx.HtmlUtils.HTML('<p>'), errorMessage, edx.HtmlUtils.HTML('</p>'));
@@ -301,7 +302,7 @@ define(['domReady', 'jquery', 'underscore', 'js/utils/cancel_on_escape', 'js/vie
  GetLiveClassUtils.assignUser(info, function(response) {
  alert("User Assigned")
  });
- 
+
  }
  else
  {

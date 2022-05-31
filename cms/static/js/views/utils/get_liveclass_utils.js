@@ -11,7 +11,7 @@
          var nonEmptyCheckFieldSelectors = [selectors.name, selectors.org, selectors.number];
 
          CreateUtilsFactory.call(this, selectors, classes);
-       
+      // alert('dsad')
          this.create = function(liveclassInfo, errorHandler) {
              $.getJSON(
                  '/live_class/details/',
