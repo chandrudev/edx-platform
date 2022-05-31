@@ -191,10 +191,10 @@ from django.urls import reverse
                     <a href="${lms_link}" rel="external" class="button view-button view-live-button"
                        title="${_('Click to open the courseware in the LMS in a new tab')}">${_("View Live")}</a>
                 </li>
-                <li class="nav-item">
-                  <a id="liveclass_btn" rel="external" class="button view-button view-live-button"
+                <!-- <li class="nav-item">
+                  <a id="myBtn" rel="external" class="button view-button view-live-button"
                      title="${_('Click to add/view meeting link')}">${_("Live Class")}</a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a id="enroll_users_btn" rel="external" class="button view-button view-live-button"
                    title="${_('Click to add/view meeting link')}">${_("Enroll Students")}</a>
@@ -204,11 +204,14 @@ from django.urls import reverse
     </header>
 </div>
 <div id="myModal" class="modal-meeting">
+
+  <!-- Modal content -->
   <div class="modal-content-meeting">
     <div class="modal-header">
       <span class="close">&times;</span>
       <h2>Create Live Class</h2>
     </div>
+    
     <div class="modal-body">
       <table style="text-align: center;">
         <tr>
@@ -233,6 +236,12 @@ from django.urls import reverse
             </div>
           </td>
         </tr>
+        <!-- <tr style="margin-top: 10px;">
+          <td style="width:70%;text-align: center;"> 
+            <button id="generate" class="button" style="background-color: #005800;;color: #fff;border-radius: 6px;border-color: #fff;
+            padding: 5px;">Generate</button>
+          </td>
+        </tr> -->
       </table>
       <div style="margin-top:10px;text-align:center;width: 100%;">
         <button id="generate" class="button" style="background-color: #005800;;color: #fff;border-radius: 6px;border-color: #fff;
@@ -247,44 +256,43 @@ from django.urls import reverse
       </div>
     </div>
     </div>
+    
   </div>
-
 
 </div>
-  <div id="myModal1" class="modal-meeting1">
-    <div class="modal-content-meeting">
-    <div class="modal-header">
-      <span class="close1">&times;</span>
-      <h2>Enroll Students</h2>
-    </div>
-    <div class="modal-body">
-      <table style="text-align: center;width: 100%;">
-        <tr>
-          <td style="width:70%">  
-            <!-- <p for="enroll-student">Name</p> -->
-            <input  style="width: 100%;" type="text" id="enroll-student" name="meeting-topic" placeholder="Enter student username...">
-          </td>
-          <td style="width:30%">  
-            <div style="margin-top:10px;text-align:center;width: 100%;">
-              <button id="add-student" class="button" style="background-color: #005800;;color: #fff;border-radius: 6px;border-color: #fff;
-                  padding: 5px;">Add Student</button>
-            </div>
-          </td>
-        </tr>
-        </table>
-        <div style="margin-top:10px">
-          Enrolled Students
-        </div>
-        <div style="margin-top:10px">
-        <div id="output-students" class="out-student">
-      
-        </div>
+<div id="myModal1" class="modal-meeting1">
+  <div class="modal-content-meeting">
+  <div class="modal-header">
+    <span class="close1">&times;</span>
+    <h2>Enroll Students</h2>
+  </div>
+  <div class="modal-body">
+    <table style="text-align: center;width: 100%;">
+      <tr>
+        <td style="width:70%">  
+          <!-- <p for="enroll-student">Name</p> -->
+          <input  style="width: 100%;" type="text" id="enroll-student" name="meeting-topic" placeholder="Enter student username...">
+        </td>
+        <td style="width:30%">  
+          <div style="margin-top:10px;text-align:center;width: 100%;">
+            <button id="add-student" class="button" style="background-color: #005800;;color: #fff;border-radius: 6px;border-color: #fff;
+                padding: 5px;">Add Student</button>
+          </div>
+        </td>
+      </tr>
+      </table>
+      <div style="margin-top:10px">
+        Enrolled Students
       </div>
+      <div style="margin-top:10px">
+      <div id="output-students" class="out-student">
+    
       </div>
     </div>
-
+    </div>
   </div>
 
+</div>
 <div class="wrapper-content wrapper">
     <section class="content">
         <article class="content-primary" role="main">
@@ -375,42 +383,42 @@ from django.urls import reverse
 </div>
 <script>
   var modal = document.getElementById("myModal");
-  var btn = document.getElementById("liveclass_btn");
+  // var btn = document.getElementById("liveclass_btn");
   var modal1 = document.getElementById("myModal1");
   var btn1 = document.getElementById("enroll_users_btn");
-  var span = document.getElementsByClassName("close")[0];
+  // var span = document.getElementsByClassName("close")[0];
   var span1 = document.getElementsByClassName("close1")[0];
   var token = '';
   csrftoken()
  
-  btn.onclick = function() {
-    modal.style.display = "block";
-    getRooms();
-    modal1.style.display = "none";
-  }
+  // btn.onclick = function() {
+  //   modal.style.display = "block";
+  //   getRooms();
+  //   modal1.style.display = "none";
+  // }
   btn1.onclick = function() {
     modal1.style.display = "block";
     getStudents();
-    modal.style.display = "none";
+    // modal.style.display = "none";
     
    
   }
 
 
-  span.onclick = function() {
-    modal.style.display = "none";
-    //modal1.style.display = "none";
-  }
+  // span.onclick = function() {
+  //   modal.style.display = "none";
+  //   //modal1.style.display = "none";
+  // }
   span1.onclick = function() {
    // modal.style.display = "none"
     modal1.style.display = "none";
   }
   
   window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-     // modal1.style.display = "none";
-    }
+    // if (event.target == modal) {
+    //   modal.style.display = "none";
+    //  // modal1.style.display = "none";
+    // }
     if (event.target == modal1) {
       //modal.style.display = "none";
       modal1.style.display = "none";
@@ -423,8 +431,16 @@ function reply_click()
 }
 function enroll_click()
 {
+  student = document.getElementById('enroll-student').value
+  if(student!="")
+  {
   removeElementStudents()
   enroll_student()
+  }
+  else
+  {
+    alert("Enter username")
+  }
 }
 function enroll_student()
 {
@@ -659,6 +675,6 @@ function getRooms(){
     .catch(error => console.error('Error:', error));
 }
   </script>
-  
 </%block>
+
 
