@@ -25,8 +25,13 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 from openedx.core.djangoapps.content.learning_sequences.api import get_course_outline
 from openedx.core.djangoapps.content.learning_sequences.data import CourseOutlineData
 from openedx.core.lib.api.view_utils import LazySequence
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .exceptions import OverEnrollmentLimitException
 from .permissions import can_view_courses_for_username
@@ -84,7 +89,11 @@ def _filter_by_search(course_queryset, search_term):
     """
     Filters a course queryset by the specified search term.
     """
+<<<<<<< HEAD
     if not settings.FEATURES['ENABLE_COURSEWARE_SEARCH'] or not search_term:
+=======
+    if not search_term:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return course_queryset
 
     # Return all the results, 10K is the maximum allowed value for ElasticSearch.
@@ -384,4 +393,8 @@ def get_course_members(course_key):
     for user_id in user_info:
         user_info[user_id]['roles'] = user_roles[user_id]
 
+<<<<<<< HEAD
     return user_info
+=======
+    return user_info
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

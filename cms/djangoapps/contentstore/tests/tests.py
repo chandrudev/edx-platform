@@ -16,8 +16,13 @@ from pytz import UTC
 
 from cms.djangoapps.contentstore.tests.test_course_settings import CourseTestCase
 from cms.djangoapps.contentstore.tests.utils import AjaxEnabledTestClient, parse_json, registration, user
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ContentStoreTestCase(ModuleStoreTestCase):

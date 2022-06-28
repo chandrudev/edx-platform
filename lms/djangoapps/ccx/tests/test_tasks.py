@@ -7,15 +7,24 @@ import contextlib
 from unittest import mock
 
 from ccx_keys.locator import CCXLocator
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.django import SignalHandler
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.roles import CourseCcxCoachRole
 from common.djangoapps.student.tests.factories import AdminFactory
 from lms.djangoapps.ccx.tasks import send_ccx_course_published
 from lms.djangoapps.ccx.tests.factories import CcxFactory
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+<<<<<<< HEAD
 from xmodule.modulestore.django import SignalHandler
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @contextlib.contextmanager
@@ -30,8 +39,11 @@ class TestSendCCXCoursePublished(ModuleStoreTestCase):
     """
     Unit tests for the send ccx course published task
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ENABLED_SIGNALS = ['course_published']
 
     def setUp(self):

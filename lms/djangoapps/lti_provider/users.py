@@ -16,6 +16,10 @@ from django.db import IntegrityError, transaction
 
 from common.djangoapps.student.models import UserProfile
 from lms.djangoapps.lti_provider.models import LtiUser
+<<<<<<< HEAD
+=======
+from openedx.core.djangoapps.safe_sessions.middleware import mark_user_change_as_expected
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def authenticate_lti_user(request, lti_user_id, lti_consumer):
@@ -96,6 +100,10 @@ def switch_user(request, lti_user, lti_consumer):
         # users by this point, but just in case we can return a 403.
         raise PermissionDenied()
     login(request, edx_user)
+<<<<<<< HEAD
+=======
+    mark_user_change_as_expected(edx_user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def generate_random_edx_username():

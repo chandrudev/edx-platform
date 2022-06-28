@@ -7,8 +7,13 @@ from uuid import uuid4
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.badges.events import course_complete
 from lms.djangoapps.certificates.models import GeneratedCertificate
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class CourseCompleteTestCase(ModuleStoreTestCase):
@@ -31,8 +36,15 @@ class CourseCompleteTestCase(ModuleStoreTestCase):
         Verify slug generation is working as expected. If this test fails, the algorithm has changed, and it will cause
         the handler to lose track of all badges it made in the past.
         """
+<<<<<<< HEAD
         assert course_complete.course_slug(self.course_key, 'honor') == 'edxcourse_testtest_run_honor_fc5519b'
         assert course_complete.course_slug(self.course_key, 'verified') == 'edxcourse_testtest_run_verified_a199ec0'
+=======
+        assert course_complete.course_slug(self.course_key, 'honor') ==\
+               'course-v1edxcourse_testtest_run_honor_2055051'
+        assert course_complete.course_slug(self.course_key, 'verified') ==\
+               'course-v1edxcourse_testtest_run_verified_d550ad7'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_dated_description(self):
         """

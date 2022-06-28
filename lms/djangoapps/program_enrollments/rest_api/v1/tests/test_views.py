@@ -20,6 +20,12 @@ from organizations.tests.factories import OrganizationFactory as LMSOrganization
 from rest_framework import status
 from rest_framework.test import APITestCase
 from social_django.models import UserSocialAuth
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory as ModulestoreCourseFactory
+from xmodule.modulestore.tests.factories import ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.models import CourseEnrollment
@@ -52,9 +58,12 @@ from openedx.core.djangoapps.catalog.tests.factories import (
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
 from openedx.core.djangolib.testing.utils import CacheIsolationMixin
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory as ModulestoreCourseFactory
 from xmodule.modulestore.tests.factories import ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .. import views
 from ..constants import (
@@ -96,6 +105,10 @@ class EnrollmentsDataMixin(ProgramCacheMixin):
     Mixin to define some shared test data objects for program/course enrollment
     view tests.
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'SET-ME-IN-SUBCLASS'
 
     @classmethod
@@ -1636,6 +1649,11 @@ class ProgramCourseEnrollmentOverviewGetTests(
     """
     Tests for the ProgramCourseEnrollmentOverview view GET method.
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     patch_resume_url = mock.patch(
         _UTILS_PATCH_FORMAT.format('get_resume_urls_for_enrollments'),
         autospec=True,
@@ -2095,7 +2113,11 @@ class ProgramCourseEnrollmentOverviewGetTests(
     def test_course_run_url(self):
         self.log_in()
 
+<<<<<<< HEAD
         course_run_url = f'http://testserver/courses/{str(self.course_id)}/course/'
+=======
+        course_run_url = f'http://learning-mfe/course/{str(self.course_id)}/home'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         response_status_code, response_course_runs = self.get_status_and_course_runs()
         assert status.HTTP_200_OK == response_status_code

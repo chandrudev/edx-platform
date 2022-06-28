@@ -22,7 +22,12 @@ const wrapperRendered = setInterval(() => {
         additionalSiteSpecificDeletionText: window.additionalSiteSpecificDeletionText,
         mktgRootLink: window.mktgRootLink,
         platformName: window.platformName,
+<<<<<<< HEAD
         siteName: window.siteName
+=======
+        siteName: window.siteName,
+        mktgEmailOptIn: window.mktgEmailOptIn
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       },
     });
   }

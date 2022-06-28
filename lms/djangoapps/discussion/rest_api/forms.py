@@ -2,22 +2,44 @@
 Discussion API forms
 """
 import urllib.parse
+<<<<<<< HEAD
 from django.core.exceptions import ValidationError
+=======
+
+from django.core.exceptions import ValidationError
+from django.db.models import TextChoices
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.forms import BooleanField, CharField, ChoiceField, Form, IntegerField
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator
 
 from lms.djangoapps.courseware.courses import get_course_with_access
+<<<<<<< HEAD
+=======
+from lms.djangoapps.discussion.rest_api.serializers import TopicOrdering
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.django_comment_common.models import (
     FORUM_ROLE_COMMUNITY_TA,
     FORUM_ROLE_GROUP_MODERATOR,
     FORUM_ROLE_MODERATOR,
+<<<<<<< HEAD
     Role
+=======
+    Role,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from openedx.core.djangoapps.util.forms import ExtendedNullBooleanField, MultiValueField
 
 
+<<<<<<< HEAD
+=======
+class UserOrdering(TextChoices):
+    BY_ACTIVITY = 'activity'
+    BY_FLAGS = 'flagged'
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class _PaginationForm(Form):
     """A form that includes pagination fields"""
     page = IntegerField(required=False, min_value=1)
@@ -118,10 +140,34 @@ class CommentListGetForm(_PaginationForm):
     A form to validate query parameters in the comment list retrieval endpoint
     """
     thread_id = CharField()
+<<<<<<< HEAD
+=======
+    flagged = BooleanField(required=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     endorsed = ExtendedNullBooleanField(required=False)
     requested_fields = MultiValueField(required=False)
 
 
+<<<<<<< HEAD
+=======
+class UserCommentListGetForm(_PaginationForm):
+    """
+    A form to validate query parameters in the comment list retrieval endpoint
+    """
+    course_id = CharField()
+    flagged = BooleanField(required=False)
+    requested_fields = MultiValueField(required=False)
+
+    def clean_course_id(self):
+        """Validate course_id"""
+        value = self.cleaned_data["course_id"]
+        try:
+            return CourseLocator.from_string(value)
+        except InvalidKeyError:
+            raise ValidationError(f"'{value}' is not a valid course id")  # lint-amnesty, pylint: disable=raise-missing-from
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CommentActionsForm(Form):
     """
     A form to handle fields in comment creation/update that require separate
@@ -153,7 +199,11 @@ class CourseDiscussionSettingsForm(Form):
         course_id = self.cleaned_data['course_id']
         try:
             course_key = CourseKey.from_string(course_id)
+<<<<<<< HEAD
             self.cleaned_data['course'] = get_course_with_access(self.request_user, 'staff', course_key)
+=======
+            self.cleaned_data['course'] = get_course_with_access(self.request_user, 'load', course_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             self.cleaned_data['course_key'] = course_key
             return course_id
         except InvalidKeyError:
@@ -181,8 +231,33 @@ class CourseDiscussionRolesForm(CourseDiscussionSettingsForm):
         if course_id and rolename:
             try:
                 role = Role.objects.get(name=rolename, course_id=course_id)
+<<<<<<< HEAD
             except Role.DoesNotExist:
                 raise ValidationError(f"Role '{rolename}' does not exist")  # lint-amnesty, pylint: disable=raise-missing-from
 
             self.cleaned_data['role'] = role
             return rolename
+=======
+            except Role.DoesNotExist as err:
+                raise ValidationError(f"Role '{rolename}' does not exist") from err
+
+            self.cleaned_data['role'] = role
+            return rolename
+
+
+class TopicListGetForm(Form):
+    """
+    Form for the topics API get query parameters.
+    """
+    topic_id = CharField(required=False)
+    order_by = ChoiceField(choices=TopicOrdering.choices, required=False)
+
+    def clean_topic_id(self):
+        topic_ids = self.cleaned_data.get("topic_id", None)
+        return set(topic_ids.strip(',').split(',')) if topic_ids else None
+
+
+class CourseActivityStatsForm(_PaginationForm):
+    """Form for validating course activity stats API query parameters"""
+    order_by = ChoiceField(choices=UserOrdering.choices, required=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -10,8 +10,15 @@ import shutil
 import tempfile
 from unittest.mock import Mock, NonCallableMock, patch
 
+<<<<<<< HEAD
 import ddt
 import pytest
+=======
+import dateutil
+import ddt
+import pytest
+import pytz
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from boto.exception import BotoServerError
 from django.conf import settings
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
@@ -27,6 +34,16 @@ from edx_toggles.toggles.testutils import override_waffle_flag
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import UsageKey
 from pytz import UTC
+<<<<<<< HEAD
+=======
+from testfixtures import LogCapture
+from xmodule.fields import Date
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import (
+    TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase, SharedModuleStoreTestCase,
+)
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
@@ -78,6 +95,10 @@ from lms.djangoapps.instructor_task.api_helper import (
     QueueConnectionError,
     generate_already_running_error_message
 )
+<<<<<<< HEAD
+=======
+from lms.djangoapps.instructor_task.data import InstructorTaskTypes
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.program_enrollments.tests.factories import ProgramEnrollmentFactory
 from openedx.core.djangoapps.course_date_signals.handlers import extract_dates
 from openedx.core.djangoapps.course_groups.cohorts import set_course_cohorted
@@ -85,6 +106,7 @@ from openedx.core.djangoapps.django_comment_common.models import FORUM_ROLE_COMM
 from openedx.core.djangoapps.django_comment_common.utils import seed_permissions_roles
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.site_configuration.tests.mixins import SiteMixin
+<<<<<<< HEAD
 from openedx.core.lib.teams_config import TeamsConfig
 from openedx.core.lib.xblock_utils import grade_histogram
 from openedx.features.course_experience import RELATIVE_DATES_FLAG
@@ -95,6 +117,16 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from .test_tools import msk_from_problem_urlname
 
+=======
+from openedx.core.djangoapps.user_api.preferences.api import delete_user_preference
+from openedx.core.lib.teams_config import TeamsConfig
+from openedx.core.lib.xblock_utils import grade_histogram
+from openedx.features.course_experience import RELATIVE_DATES_FLAG
+
+from .test_tools import msk_from_problem_urlname
+
+LOG_PATH = "lms.djangoapps.instructor.views.api"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 DATE_FIELD = Date()
 EXPECTED_CSV_HEADER = (
     '"code","redeem_code_url","course_id","company_name","created_by","redeemed_by","invoice_id","purchaser",'
@@ -639,7 +671,11 @@ class TestInstructorAPIBulkAccountCreationAndEnrollment(SharedModuleStoreTestCas
         """
         csv_content = b"test_student@example.com,test_student_1,tester1,USA"
         uploaded_file = SimpleUploadedFile("temp.csv", csv_content)
+<<<<<<< HEAD
         response = self.client.post(self.url, {'students_list': uploaded_file})
+=======
+        response = self.client.post(self.url, {'students_list': uploaded_file, 'email-students': True})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
         data = json.loads(response.content.decode('utf-8'))
         assert len(data['row_errors']) == 0
@@ -660,7 +696,11 @@ class TestInstructorAPIBulkAccountCreationAndEnrollment(SharedModuleStoreTestCas
         """
         csv_content = b"\ntest_student@example.com,test_student_1,tester1,USA\n\n"
         uploaded_file = SimpleUploadedFile("temp.csv", csv_content)
+<<<<<<< HEAD
         response = self.client.post(self.url, {'students_list': uploaded_file})
+=======
+        response = self.client.post(self.url, {'students_list': uploaded_file, 'email-students': True})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
         data = json.loads(response.content.decode('utf-8'))
         assert len(data['row_errors']) == 0
@@ -742,10 +782,17 @@ class TestInstructorAPIBulkAccountCreationAndEnrollment(SharedModuleStoreTestCas
         assert len(data['row_errors']) == 0
         assert len(data['warnings']) == 0
         assert len(data['general_errors']) == 1
+<<<<<<< HEAD
         assert data['general_errors'][0]['response'] ==\
                'Data in row #1 must have exactly four columns: email, username, full name, and country'
         # lint-amnesty, pylint: disable=line-too-long
 
+=======
+        assert data['general_errors'][0]['response'] == (
+            'Data in row #1 must have exactly four columns: email, username, '
+            'full name, and country.'
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         manual_enrollments = ManualEnrollmentAudit.objects.all()
         assert manual_enrollments.count() == 0
 
@@ -2657,7 +2704,11 @@ class TestInstructorAPILevelsDataDump(SharedModuleStoreTestCase, LoginEnrollment
         response = self.client.post(url, {})
         assert response.status_code == 200
         # CSV generation already in progress:
+<<<<<<< HEAD
         task_type = 'may_enroll_info_csv'
+=======
+        task_type = InstructorTaskTypes.MAY_ENROLL_INFO_CSV
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         already_running_status = generate_already_running_error_message(task_type)
         with patch('lms.djangoapps.instructor_task.api.submit_calculate_may_enroll_csv') as submit_task_function:
             error = AlreadyRunningError(already_running_status)
@@ -2806,6 +2857,28 @@ class TestInstructorAPILevelsDataDump(SharedModuleStoreTestCase, LoginEnrollment
                 response = self.client.post(url, {})
                 self.assertContains(response, success_status)
 
+<<<<<<< HEAD
+=======
+    @valid_problem_location
+    def test_idv_retirement_student_features_report(self):
+        kwargs = {'course_id': str(self.course.id)}
+        kwargs.update({'csv': '/csv'})
+        url = reverse('get_students_features', kwargs=kwargs)
+        success_status = 'The enrolled learner profile report is being created.'
+        with patch('lms.djangoapps.instructor_task.api.submit_calculate_students_features_csv') as mock_task_endpoint:
+            CourseFinanceAdminRole(self.course.id).add_users(self.instructor)
+            response = self.client.post(url, {})
+            self.assertContains(response, success_status)
+
+            # assert that if the integrity signature is enabled, the verification
+            # status is not included as a query feature
+            args = mock_task_endpoint.call_args.args
+            self.assertEqual(len(args), 3)
+            query_features = args[2]
+
+            self.assertNotIn('verification_status', query_features)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_get_ora2_responses_success(self):
         url = reverse('export_ora2_data', kwargs={'course_id': str(self.course.id)})
 
@@ -2817,7 +2890,11 @@ class TestInstructorAPILevelsDataDump(SharedModuleStoreTestCase, LoginEnrollment
 
     def test_get_ora2_responses_already_running(self):
         url = reverse('export_ora2_data', kwargs={'course_id': str(self.course.id)})
+<<<<<<< HEAD
         task_type = 'export_ora2_data'
+=======
+        task_type = InstructorTaskTypes.EXPORT_ORA2_DATA
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         already_running_status = generate_already_running_error_message(task_type)
 
         with patch('lms.djangoapps.instructor_task.api.submit_export_ora2_data') as mock_submit_ora2_task:
@@ -2841,7 +2918,11 @@ class TestInstructorAPILevelsDataDump(SharedModuleStoreTestCase, LoginEnrollment
 
     def test_get_ora2_submission_files_already_running(self):
         url = reverse('export_ora2_submission_files', kwargs={'course_id': str(self.course.id)})
+<<<<<<< HEAD
         task_type = 'export_ora2_submission_files'
+=======
+        task_type = InstructorTaskTypes.EXPORT_ORA2_SUBMISSION_FILES
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         already_running_status = generate_already_running_error_message(task_type)
 
         with patch(
@@ -2863,7 +2944,11 @@ class TestInstructorAPILevelsDataDump(SharedModuleStoreTestCase, LoginEnrollment
 
     def test_get_ora2_summary_responses_already_running(self):
         url = reverse('export_ora2_summary', kwargs={'course_id': str(self.course.id)})
+<<<<<<< HEAD
         task_type = 'export_ora2_summary'
+=======
+        task_type = InstructorTaskTypes.EXPORT_ORA2_SUMMARY
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         already_running_status = generate_already_running_error_message(task_type)
 
         with patch('lms.djangoapps.instructor_task.api.submit_export_ora2_summary') as mock_submit_ora2_task:
@@ -3064,6 +3149,11 @@ class TestEntranceExamInstructorAPIRegradeTask(SharedModuleStoreTestCase, LoginE
     Test endpoints whereby instructors can rescore student grades,
     reset student attempts and delete state for entrance exam.
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -3346,6 +3436,7 @@ class TestInstructorSendEmail(SiteMixin, SharedModuleStoreTestCase, LoginEnrollm
     def setUpClass(cls):
         super().setUpClass()
         cls.course = CourseFactory.create()
+<<<<<<< HEAD
         test_subject = '\u1234 test subject'
         test_message = '\u6824 test message'
         cls.full_test_message = {
@@ -3353,6 +3444,8 @@ class TestInstructorSendEmail(SiteMixin, SharedModuleStoreTestCase, LoginEnrollm
             'subject': test_subject,
             'message': test_message,
         }
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         BulkEmailFlag.objects.create(enabled=True, require_course_email_auth=False)
 
     @classmethod
@@ -3362,10 +3455,27 @@ class TestInstructorSendEmail(SiteMixin, SharedModuleStoreTestCase, LoginEnrollm
 
     def setUp(self):
         super().setUp()
+<<<<<<< HEAD
+=======
+        test_subject = '\u1234 test subject'
+        test_message = '\u6824 test message'
+        self.full_test_message = {
+            'send_to': '["myself", "staff"]',
+            'subject': test_subject,
+            'message': test_message,
+        }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self.instructor = InstructorFactory(course_key=self.course.id)
         self.client.login(username=self.instructor.username, password='test')
 
+<<<<<<< HEAD
+=======
+    def tearDown(self):
+        super().tearDown()
+        delete_user_preference(self.instructor, 'time_zone', username=self.instructor.username)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_send_email_as_logged_in_instructor(self):
         url = reverse('send_email', kwargs={'course_id': str(self.course.id)})
         response = self.client.post(url, self.full_test_message)
@@ -3452,6 +3562,57 @@ class TestInstructorSendEmail(SiteMixin, SharedModuleStoreTestCase, LoginEnrollm
                                                html_message=self.full_test_message['message'],
                                                template_name=org_template, from_addr=org_email).count()
 
+<<<<<<< HEAD
+=======
+    @patch("lms.djangoapps.instructor.views.api.task_api.submit_bulk_course_email")
+    def test_send_email_with_schedule(self, mock_task_api):
+        """
+        Test for the new scheduling logic added to the `send_email` function.
+        """
+        schedule = "2099-05-02T14:00:00.000Z"
+        self.full_test_message['schedule'] = schedule
+        expected_schedule = dateutil.parser.parse(schedule).replace(tzinfo=pytz.utc)
+
+        url = reverse('send_email', kwargs={'course_id': str(self.course.id)})
+        response = self.client.post(url, self.full_test_message)
+
+        assert response.status_code == 200
+        _, _, _, arg_schedule = mock_task_api.call_args.args
+        assert arg_schedule == expected_schedule
+
+    @patch("lms.djangoapps.instructor.views.api.task_api.submit_bulk_course_email")
+    def test_send_email_with_malformed_schedule_expect_error(self, mock_task_api):
+        schedule = "Blub Glub"
+        self.full_test_message['schedule'] = "Blub Glub"
+        expected_message = (
+            f"Error occurred creating a scheduled bulk email task. Schedule provided: '{schedule}'. Error: Unknown "
+            "string format: Blub Glub"
+        )
+
+        url = reverse('send_email', kwargs={'course_id': str(self.course.id)})
+        with LogCapture() as log:
+            response = self.client.post(url, self.full_test_message)
+
+        assert response.status_code == 400
+        log.check_present((LOG_PATH, "ERROR", expected_message),)
+        mock_task_api.assert_not_called()
+
+    def test_send_email_with_lapsed_date_expect_error(self):
+        schedule = "2020-01-01T00:00:00.000Z"
+        self.full_test_message['schedule'] = schedule
+        expected_message = (
+            f"Error occurred creating a scheduled bulk email task. Schedule provided: '{schedule}'. Error: the "
+            "requested schedule is in the past"
+        )
+
+        url = reverse('send_email', kwargs={'course_id': str(self.course.id)})
+        with LogCapture() as log:
+            response = self.client.post(url, self.full_test_message)
+
+        assert response.status_code == 400
+        log.check_present((LOG_PATH, "ERROR", expected_message),)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class MockCompletionInfo:
     """Mock for get_task_completion_info"""
@@ -3694,7 +3855,13 @@ class TestInstructorEmailContentList(SharedModuleStoreTestCase, LoginEnrollmentT
         self.setup_fake_email_info(num_emails, with_failures)
         task_history_request.return_value = list(self.tasks.values())
         url = reverse('list_email_content', kwargs={'course_id': str(self.course.id)})
+<<<<<<< HEAD
         with patch('lms.djangoapps.instructor.views.api.CourseEmail.objects.get') as mock_email_info:
+=======
+        with patch(
+            'lms.djangoapps.instructor.views.instructor_task_helpers.CourseEmail.objects.get'
+        ) as mock_email_info:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             mock_email_info.side_effect = self.get_matching_mock_email
             response = self.client.post(url, {})
         assert response.status_code == 200
@@ -3771,7 +3938,13 @@ class TestInstructorEmailContentList(SharedModuleStoreTestCase, LoginEnrollmentT
         email_info = FakeEmailInfo(email, 0, 10)
         task_history_request.return_value = [task_info]
         url = reverse('list_email_content', kwargs={'course_id': str(self.course.id)})
+<<<<<<< HEAD
         with patch('lms.djangoapps.instructor.views.api.CourseEmail.objects.get') as mock_email_info:
+=======
+        with patch(
+            'lms.djangoapps.instructor.views.instructor_task_helpers.CourseEmail.objects.get'
+        ) as mock_email_info:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             mock_email_info.return_value = email
             response = self.client.post(url, {})
         assert response.status_code == 200
@@ -3844,6 +4017,11 @@ class TestDueDateExtensions(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
     """
     Test data dumps for reporting.
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -4018,6 +4196,10 @@ class TestDueDateExtensionsDeletedDate(ModuleStoreTestCase, LoginEnrollmentTestC
     """
     Tests for deleting due date extensions
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def setUp(self):
         """

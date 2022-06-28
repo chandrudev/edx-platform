@@ -9,6 +9,10 @@ import collections
 import json
 import logging
 from datetime import datetime
+<<<<<<< HEAD
+=======
+from django.conf import settings
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from functools import reduce
 
 from lxml import etree
@@ -21,25 +25,40 @@ from xblock.core import XBlock
 from xblock.exceptions import NoSuchServiceError
 from xblock.fields import Boolean, Integer, List, Scope, String
 
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlag
+=======
+from edx_toggles.toggles import WaffleFlag, SettingDictToggle
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.util.xmodule_django import add_webpack_to_fragment
 from xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     shim_xmodule_js,
     STUDENT_VIEW,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleMixin,
     XModuleToXBlockMixin,
 )
 
+<<<<<<< HEAD
 from openedx.core.djangoapps.agreements.toggles import is_integrity_signature_enabled
+=======
+from common.djangoapps.xblock_django.constants import ATTR_KEY_USER_ID, ATTR_KEY_USER_IS_STAFF
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .exceptions import NotFoundError
 from .fields import Date
 from .mako_module import MakoTemplateBlockBase
 from .progress import Progress
+<<<<<<< HEAD
 from .x_module import AUTHOR_VIEW, PUBLIC_VIEW, STUDENT_VIEW, XModule  # pylint: disable=unused-import
+=======
+from .x_module import AUTHOR_VIEW, PUBLIC_VIEW, STUDENT_VIEW
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .xml_module import XmlMixin
 
 
@@ -58,12 +77,28 @@ class_priority = ['video', 'problem']
 #  `django.utils.translation.ugettext_noop` because Django cannot be imported in this file
 _ = lambda text: text
 
+<<<<<<< HEAD
 TIMED_EXAM_GATING_WAFFLE_FLAG = LegacyWaffleFlag(  # lint-amnesty, pylint: disable=toggle-missing-annotation
     waffle_namespace="xmodule",
     flag_name='rev_1377_rollout',
     module_name=__name__,
 )
 
+=======
+TIMED_EXAM_GATING_WAFFLE_FLAG = WaffleFlag(  # lint-amnesty, pylint: disable=toggle-missing-annotation
+    'xmodule.rev_1377_rollout', __name__
+)
+
+# .. toggle_name: FEATURES['SHOW_PROGRESS_BAR']
+# .. toggle_implementation: SettingDictToggle
+# .. toggle_default: False
+# .. toggle_description: Set to True to show progress bar.
+# .. toggle_use_cases: open_edx
+# .. toggle_creation_date: 2022-02-09
+# .. toggle_target_removal_date: None
+SHOW_PROGRESS_BAR = SettingDictToggle("FEATURES", "SHOW_PROGRESS_BAR", default=False, module_name=__name__)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class SequenceFields:  # lint-amnesty, pylint: disable=missing-class-docstring
     has_children = True
@@ -236,13 +271,20 @@ class ProctoringFields:
 
 
 @XBlock.wants('proctoring')
+<<<<<<< HEAD
 @XBlock.wants('verification')
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @XBlock.wants('gating')
 @XBlock.wants('credit')
 @XBlock.wants('completion')
 @XBlock.needs('user')
 @XBlock.needs('bookmarks')
 @XBlock.needs('i18n')
+<<<<<<< HEAD
+=======
+@XBlock.needs('mako')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @XBlock.wants('content_type_gating')
 class SequenceBlock(
     SequenceMixin,
@@ -250,7 +292,10 @@ class SequenceBlock(
     ProctoringFields,
     MakoTemplateBlockBase,
     XmlMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -378,7 +423,11 @@ class SequenceBlock(
         is_hidden_after_due = False
 
         if self._required_prereq():
+<<<<<<< HEAD
             if self.runtime.user_is_staff:
+=======
+            if self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_IS_STAFF):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 banner_text = _(
                     'This subsection is unlocked for learners when they meet the prerequisite requirements.'
                 )
@@ -459,7 +508,11 @@ class SequenceBlock(
         prereq_met = True
         prereq_meta_info = {}
         if self._required_prereq():
+<<<<<<< HEAD
             if self.runtime.user_is_staff:
+=======
+            if self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_IS_STAFF):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 banner_text = _(
                     'This subsection is unlocked for learners when they meet the prerequisite requirements.'
                 )
@@ -536,7 +589,11 @@ class SequenceBlock(
         if not self._can_user_view_content(course):
             banner_text = self._hidden_content_banner_text(course)
 
+<<<<<<< HEAD
             hidden_content_html = self.system.render_template(
+=======
+            hidden_content_html = self.runtime.service(self, 'mako').render_template(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'hidden_content.html',
                 {
                     'self_paced': course.self_paced,
@@ -553,7 +610,11 @@ class SequenceBlock(
         """
         hidden_date = course.end if course.self_paced else self.due
         return (
+<<<<<<< HEAD
             self.runtime.user_is_staff or
+=======
+            self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_IS_STAFF) or
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             self.verify_current_content_visibility(hidden_date, self.hide_after_due)
         )
 
@@ -605,7 +666,14 @@ class SequenceBlock(
 
         fragment = Fragment()
         params = self._get_render_metadata(context, display_items, prereq_met, prereq_meta_info, banner_text, view, fragment)  # lint-amnesty, pylint: disable=line-too-long
+<<<<<<< HEAD
         fragment.add_content(self.system.render_template("seq_module.html", params))
+=======
+        if SHOW_PROGRESS_BAR.is_enabled() and getattr(settings, 'COMPLETION_AGGREGATOR_URL', ''):
+            parent_block_id = self.get_parent().scope_ids.usage_id.block_id
+            params['chapter_completion_aggregator_url'] = '/'.join([settings.COMPLETION_AGGREGATOR_URL, str(self.course_id), parent_block_id]) + '/'
+        fragment.add_content(self.runtime.service(self, 'mako').render_template("seq_module.html", params))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self._capture_full_seq_item_metrics(display_items)
         self._capture_current_unit_metrics(display_items)
@@ -643,8 +711,14 @@ class SequenceBlock(
         """
         gating_service = self.runtime.service(self, 'gating')
         if gating_service:
+<<<<<<< HEAD
             fulfilled = gating_service.is_gate_fulfilled(
                 self.course_id, self.location, self.runtime.user_id
+=======
+            user_id = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_ID)
+            fulfilled = gating_service.is_gate_fulfilled(
+                self.course_id, self.location, user_id
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
             return fulfilled
 
@@ -692,7 +766,12 @@ class SequenceBlock(
             comes to determining whether a student is allowed to access this,
             with other checks being done in has_access calls.
         """
+<<<<<<< HEAD
         if self.runtime.user_is_staff or context.get('specific_masquerade', False):
+=======
+        user_is_staff = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_IS_STAFF)
+        if user_is_staff or context.get('specific_masquerade', False):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return False
 
         # We're not allowed to see it because of pre-reqs that haven't been
@@ -723,7 +802,12 @@ class SequenceBlock(
         """
         gating_service = self.runtime.service(self, 'gating')
         if gating_service:
+<<<<<<< HEAD
             return gating_service.compute_is_prereq_met(self.location, self.runtime.user_id, recalc_on_unmet)
+=======
+            user_id = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_ID)
+            return gating_service.compute_is_prereq_met(self.location, user_id, recalc_on_unmet)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         return True, {}
 
@@ -905,7 +989,10 @@ class SequenceBlock(
 
         proctoring_service = self.runtime.service(self, 'proctoring')
         credit_service = self.runtime.service(self, 'credit')
+<<<<<<< HEAD
         verification_service = self.runtime.service(self, 'verification')
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Is this sequence designated as a Timed Examination, which includes
         # Proctored Exams
@@ -915,8 +1002,15 @@ class SequenceBlock(
             self.is_time_limited
         )
         if feature_enabled:
+<<<<<<< HEAD
             user_id = self.runtime.user_id
             user_role_in_course = 'staff' if self.runtime.user_is_staff else 'student'
+=======
+            current_user = self.runtime.service(self, 'user').get_current_user()
+            user_id = current_user.opt_attrs.get(ATTR_KEY_USER_ID)
+            user_is_staff = current_user.opt_attrs.get(ATTR_KEY_USER_IS_STAFF)
+            user_role_in_course = 'staff' if user_is_staff else 'student'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             course_id = self.runtime.course_id
             content_id = self.location
 
@@ -930,7 +1024,10 @@ class SequenceBlock(
                 'allow_proctoring_opt_out': self.allow_proctoring_opt_out,
                 'due_date': self.due,
                 'grace_period': self.graceperiod,  # lint-amnesty, pylint: disable=no-member
+<<<<<<< HEAD
                 'is_integrity_signature_enabled': is_integrity_signature_enabled(course_id),
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             }
 
             # inject the user's credit requirements and fulfillments
@@ -941,6 +1038,7 @@ class SequenceBlock(
                         'credit_state': credit_state
                     })
 
+<<<<<<< HEAD
             # inject verification status
             if verification_service:
                 verification_status = verification_service.get_status(user_id)
@@ -949,6 +1047,8 @@ class SequenceBlock(
                     'reverify_url': verification_service.reverify_url(),
                 })
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             # See if the edx-proctoring subsystem wants to present
             # a special view to the student rather
             # than the actual sequence content

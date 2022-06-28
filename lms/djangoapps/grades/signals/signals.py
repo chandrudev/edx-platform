@@ -111,3 +111,8 @@ SUBSECTION_OVERRIDE_CHANGED = Signal()
 #         'user_id',  # User object id
 #     ]
 COURSE_GRADE_PASSED_FIRST_TIME = Signal()
+<<<<<<< HEAD
+=======
+
+COURSE_GRADE_PASSED_UPDATE_IN_LEARNER_PATHWAY = Signal()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

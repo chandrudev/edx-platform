@@ -1,6 +1,9 @@
 #pylint: disable=missing-docstring
 
+<<<<<<< HEAD
 import django
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import ddt
 from django.test import TestCase
 
@@ -35,8 +38,11 @@ class ViewersWidgetTest(TestCase):
         dummy_string_value = 'staff, verified'
         input_field_name = 'viewers'
         extra_formating = ''
+<<<<<<< HEAD
         if django.VERSION < (2, 1):
             extra_formating = ' /'
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         expected_widget_html = '<input type="text" name="{input_field_name}" value="{serialized_value}"{extra_formating}>'.format(  # lint-amnesty, pylint: disable=line-too-long
             input_field_name=input_field_name,
             serialized_value=dummy_string_value,

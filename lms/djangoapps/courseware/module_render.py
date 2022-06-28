@@ -31,18 +31,37 @@ from edx_when.field_data import DateLookupFieldData
 from eventtracking import tracker
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
+<<<<<<< HEAD
 from requests.auth import HTTPBasicAuth
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
+=======
+from rest_framework.decorators import api_view
+from rest_framework.exceptions import APIException
+from web_fragments.fragment import Fragment
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xblock.django.request import django_to_webob_request, webob_to_django_response
 from xblock.exceptions import NoSuchHandlerError, NoSuchViewError
 from xblock.reference.plugins import FSService
 from xblock.runtime import KvsFieldData
 
+<<<<<<< HEAD
 from common.djangoapps import static_replace
 from capa.xqueue_interface import XQueueInterface
+=======
+from xmodule.contentstore.django import contentstore
+from xmodule.error_module import ErrorBlock, NonStaffErrorBlock
+from xmodule.exceptions import NotFoundError, ProcessingError
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.exceptions import ItemNotFoundError
+from xmodule.util.sandboxing import SandboxService
+from common.djangoapps.static_replace.services import ReplaceURLService
+from common.djangoapps.static_replace.wrapper import replace_urls_wrapper
+from common.djangoapps.xblock_django.constants import ATTR_KEY_USER_ID
+from capa.xqueue_interface import XQueueService  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.access import get_user_role, has_access
 from lms.djangoapps.courseware.entrance_exams import user_can_skip_entrance_exam, user_has_passed_entrance_exam
 from lms.djangoapps.courseware.masquerade import (
@@ -52,7 +71,10 @@ from lms.djangoapps.courseware.masquerade import (
     setup_masquerade
 )
 from lms.djangoapps.courseware.model_data import DjangoKeyValueStore, FieldDataCache
+<<<<<<< HEAD
 from common.djangoapps.edxmako.shortcuts import render_to_string
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.field_overrides import OverrideFieldData
 from lms.djangoapps.courseware.services import UserStateService
 from lms.djangoapps.grades.api import GradesUtilService
@@ -75,21 +97,30 @@ from openedx.core.lib.xblock_utils import (
     add_staff_markup,
     get_aside_from_xblock,
     hash_resource,
+<<<<<<< HEAD
     is_xblock_aside,
     replace_course_urls,
     replace_jump_to_id_urls,
     replace_static_urls
+=======
+    is_xblock_aside
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from openedx.core.lib.xblock_utils import request_token as xblock_request_token
 from openedx.core.lib.xblock_utils import wrap_xblock
 from openedx.features.course_duration_limits.access import course_expiration_wrapper
 from openedx.features.discounts.utils import offer_banner_wrapper
 from openedx.features.content_type_gating.services import ContentTypeGatingService
+<<<<<<< HEAD
 from common.djangoapps.student.models import anonymous_id_for_user, user_by_anonymous_id
+=======
+from common.djangoapps.student.models import anonymous_id_for_user
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.student.roles import CourseBetaTesterRole
 from common.djangoapps.track import contexts
 from common.djangoapps.util import milestones_helpers
 from common.djangoapps.util.json_request import JsonResponse
+<<<<<<< HEAD
 from common.djangoapps.xblock_django.user_service import DjangoXBlockUserService
 from xmodule.contentstore.django import contentstore
 from xmodule.error_module import ErrorBlock, NonStaffErrorBlock
@@ -112,6 +143,14 @@ XQUEUE_INTERFACE = XQueueInterface(
     REQUESTS_AUTH,
 )
 
+=======
+from common.djangoapps.edxmako.services import MakoService
+from common.djangoapps.xblock_django.user_service import DjangoXBlockUserService
+from openedx.core.lib.cache_utils import CacheService
+
+log = logging.getLogger(__name__)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # TODO: course_id and course_key are used interchangeably in this file, which is wrong.
 # Some brave person should make the variable names consistently someday, but the code's
 # coupled enough that it's kind of tricky--you've been warned!
@@ -377,6 +416,7 @@ def display_access_messages(user, block, view, frag, context):  # pylint: disabl
     return msg_fragment
 
 
+<<<<<<< HEAD
 def get_xqueue_callback_url_prefix(request):
     """
     Calculates default prefix based on request, but allows override via settings
@@ -392,6 +432,8 @@ def get_xqueue_callback_url_prefix(request):
     return settings.XQUEUE_INTERFACE.get('callback_url', prefix)
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # pylint: disable=too-many-statements
 def get_module_for_descriptor(user, request, descriptor, field_data_cache, course_key,
                               position=None, wrap_xmodule_display=True, grade_bucket_type=None,
@@ -405,7 +447,10 @@ def get_module_for_descriptor(user, request, descriptor, field_data_cache, cours
     See get_module() docstring for further details.
     """
     track_function = make_track_function(request)
+<<<<<<< HEAD
     xqueue_callback_url_prefix = get_xqueue_callback_url_prefix(request)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     user_location = getattr(request, 'session', {}).get('country_code')
 
@@ -420,7 +465,10 @@ def get_module_for_descriptor(user, request, descriptor, field_data_cache, cours
         student_data=student_data,
         course_id=course_key,
         track_function=track_function,
+<<<<<<< HEAD
         xqueue_callback_url_prefix=xqueue_callback_url_prefix,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         position=position,
         wrap_xmodule_display=wrap_xmodule_display,
         grade_bucket_type=grade_bucket_type,
@@ -440,7 +488,10 @@ def get_module_system_for_user(
         descriptor,
         course_id,
         track_function,
+<<<<<<< HEAD
         xqueue_callback_url_prefix,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         request_token,
         position=None,
         wrap_xmodule_display=True,
@@ -484,6 +535,10 @@ def get_module_system_for_user(
                 dispatch=dispatch
             ),
         )
+<<<<<<< HEAD
+=======
+        xqueue_callback_url_prefix = settings.XQUEUE_INTERFACE.get('callback_url', settings.LMS_ROOT_URL)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return xqueue_callback_url_prefix + relative_xqueue_callback_url
 
     # Default queuename is course-specific and is derived from the course that
@@ -491,12 +546,23 @@ def get_module_system_for_user(
     # TODO: Queuename should be derived from 'course_settings.json' of each course
     xqueue_default_queuename = descriptor.location.org + '-' + descriptor.location.course
 
+<<<<<<< HEAD
     xqueue = {
         'interface': XQUEUE_INTERFACE,
         'construct_callback': make_xqueue_callback,
         'default_queuename': xqueue_default_queuename.replace(' ', '_'),
         'waittime': settings.XQUEUE_WAITTIME_BETWEEN_REQUESTS
     }
+=======
+    xqueue_service = XQueueService(
+        construct_callback=make_xqueue_callback,
+        default_queuename=xqueue_default_queuename,
+        url=settings.XQUEUE_INTERFACE['url'],
+        django_auth=settings.XQUEUE_INTERFACE['django_auth'],
+        basic_auth=settings.XQUEUE_INTERFACE.get('basic_auth'),
+        waittime=settings.XQUEUE_WAITTIME_BETWEEN_REQUESTS,
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def inner_get_module(descriptor):
         """
@@ -512,7 +578,10 @@ def get_module_system_for_user(
             student_data=student_data,
             course_id=course_id,
             track_function=track_function,
+<<<<<<< HEAD
             xqueue_callback_url_prefix=xqueue_callback_url_prefix,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             position=position,
             wrap_xmodule_display=wrap_xmodule_display,
             grade_bucket_type=grade_bucket_type,
@@ -539,6 +608,29 @@ def get_module_system_for_user(
             })
         return handlers.get(event_type)
 
+<<<<<<< HEAD
+=======
+    # These modules store data using the anonymous_student_id as a key.
+    # To prevent loss of data, we will continue to provide old modules with
+    # the per-student anonymized id (as we have in the past),
+    # while giving selected modules a per-course anonymized id.
+    # As we have the time to manually test more modules, we can add to the list
+    # of modules that get the per-course anonymized id.
+    if getattr(descriptor, 'requires_per_student_anonymous_id', False):
+        anonymous_student_id = anonymous_id_for_user(user, None)
+    else:
+        anonymous_student_id = anonymous_id_for_user(user, course_id)
+
+    user_is_staff = bool(has_access(user, 'staff', descriptor.location, course_id))
+    user_service = DjangoXBlockUserService(
+        user,
+        user_is_staff=user_is_staff,
+        user_role=get_user_role(user, course_id),
+        anonymous_user_id=anonymous_student_id,
+        request_country_code=user_location,
+    )
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def publish(block, event_type, event):
         """
         A function that allows XModules to publish events.
@@ -548,8 +640,15 @@ def get_module_system_for_user(
             handle_event(block, event)
         else:
             context = contexts.course_context_from_course_id(course_id)
+<<<<<<< HEAD
             if block.runtime.user_id:
                 context['user_id'] = block.runtime.user_id
+=======
+            user_id = user_service.get_current_user().opt_attrs.get(ATTR_KEY_USER_ID)
+            if user_id:
+                context['user_id'] = user_id
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             context['asides'] = {}
             for aside in block.runtime.get_asides(block):
                 if hasattr(aside, 'get_event_context'):
@@ -649,7 +748,10 @@ def get_module_system_for_user(
             descriptor=module,
             course_id=course_id,
             track_function=track_function,
+<<<<<<< HEAD
             xqueue_callback_url_prefix=xqueue_callback_url_prefix,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             position=position,
             wrap_xmodule_display=wrap_xmodule_display,
             grade_bucket_type=grade_bucket_type,
@@ -684,8 +786,14 @@ def get_module_system_for_user(
     if is_masquerading_as_specific_student(user, course_id):
         block_wrappers.append(filter_displayed_blocks)
 
+<<<<<<< HEAD
     if settings.FEATURES.get("LICENSING", False):
         block_wrappers.append(wrap_with_license)
+=======
+    mako_service = MakoService()
+    if settings.FEATURES.get("LICENSING", False):
+        block_wrappers.append(partial(wrap_with_license, mako_service=mako_service))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # Wrap the output display in a single div to allow for the XModule
     # javascript to be bound correctly
@@ -698,6 +806,7 @@ def get_module_system_for_user(
             request_token=request_token,
         ))
 
+<<<<<<< HEAD
     # TODO (cpennington): When modules are shared between courses, the static
     # prefix is going to have to be specific to the module, not the directory
     # that the xml was loaded from
@@ -724,6 +833,17 @@ def get_module_system_for_user(
         course_id,
         reverse('jump_to_id', kwargs={'course_id': str(course_id), 'module_id': ''}),
     ))
+=======
+    replace_url_service = ReplaceURLService(
+        data_directory=getattr(descriptor, 'data_dir', None),
+        course_id=course_id,
+        static_asset_path=static_asset_path or descriptor.static_asset_path,
+        jump_to_id_base_url=reverse('jump_to_id', kwargs={'course_id': str(course_id), 'module_id': ''})
+    )
+
+    # Rewrite static urls with course-specific absolute urls
+    block_wrappers.append(partial(replace_urls_wrapper, replace_url_service=replace_url_service))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     block_wrappers.append(partial(display_access_messages, user))
     block_wrappers.append(partial(course_expiration_wrapper, user))
@@ -746,6 +866,7 @@ def get_module_system_for_user(
         if staff_access:
             block_wrappers.append(partial(add_staff_markup, user, disable_staff_debug_info))
 
+<<<<<<< HEAD
     # These modules store data using the anonymous_student_id as a key.
     # To prevent loss of data, we will continue to provide old modules with
     # the per-student anonymized id (as we have in the past),
@@ -770,10 +891,19 @@ def get_module_system_for_user(
         xqueue=xqueue,
         # TODO (cpennington): Figure out how to share info between systems
         filestore=descriptor.runtime.resources_fs,
+=======
+    field_data = DateLookupFieldData(descriptor._field_data, course_id, user)  # pylint: disable=protected-access
+    field_data = LmsFieldData(field_data, student_data)
+
+    system = LmsModuleSystem(
+        track_function=track_function,
+        static_url=settings.STATIC_URL,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         get_module=inner_get_module,
         user=user,
         debug=settings.DEBUG,
         hostname=settings.SITE_NAME,
+<<<<<<< HEAD
         # TODO (cpennington): This should be removed when all html from
         # a module is coming through get_html and is therefore covered
         # by the replace_static_urls code below
@@ -807,6 +937,18 @@ def get_module_system_for_user(
             'fs': FSService(),
             'field-data': field_data,
             'user': DjangoXBlockUserService(user, user_is_staff=user_is_staff),
+=======
+        publish=publish,
+        course_id=course_id,
+        # TODO: When we merge the descriptor and module systems, we can stop reaching into the mixologist (cpennington)
+        mixins=descriptor.runtime.mixologist._mixins,  # pylint: disable=protected-access
+        wrappers=block_wrappers,
+        services={
+            'fs': FSService(),
+            'field-data': field_data,
+            'mako': mako_service,
+            'user': user_service,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'verification': XBlockVerificationService(),
             'proctoring': ProctoringService(),
             'milestones': milestones_helpers.get_service(),
@@ -816,11 +958,21 @@ def get_module_system_for_user(
             'grade_utils': GradesUtilService(course_id=course_id),
             'user_state': UserStateService(),
             'content_type_gating': ContentTypeGatingService(),
+<<<<<<< HEAD
         },
         get_user_role=lambda: get_user_role(user, course_id),
         descriptor_runtime=descriptor._runtime,  # pylint: disable=protected-access
         rebind_noauth_module_to_user=rebind_noauth_module_to_user,
         user_location=user_location,
+=======
+            'cache': CacheService(cache),
+            'sandbox': SandboxService(contentstore=contentstore, course_id=course_id),
+            'xqueue': xqueue_service,
+            'replace_urls': replace_url_service
+        },
+        descriptor_runtime=descriptor._runtime,  # pylint: disable=protected-access
+        rebind_noauth_module_to_user=rebind_noauth_module_to_user,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         request_token=request_token,
     )
 
@@ -851,7 +1003,11 @@ def get_module_system_for_user(
 # TODO: Find all the places that this method is called and figure out how to
 # get a loaded course passed into it
 def get_module_for_descriptor_internal(user, descriptor, student_data, course_id,
+<<<<<<< HEAD
                                        track_function, xqueue_callback_url_prefix, request_token,
+=======
+                                       track_function, request_token,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                                        position=None, wrap_xmodule_display=True, grade_bucket_type=None,
                                        static_asset_path='', user_location=None, disable_staff_debug_info=False,
                                        course=None, will_recheck_access=False):
@@ -870,7 +1026,10 @@ def get_module_for_descriptor_internal(user, descriptor, student_data, course_id
         descriptor=descriptor,
         course_id=course_id,
         track_function=track_function,
+<<<<<<< HEAD
         xqueue_callback_url_prefix=xqueue_callback_url_prefix,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         position=position,
         wrap_xmodule_display=wrap_xmodule_display,
         grade_bucket_type=grade_bucket_type,

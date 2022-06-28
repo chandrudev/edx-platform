@@ -10,14 +10,24 @@ from collections import defaultdict
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
+=======
+from django.http import HttpResponseRedirect
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.csrf import ensure_csrf_cookie
 from edx_django_utils import monitoring as monitoring_utils
 from edx_django_utils.plugins import get_plugins_view_context
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlag, LegacyWaffleFlagNamespace
 from opaque_keys.edx.keys import CourseKey
+=======
+from edx_toggles.toggles import WaffleFlag
+from opaque_keys.edx.keys import CourseKey
+from openedx_filters.learning.filters import DashboardRenderStarted
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from pytz import UTC
 
 from lms.djangoapps.bulk_email.api import is_bulk_email_feature_enabled
@@ -42,6 +52,11 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 from openedx.core.djangoapps.user_api.accounts.utils import is_secondary_email_feature_enabled
 from openedx.core.djangoapps.util.maintenance_banner import add_maintenance_banner
 from openedx.core.djangolib.markup import HTML, Text
+<<<<<<< HEAD
+=======
+from openedx.features.content_type_gating.models import ContentTypeGatingConfig
+from openedx.features.course_duration_limits.access import get_user_course_duration, get_user_course_expiration_date
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.features.enterprise_support.api import (
     get_dashboard_consent_notification,
     get_enterprise_learner_portal_context,
@@ -57,11 +72,19 @@ from common.djangoapps.student.models import (
     UserProfile
 )
 from common.djangoapps.util.milestones_helpers import get_pre_requisite_courses_not_completed
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 
 log = logging.getLogger("edx.student")
 
 experiments_namespace = LegacyWaffleFlagNamespace(name='student.experiments')
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+
+log = logging.getLogger("edx.student")
+
+EXPERIMENTS_NAMESPACE = 'student.experiments'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def get_org_black_and_whitelist_for_site():
@@ -472,6 +495,25 @@ def get_dashboard_course_limit():
     return course_limit
 
 
+<<<<<<< HEAD
+=======
+def check_for_unacknowledged_notices(context):
+    """
+    Checks the notices apps plugin context to see if there are any unacknowledged notices the user needs to take action
+    on. If so, build a redirect url to the first unack'd notice.
+    """
+    notice_url = None
+
+    notices = context.get("plugins", {}).get("notices", {}).get("unacknowledged_notices")
+    if notices:
+        # We will only show one notice to the user one at a time. Build a redirect URL to the first notice in the
+        # list of unacknowledged notices.
+        notice_url = f"{settings.LMS_ROOT_URL}{notices[0]}?next={settings.LMS_ROOT_URL}/dashboard/"
+
+    return notice_url
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @login_required
 @ensure_csrf_cookie
 @add_maintenance_banner
@@ -514,6 +556,13 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
     empty_dashboard_message = configuration_helpers.get_value(
         'EMPTY_DASHBOARD_MESSAGE', None
     )
+<<<<<<< HEAD
+=======
+    disable_unenrollment = configuration_helpers.get_value(
+        'DISABLE_UNENROLLMENT',
+        settings.FEATURES.get('DISABLE_UNENROLLMENT')
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     disable_course_limit = request and 'course_limit' in request.GET
     course_limit = get_dashboard_course_limit() if not disable_course_limit else None
@@ -632,7 +681,11 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
     inverted_programs = meter.invert_programs()
 
     urls, programs_data = {}, {}
+<<<<<<< HEAD
     bundles_on_dashboard_flag = LegacyWaffleFlag(experiments_namespace, 'bundles_on_dashboard', __name__)  # lint-amnesty, pylint: disable=toggle-missing-annotation
+=======
+    bundles_on_dashboard_flag = WaffleFlag(f'{EXPERIMENTS_NAMESPACE}.bundles_on_dashboard', __name__)  # lint-amnesty, pylint: disable=toggle-missing-annotation
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # TODO: Delete this code and the relevant HTML code after testing LEARNER-3072 is complete
     if bundles_on_dashboard_flag.is_enabled() and inverted_programs and list(inverted_programs.items()):
@@ -732,10 +785,13 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
     else:
         redirect_message = ''
 
+<<<<<<< HEAD
     valid_verification_statuses = ['approved', 'must_reverify', 'pending', 'expired']
     display_sidebar_on_dashboard = verification_status['status'] in valid_verification_statuses and \
         verification_status['should_display']
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # Filter out any course enrollment course cards that are associated with fulfilled entitlements
     for entitlement in [e for e in course_entitlements if e.enrollment_course_run is not None]:
         course_enrollments = [
@@ -744,6 +800,22 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
 
     show_account_activation_popup = request.COOKIES.get(settings.SHOW_ACTIVATE_CTA_POPUP_COOKIE_NAME, None)
 
+<<<<<<< HEAD
+=======
+    enrollments_fbe_is_on = []
+    for enrollment in course_enrollments:
+        course_key = CourseKey.from_string(str(enrollment.course_id))
+        gated_content = ContentTypeGatingConfig.enabled_for_enrollment(
+            user=user,
+            course_key=course_key
+        )
+        duration = get_user_course_duration(user, enrollment.course)
+        deadline = duration and get_user_course_expiration_date(user, enrollment.course)
+        fbe_is_on = deadline and gated_content
+        if fbe_is_on:
+            enrollments_fbe_is_on.append(course_key)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     context = {
         'urls': urls,
         'programs_data': programs_data,
@@ -787,16 +859,27 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
         'show_dashboard_tabs': True,
         'disable_courseware_js': True,
         'display_course_modes_on_dashboard': enable_verified_certificates and display_course_modes_on_dashboard,
+<<<<<<< HEAD
         'display_sidebar_on_dashboard': display_sidebar_on_dashboard,
         'display_sidebar_account_activation_message': not(user.is_active or hide_dashboard_courses_until_activated),
         'display_dashboard_courses': (user.is_active or not hide_dashboard_courses_until_activated),
         'empty_dashboard_message': empty_dashboard_message,
+=======
+        'display_sidebar_account_activation_message': not(user.is_active or hide_dashboard_courses_until_activated),
+        'display_dashboard_courses': (user.is_active or not hide_dashboard_courses_until_activated),
+        'empty_dashboard_message': empty_dashboard_message,
+        'enrollments_fbe_is_on': enrollments_fbe_is_on,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         'recovery_email_message': recovery_email_message,
         'recovery_email_activation_message': recovery_email_activation_message,
         'show_load_all_courses_link': show_load_all_courses_link(user, course_limit, course_enrollments),
         # TODO START: clean up as part of REVEM-199 (START)
         'course_info': get_dashboard_course_info(user, course_enrollments),
         # TODO START: clean up as part of REVEM-199 (END)
+<<<<<<< HEAD
+=======
+        'disable_unenrollment': disable_unenrollment,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     }
 
     # Include enterprise learner portal metadata and messaging
@@ -810,6 +893,13 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
     )
     context.update(context_from_plugins)
 
+<<<<<<< HEAD
+=======
+    notice_url = check_for_unacknowledged_notices(context)
+    if notice_url:
+        return redirect(notice_url)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     course = None
     context.update(
         get_experiment_user_metadata_context(
@@ -833,7 +923,26 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
         'resume_button_urls': resume_button_urls
     })
 
+<<<<<<< HEAD
     response = render_to_response('dashboard.html', context)
+=======
+    dashboard_template = 'dashboard.html'
+    try:
+        # .. filter_implemented_name: DashboardRenderStarted
+        # .. filter_type: org.openedx.learning.dashboard.render.started.v1
+        context, dashboard_template = DashboardRenderStarted.run_filter(
+            context=context, template_name=dashboard_template,
+        )
+    except DashboardRenderStarted.RenderInvalidDashboard as exc:
+        response = render_to_response(exc.dashboard_template, exc.template_context)
+    except DashboardRenderStarted.RedirectToPage as exc:
+        response = HttpResponseRedirect(exc.redirect_to or reverse('account_settings'))
+    except DashboardRenderStarted.RenderCustomResponse as exc:
+        response = exc.response
+    else:
+        response = render_to_response(dashboard_template, context)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if show_account_activation_popup:
         response.delete_cookie(
             settings.SHOW_ACTIVATE_CTA_POPUP_COOKIE_NAME,

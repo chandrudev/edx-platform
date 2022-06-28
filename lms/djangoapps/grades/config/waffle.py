@@ -4,12 +4,20 @@ waffle switches for the Grades app.
 """
 
 
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlagNamespace, LegacyWaffleSwitch, LegacyWaffleSwitchNamespace
+=======
+from edx_toggles.toggles import WaffleSwitch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
 
 # Namespace
 WAFFLE_NAMESPACE = 'grades'
+<<<<<<< HEAD
+=======
+LOG_PREFIX = 'Grades: '
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Switches
 
@@ -22,9 +30,14 @@ WAFFLE_NAMESPACE = 'grades'
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2017-04-11
 # .. toggle_tickets: https://github.com/edx/edx-platform/pull/14771
+<<<<<<< HEAD
 # .. toggle_warnings: This requires the PersistentGradesEnabledFlag to be enabled.
 # TODO: Replace with WaffleSwitch(). See waffle_switch(name) docstring.
 ASSUME_ZERO_GRADE_IF_ABSENT = 'assume_zero_grade_if_absent'
+=======
+# .. toggle_warning: This requires the PersistentGradesEnabledFlag to be enabled.
+ASSUME_ZERO_GRADE_IF_ABSENT = WaffleSwitch(f'{WAFFLE_NAMESPACE}.assume_zero_grade_if_absent', __name__)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # .. toggle_name: grades.disable_regrade_on_policy_change
 # .. toggle_implementation: WaffleSwitch
 # .. toggle_default: False
@@ -32,8 +45,12 @@ ASSUME_ZERO_GRADE_IF_ABSENT = 'assume_zero_grade_if_absent'
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2017-08-03
 # .. toggle_tickets: https://github.com/edx/edx-platform/pull/15733
+<<<<<<< HEAD
 # TODO: Replace with WaffleSwitch(). See waffle_switch(name) docstring.
 DISABLE_REGRADE_ON_POLICY_CHANGE = 'disable_regrade_on_policy_change'
+=======
+DISABLE_REGRADE_ON_POLICY_CHANGE = WaffleSwitch(f'{WAFFLE_NAMESPACE}.disable_regrade_on_policy_change', __name__)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Course Flags
 
@@ -45,8 +62,15 @@ DISABLE_REGRADE_ON_POLICY_CHANGE = 'disable_regrade_on_policy_change'
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2019-05-29
 # .. toggle_tickets: https://github.com/edx/edx-platform/pull/20719
+<<<<<<< HEAD
 # TODO: Replace with CourseWaffleFlag() from below. See waffle_flag(name) docstring.
 REJECTED_EXAM_OVERRIDES_GRADE = 'rejected_exam_overrides_grade'
+=======
+# TODO: After removing this flag, add a migration to remove waffle flag in a follow-up deployment.
+REJECTED_EXAM_OVERRIDES_GRADE = CourseWaffleFlag(
+    f'{WAFFLE_NAMESPACE}.rejected_exam_overrides_grade', __name__, LOG_PREFIX
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # .. toggle_name: grades.rejected_exam_overrides_grade
 # .. toggle_implementation: CourseWaffleFlag
 # .. toggle_default: False
@@ -55,8 +79,15 @@ REJECTED_EXAM_OVERRIDES_GRADE = 'rejected_exam_overrides_grade'
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2018-10-01
 # .. toggle_tickets: https://github.com/edx/edx-platform/pull/19026
+<<<<<<< HEAD
 # TODO: Replace with CourseWaffleFlag() from below. See waffle_flag(name) docstring.
 ENFORCE_FREEZE_GRADE_AFTER_COURSE_END = 'enforce_freeze_grade_after_course_end'
+=======
+# TODO: After removing this flag, add a migration to remove waffle flag in a follow-up deployment.
+ENFORCE_FREEZE_GRADE_AFTER_COURSE_END = CourseWaffleFlag(
+    f'{WAFFLE_NAMESPACE}.enforce_freeze_grade_after_course_end', __name__, LOG_PREFIX
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # .. toggle_name: grades.writable_gradebook
 # .. toggle_implementation: CourseWaffleFlag
@@ -66,9 +97,15 @@ ENFORCE_FREEZE_GRADE_AFTER_COURSE_END = 'enforce_freeze_grade_after_course_end'
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2018-10-03
 # .. toggle_tickets: https://github.com/edx/edx-platform/pull/19054
+<<<<<<< HEAD
 # .. toggle_warnings: Enabling this requires that the `WRITABLE_GRADEBOOK_URL` setting be properly defined.
 # TODO: Replace with CourseWaffleFlag() from below. See waffle_flag(name) docstring.
 WRITABLE_GRADEBOOK = 'writable_gradebook'
+=======
+# .. toggle_warning: Enabling this requires that the `WRITABLE_GRADEBOOK_URL` setting be properly defined.
+# TODO: After removing this flag, add a migration to remove waffle flag in a follow-up deployment.
+WRITABLE_GRADEBOOK = CourseWaffleFlag(f'{WAFFLE_NAMESPACE}.writable_gradebook', __name__, LOG_PREFIX)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # .. toggle_name: grades.bulk_management
 # .. toggle_implementation: CourseWaffleFlag
@@ -78,6 +115,7 @@ WRITABLE_GRADEBOOK = 'writable_gradebook'
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2019-08-20
 # .. toggle_tickets: https://github.com/edx/edx-platform/pull/21389
+<<<<<<< HEAD
 # TODO: Replace with CourseWaffleFlag() from below. See waffle_flag(name) docstring.
 BULK_MANAGEMENT = 'bulk_management'
 
@@ -141,17 +179,28 @@ def waffle_flags():
             __name__,
         ),
     }
+=======
+BULK_MANAGEMENT = CourseWaffleFlag(f'{WAFFLE_NAMESPACE}.bulk_management', __name__, LOG_PREFIX)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def is_writable_gradebook_enabled(course_key):
     """
     Returns whether the writable gradebook app is enabled for the given course.
     """
+<<<<<<< HEAD
     return waffle_flags()[WRITABLE_GRADEBOOK].is_enabled(course_key)
+=======
+    return WRITABLE_GRADEBOOK.is_enabled(course_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def gradebook_bulk_management_enabled(course_key):
     """
     Returns whether bulk management features should be specially enabled for a given course.
     """
+<<<<<<< HEAD
     return waffle_flags()[BULK_MANAGEMENT].is_enabled(course_key)
+=======
+    return BULK_MANAGEMENT.is_enabled(course_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

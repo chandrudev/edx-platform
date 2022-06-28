@@ -28,12 +28,23 @@ from django.views.decorators.http import require_GET, require_http_methods, requ
 from edx_ace import ace
 from edx_ace.recipient import Recipient
 from edx_django_utils import monitoring as monitoring_utils
+<<<<<<< HEAD
 from eventtracking import tracker
 from ipware.ip import get_client_ip
+=======
+from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
+from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser  # lint-amnesty, pylint: disable=wrong-import-order
+from eventtracking import tracker
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Note that this lives in LMS, so this dependency should be refactored.
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from pytz import UTC
+<<<<<<< HEAD
+=======
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.track import views as track_views
 from lms.djangoapps.bulk_email.models import Optout
@@ -53,6 +64,10 @@ from openedx.core.djangoapps.user_api.preferences import api as preferences_api
 from openedx.core.djangoapps.user_authn.tasks import send_activation_email
 from openedx.core.djangoapps.user_authn.toggles import should_redirect_to_authn_microfrontend
 from openedx.core.djangolib.markup import HTML, Text
+<<<<<<< HEAD
+=======
+from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.features.enterprise_support.utils import is_enterprise_learner
 from common.djangoapps.student.email_helpers import generate_activation_email_context
 from common.djangoapps.student.helpers import DISABLE_UNENROLL_CERT_STATES, cert_info
@@ -64,6 +79,10 @@ from common.djangoapps.student.models import (  # lint-amnesty, pylint: disable=
     PendingSecondaryEmailChange,
     Registration,
     RegistrationCookieConfiguration,
+<<<<<<< HEAD
+=======
+    UnenrollmentNotAllowed,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     UserAttribute,
     UserProfile,
     UserSignupSource,
@@ -74,8 +93,14 @@ from common.djangoapps.student.models import (  # lint-amnesty, pylint: disable=
 from common.djangoapps.student.signals import REFUND_ORDER
 from common.djangoapps.util.db import outer_atomic
 from common.djangoapps.util.json_request import JsonResponse
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from common.djangoapps.student.models import DocumentStorage  # To import
+from rest_framework.parsers import JSONParser
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 log = logging.getLogger("edx.student")
 
 AUDIT_LOG = logging.getLogger("audit")
@@ -359,10 +384,14 @@ def change_enrollment(request, check_access=True):
         # This can occur if the user's IP is on a global blacklist
         # or if the user is enrolling in a country in which the course
         # is not available.
+<<<<<<< HEAD
         redirect_url = embargo_api.redirect_if_blocked(
             course_id, user=user, ip_address=get_client_ip(request)[0],
             url=request.path
         )
+=======
+        redirect_url = embargo_api.redirect_if_blocked(request, course_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if redirect_url:
             return HttpResponse(redirect_url)
 
@@ -397,6 +426,15 @@ def change_enrollment(request, check_access=True):
         # Otherwise, there is only one mode available (the default)
         return HttpResponse()
     elif action == "unenroll":
+<<<<<<< HEAD
+=======
+        if configuration_helpers.get_value(
+            "DISABLE_UNENROLLMENT",
+            settings.FEATURES.get("DISABLE_UNENROLLMENT")
+        ):
+            return HttpResponseBadRequest(_("Unenrollment is currently disabled"))
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         enrollment = CourseEnrollment.get_enrollment(user, course_id)
         if not enrollment:
             return HttpResponseBadRequest(_("You are not enrolled in this course"))
@@ -405,7 +443,15 @@ def change_enrollment(request, check_access=True):
         if certificate_info.get('status') in DISABLE_UNENROLL_CERT_STATES:
             return HttpResponseBadRequest(_("Your certificate prevents you from unenrolling from this course"))
 
+<<<<<<< HEAD
         CourseEnrollment.unenroll(user, course_id)
+=======
+        try:
+            CourseEnrollment.unenroll(user, course_id)
+        except UnenrollmentNotAllowed as exc:
+            return HttpResponseBadRequest(str(exc))
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         REFUND_ORDER.send(sender=None, course_enrollment=enrollment)
         return HttpResponse()
     else:
@@ -516,10 +562,22 @@ def activate_account(request, key):
     monitoring_utils.set_custom_attribute('student_activate_account', 'lms')
     activation_message_type = None
 
+<<<<<<< HEAD
     invalid_message = HTML(_(
         '{html_start}Your account could not be activated{html_end}'
         'Something went wrong, please <a href="{support_url}">contact support</a> to resolve this issue.'
     )).format(
+=======
+    activated_or_confirmed = 'confirmed' if settings.MARKETING_EMAILS_OPT_IN else 'activated'
+    account_or_email = 'email' if settings.MARKETING_EMAILS_OPT_IN else 'account'
+
+    invalid_message = HTML(_(
+        '{html_start}Your {account_or_email} could not be {activated_or_confirmed}{html_end}'
+        'Something went wrong, please <a href="{support_url}">contact support</a> to resolve this issue.'
+    )).format(
+        account_or_email=account_or_email,
+        activated_or_confirmed=activated_or_confirmed,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         support_url=configuration_helpers.get_value(
             'ACTIVATION_EMAIL_SUPPORT_LINK', settings.ACTIVATION_EMAIL_SUPPORT_LINK
         ) or settings.SUPPORT_SITE_LINK,
@@ -549,7 +607,15 @@ def activate_account(request, key):
             activation_message_type = 'info'
             messages.info(
                 request,
+<<<<<<< HEAD
                 HTML(_('{html_start}This account has already been activated.{html_end}')).format(
+=======
+                HTML(_(
+                    '{html_start}This {account_or_email} has already been {activated_or_confirmed}.{html_end}'
+                )).format(
+                    account_or_email=account_or_email,
+                    activated_or_confirmed=activated_or_confirmed,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     html_start=HTML('<p class="message-title">'),
                     html_end=HTML('</p>'),
                 ),
@@ -558,7 +624,11 @@ def activate_account(request, key):
         else:
             registration.activate()
             # Success message for logged in users.
+<<<<<<< HEAD
             message = _('{html_start}Success{html_end} You have activated your account.')
+=======
+            message = _('{html_start}Success{html_end} You have {activated_or_confirmed} your {account_or_email}.')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             tracker.emit(
                 USER_ACCOUNT_ACTIVATED,
@@ -571,7 +641,11 @@ def activate_account(request, key):
             if not request.user.is_authenticated:
                 # Success message for logged out users
                 message = _(
+<<<<<<< HEAD
                     '{html_start}Success! You have activated your account.{html_end}'
+=======
+                    '{html_start}Success! You have {activated_or_confirmed} your {account_or_email}.{html_end}'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     'You will now receive email updates and alerts from us related to'
                     ' the courses you are enrolled in. Sign In to continue.'
                 )
@@ -581,6 +655,11 @@ def activate_account(request, key):
             messages.success(
                 request,
                 HTML(message).format(
+<<<<<<< HEAD
+=======
+                    account_or_email=account_or_email,
+                    activated_or_confirmed=activated_or_confirmed,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     html_start=HTML('<p class="message-title">'),
                     html_end=HTML('</p>'),
                 ),
@@ -882,18 +961,35 @@ def confirm_email_change(request, key):
         return response
 
 
+<<<<<<< HEAD
 @require_POST
 @login_required
 @ensure_csrf_cookie
+=======
+@api_view(['POST'])
+@authentication_classes((
+    JwtAuthentication,
+    BearerAuthenticationAllowInactiveUser,
+    SessionAuthenticationAllowInactiveUser,
+))
+@permission_classes((IsAuthenticated,))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def change_email_settings(request):
     """
     Modify logged-in user's setting for receiving emails from a course.
     """
     user = request.user
 
+<<<<<<< HEAD
     course_id = request.POST.get("course_id")
     course_key = CourseKey.from_string(course_id)
     receive_emails = request.POST.get("receive_emails")
+=======
+    course_id = request.data.get("course_id")
+    receive_emails = request.data.get("receive_emails")
+    course_key = CourseKey.from_string(course_id)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if receive_emails:
         optout_object = Optout.objects.filter(user=user, course_id=course_key)
         if optout_object:
@@ -926,3 +1022,25 @@ def change_email_settings(request):
         )
 
     return JsonResponse({"success": True})
+<<<<<<< HEAD
+=======
+
+
+
+# @api_view(['POST', 'GET'])
+@csrf_exempt
+def uploaded_doc_view(request):
+    try:
+        method = request.method
+        data = JSONParser().parse(request)
+        id = data.get('doc_id', None)
+        if id:
+            if method == "POST":
+                stored_docs = DocumentStorage.objects.filter(course_id=id)
+                stored_docs = [{'id':stored_doc.id, 'course_id': id, 'chapter_name': stored_doc.chapter_name, 'document_type': stored_doc.document_type, 'document_name': stored_doc.document_name, 'document':f"{stored_doc.document}"} for stored_doc in stored_docs]
+                return JsonResponse({"success":True, "data":stored_docs})
+            return JsonResponse({"success":False, "message":{"method":f"{method} is invalid"}})
+        return JsonResponse({"success":False, 'message':{'id':'Document Id not provided.'}})  
+    except Exception as e:
+        return JsonResponse({"success":False, "message":{"error":f"{e}"} })    
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

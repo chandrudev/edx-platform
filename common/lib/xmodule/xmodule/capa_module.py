@@ -31,7 +31,10 @@ from capa.capa_problem import LoncapaProblem, LoncapaSystem
 from capa.inputtypes import Status
 from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
 from capa.util import convert_files_to_filenames, get_inner_html_from_xpath
+<<<<<<< HEAD
 from openedx.core.djangolib.markup import HTML, Text
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.contentstore.django import contentstore
 from xmodule.editing_module import EditingMixin
 from xmodule.exceptions import NotFoundError, ProcessingError
@@ -42,12 +45,24 @@ from xmodule.util.xmodule_django import add_webpack_to_fragment
 from xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleMixin,
     XModuleToXBlockMixin,
     shim_xmodule_js
 )
 from xmodule.xml_module import XmlMixin
+<<<<<<< HEAD
+=======
+from common.djangoapps.xblock_django.constants import (
+    ATTR_KEY_ANONYMOUS_USER_ID,
+    ATTR_KEY_USER_IS_STAFF,
+    ATTR_KEY_USER_ID,
+)
+from openedx.core.djangolib.markup import HTML, Text
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .fields import Date, ScoreField, Timedelta
 from .progress import Progress
@@ -113,15 +128,29 @@ class Randomization(String):
     to_json = from_json
 
 
+<<<<<<< HEAD
 @XBlock.wants('user')
 @XBlock.needs('i18n')
+=======
+@XBlock.needs('user')
+@XBlock.needs('i18n')
+@XBlock.needs('mako')
+@XBlock.needs('cache')
+@XBlock.needs('sandbox')
+@XBlock.needs('replace_urls')
+# Studio doesn't provide XQueueService, but the LMS does.
+@XBlock.wants('xqueue')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @XBlock.wants('call_to_action')
 class ProblemBlock(
     ScorableXBlockMixin,
     RawMixin,
     XmlMixin,
     EditingMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -153,11 +182,14 @@ class ProblemBlock(
     mako_template = "widgets/problem-edit.html"
     has_author_view = True
 
+<<<<<<< HEAD
     # The capa format specifies that what we call max_attempts in the code
     # is the attribute `attempts`. This will do that conversion
     metadata_translations = dict(XmlMixin.metadata_translations)
     metadata_translations['attempts'] = 'max_attempts'
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     icon_class = 'problem'
 
     uses_xmodule_styles_setup = True
@@ -387,7 +419,11 @@ class ProblemBlock(
         Return the studio view.
         """
         fragment = Fragment(
+<<<<<<< HEAD
             self.system.render_template(self.mako_template, self.get_context())
+=======
+            self.runtime.service(self, 'mako').render_template(self.mako_template, self.get_context())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         add_webpack_to_fragment(fragment, 'ProblemBlockStudio')
         shim_xmodule_js(fragment, 'MarkdownEditingDescriptor')
@@ -548,6 +584,7 @@ class ProblemBlock(
         # Make optioninput's options index friendly by replacing the actual tag with the values
         capa_content = re.sub(r'<optioninput options="\(([^"]+)\)".*?>\s*|\S*<\/optioninput>', r'\1', self.data)
 
+<<<<<<< HEAD
         # Removing solutions and hints, as well as script and style
         capa_content = re.sub(
             re.compile(
@@ -556,6 +593,24 @@ class ProblemBlock(
                     <script>.*?</script> |
                     <style>.*?</style> |
                     <[a-z]*hint.*?>.*?</[a-z]*hint>
+=======
+        # Remove the following tags with content that can leak hints or solutions:
+        # - `solution` (with optional attributes) and `solutionset`.
+        # - `targetedfeedback` (with optional attributes) and `targetedfeedbackset`.
+        # - `answer` (with optional attributes).
+        # - `script` (with optional attributes).
+        # - `style` (with optional attributes).
+        # - various types of hints (with optional attributes) and `hintpart`.
+        capa_content = re.sub(
+            re.compile(
+                r"""
+                    <solution.*?>.*?</solution.*?> |
+                    <targetedfeedback.*?>.*?</targetedfeedback.*?> |
+                    <answer.*?>.*?</answer> |
+                    <script.*?>.*?</script> |
+                    <style.*?>.*?</style> |
+                    <[a-z]*hint.*?>.*?</[a-z]*hint.*?>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 """,
                 re.DOTALL |
                 re.VERBOSE),
@@ -605,10 +660,16 @@ class ProblemBlock(
             can_execute_unsafe_code=None,
             get_python_lib_zip=None,
             DEBUG=None,
+<<<<<<< HEAD
             filestore=self.runtime.resources_fs,
             i18n=self.runtime.service(self, "i18n"),
             node_path=None,
             render_template=None,
+=======
+            i18n=self.runtime.service(self, "i18n"),
+            render_template=None,
+            resources_fs=self.runtime.resources_fs,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             seed=None,
             STATIC_URL=None,
             xqueue=None,
@@ -667,10 +728,16 @@ class ProblemBlock(
             can_execute_unsafe_code=lambda: None,
             get_python_lib_zip=(lambda: get_python_lib_zip(contentstore, self.runtime.course_id)),
             DEBUG=None,
+<<<<<<< HEAD
             filestore=self.runtime.resources_fs,
             i18n=self.runtime.service(self, "i18n"),
             node_path=None,
             render_template=None,
+=======
+            i18n=self.runtime.service(self, "i18n"),
+            render_template=None,
+            resources_fs=self.runtime.resources_fs,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             seed=1,
             STATIC_URL=None,
             xqueue=None,
@@ -784,9 +851,16 @@ class ProblemBlock(
         """
         if self.rerandomize == RANDOMIZATION.NEVER:
             self.seed = 1
+<<<<<<< HEAD
         elif self.rerandomize == RANDOMIZATION.PER_STUDENT and hasattr(self.runtime, 'seed'):
             # see comment on randomization_bin
             self.seed = randomization_bin(self.runtime.seed, str(self.location).encode('utf-8'))
+=======
+        elif self.rerandomize == RANDOMIZATION.PER_STUDENT:
+            user_id = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_ID) or 0
+            # see comment on randomization_bin
+            self.seed = randomization_bin(user_id, str(self.location).encode('utf-8'))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         else:
             self.seed = struct.unpack('i', os.urandom(4))[0]
 
@@ -801,6 +875,7 @@ class ProblemBlock(
         if text is None:
             text = self.data
 
+<<<<<<< HEAD
         capa_system = LoncapaSystem(
             ajax_url=self.ajax_url,
             anonymous_student_id=self.runtime.anonymous_student_id,
@@ -815,6 +890,28 @@ class ProblemBlock(
             seed=self.runtime.seed,      # Why do we do this if we have self.seed?
             STATIC_URL=self.runtime.STATIC_URL,
             xqueue=self.runtime.xqueue,
+=======
+        user_service = self.runtime.service(self, 'user')
+        anonymous_student_id = user_service.get_current_user().opt_attrs.get(ATTR_KEY_ANONYMOUS_USER_ID)
+        seed = user_service.get_current_user().opt_attrs.get(ATTR_KEY_USER_ID) or 0
+
+        sandbox_service = self.runtime.service(self, 'sandbox')
+        cache_service = self.runtime.service(self, 'cache')
+
+        capa_system = LoncapaSystem(
+            ajax_url=self.ajax_url,
+            anonymous_student_id=anonymous_student_id,
+            cache=cache_service,
+            can_execute_unsafe_code=sandbox_service.can_execute_unsafe_code,
+            get_python_lib_zip=sandbox_service.get_python_lib_zip,
+            DEBUG=self.runtime.DEBUG,
+            i18n=self.runtime.service(self, "i18n"),
+            render_template=self.runtime.service(self, 'mako').render_template,
+            resources_fs=self.runtime.resources_fs,
+            seed=seed,  # Why do we do this if we have self.seed?
+            STATIC_URL=self.runtime.STATIC_URL,
+            xqueue=self.runtime.service(self, 'xqueue'),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             matlab_api_key=self.matlab_api_key
         )
 
@@ -905,7 +1002,11 @@ class ProblemBlock(
         """
         curr_score, total_possible = self.get_display_progress()
 
+<<<<<<< HEAD
         return self.runtime.render_template('problem_ajax.html', {
+=======
+        return self.runtime.service(self, 'mako').render_template('problem_ajax.html', {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'element_id': self.location.html_id(),
             'id': str(self.location),
             'ajax_url': self.ajax_url,
@@ -1157,7 +1258,13 @@ class ProblemBlock(
                     )
                 ),
                 # Course-authored HTML demand hints are supported.
+<<<<<<< HEAD
                 hint_text=HTML(self.runtime.replace_urls(get_inner_html_from_xpath(demand_hints[counter])))
+=======
+                hint_text=HTML(self.runtime.service(self, "replace_urls").replace_urls(
+                    get_inner_html_from_xpath(demand_hints[counter])
+                ))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
             counter += 1
 
@@ -1253,7 +1360,11 @@ class ProblemBlock(
             'submit_disabled_cta': submit_disabled_ctas[0] if submit_disabled_ctas else None,
         }
 
+<<<<<<< HEAD
         html = self.runtime.render_template('problem.html', context)
+=======
+        html = self.runtime.service(self, 'mako').render_template('problem.html', context)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if encapsulate:
             html = HTML('<div id="problem_{id}" class="problem" data-url="{ajax_url}">{html}</div>').format(
@@ -1262,12 +1373,16 @@ class ProblemBlock(
 
         # Now do all the substitutions which the LMS module_render normally does, but
         # we need to do here explicitly since we can get called for our HTML via AJAX
+<<<<<<< HEAD
         html = self.runtime.replace_urls(html)
         if self.runtime.replace_course_urls:
             html = self.runtime.replace_course_urls(html)
 
         if self.runtime.replace_jump_to_id_urls:
             html = self.runtime.replace_jump_to_id_urls(html)
+=======
+        html = self.runtime.service(self, "replace_urls").replace_urls(html)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         return html
 
@@ -1412,6 +1527,10 @@ class ProblemBlock(
         """
         Is the user allowed to see an answer?
         """
+<<<<<<< HEAD
+=======
+        user_is_staff = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_IS_STAFF)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if not self.correctness_available():
             # If correctness is being withheld, then don't show answers either.
             return False
@@ -1419,7 +1538,11 @@ class ProblemBlock(
             return False
         elif self.showanswer == SHOWANSWER.NEVER:
             return False
+<<<<<<< HEAD
         elif self.runtime.user_is_staff:
+=======
+        elif user_is_staff:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             # This is after the 'never' check because admins can see the answer
             # unless the problem explicitly prevents it
             return True
@@ -1459,10 +1582,18 @@ class ProblemBlock(
 
         Limits access to the correct/incorrect flags, messages, and problem score.
         """
+<<<<<<< HEAD
         return ShowCorrectness.correctness_available(
             show_correctness=self.show_correctness,
             due_date=self.close_date,
             has_staff_access=self.runtime.user_is_staff,
+=======
+        user_is_staff = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_IS_STAFF)
+        return ShowCorrectness.correctness_available(
+            show_correctness=self.show_correctness,
+            due_date=self.close_date,
+            has_staff_access=user_is_staff,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
     def update_score(self, data):
@@ -1547,11 +1678,15 @@ class ProblemBlock(
         new_answers = {}
         for answer_id in answers:
             try:
+<<<<<<< HEAD
                 answer_content = self.runtime.replace_urls(answers[answer_id])
                 if self.runtime.replace_course_urls:
                     answer_content = self.runtime.replace_course_urls(answer_content)
                 if self.runtime.replace_jump_to_id_urls:
                     answer_content = self.runtime.replace_jump_to_id_urls(answer_content)
+=======
+                answer_content = self.runtime.service(self, "replace_urls").replace_urls(answers[answer_id])
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 new_answer = {answer_id: answer_content}
             except TypeError:
                 log.debug('Unable to perform URL substitution on answers[%s]: %s',
@@ -1561,7 +1696,11 @@ class ProblemBlock(
 
         return {
             'answers': new_answers,
+<<<<<<< HEAD
             'correct_status_html': self.runtime.render_template(
+=======
+            'correct_status_html': self.runtime.service(self, 'mako').render_template(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'status_span.html',
                 {'status': Status('correct', self.runtime.service(self, "i18n").ugettext)}
             )
@@ -1731,7 +1870,12 @@ class ProblemBlock(
         if self.lcp.is_queued():
             prev_submit_time = self.lcp.get_recentmost_queuetime()
 
+<<<<<<< HEAD
             waittime_between_requests = self.runtime.xqueue['waittime']
+=======
+            xqueue_service = self.runtime.service(self, 'xqueue')
+            waittime_between_requests = xqueue_service.waittime if xqueue_service else 0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if (current_time - prev_submit_time).total_seconds() < waittime_between_requests:
                 msg = _("You must wait at least {wait} seconds between submissions.").format(
                     wait=waittime_between_requests)
@@ -1777,7 +1921,12 @@ class ProblemBlock(
             # If the user is a staff member, include
             # the full exception, including traceback,
             # in the response
+<<<<<<< HEAD
             if self.runtime.user_is_staff:
+=======
+            user_is_staff = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_IS_STAFF)
+            if user_is_staff:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 msg = f"Staff debug info: {traceback.format_exc()}"
 
             # Otherwise, display just an error message,

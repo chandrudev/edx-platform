@@ -242,6 +242,12 @@ def course_expiration_wrapper(user, block, view, frag, context):  # pylint: disa
     An XBlock wrapper that prepends a message to the beginning of a vertical if
     a user's course is about to expire.
     """
+<<<<<<< HEAD
+=======
+    if context.get('is_mobile_app'):
+        return frag
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if block.category != 'vertical':
         return frag
 

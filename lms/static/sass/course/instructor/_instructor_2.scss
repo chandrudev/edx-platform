@@ -2669,6 +2669,14 @@ input[name="subject"] {
           width: 140px;
         }
 
+<<<<<<< HEAD
+=======
+        &.attempt-ready-to-resume {
+          width: 60px;
+          @include text-align(center);
+        }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         &.email {
           width: ($baseline*8);
           word-wrap: break-word;
@@ -2715,7 +2723,12 @@ input[name="subject"] {
 
       td:nth-child(6),
       td:nth-child(5),
+<<<<<<< HEAD
       td:nth-child(7) {
+=======
+      td:nth-child(7),
+      td:nth-child(8){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         @include padding-left(0);
 
         text-align: center;
@@ -2726,7 +2739,11 @@ input[name="subject"] {
         text-align: center;
       }
 
+<<<<<<< HEAD
       td:nth-child(8) {
+=======
+      td:nth-child(9) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         word-wrap: break-word;
         text-align: center;
       }

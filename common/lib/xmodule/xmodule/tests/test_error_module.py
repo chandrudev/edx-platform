@@ -4,6 +4,7 @@ Tests for ErrorBlock and NonStaffErrorBlock
 
 
 import unittest
+<<<<<<< HEAD
 from unittest.mock import MagicMock, Mock, patch
 
 import pytest
@@ -11,12 +12,21 @@ from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
 from xblock.field_data import DictFieldData
 from xblock.fields import ScopeIds
 from xblock.runtime import IdReader, Runtime
+=======
+
+import pytest
+from opaque_keys.edx.locator import CourseLocator
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xblock.test.tools import unabc
 
 from xmodule.error_module import ErrorBlock, NonStaffErrorBlock
 from xmodule.modulestore.xml import CourseLocationManager
 from xmodule.tests import get_test_system
+<<<<<<< HEAD
 from xmodule.x_module import STUDENT_VIEW, XModule, XModuleDescriptor
+=======
+from xmodule.x_module import STUDENT_VIEW
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class SetupTestErrorBlock(unittest.TestCase):
@@ -49,6 +59,7 @@ class TestErrorBlock(SetupTestErrorBlock):
         assert self.error_msg in context_repr
         assert repr(self.valid_xml) in context_repr
 
+<<<<<<< HEAD
     def test_error_block_from_descriptor(self):
         descriptor = MagicMock(
             spec=XModuleDescriptor,
@@ -64,6 +75,8 @@ class TestErrorBlock(SetupTestErrorBlock):
         assert self.error_msg in context_repr
         assert repr(descriptor) in context_repr
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class TestNonStaffErrorBlock(SetupTestErrorBlock):
     """
@@ -88,6 +101,7 @@ class TestNonStaffErrorBlock(SetupTestErrorBlock):
         context_repr = self.system.render(descriptor, STUDENT_VIEW).content
         assert self.error_msg not in context_repr
         assert repr(self.valid_xml) not in context_repr
+<<<<<<< HEAD
 
     def test_error_block_from_descriptor(self):
         descriptor = MagicMock(
@@ -167,3 +181,5 @@ class TestErrorBlockConstruction(unittest.TestCase):
         """
         with pytest.raises(TestException):
             module = self.descriptor._xmodule  # lint-amnesty, pylint: disable=protected-access, unused-variable
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

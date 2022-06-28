@@ -8,9 +8,15 @@ import ddt
 import openedx.core.djangoapps.user_api.course_tag.api as course_tag_api
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory
 from openedx.core.djangoapps.user_api.partition_schemes import RandomUserPartitionScheme
+<<<<<<< HEAD
 from xmodule.modulestore.tests.factories import check_mongo_calls
 from xmodule.partitions.partitions import Group, UserPartition
 from xmodule.partitions.partitions_service import get_user_partition_groups
+=======
+from xmodule.modulestore.tests.factories import check_mongo_calls  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import Group, UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions_service import get_user_partition_groups  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ...api import get_course_blocks
 from ..user_partitions import UserPartitionTransformer
@@ -103,7 +109,10 @@ class SplitTestTransformerTestCase(CourseStructureTestCase):
             {
                 '#type': 'split_test',
                 '#ref': 'BSplit',
+<<<<<<< HEAD
                 'metadata': {'category': 'split_test'},
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'user_partition_id': self.TEST_PARTITION_ID,
                 'group_id_to_child': {
                     '0': location('E'),
@@ -128,7 +137,10 @@ class SplitTestTransformerTestCase(CourseStructureTestCase):
             {
                 '#type': 'split_test',
                 '#ref': 'KSplit',
+<<<<<<< HEAD
                 'metadata': {'category': 'split_test'},
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'user_partition_id': self.TEST_PARTITION_ID,
                 'group_id_to_child': {
                     '1': location('M'),
@@ -143,7 +155,10 @@ class SplitTestTransformerTestCase(CourseStructureTestCase):
             {
                 '#type': 'split_test',
                 '#ref': 'CSplit',
+<<<<<<< HEAD
                 'metadata': {'category': 'split_test'},
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'user_partition_id': self.TEST_PARTITION_ID,
                 'group_id_to_child': {
                     '0': location('H'),

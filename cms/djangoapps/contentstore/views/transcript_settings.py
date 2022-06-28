@@ -27,7 +27,11 @@ from common.djangoapps.util.json_request import JsonResponse, expect_json
 from openedx.core.djangoapps.video_config.models import VideoTranscriptEnabledFlag
 from openedx.core.djangoapps.video_pipeline.api import update_3rd_party_transcription_service_credentials
 from openedx.core.lib.api.view_utils import view_auth_classes
+<<<<<<< HEAD
 from xmodule.video_module.transcripts_utils import Transcript, TranscriptsGenerationException
+=======
+from xmodule.video_module.transcripts_utils import Transcript, TranscriptsGenerationException  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .videos import TranscriptProvider
 
@@ -72,7 +76,11 @@ def validate_transcript_credentials(provider, **credentials):
             must_have_props = ['api_key', 'username']
 
         missing = [
+<<<<<<< HEAD
             must_have_prop for must_have_prop in must_have_props if must_have_prop not in list(credentials.keys())
+=======
+            must_have_prop for must_have_prop in must_have_props if must_have_prop not in list(credentials.keys())   # lint-amnesty, pylint: disable=consider-iterating-dictionary
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         ]
         if missing:
             error_message = '{missing} must be specified.'.format(missing=' and '.join(missing))

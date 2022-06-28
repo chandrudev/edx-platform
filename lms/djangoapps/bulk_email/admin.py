@@ -10,6 +10,10 @@ from lms.djangoapps.bulk_email.forms import CourseAuthorizationAdminForm, Course
 from lms.djangoapps.bulk_email.models import (
     BulkEmailFlag,
     CourseAuthorization,
+<<<<<<< HEAD
+=======
+    DisabledCourse,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     CourseEmail,
     CourseEmailTemplate,
     Optout
@@ -57,19 +61,25 @@ unsupported tags will cause email sending to fail.
 '''
         }),
     )
+<<<<<<< HEAD
     # Turn off the action bar (we have no bulk actions)
     actions = None
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def has_add_permission(self, request):
         """Enable the ability to add new templates, as we want to be able to define multiple templates."""
         return True
 
+<<<<<<< HEAD
     def has_delete_permission(self, request, obj=None):
         """
         Disables the ability to remove existing templates, as we'd like to make sure we don't have dangling references.
         """
         return False
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class CourseAuthorizationAdmin(admin.ModelAdmin):
     """Admin for enabling email on a course-by-course basis."""
@@ -88,8 +98,20 @@ To enable email for the course, check the "Email enabled" box, then click "Save"
     )
 
 
+<<<<<<< HEAD
+=======
+class DisabledCourseAdmin(admin.ModelAdmin):
+    """Admin for disabling bulk email on a course-by-course basis"""
+    list_display = ('course_id', )
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 admin.site.register(CourseEmail, CourseEmailAdmin)
 admin.site.register(Optout, OptoutAdmin)
 admin.site.register(CourseEmailTemplate, CourseEmailTemplateAdmin)
 admin.site.register(CourseAuthorization, CourseAuthorizationAdmin)
 admin.site.register(BulkEmailFlag, ConfigurationModelAdmin)
+<<<<<<< HEAD
+=======
+admin.site.register(DisabledCourse, DisabledCourseAdmin)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

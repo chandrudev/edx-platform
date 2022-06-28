@@ -9,7 +9,11 @@ from importlib import import_module
 from unittest.mock import patch
 import pytest
 import ddt
+<<<<<<< HEAD
 from operator import itemgetter
+=======
+from operator import itemgetter  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.conf import settings
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
@@ -26,7 +30,13 @@ from lms.djangoapps.courseware.masquerade import (
     setup_masquerade,
 )
 
+<<<<<<< HEAD
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase, MasqueradeMixin, masquerade_as_group_member
+=======
+from lms.djangoapps.courseware.tests.helpers import (
+    LoginEnrollmentTestCase, MasqueradeMixin, masquerade_as_group_member, set_preview_mode,
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.tests.test_submitting_problems import ProblemSubmissionTestMixin
 from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
 from openedx.core.djangoapps.self_paced.models import SelfPacedConfiguration
@@ -35,10 +45,17 @@ from openedx.features.course_experience import DISABLE_UNIFIED_COURSE_TAB_FLAG
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import StaffFactory
 from common.djangoapps.student.tests.factories import UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.partitions.partitions import Group, UserPartition
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import Group, UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class MasqueradeTestCase(SharedModuleStoreTestCase, LoginEnrollmentTestCase, MasqueradeMixin):
@@ -187,6 +204,7 @@ class MasqueradeTestCase(SharedModuleStoreTestCase, LoginEnrollmentTestCase, Mas
         assert 200 == masquerade_as_group_member(self.test_user, self.course, partition_id, group_id)
 
 
+<<<<<<< HEAD
 class NormalStudentVisibilityTest(MasqueradeTestCase):
     """
     Verify the course displays as expected for a "normal" student (to ensure test setup is correct).
@@ -213,6 +231,8 @@ class NormalStudentVisibilityTest(MasqueradeTestCase):
         self.verify_show_answer_present(False)
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class StaffMasqueradeTestCase(MasqueradeTestCase):
     """
     Base class for tests of the masquerade behavior for a staff member.
@@ -283,6 +303,10 @@ class TestMasqueradeOptionsNoContentGroups(StaffMasqueradeTestCase):
         assert is_target_available == expected
 
 
+<<<<<<< HEAD
+=======
+@set_preview_mode(True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class TestStaffMasqueradeAsStudent(StaffMasqueradeTestCase):
     """
     Check for staff being able to masquerade as student.
@@ -656,7 +680,11 @@ class SetupMasqueradeTests(SharedModuleStoreTestCase, ):
 
         # Warning: the SafeSessions middleware relies on the `real_user` attribute to see if a
         # user is masquerading as another user.  If the name of this attribute is changing, please update
+<<<<<<< HEAD
         # the check in SafeSessionMiddleware._verify_user as well.
+=======
+        # the check in SafeSessionMiddleware._verify_user_unchanged as well.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert masquerade_user.real_user == self.staff
         assert masquerade_user == self.student
         assert self.request.user.masquerade_settings == masquerade_settings

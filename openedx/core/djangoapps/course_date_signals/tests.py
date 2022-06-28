@@ -2,8 +2,16 @@
 from datetime import timedelta
 from unittest.mock import patch  # lint-amnesty, pylint: disable=wrong-import-order
 
+<<<<<<< HEAD
 from cms.djangoapps.contentstore.config.waffle import CUSTOM_RELATIVE_DATES
 from edx_toggles.toggles.testutils import override_waffle_flag
+=======
+from edx_toggles.toggles.testutils import override_waffle_flag
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+from cms.djangoapps.contentstore.config.waffle import CUSTOM_RELATIVE_DATES
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.course_date_signals.handlers import (
     _gather_graded_items,
     _get_custom_pacing_children,
@@ -11,12 +19,21 @@ from openedx.core.djangoapps.course_date_signals.handlers import (
     extract_dates_from_course
 )
 from openedx.core.djangoapps.course_date_signals.models import SelfPacedRelativeDatesConfig
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from . import utils
 
 
 class SelfPacedDueDatesTests(ModuleStoreTestCase):  # lint-amnesty, pylint: disable=missing-class-docstring
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         super().setUp()
         self.course = CourseFactory.create()
@@ -200,6 +217,11 @@ class SelfPacedCustomDueDateTests(ModuleStoreTestCase):
     """
     Tests the custom Personalized Learner Schedule (PLS) dates in self paced courses
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         super().setUp()
         SelfPacedRelativeDatesConfig.objects.create(enabled=True)

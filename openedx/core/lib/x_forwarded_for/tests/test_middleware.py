@@ -56,7 +56,11 @@ class TestXForwardedForMiddleware(TestCase):
 
         XForwardedForMiddleware().process_request(request)
 
+<<<<<<< HEAD
         assert request.META.items() >= expected_meta_include.items()  # pylint: disable=dict-items-not-iterating
+=======
+        assert request.META.items() >= expected_meta_include.items()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @ddt.unpack
     @ddt.data(

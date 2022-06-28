@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 """ Celery Tasks for the Instructor App """
+=======
+""" Celery Tasks for the Instructor App. """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 import logging
 
@@ -14,17 +18,28 @@ from common.djangoapps.student.models import get_user_by_username_or_email
 from lms.djangoapps.courseware.model_data import FieldDataCache
 from lms.djangoapps.courseware.module_render import get_module_for_descriptor
 from openedx.core.lib.request_utils import get_request_or_stub
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
 
 @shared_task(base=LoggedTask, ignore_result=True)
 @set_code_owner_attribute
+<<<<<<< HEAD
 def complete_student_attempt_task(user_identifier: str, content_id: str) -> None:
     """
     Marks all completable children of content_id as complete for the user
+=======
+def update_exam_completion_task(user_identifier: str, content_id: str, completion: float) -> None:
+    """
+    Marks all completable children of content_id as complete for the user.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Submits all completable xblocks inside of the content_id block to the
     Completion Service to mark them as complete. One use case of this function is
@@ -35,6 +50,10 @@ def complete_student_attempt_task(user_identifier: str, content_id: str) -> None
     params:
         user_identifier (str): username or email of a user
         content_id (str): the block key for a piece of content
+<<<<<<< HEAD
+=======
+        completion (float): the completion percentage to send to the Completion service (either 1.0 or 0.0)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     err_msg_prefix = (
         'Error occurred while attempting to complete student attempt for user '
@@ -78,13 +97,21 @@ def complete_student_attempt_task(user_identifier: str, content_id: str) -> None
         log.error(err_msg)
         return
 
+<<<<<<< HEAD
     def _submit_completions(block, user):
+=======
+    def _submit_completions(block, user, completion):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Recursively submits the children for completion to the Completion Service
         """
         mode = XBlockCompletionMode.get_mode(block)
         if mode == XBlockCompletionMode.COMPLETABLE:
+<<<<<<< HEAD
             block.runtime.publish(block, 'completion', {'completion': 1.0, 'user_id': user.id})
+=======
+            block.runtime.publish(block, 'completion', {'completion': completion, 'user_id': user.id})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         elif mode == XBlockCompletionMode.AGGREGATOR:
             # I know this looks weird, but at the time of writing at least, there isn't a good
             # single way to get the children assigned for a partcular user. Some blocks define the
@@ -96,6 +123,12 @@ def complete_student_attempt_task(user_identifier: str, content_id: str) -> None
                               or (hasattr(block, 'get_children') and block.get_children())
                               or [])
             for child in block_children:
+<<<<<<< HEAD
                 _submit_completions(child, user)
 
     _submit_completions(root_module, user)
+=======
+                _submit_completions(child, user, completion)
+
+    _submit_completions(root_module, user, completion)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

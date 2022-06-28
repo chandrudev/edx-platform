@@ -10,6 +10,10 @@ from openedx.core.djangoapps.django_comment_common.models import (
     FORUM_ROLE_MODERATOR,
     Role
 )
+<<<<<<< HEAD
+=======
+from openedx.core.lib.cache_utils import request_cached
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.student.roles import (
     CourseBetaTesterRole,
     CourseInstructorRole,
@@ -20,6 +24,10 @@ from common.djangoapps.student.roles import (
 )
 
 
+<<<<<<< HEAD
+=======
+@request_cached()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def has_staff_roles(user, course_key):
     """
     Return true if a user has any of the following roles

@@ -33,6 +33,11 @@
             <%  });
             } %>
             <% if ( required ) { %> aria-required="true" required<% } %>
+<<<<<<< HEAD
+=======
+            <% if ( typeof disabled !== 'undefined' && disabled ) { %> disabled<% } %>
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         >
             <% _.each(options, function(el) { %>
                 <option value="<%- el.value%>"<% if ( el.default ) { %> data-isdefault="true" selected<% } %>><%- el.name %></option>
@@ -101,6 +106,10 @@
             <% if ( restrictions.max_length && type !== 'password' ) { %> maxlength="<%- restrictions.max_length %>"<% } %>
             <% if ( restrictions.readonly )   { %> readonly <% } %>
             <% if ( required ) { %> required<% } %>
+<<<<<<< HEAD
+=======
+            <% if ( defaultValue === true ) { %> checked<% } %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             <% if ( typeof errorMessages !== 'undefined' ) {
                 _.each(errorMessages, function( msg, type ) {%>
                     data-errormsg-<%- type %>="<%- msg %>"

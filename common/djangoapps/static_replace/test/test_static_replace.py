@@ -3,6 +3,10 @@
 
 import re
 from io import BytesIO
+<<<<<<< HEAD
+=======
+from unittest import TestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from unittest.mock import Mock, patch
 from urllib.parse import parse_qsl, quote, urlparse, urlunparse, urlencode
 
@@ -11,6 +15,10 @@ import pytest
 from django.test import override_settings
 from opaque_keys.edx.keys import CourseKey
 from PIL import Image
+<<<<<<< HEAD
+=======
+from web_fragments.fragment import Fragment
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.static_replace import (
     _url_replace_regex,
@@ -19,6 +27,7 @@ from common.djangoapps.static_replace import (
     replace_course_urls,
     replace_static_urls
 )
+<<<<<<< HEAD
 from xmodule.assetstore.assetmgr import AssetManager
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
@@ -29,6 +38,20 @@ from xmodule.modulestore.mongo import MongoModuleStore
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls
 from xmodule.modulestore.xml import XMLModuleStore
+=======
+from common.djangoapps.static_replace.services import ReplaceURLService
+from common.djangoapps.static_replace.wrapper import replace_urls_wrapper
+from xmodule.assetstore.assetmgr import AssetManager  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.exceptions import NotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.mongo import MongoModuleStore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.xml import XMLModuleStore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 DATA_DIRECTORY = 'data_dir'
 COURSE_KEY = CourseKey.from_string('org/course/run')
@@ -783,3 +806,146 @@ class CanonicalContentTest(SharedModuleStoreTestCase):
         with check_mongo_calls(mongo_calls):
             asset_path = StaticContent.get_canonicalized_asset_path(self.courses[prefix].id, start, base_url, exts)
             assert re.match(expected, asset_path) is not None
+<<<<<<< HEAD
+=======
+
+
+class ReplaceURLServiceTest(TestCase):
+    """
+    Test ReplaceURLService methods
+    """
+    def setUp(self):
+        super().setUp()
+        self.mock_replace_static_urls = self.create_patch(
+            'common.djangoapps.static_replace.services.replace_static_urls'
+        )
+        self.mock_replace_course_urls = self.create_patch(
+            'common.djangoapps.static_replace.services.replace_course_urls'
+        )
+        self.mock_replace_jump_to_id_urls = self.create_patch(
+            'common.djangoapps.static_replace.services.replace_jump_to_id_urls'
+        )
+
+    def create_patch(self, name):
+        patcher = patch(name)
+        mock_method = patcher.start()
+        self.addCleanup(patcher.stop)
+        return mock_method
+
+    def test_replace_static_url_only(self):
+        """
+        Test only replace_static_urls method called when static_replace_only is passed as True.
+        """
+        replace_url_service = ReplaceURLService(course_id=COURSE_KEY)
+        return_text = replace_url_service.replace_urls("text", static_replace_only=True)
+        assert self.mock_replace_static_urls.called
+        assert not self.mock_replace_course_urls.called
+        assert not self.mock_replace_jump_to_id_urls.called
+
+    def test_replace_course_urls_called(self):
+        """
+        Test replace_course_urls method called static_replace_only is passed as False.
+        """
+        replace_url_service = ReplaceURLService(course_id=COURSE_KEY)
+        return_text = replace_url_service.replace_urls("text")
+        assert self.mock_replace_course_urls.called
+
+    def test_replace_jump_to_id_urls_called(self):
+        """
+        Test replace_jump_to_id_urls method called jump_to_id_base_url is provided.
+        """
+        replace_url_service = ReplaceURLService(course_id=COURSE_KEY, jump_to_id_base_url="/course/course_id")
+        return_text = replace_url_service.replace_urls("text")
+        assert self.mock_replace_jump_to_id_urls.called
+
+    def test_replace_jump_to_id_urls_not_called(self):
+        """
+        Test replace_jump_to_id_urls method called jump_to_id_base_url is not provided.
+        """
+        replace_url_service = ReplaceURLService(course_id=COURSE_KEY)
+        return_text = replace_url_service.replace_urls("text")
+        assert not self.mock_replace_jump_to_id_urls.called
+
+
+@ddt.ddt
+class TestReplaceURLWrapper(SharedModuleStoreTestCase):
+    """
+    Tests for replace_url_wrapper utility function.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.course_mongo = CourseFactory.create(
+            default_store=ModuleStoreEnum.Type.mongo,
+            org='TestX',
+            number='TS01',
+            run='2015'
+        )
+        cls.course_split = CourseFactory.create(
+            default_store=ModuleStoreEnum.Type.split,
+            org='TestX',
+            number='TS02',
+            run='2015'
+        )
+
+    @ddt.data('course_mongo', 'course_split')
+    def test_replace_jump_to_id_urls(self, course_id):
+        """
+        Verify that the jump-to URL has been replaced.
+        """
+        course = getattr(self, course_id)
+        replace_url_service = ReplaceURLService(course_id=course.id, jump_to_id_base_url='/base_url/')
+        test_replace = replace_urls_wrapper(
+            block=course,
+            view='baseview',
+            frag=Fragment('<a href="/jump_to_id/id">'),
+            context=None,
+            replace_url_service=replace_url_service
+        )
+        assert isinstance(test_replace, Fragment)
+        assert test_replace.content == '<a href="/base_url/id">'
+
+    @ddt.data(
+        ('course_mongo', '<a href="/courses/TestX/TS01/2015/id">'),
+        ('course_split', '<a href="/courses/course-v1:TestX+TS02+2015/id">')
+    )
+    @ddt.unpack
+    def test_replace_course_urls(self, course_id, anchor_tag):
+        """
+        Verify that the course URL has been replaced.
+        """
+        course = getattr(self, course_id)
+        replace_url_service = ReplaceURLService(course_id=course.id)
+        test_replace = replace_urls_wrapper(
+            block=course,
+            view='baseview',
+            frag=Fragment('<a href="/course/id">'),
+            context=None,
+            replace_url_service=replace_url_service
+        )
+        assert isinstance(test_replace, Fragment)
+        assert test_replace.content == anchor_tag
+
+    @ddt.data(
+        ('course_mongo', '<a href="/c4x/TestX/TS01/asset/id">'),
+        ('course_split', '<a href="/asset-v1:TestX+TS02+2015+type@asset+block/id">')
+    )
+    @ddt.unpack
+    def test_replace_static_urls(self, course_id, anchor_tag):
+        """
+        Verify that the static URL has been replaced.
+        """
+        course = getattr(self, course_id)
+        replace_url_service = ReplaceURLService(course_id=course.id)
+        test_replace = replace_urls_wrapper(
+            block=course,
+            view='baseview',
+            frag=Fragment('<a href="/static/id">'),
+            context=None,
+            replace_url_service=replace_url_service,
+            static_replace_only=True
+        )
+        assert isinstance(test_replace, Fragment)
+        assert test_replace.content == anchor_tag
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

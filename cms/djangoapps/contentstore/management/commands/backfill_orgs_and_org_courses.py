@@ -11,7 +11,11 @@ from django.core.management import BaseCommand, CommandError
 from organizations import api as organizations_api
 
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class Command(BaseCommand):

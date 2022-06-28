@@ -10,6 +10,10 @@ import json
 import os
 import re
 from collections import Counter
+<<<<<<< HEAD
+=======
+from xml.sax.saxutils import escape
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from write_to_html import HtmlOutlineWriter  # noqa pylint: disable=import-error,useless-suppression
 
@@ -26,7 +30,11 @@ columns = [
 columns_index_dict = {key: index for index, key in enumerate(columns)}
 
 
+<<<<<<< HEAD
 def seperate_warnings_by_location(warnings_data):
+=======
+def separate_warnings_by_location(warnings_data):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Warnings originate from multiple locations, this function takes in list of warning objects
     and separates them based on their filename location
@@ -80,7 +88,10 @@ def read_warning_data(dir_path):
     During test runs in jenkins, multiple warning json files are output. This function finds all files
     and aggregates the warnings in to one large list
     """
+<<<<<<< HEAD
     # pdb.set_trace()
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     dir_path = os.path.expanduser(dir_path)
     # find all files that exist in given directory
     files_in_dir = [
@@ -91,7 +102,11 @@ def read_warning_data(dir_path):
     # TODO(jinder): currently this is hard-coded in, maybe create a constants file with info
     # THINK(jinder): but creating file for one constant seems overkill
     warnings_file_name_regex = (
+<<<<<<< HEAD
         r"pytest_warnings_?\d*\.json"  # noqa pylint: disable=W1401
+=======
+        r"pytest_warnings_?[\w-]*\.json"  # noqa pylint: disable=W1401
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
 
     # iterate through files_in_dir and see if they match our know file name pattern
@@ -127,6 +142,27 @@ def compress_similar_warnings(warnings_data):
     return output
 
 
+<<<<<<< HEAD
+=======
+def canonical_message(msg):
+    """
+    Remove noise from a warning message.
+
+    The "same" warning can produce different messages because of data in
+    the message.  This returns a new message with the data converted to
+    placeholders.
+    """
+    hex = r"[0-9a-fA-F]"
+    # Temp files are test_Abcd123.csv etc...
+    msg = re.sub(r"\btest_\w{7}\.", "test_TMP.", msg)
+    # Guids, SHA hashes, and numbers in general get replaced.
+    msg = re.sub(rf"\b{hex}{{8}}-{hex}{{4}}-{hex}{{4}}-{hex}{{4}}-{hex}{{12}}\b", "GUID", msg)
+    msg = re.sub(rf"\b{hex}{{32}}\b", "SHA", msg)
+    msg = re.sub(r"\b\d+(\.\d+)*\b", "#", msg)
+    return msg
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def process_warnings_json(dir_path):
     """
     Master function to process through all warnings and output a dict
@@ -149,7 +185,12 @@ def process_warnings_json(dir_path):
         warnings_object[columns_index_dict["deprecated"]] = bool(
             "deprecated" in warnings_object[columns_index_dict["message"]]
         )
+<<<<<<< HEAD
     warnings_data = seperate_warnings_by_location(warnings_data)
+=======
+        warnings_object[columns_index_dict["message"]] = canonical_message(warnings_object[columns_index_dict["message"]])
+    warnings_data = separate_warnings_by_location(warnings_data)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     compressed_warnings_data = compress_similar_warnings(warnings_data)
     return compressed_warnings_data
 
@@ -191,7 +232,11 @@ def write_html_report(warnings_data, html_path):
         for category, group_in_category, category_count in category_sorted_by_count:
             # xss-lint: disable=python-wrap-html
             html = '<span class="count">{category}, count: {count}</span> '.format(
+<<<<<<< HEAD
                 category=category, count=category_count
+=======
+                category=escape(category), count=category_count
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
             html_writer.start_section(html, klass="category")
             locations_sorted_by_count = group_and_sort_by_sumof(
@@ -205,7 +250,11 @@ def write_html_report(warnings_data, html_path):
             ) in locations_sorted_by_count:
                 # xss-lint: disable=python-wrap-html
                 html = '<span class="count">{location}, count: {count}</span> '.format(
+<<<<<<< HEAD
                     location=location, count=location_count
+=======
+                    location=escape(location), count=location_count
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 )
                 html_writer.start_section(html, klass="location")
                 message_group_sorted_by_count = group_and_sort_by_sumof(
@@ -218,7 +267,11 @@ def write_html_report(warnings_data, html_path):
                 ) in message_group_sorted_by_count:
                     # xss-lint: disable=python-wrap-html
                     html = '<span class="count">{warning_text}, count: {count}</span> '.format(
+<<<<<<< HEAD
                         warning_text=message, count=message_count
+=======
+                        warning_text=escape(message), count=message_count
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     )
                     html_writer.start_section(html, klass="warning_text")
                     # warnings_object[location][warning_text] is a list

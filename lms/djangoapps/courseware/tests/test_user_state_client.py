@@ -12,7 +12,11 @@ from edx_user_state_client.tests import UserStateClientTestBase
 
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.courseware.user_state_client import DjangoXBlockUserStateClient
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestDjangoUserStateClient(UserStateClientTestBase, ModuleStoreTestCase):
@@ -27,7 +31,11 @@ class TestDjangoUserStateClient(UserStateClientTestBase, ModuleStoreTestCase):
     def _user(self, user_idx):  # lint-amnesty, pylint: disable=arguments-differ
         return self.users[user_idx].username
 
+<<<<<<< HEAD
     def _block_type(self, block):
+=======
+    def _block_type(self, block):  # pylint: disable=arguments-differ
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # We only record block state history in DjangoUserStateClient
         # when the block type is 'problem'
         return 'problem'

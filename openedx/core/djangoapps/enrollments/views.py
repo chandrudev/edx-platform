@@ -5,6 +5,7 @@ consist primarily of authentication, request validation, and serialization.
 """
 
 
+<<<<<<< HEAD
 import logging
 
 from common.djangoapps.course_modes.models import CourseMode
@@ -14,17 +15,56 @@ from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthenticat
 from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser  # lint-amnesty, pylint: disable=wrong-import-order
 from opaque_keys import InvalidKeyError  # lint-amnesty, pylint: disable=wrong-import-order
 from opaque_keys.edx.keys import CourseKey  # lint-amnesty, pylint: disable=wrong-import-order
+=======
+from cgitb import lookup
+import logging
+
+from django.core.exceptions import (  # lint-amnesty, pylint: disable=wrong-import-order
+    ObjectDoesNotExist,
+    ValidationError
+)
+from django.utils.decorators import method_decorator  # lint-amnesty, pylint: disable=wrong-import-order
+from edx_rest_framework_extensions.auth.jwt.authentication import \
+    JwtAuthentication  # lint-amnesty, pylint: disable=wrong-import-order
+from edx_rest_framework_extensions.auth.session.authentication import \
+    SessionAuthenticationAllowInactiveUser  # lint-amnesty, pylint: disable=wrong-import-order
+from opaque_keys import InvalidKeyError  # lint-amnesty, pylint: disable=wrong-import-order
+from opaque_keys.edx.keys import CourseKey  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework import permissions, status  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.generics import ListAPIView , ListCreateAPIView , RetrieveDestroyAPIView ,RetrieveUpdateDestroyAPIView # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.response import Response  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.throttling import UserRateThrottle  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.views import APIView  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework import generics
+
+from common.djangoapps.course_modes.models import CourseMode
+from openedx.core.djangoapps.content.course_overviews.models import LiveClasses 
+from common.djangoapps.student.auth import user_has_role
+from common.djangoapps.student.models import CourseEnrollment, User ,LiveClassEnrollment
+from common.djangoapps.student.roles import CourseStaffRole, GlobalStaff
+from common.djangoapps.util.disable_rate_limit import can_disable_rate_limit
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.cors_csrf.authentication import SessionAuthenticationCrossDomainCsrf
 from openedx.core.djangoapps.cors_csrf.decorators import ensure_csrf_cookie_cross_domain
 from openedx.core.djangoapps.course_groups.cohorts import CourseUserGroup, add_user_to_cohort, get_cohort_by_name
 from openedx.core.djangoapps.embargo import api as embargo_api
 from openedx.core.djangoapps.enrollments import api
 from openedx.core.djangoapps.enrollments.errors import (
+<<<<<<< HEAD
     CourseEnrollmentError, CourseEnrollmentExistsError, CourseModeNotFoundError,
 )
 from openedx.core.djangoapps.enrollments.forms import CourseEnrollmentsApiListForm
 from openedx.core.djangoapps.enrollments.paginators import CourseEnrollmentsApiListPagination
 from openedx.core.djangoapps.enrollments.serializers import CourseEnrollmentsApiListSerializer
+=======
+    CourseEnrollmentError,
+    CourseEnrollmentExistsError,
+    CourseModeNotFoundError
+)
+from openedx.core.djangoapps.enrollments.forms import CourseEnrollmentsApiListForm
+from openedx.core.djangoapps.enrollments.paginators import CourseEnrollmentsApiListPagination
+from openedx.core.djangoapps.enrollments.serializers import CourseEnrollmentsApiListSerializer ,LiveClassesSerializer , UserLiveClassDetailsSerializer #LiveClassUserDetailsSerializer ,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.user_api.accounts.permissions import CanRetireUser
 from openedx.core.djangoapps.user_api.models import UserRetirementStatus
 from openedx.core.djangoapps.user_api.preferences.api import update_email_opt_in
@@ -39,6 +79,7 @@ from openedx.features.enterprise_support.api import (
     EnterpriseApiServiceClient,
     enterprise_enabled
 )
+<<<<<<< HEAD
 from rest_framework import permissions, status  # lint-amnesty, pylint: disable=wrong-import-order
 from rest_framework.generics import ListAPIView  # lint-amnesty, pylint: disable=wrong-import-order
 from rest_framework.response import Response  # lint-amnesty, pylint: disable=wrong-import-order
@@ -48,6 +89,8 @@ from common.djangoapps.student.auth import user_has_role
 from common.djangoapps.student.models import CourseEnrollment, User
 from common.djangoapps.student.roles import CourseStaffRole, GlobalStaff
 from common.djangoapps.util.disable_rate_limit import can_disable_rate_limit
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 REQUIRED_ATTRIBUTES = {
@@ -170,6 +213,10 @@ class EnrollmentView(APIView, ApiKeyPermissionMixIn):
         SessionAuthenticationAllowInactiveUser,
     )
     permission_classes = (ApiKeyHeaderPermissionIsAuthenticated,)
+<<<<<<< HEAD
+=======
+    pagination_class = None
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     throttle_classes = (EnrollmentUserThrottle,)
 
     # Since the course about page on the marketing site uses this API to auto-enroll users,
@@ -608,6 +655,7 @@ class EnrollmentListView(APIView, ApiKeyPermissionMixIn):
 
              * user: The username of the user.
     """
+<<<<<<< HEAD
     authentication_classes = (
         JwtAuthentication,
         BearerAuthenticationAllowInactiveUser,
@@ -615,6 +663,15 @@ class EnrollmentListView(APIView, ApiKeyPermissionMixIn):
     )
     permission_classes = (ApiKeyHeaderPermissionIsAuthenticated,)
     throttle_classes = (EnrollmentUserThrottle,)
+=======
+    # authentication_classes = (
+    #     JwtAuthentication,
+    #     BearerAuthenticationAllowInactiveUser,
+    #     EnrollmentCrossDomainSessionAuth,
+    # )
+    # permission_classes = (ApiKeyHeaderPermissionIsAuthenticated,)
+    # throttle_classes = (EnrollmentUserThrottle,)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # Since the course about page on the marketing site
     # uses this API to auto-enroll users, we need to support
@@ -637,6 +694,10 @@ class EnrollmentListView(APIView, ApiKeyPermissionMixIn):
         Users who have the global staff permission can access all enrollment data for all
         courses.
         """
+<<<<<<< HEAD
+=======
+        #import pdb; pdb.set_trace()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         username = request.GET.get('user', request.user.username)
         try:
             enrollment_data = api.get_enrollments(username)
@@ -659,6 +720,7 @@ class EnrollmentListView(APIView, ApiKeyPermissionMixIn):
                 filtered_data.append(enrollment)
         return Response(filtered_data)
 
+<<<<<<< HEAD
     def post(self, request):
         # pylint: disable=too-many-statements
         """Enrolls the currently logged-in user in a course.
@@ -870,6 +932,222 @@ class EnrollmentListView(APIView, ApiKeyPermissionMixIn):
                     actual_activation=current_enrollment['is_active'] if current_enrollment else None,
                     user_id=user.id
                 )
+=======
+
+    # def post(self, request):
+    #     # pylint: disable=too-many-statements
+    #     """Enrolls the currently logged-in user in a course.
+
+    #     Server-to-server calls may deactivate or modify the mode of existing enrollments. All other requests
+    #     go through `add_enrollment()`, which allows creation of new and reactivation of old enrollments.
+    #     """
+    #     # Get the User, Course ID, and Mode from the request.
+
+    #     username = request.data.get('user', request.user.username)
+    #     course_id = request.data.get('course_details', {}).get('course_id')
+
+    #     if not course_id:
+    #         return Response(
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #             data={"message": "Course ID must be specified to create a new enrollment."}
+    #         )
+
+    #     try:
+    #         course_id = CourseKey.from_string(course_id)
+    #     except InvalidKeyError:
+    #         return Response(
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #             data={
+    #                 "message": f"No course '{course_id}' found for enrollment"
+    #             }
+    #         )
+
+    #     mode = request.data.get('mode')
+
+    #     has_api_key_permissions = self.has_api_key_permissions(request)
+
+    #     # Check that the user specified is either the same user, or this is a server-to-server request.
+    #     if not username:
+    #         username = request.user.username
+    #     if username != request.user.username and not has_api_key_permissions \
+    #             and not GlobalStaff().has_user(request.user):
+    #         # Return a 404 instead of a 403 (Unauthorized). If one user is looking up
+    #         # other users, do not let them deduce the existence of an enrollment.
+    #         return Response(status=status.HTTP_404_NOT_FOUND)
+
+    #     if mode not in (CourseMode.AUDIT, CourseMode.HONOR, None) and not has_api_key_permissions \
+    #             and not GlobalStaff().has_user(request.user):
+    #         return Response(
+    #             status=status.HTTP_403_FORBIDDEN,
+    #             data={
+    #                 "message": "User does not have permission to create enrollment with mode [{mode}].".format(
+    #                     mode=mode
+    #                 )
+    #             }
+    #         )
+
+    #     try:
+    #         # Lookup the user, instead of using request.user, since request.user may not match the username POSTed.
+    #         user = User.objects.get(username=username)
+    #     except ObjectDoesNotExist:
+    #         return Response(
+    #             status=status.HTTP_406_NOT_ACCEPTABLE,
+    #             data={
+    #                 'message': f'The user {username} does not exist.'
+    #             }
+    #         )
+
+    #     embargo_response = embargo_api.get_embargo_response(request, course_id, user)
+
+    #     if embargo_response:
+    #         return embargo_response
+
+    #     try:
+    #         is_active = request.data.get('is_active')
+    #         # Check if the requested activation status is None or a Boolean
+    #         if is_active is not None and not isinstance(is_active, bool):
+    #             return Response(
+    #                 status=status.HTTP_400_BAD_REQUEST,
+    #                 data={
+    #                     'message': ("'{value}' is an invalid enrollment activation status.").format(value=is_active)
+    #                 }
+    #             )
+
+    #         explicit_linked_enterprise = request.data.get('linked_enterprise_customer')
+    #         if explicit_linked_enterprise and has_api_key_permissions and enterprise_enabled():
+    #             enterprise_api_client = EnterpriseApiServiceClient()
+    #             consent_client = ConsentApiServiceClient()
+    #             try:
+    #                 enterprise_api_client.post_enterprise_course_enrollment(username, str(course_id))
+    #             except EnterpriseApiException as error:
+    #                 log.exception("An unexpected error occurred while creating the new EnterpriseCourseEnrollment "
+    #                               "for user [%s] in course run [%s]", username, course_id)
+    #                 raise CourseEnrollmentError(str(error))  # lint-amnesty, pylint: disable=raise-missing-from
+    #             kwargs = {
+    #                 'username': username,
+    #                 'course_id': str(course_id),
+    #                 'enterprise_customer_uuid': explicit_linked_enterprise,
+    #             }
+    #             consent_client.provide_consent(**kwargs)
+
+    #         enrollment_attributes = request.data.get('enrollment_attributes')
+    #         enrollment = api.get_enrollment(username, str(course_id))
+    #         mode_changed = enrollment and mode is not None and enrollment['mode'] != mode
+    #         active_changed = enrollment and is_active is not None and enrollment['is_active'] != is_active
+    #         missing_attrs = []
+    #         if enrollment_attributes:
+    #             actual_attrs = [
+    #                 "{namespace}:{name}".format(**attr)
+    #                 for attr in enrollment_attributes
+    #             ]
+    #             missing_attrs = set(REQUIRED_ATTRIBUTES.get(mode, [])) - set(actual_attrs)
+    #         if (GlobalStaff().has_user(request.user) or has_api_key_permissions) and (mode_changed or active_changed):
+    #             if mode_changed and active_changed and not is_active:
+    #                 # if the requester wanted to deactivate but specified the wrong mode, fail
+    #                 # the request (on the assumption that the requester had outdated information
+    #                 # about the currently active enrollment).
+    #                 msg = "Enrollment mode mismatch: active mode={}, requested mode={}. Won't deactivate.".format(
+    #                     enrollment["mode"], mode
+    #                 )
+    #                 log.warning(msg)
+    #                 return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": msg})
+
+    #             if missing_attrs:
+    #                 msg = "Missing enrollment attributes: requested mode={} required attributes={}".format(
+    #                     mode, REQUIRED_ATTRIBUTES.get(mode)
+    #                 )
+    #                 log.warning(msg)
+    #                 return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": msg})
+
+    #             response = api.update_enrollment(
+    #                 username,
+    #                 str(course_id),
+    #                 mode=mode,
+    #                 is_active=is_active,
+    #                 enrollment_attributes=enrollment_attributes,
+    #                 # If we are updating enrollment by authorized api caller, we should allow expired modes
+    #                 include_expired=has_api_key_permissions
+    #             )
+    #         else:
+    #             # Will reactivate inactive enrollments.
+    #             response = api.add_enrollment(
+    #                 username,
+    #                 str(course_id),
+    #                 mode=mode,
+    #                 is_active=is_active,
+    #                 enrollment_attributes=enrollment_attributes,
+    #                 enterprise_uuid=request.data.get('enterprise_uuid')
+    #             )
+
+    #         cohort_name = request.data.get('cohort')
+    #         if cohort_name is not None:
+    #             cohort = get_cohort_by_name(course_id, cohort_name)
+    #             try:
+    #                 add_user_to_cohort(cohort, user)
+    #             except ValueError:
+    #                 # user already in cohort, probably because they were un-enrolled and re-enrolled
+    #                 log.exception('Cohort re-addition')
+    #         email_opt_in = request.data.get('email_opt_in', None)
+    #         if email_opt_in is not None:
+    #             org = course_id.org
+    #             update_email_opt_in(request.user, org, email_opt_in)
+
+    #         log.info('The user [%s] has already been enrolled in course run [%s].', username, course_id)
+    #         return Response(response)
+    #     except CourseModeNotFoundError as error:
+    #         return Response(
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #             data={
+    #                 "message": (
+    #                     "The [{mode}] course mode is expired or otherwise unavailable for course run [{course_id}]."
+    #                 ).format(mode=mode, course_id=course_id),
+    #                 "course_details": error.data
+    #             })
+    #     except CourseNotFoundError:
+    #         return Response(
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #             data={
+    #                 "message": f"No course '{course_id}' found for enrollment"
+    #             }
+    #         )
+    #     except CourseEnrollmentExistsError as error:
+    #         log.warning('An enrollment already exists for user [%s] in course run [%s].', username, course_id)
+    #         return Response(data=error.enrollment)
+    #     except CourseEnrollmentError:
+    #         log.exception("An error occurred while creating the new course enrollment for user "
+    #                       "[%s] in course run [%s]", username, course_id)
+    #         return Response(
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #             data={
+    #                 "message": (
+    #                     "An error occurred while creating the new course enrollment for user "
+    #                     "'{username}' in course '{course_id}'"
+    #                 ).format(username=username, course_id=course_id)
+    #             }
+    #         )
+    #     except CourseUserGroup.DoesNotExist:
+    #         log.exception('Missing cohort [%s] in course run [%s]', cohort_name, course_id)
+    #         return Response(
+    #             status=status.HTTP_400_BAD_REQUEST,
+    #             data={
+    #                 "message": "An error occured while adding to cohort [%s]" % cohort_name
+    #             })
+    #     finally:
+    #         # Assumes that the ecommerce service uses an API key to authenticate.
+    #         if has_api_key_permissions:
+    #             current_enrollment = api.get_enrollment(username, str(course_id))
+    #             audit_log(
+    #                 'enrollment_change_requested',
+    #                 course_id=str(course_id),
+    #                 requested_mode=mode,
+    #                 actual_mode=current_enrollment['mode'] if current_enrollment else None,
+    #                 requested_activation=is_active,
+    #                 actual_activation=current_enrollment['is_active'] if current_enrollment else None,
+    #                 user_id=user.id
+    #             )
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @can_disable_rate_limit
@@ -965,3 +1243,243 @@ class CourseEnrollmentsApiListView(DeveloperErrorViewMixin, ListAPIView):
         if usernames:
             queryset = queryset.filter(user__username__in=usernames)
         return queryset
+<<<<<<< HEAD
+=======
+
+
+# class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
+#     authentication_classes = (
+#         JwtAuthentication,
+#         BearerAuthenticationAllowInactiveUser,
+#         SessionAuthenticationAllowInactiveUser,
+#     )
+#     permission_classes = (permissions.IsAdminUser,)
+#     throttle_classes = (EnrollmentUserThrottle,)
+#     serializer_class = LiveClassesSerializer
+#     #pagination_class = LiveClassesSerializer
+#     lookup_field = "username"
+
+#     def get_queryset(self):
+#         created_by_id = self.kwargs.get('username')
+
+#         return LiveClasses.objects.filter(created_by=created_by_id)
+
+
+
+
+#         # validated_data['created_by_id']= self.context['user'].id
+#         # return LiveClasses.objects.filter(created_by=validated_data)
+
+
+#     def post(self, request, *args, **kwargs):
+#         """Upload documents"""
+#         try:
+#             serializer = self.serializer_class(
+#                 data=request.data, context={'user':self.request.user}
+#             )
+#             serializer.is_valid(raise_exception=True)
+            
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         except Exception as e:
+#             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# class LiveClassesDeleteApiView(DeveloperErrorViewMixin, RetrieveUpdateDestroyAPIView):
+#     authentication_classes = (
+#         JwtAuthentication,
+#         BearerAuthenticationAllowInactiveUser,
+#         SessionAuthenticationAllowInactiveUser,
+#     )
+#     permission_classes = (permissions.IsAdminUser,)
+#     throttle_classes = (EnrollmentUserThrottle,)
+#     serializer_class = LiveClassesSerializer
+#     queryset = LiveClasses.objects.all()
+#     model = LiveClasses
+#     lookup_field = "id"
+
+ 
+            
+#     def delete(self, request, *args, **kwargs):
+        
+
+#         try:
+#             live_class_id = self.model.objects.get(id=self.kwargs.get('id'))
+#             live_class_id.delete()
+#             return Response("Deleted Successfully", status=status.HTTP_200_OK)
+#         except self.model.DoesNotExist:
+#             return Response("Invalied Id", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+#     def patch(self, request, *args, **kwargs):
+#         try:
+#             instance= self.get_object()
+#             serializer = self.serializer_class(
+#                 data=request.data, instance= instance , context={'user': self.request.user}
+#             )
+#             serializer.is_valid(raise_exception=True)
+#             serializer.save()
+#             return Response("Updated Successfully", status=status.HTTP_200_OK)
+#         except self.model.DoesNotExist:
+#             return Response("Invalied Id", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+
+
+class LiveClassesListApiListView(DeveloperErrorViewMixin, ListAPIView):
+
+
+    
+    permission_classes = ()
+    throttle_classes = (EnrollmentUserThrottle,)
+    serializer_class = LiveClassesSerializer
+    #ypagination_class = CourseEnrollmentsApiListPagination
+    
+    
+    def get_queryset(self):
+
+
+        queryset = LiveClasses.objects.all()
+        usernames =self.kwargs.get('username')
+
+        if usernames:
+            queryset = queryset.filter(user__username__in=usernames)
+
+
+        return queryset
+
+
+    #     course_ids=self.request.query_params.getlist('course_id')
+    #     queryset = LiveClasses.objects.all()
+
+    #     if course_ids:
+    #         queryset = queryset.filter(course_id__in=course_ids)
+
+    #     return queryset
+
+
+
+
+
+
+
+
+class EnrollLiveClassDetailsView(DeveloperErrorViewMixin, ListCreateAPIView):
+    # authentication_classes = (
+    #     JwtAuthentication,
+    #     BearerAuthenticationAllowInactiveUser,
+    #     SessionAuthenticationAllowInactiveUser,
+    # )
+    #permission_classes = (permissions.IsAdminUser,)
+    throttle_classes = (EnrollmentUserThrottle,)
+    serializer_class = UserLiveClassDetailsSerializer
+    #pagination_class = LiveClassesSerializer
+    lookup_field = "username"
+
+
+    # lookup_field = "username"
+
+    def get_queryset(self):
+
+        return LiveClassEnrollment.objects.filter(user=self.request.user)
+
+
+
+
+    # def post(self, request, *args, **kwargs):
+    #     """Upload documents"""
+    #     try:
+    #         serializer = self.serializer_class(
+    #             data=request.data,
+    #         )
+    #         serializer.is_valid(raise_exception=True)
+            
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_200_OK)
+    #     except Exception as e:
+    #         return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+# class EnrollLiveClassCreateAPIView(DeveloperErrorViewMixin, ListCreateAPIView):
+#     authentication_classes = (
+#         JwtAuthentication,
+#         BearerAuthenticationAllowInactiveUser,
+#         SessionAuthenticationAllowInactiveUser,
+#     )
+#     permission_classes = (permissions.IsAdminUser,)
+#     throttle_classes = (EnrollmentUserThrottle,)
+#     serializer_class = LiveClassEnrollmentSerializer
+#     #pagination_class = LiveClassesSerializer
+#     lookup_field = "username"
+
+#     def post(self, request, *args, **kwargs):
+#         """Upload documents"""
+#         try:
+#             serializer = self.serializer_class(
+#                 data=request.data,
+#             )
+#             serializer.is_valid(raise_exception=True)
+            
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_200_OK)
+#         except Exception as e:
+#             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+# class EnrollLiveClassUserDetailsView(DeveloperErrorViewMixin, ListCreateAPIView):
+#     authentication_classes = (
+#         JwtAuthentication,
+#         BearerAuthenticationAllowInactiveUser,
+#         SessionAuthenticationAllowInactiveUser,
+#     )
+#     permission_classes = (permissions.IsAdminUser,)
+#     throttle_classes = (EnrollmentUserThrottle,)
+#     serializer_class = LiveClassUserDetailsSerializer
+#     # pagination_class = LiveClassesSerializer
+#     lookup_url_kwarg = 'live_class_id'
+
+
+#     # lookup_field = "username"
+
+#     def get_queryset(self):
+    
+#         return LiveClassEnrollment.objects.filter(live_class_id=self.kwargs.get('live_class_id'))
+
+
+
+
+
+# class EnrollLiveClassUserDetailsView(DeveloperErrorViewMixin, RetrieveUpdateDestroyAPIView):
+#     authentication_classes = (
+#         JwtAuthentication,
+#         BearerAuthenticationAllowInactiveUser,
+#         SessionAuthenticationAllowInactiveUser,
+#     )
+#     permission_classes = (permissions.IsAdminUser,)
+#     throttle_classes = (EnrollmentUserThrottle,)
+#     serializer_class = LiveClassEnrollmentSerializer
+#     queryset = LiveClassEnrollment.objects.all()
+#     model = LiveClassEnrollment
+#     lookup_field = "id"
+
+
+
+#     def delete(self, request, *args, **kwargs):
+        
+
+#         try:
+#             enroll_live_class_id = self.model.objects.get(id=self.kwargs.get('id'))
+#             enroll_live_class_id.delete()
+#             return Response("Deleted Successfully", status=status.HTTP_200_OK)
+#         except self.model.DoesNotExist:
+#             return Response("Invalied Id", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+
+
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

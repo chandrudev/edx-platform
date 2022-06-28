@@ -17,6 +17,7 @@ from webob import Request, Response
 
 from common.test.utils import normalize_repr
 from openedx.core.djangoapps.contentserver.caching import del_cached_content
+<<<<<<< HEAD
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
 from xmodule.exceptions import NotFoundError
@@ -24,12 +25,25 @@ from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.video_module import VideoBlock
 from xmodule.video_module.transcripts_utils import (
+=======
+from xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.exceptions import NotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.video_module import VideoBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.video_module.transcripts_utils import (  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     Transcript,
     edxval_api,
     get_transcript,
     subs_filename,
 )
+<<<<<<< HEAD
 from xmodule.x_module import STUDENT_VIEW
+=======
+from xmodule.x_module import STUDENT_VIEW  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .helpers import BaseTestXmodule
 from .test_video_xml import SOURCE_XML

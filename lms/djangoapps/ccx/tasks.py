@@ -12,7 +12,11 @@ from opaque_keys.edx.locator import CourseLocator
 
 from lms import CELERY_APP
 from lms.djangoapps.ccx.models import CustomCourseForEdX
+<<<<<<< HEAD
 from xmodule.modulestore.django import SignalHandler
+=======
+from xmodule.modulestore.django import SignalHandler  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger("edx.ccx")
 

@@ -100,6 +100,28 @@ class Model:
     def find(cls, id):  # pylint: disable=redefined-builtin
         return cls(id=id)
 
+<<<<<<< HEAD
+=======
+    @classmethod
+    def retrieve_all(cls, params=None):
+        """
+        Performs a GET request against the resource's listing endpoint.
+
+        Arguments:
+            params: A dictionary of parameters to be passed as the request's query string.
+
+        Returns:
+            The parsed JSON response from the backend.
+        """
+        return perform_request(
+            'get',
+            cls.url(action='get_all'),
+            params,
+            metric_tags=[f'model_class:{cls.__name__}'],
+            metric_action='model.retrieve_all',
+        )
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _update_from_response(self, response_data):
         for k, v in response_data.items():
             if k in self.accessible_fields:

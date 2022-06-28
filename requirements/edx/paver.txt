@@ -4,11 +4,19 @@
 #
 #    make upgrade
 #
+<<<<<<< HEAD
 certifi==2021.10.8
     # via requests
 charset-normalizer==2.0.7
     # via requests
 edx-opaque-keys==2.2.2
+=======
+certifi==2022.5.18.1
+    # via requests
+charset-normalizer==2.0.12
+    # via requests
+edx-opaque-keys==2.3.0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via -r requirements/edx/paver.in
 idna==3.3
     # via requests
@@ -16,6 +24,7 @@ lazy==1.4
     # via -r requirements/edx/paver.in
 libsass==0.10.0
     # via -r requirements/edx/paver.in
+<<<<<<< HEAD
 markupsafe==2.0.1
     # via -r requirements/edx/paver.in
 mock==4.0.3
@@ -27,6 +36,19 @@ paver==1.3.4
 pbr==5.6.0
     # via stevedore
 psutil==5.8.0
+=======
+markupsafe==2.1.1
+    # via -r requirements/edx/paver.in
+mock==4.0.3
+    # via -r requirements/edx/paver.in
+path==16.4.0
+    # via -r requirements/edx/paver.in
+paver==1.3.4
+    # via -r requirements/edx/paver.in
+pbr==5.9.0
+    # via stevedore
+psutil==5.9.1
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via -r requirements/edx/paver.in
 pymongo==3.10.1
     # via
@@ -35,13 +57,18 @@ pymongo==3.10.1
     #   edx-opaque-keys
 python-memcached==1.59
     # via -r requirements/edx/paver.in
+<<<<<<< HEAD
 requests==2.26.0
+=======
+requests==2.27.1
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via -r requirements/edx/paver.in
 six==1.16.0
     # via
     #   libsass
     #   paver
     #   python-memcached
+<<<<<<< HEAD
 stevedore==3.4.0
     # via
     #   -r requirements/edx/paver.in
@@ -54,3 +81,15 @@ wrapt==1.11.2
     # via
     #   -c requirements/edx/../constraints.txt
     #   -r requirements/edx/paver.in
+=======
+stevedore==3.5.0
+    # via
+    #   -r requirements/edx/paver.in
+    #   edx-opaque-keys
+urllib3==1.26.9
+    # via requests
+watchdog==2.1.8
+    # via -r requirements/edx/paver.in
+wrapt==1.14.1
+    # via -r requirements/edx/paver.in
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

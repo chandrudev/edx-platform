@@ -1,9 +1,15 @@
 """URLs for API access management."""
 
 
+<<<<<<< HEAD
 from django.conf.urls import include, url
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
+=======
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from django.urls import include, path, re_path
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from openedx.core.djangoapps.api_admin.decorators import api_access_enabled_or_404
 from openedx.core.djangoapps.api_admin.views import (
@@ -18,6 +24,7 @@ from openedx.core.djangoapps.api_admin.views import (
 
 app_name = 'api_admin'
 urlpatterns = (
+<<<<<<< HEAD
     url(
         r'^status/$',
         api_access_enabled_or_404(login_required(ApiRequestStatusView.as_view())),
@@ -38,6 +45,22 @@ urlpatterns = (
         name='catalog-preview',
     ),
     url(
+=======
+    path('status/', api_access_enabled_or_404(login_required(ApiRequestStatusView.as_view())),
+         name="api-status"
+         ),
+    path('terms-of-service/', api_access_enabled_or_404(ApiTosView.as_view()),
+         name="api-tos"
+         ),
+    path('catalogs/preview/', staff_member_required(
+        api_access_enabled_or_404(CatalogPreviewView.as_view()),
+        login_url='dashboard',
+        redirect_field_name=None
+    ),
+        name='catalog-preview',
+    ),
+    re_path(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         r'^catalogs/user/(?P<username>[\w.@+-]+)/$',
         staff_member_required(
             api_access_enabled_or_404(CatalogListView.as_view()),
@@ -46,6 +69,7 @@ urlpatterns = (
         ),
         name='catalog-list',
     ),
+<<<<<<< HEAD
     url(
         r'^catalogs/(?P<catalog_id>\d+)/$',
         staff_member_required(
@@ -72,4 +96,25 @@ urlpatterns = (
     url(
         r'^api/', include('openedx.core.djangoapps.api_admin.api.urls', namespace='api'),
     ),
+=======
+    path('catalogs/<int:catalog_id>/', staff_member_required(
+        api_access_enabled_or_404(CatalogEditView.as_view()),
+        login_url='dashboard',
+        redirect_field_name=None
+    ),
+        name='catalog-edit',
+    ),
+    path('catalogs/', staff_member_required(
+        api_access_enabled_or_404(CatalogSearchView.as_view()),
+        login_url='dashboard',
+        redirect_field_name=None
+    ),
+        name='catalog-search',
+    ),
+    path('', api_access_enabled_or_404(login_required(ApiRequestView.as_view())),
+         name="api-request"
+         ),
+    path('api/', include('openedx.core.djangoapps.api_admin.api.urls', namespace='api'),
+         ),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )

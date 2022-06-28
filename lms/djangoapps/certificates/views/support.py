@@ -22,6 +22,10 @@ from opaque_keys.edx.keys import CourseKey
 from common.djangoapps.student.models import CourseEnrollment, User
 from common.djangoapps.util.json_request import JsonResponse
 from lms.djangoapps.certificates.api import generate_certificate_task, get_certificates_for_user
+<<<<<<< HEAD
+=======
+from lms.djangoapps.certificates.generation_handler import CertificateGenerationNotAllowed
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.certificates.permissions import GENERATE_ALL_CERTIFICATES, VIEW_ALL_CERTIFICATES
 from lms.djangoapps.instructor_task.api import generate_certificates_for_students
 from openedx.core.djangoapps.content.course_overviews.api import get_course_overview_or_none
@@ -202,6 +206,16 @@ def regenerate_certificate_for_user(request):
     # Attempt to regenerate certificates
     try:
         generate_certificate_task(user, course_key)
+<<<<<<< HEAD
+=======
+    except CertificateGenerationNotAllowed as e:
+        log.exception(
+            "Certificate generation not allowed for user %s in course %s",
+            str(user),
+            course_key,
+        )
+        return HttpResponseBadRequest(str(e))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     except:  # pylint: disable=bare-except
         # We are pessimistic about the kinds of errors that might get thrown by the
         # certificates API.  This may be overkill, but we're logging everything so we can

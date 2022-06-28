@@ -9,7 +9,11 @@ import logging
 from openedx.core.djangoapps.course_date_signals.utils import spaced_out_sections
 from openedx.core.djangoapps.schedules.exceptions import CourseUpdateDoesNotExist
 from openedx.core.lib.request_utils import get_request_or_stub
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 

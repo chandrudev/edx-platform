@@ -5,10 +5,17 @@ This file contains celery tasks for contentstore views
 import base64
 import json
 import os
+<<<<<<< HEAD
 import shutil  # lint-amnesty, pylint: disable=wrong-import-order
 import tarfile  # lint-amnesty, pylint: disable=wrong-import-order
 from datetime import datetime  # lint-amnesty, pylint: disable=wrong-import-order
 from tempfile import NamedTemporaryFile, mkdtemp  # lint-amnesty, pylint: disable=wrong-import-order
+=======
+import shutil
+import tarfile
+from datetime import datetime
+from tempfile import NamedTemporaryFile, mkdtemp
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 import olxcleaner
 import pkg_resources
@@ -17,7 +24,10 @@ from celery import shared_task
 from celery.utils.log import get_task_logger
 from django.conf import settings
 from django.contrib.auth import get_user_model
+<<<<<<< HEAD
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.core.exceptions import SuspiciousOperation
 from django.core.files import File
 from django.test import RequestFactory
@@ -54,6 +64,7 @@ from common.djangoapps.util.monitoring import monitor_import_failure
 from openedx.core.djangoapps.content.learning_sequences.api import key_supports_outlines
 from openedx.core.djangoapps.embargo.models import CountryAccessRule, RestrictedCourse
 from openedx.core.lib.extract_tar import safetar_extractall
+<<<<<<< HEAD
 from xmodule.contentstore.django import contentstore
 from xmodule.course_module import CourseFields
 from xmodule.exceptions import SerializationError
@@ -62,6 +73,16 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import DuplicateCourseError, InvalidProctoringProvider, ItemNotFoundError
 from xmodule.modulestore.xml_exporter import export_course_to_xml, export_library_to_xml
 from xmodule.modulestore.xml_importer import CourseImportException, import_course_from_xml, import_library_from_xml
+=======
+from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.course_module import CourseFields  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.exceptions import SerializationError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import COURSE_ROOT, LIBRARY_ROOT  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import DuplicateCourseError, InvalidProctoringProvider, ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.xml_exporter import export_course_to_xml, export_library_to_xml  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.xml_importer import CourseImportException, import_course_from_xml, import_library_from_xml  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .outlines import update_outline_from_modulestore
 from .outlines_regenerate import CourseOutlineRegenerate

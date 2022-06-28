@@ -8,6 +8,10 @@ on:
 
 jobs:
   collect-and-verify:
+<<<<<<< HEAD
+=======
+    if: github.repository == 'openedx/edx-platform' || github.repository == 'edx/edx-platform-private'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     runs-on: [ edx-platform-runner ]
     steps:
       - name: sync directory owner
@@ -19,6 +23,7 @@ jobs:
           sudo pip install -r requirements/pip.txt
           sudo pip install -r requirements/edx/testing.txt
 
+<<<<<<< HEAD
       - name: collect tests from all modules
         run: |
           echo "root_cms_unit_tests_count=$(pytest --collect-only --ds=cms.envs.test -p no:warnings cms/ -q | head -n -2 | wc -l)" >> $GITHUB_ENV
@@ -55,3 +60,7 @@ jobs:
         run: |
           echo "::error title='Unit test modules in unit-test-shards.json (unit-tests.yml workflow) are outdated'::unit tests running in unit-tests workflow don't match the count for unit tests for entire edx-platform suite, please update the unit-test-shards.json under .github/workflows to add any missing apps and match the count"
           exit 1
+=======
+      - name: verify unit tests count
+        uses: ./.github/actions/verify-tests-count
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

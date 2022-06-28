@@ -11,7 +11,11 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 from openedx.core.lib.cache_utils import request_cached
 from openedx.features.course_experience import RELATIVE_DATES_FLAG
 from common.djangoapps.student.models import CourseEnrollment
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @request_cached()
@@ -51,7 +55,11 @@ def get_course_outline_block_tree(request, course_id, user=None, allow_start_dat
         is_scored = block.get('has_score', False) and block.get('weight', 1) > 0
         # Use a list comprehension to force the recursion over all children, rather than just stopping
         # at the first child that is scored.
+<<<<<<< HEAD
         children_scored = any(recurse_mark_scored(child) for child in block.get('children', []))
+=======
+        children_scored = any(tuple(recurse_mark_scored(child) for child in block.get('children', [])))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if is_scored or children_scored:
             block['scored'] = True
             return True
@@ -128,6 +136,7 @@ def get_course_outline_block_tree(request, course_id, user=None, allow_start_dat
     return course_outline_root_block
 
 
+<<<<<<< HEAD
 def get_resume_block(block):
     """
     Gets the deepest block marked as 'resume_block'.
@@ -145,6 +154,8 @@ def get_resume_block(block):
     return block
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def get_start_block(block):
     """
     Gets the deepest block to use as the starting block.
@@ -183,7 +194,11 @@ def dates_banner_should_display(course_key, user):
         return False, False
 
     # Don't display the banner if the course has ended
+<<<<<<< HEAD
     if course_overview.end and course_overview.end < timezone.now():
+=======
+    if course_overview.has_ended():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return False, False
 
     store = modulestore()

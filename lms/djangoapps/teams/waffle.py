@@ -12,7 +12,11 @@ from edx_toggles.toggles import WaffleFlag
 # .. toggle_use_cases: temporary, open_edx
 # .. toggle_creation_date: 2021-10-07
 # .. toggle_target_removal_date: 2021-11-01
+<<<<<<< HEAD
 # .. toggle_warnings: When the flag is ON, the teams app will be visible in the new course authoring mfe.
+=======
+# .. toggle_warning: When the flag is ON, the teams app will be visible in the new course authoring mfe.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # .. toggle_tickets: TNL-8816
 ENABLE_TEAMS_APP = WaffleFlag(
     'teams.enable_teams_app',

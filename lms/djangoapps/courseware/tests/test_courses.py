@@ -18,6 +18,16 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 from opaque_keys.edx.keys import CourseKey
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.django import _get_modulestore_branch_setting, modulestore
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+from xmodule.modulestore.xml_importer import import_course_from_xml
+from xmodule.tests.xml import XModuleXmlImportTest
+from xmodule.tests.xml import factories as xml
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from lms.djangoapps.courseware.courses import (
     course_open_for_self_enrollment,
@@ -32,6 +42,10 @@ from lms.djangoapps.courseware.courses import (
     get_courses,
     get_current_child
 )
+<<<<<<< HEAD
+=======
+from lms.djangoapps.courseware.exceptions import CourseAccessRedirect
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.model_data import FieldDataCache
 from lms.djangoapps.courseware.module_render import get_module_for_descriptor
 from lms.djangoapps.courseware.courseware_access_exception import CoursewareAccessException
@@ -39,6 +53,7 @@ from openedx.core.djangolib.testing.utils import get_mock_request
 from openedx.core.lib.courses import course_image_url
 from openedx.core.lib.courses import get_course_by_id
 from common.djangoapps.student.tests.factories import UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import _get_modulestore_branch_setting, modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
@@ -46,6 +61,8 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, chec
 from xmodule.modulestore.xml_importer import import_course_from_xml
 from xmodule.tests.xml import XModuleXmlImportTest
 from xmodule.tests.xml import factories as xml
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 CMS_BASE_TEST = 'testcms'
 TEST_DATA_DIR = settings.COMMON_TEST_DATA_ROOT
@@ -88,8 +105,25 @@ class CoursesTest(ModuleStoreTestCase):
         assert error.value.access_response.error_code == 'not_visible_to_user'
         assert not error.value.access_response.has_access
 
+<<<<<<< HEAD
     @ddt.data(
         (GET_COURSE_WITH_ACCESS, 1),
+=======
+    @ddt.data(GET_COURSE_WITH_ACCESS, GET_COURSE_OVERVIEW_WITH_ACCESS)
+    def test_old_mongo_access_error(self, course_access_func_name):
+        course_access_func = self.COURSE_ACCESS_FUNCS[course_access_func_name]
+        user = UserFactory.create()
+        with self.store.default_store(ModuleStoreEnum.Type.mongo):
+            course = CourseFactory.create()
+
+        with pytest.raises(CourseAccessRedirect) as error:
+            course_access_func(user, 'load', course.id)
+        assert error.value.access_error.error_code == 'old_mongo'
+        assert not error.value.access_error.has_access
+
+    @ddt.data(
+        (GET_COURSE_WITH_ACCESS, 2),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         (GET_COURSE_OVERVIEW_WITH_ACCESS, 0),
     )
     @ddt.unpack
@@ -139,7 +173,11 @@ class CoursesTest(ModuleStoreTestCase):
 
             # Request filtering for an org distinct from the designated org.
             no_courses = get_courses(user, org=primary)
+<<<<<<< HEAD
             assert list(no_courses) == []
+=======
+            assert not list(no_courses)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             # Request filtering for an org matching the designated org.
             site_courses = get_courses(user, org=alternate)
@@ -212,18 +250,37 @@ class MongoCourseImageTestCase(ModuleStoreTestCase):
 
     def test_get_image_url(self):
         """Test image URL formatting."""
+<<<<<<< HEAD
         course = CourseFactory.create(org='edX', course='999')
         assert course_image_url(course) == f'/c4x/edX/999/asset/{course.course_image}'
+=======
+        course = CourseFactory.create()
+        key = course.location
+        assert course_image_url(course) ==\
+               f'/asset-v1:{key.org}+{key.course}+{key.run}+type@asset+block@{course.course_image}'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_non_ascii_image_name(self):
         # Verify that non-ascii image names are cleaned
         course = CourseFactory.create(course_image='before_\N{SNOWMAN}_after.jpg')
+<<<<<<< HEAD
         assert course_image_url(course) == f'/c4x/{course.location.org}/{course.location.course}/asset/before___after.jpg'  # pylint: disable=line-too-long
+=======
+        key = course.location
+        assert course_image_url(course) ==\
+               f'/asset-v1:{key.org}+{key.course}+{key.run}+type@asset+block@before___after.jpg'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_spaces_in_image_name(self):
         # Verify that image names with spaces in them are cleaned
         course = CourseFactory.create(course_image='before after.jpg')
+<<<<<<< HEAD
         assert course_image_url(course) == f'/c4x/{course.location.org}/{course.location.course}/asset/before_after.jpg'  # pylint: disable=line-too-long
+=======
+        key = course.location
+        assert course_image_url(course) ==\
+               f'/asset-v1:{key.org}+{key.course}+{key.run}+type@asset+block@before_after.jpg'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_static_asset_path_course_image_default(self):
         """
@@ -262,6 +319,10 @@ class XmlCourseImageTestCase(XModuleXmlImportTest):
 
 class CoursesRenderTest(ModuleStoreTestCase):
     """Test methods related to rendering courses content."""
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # TODO: this test relies on the specific setup of the toy course.
     # It should be rewritten to build the course it needs and then test that.
@@ -362,11 +423,19 @@ class CourseInstantiationTests(ModuleStoreTestCase):
 
         self.factory = RequestFactory()
 
+<<<<<<< HEAD
     @ddt.data(*itertools.product(range(5), [ModuleStoreEnum.Type.mongo, ModuleStoreEnum.Type.split], [None, 0, 5]))
     @ddt.unpack
     def test_repeated_course_module_instantiation(self, loops, default_store, course_depth):
 
         with modulestore().default_store(default_store):
+=======
+    @ddt.data(*itertools.product(range(5), [None, 0, 5]))
+    @ddt.unpack
+    def test_repeated_course_module_instantiation(self, loops, course_depth):
+
+        with modulestore().default_store(ModuleStoreEnum.Type.split):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             course = CourseFactory.create()
             chapter = ItemFactory(parent=course, category='chapter', graded=True)
             section = ItemFactory(parent=chapter, category='sequential')
@@ -432,7 +501,12 @@ class TestGetCourseAssignments(CompletionWaffleTestMixin, ModuleStoreTestCase):
         Test that we treat a sequential with incomplete (but not scored) items (like a video maybe) as complete.
         """
         course = CourseFactory()
+<<<<<<< HEAD
         chapter = ItemFactory(parent=course, category='chapter', graded=True, due=datetime.datetime.now())
+=======
+        chapter = ItemFactory(parent=course, category='chapter', graded=True, due=datetime.datetime.now(),
+                              start=datetime.datetime.now() - datetime.timedelta(hours=1))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         sequential = ItemFactory(parent=chapter, category='sequential')
         problem = ItemFactory(parent=sequential, category='problem', has_score=True)
         ItemFactory(parent=sequential, category='video', has_score=False)
@@ -457,3 +531,25 @@ class TestGetCourseAssignments(CompletionWaffleTestMixin, ModuleStoreTestCase):
         assignments = get_course_assignments(course.location.context_key, self.user, None)
         assert len(assignments) == 1
         assert not assignments[0].complete
+<<<<<<< HEAD
+=======
+
+    def test_completion_does_not_treat_unreleased_as_complete(self):
+        """
+        Test that unreleased assignments are not treated as complete.
+        """
+        course = CourseFactory()
+        chapter = ItemFactory(parent=course, category='chapter', graded=True,
+                              due=datetime.datetime.now() + datetime.timedelta(hours=2),
+                              start=datetime.datetime.now() + datetime.timedelta(hours=1))
+        sequential = ItemFactory(parent=chapter, category='sequential')
+        problem = ItemFactory(parent=sequential, category='problem', has_score=True)
+        ItemFactory(parent=sequential, category='video', has_score=False)
+
+        self.override_waffle_switch(True)
+        BlockCompletion.objects.submit_completion(self.user, problem.location, 1)
+
+        assignments = get_course_assignments(course.location.context_key, self.user, None)
+        assert len(assignments) == 1
+        assert not assignments[0].complete
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

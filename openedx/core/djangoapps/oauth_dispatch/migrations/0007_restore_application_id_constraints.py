@@ -6,10 +6,14 @@ import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
 
+<<<<<<< HEAD
 if django.VERSION >= (2, 0):
     dot_migration = '0001_initial'
 else:
     dot_migration = '0006_auto_20171214_2232'
+=======
+dot_migration = '0001_initial'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class Migration(migrations.Migration):

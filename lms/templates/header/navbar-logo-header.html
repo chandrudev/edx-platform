@@ -5,7 +5,11 @@
 <%namespace name='static' file='../static_content.html'/>
 <%!
 from django.urls import reverse
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.ccx.overrides import get_current_ccx
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.features.enterprise_support.utils import get_enterprise_learner_generic_name, get_enterprise_learner_portal
@@ -21,7 +25,11 @@ enterprise_customer_link = get_enterprise_learner_portal(request)
 <h1 class="header-logo">
   % if enterprise_customer_link:
     <a href="${settings.ENTERPRISE_LEARNER_PORTAL_BASE_URL}/${enterprise_customer_link.get('slug')}">
+<<<<<<< HEAD
       <img class="logo" src="${enterprise_customer_link.get('logo')}" alt="${_('{name} Dashboard').format(name=enterprise_customer_link.get('name'))}"/>
+=======
+      <!-- <img class="logo" src="${enterprise_customer_link.get('logo')}" alt="${_('{name} Dashboard').format(name=enterprise_customer_link.get('name'))}"/> -->
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         % if settings.LOGO_IMAGE_EXTRA_TEXT == 'edge':
             <span class="font-italic"> | EDGE</span>
         % endif

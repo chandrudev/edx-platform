@@ -152,6 +152,7 @@ class CacheIsolationTestCase(CacheIsolationMixin, TestCase):
 class _AssertNumQueriesContext(CaptureQueriesContext):
     """
     This is a copy of Django's internal class of the same name, with the
+<<<<<<< HEAD
     addition of being able to provide a table_blacklist used to filter queries
     before comparing the count.
     """
@@ -160,24 +161,47 @@ class _AssertNumQueriesContext(CaptureQueriesContext):
         Same as Django's _AssertNumQueriesContext __init__, with the addition of
         the following argument:
             table_blacklist (List): A list of table names to filter out of the
+=======
+    addition of being able to provide a table_ignorelist used to filter queries
+    before comparing the count.
+    """
+    def __init__(self, test_case, num, connection, table_ignorelist=None):
+        """
+        Same as Django's _AssertNumQueriesContext __init__, with the addition of
+        the following argument:
+            table_ignorelist (List): A list of table names to filter out of the
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 set of queries that get counted.
         """
         self.test_case = test_case
         self.num = num
+<<<<<<< HEAD
         self.table_blacklist = table_blacklist
+=======
+        self.table_ignorelist = table_ignorelist
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         super().__init__(connection)
 
     def __exit__(self, exc_type, exc_value, traceback):
         def is_unfiltered_query(query):
             """
+<<<<<<< HEAD
             Returns True if the query does not contain a blacklisted table, and
+=======
+            Returns True if the query does not contain a ignorelisted table, and
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             False otherwise.
 
             Note: This is a simple naive implementation that makes no attempt
             to parse the query.
             """
+<<<<<<< HEAD
             if self.table_blacklist:
                 for table in self.table_blacklist:
+=======
+            if self.table_ignorelist:
+                for table in self.table_ignorelist:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     # SQL contains the following format for columns:
                     # "table_name"."column_name".  The regex ensures there is no
                     # "." before the name to avoid matching columns.
@@ -201,6 +225,7 @@ class _AssertNumQueriesContext(CaptureQueriesContext):
 class FilteredQueryCountMixin:
     """
     Mixin to add to any subclass of Django's TestCase that replaces
+<<<<<<< HEAD
     assertNumQueries with one that accepts a blacklist of tables to filter out
     of the count.
     """
@@ -210,11 +235,28 @@ class FilteredQueryCountMixin:
         the addition of the following argument:
             table_blacklist (List): A list of table names to filter out of the
                 set of queries that get counted.
+=======
+    assertNumQueries with one that accepts a ignorelist of tables to filter out
+    of the count.
+    """
+    def assertNumQueries(self, num, func=None, table_ignorelist=None, *args, **kwargs):  # lint-amnesty, pylint: disable=keyword-arg-before-vararg
+        """
+        Used to replace Django's assertNumQueries with the same capability, with
+        the addition of the following argument:
+            table_ignorelist (List): A list of table names to filter out of the
+                set of queries that get counted.
+
+        Important: TestCase must include FilteredQueryCountMixin for this to work.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         using = kwargs.pop("using", DEFAULT_DB_ALIAS)
         conn = connections[using]
 
+<<<<<<< HEAD
         context = _AssertNumQueriesContext(self, num, conn, table_blacklist=table_blacklist)
+=======
+        context = _AssertNumQueriesContext(self, num, conn, table_ignorelist=table_ignorelist)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if func is None:
             return context
 

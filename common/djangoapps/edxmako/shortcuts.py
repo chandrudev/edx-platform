@@ -25,7 +25,11 @@ from django.core.exceptions import ValidationError
 
 from edx_django_utils.monitoring import set_custom_attribute
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+<<<<<<< HEAD
 from xmodule.util.xmodule_django import get_current_request_hostname
+=======
+from xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from . import Engines
 

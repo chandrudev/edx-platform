@@ -44,12 +44,28 @@ def tst_render_template(template, context):  # pylint: disable=unused-argument
     return '<div>{0}</div>'.format(saxutils.escape(repr(context)))
 
 
+<<<<<<< HEAD
 def calledback_url(dispatch='score_update'):
     """A callback url method to use in tests."""
     return dispatch
 
 xqueue_interface = MagicMock()  # pylint: disable=invalid-name
 xqueue_interface.send_to_queue.return_value = (0, 'Success!')
+=======
+class StubXQueueService:
+    """
+    Stubs out the XQueueService for Capa problem tests.
+    """
+    def __init__(self):
+        self.interface = MagicMock()
+        self.interface.send_to_queue.return_value = (0, 'Success!')
+        self.default_queuename = 'testqueue'
+        self.waittime = 10
+
+    def construct_callback(self, dispatch='score_update'):
+        """A callback url method to use in tests."""
+        return dispatch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def test_capa_system(render_template=None):
@@ -65,6 +81,7 @@ def test_capa_system(render_template=None):
         can_execute_unsafe_code=lambda: False,
         get_python_lib_zip=lambda: None,
         DEBUG=True,
+<<<<<<< HEAD
         filestore=fs.osfs.OSFS(os.path.join(TEST_DIR, "test_files")),
         i18n=gettext.NullTranslations(),
         node_path=os.environ.get("NODE_PATH", "/usr/local/lib/node_modules"),
@@ -78,6 +95,15 @@ def test_capa_system(render_template=None):
             'default_queuename': 'testqueue',
             'waittime': 10
         },
+=======
+        i18n=gettext.NullTranslations(),
+        render_template=render_template or tst_render_template,
+        resources_fs=fs.osfs.OSFS(os.path.join(TEST_DIR, "test_files")),
+        seed=0,
+        STATIC_URL='/dummy-static/',
+        STATUS_CLASS=Status,
+        xqueue=StubXQueueService(),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     return the_system
 

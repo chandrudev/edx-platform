@@ -26,7 +26,12 @@ define(['backbone',
                     1,
                     Helpers.PLATFORM_NAME,
                     Helpers.CONTACT_EMAIL,
+<<<<<<< HEAD
                     true
+=======
+                    true,
+                    Helpers.ENABLE_COPPA_COMPLIANCE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 );
                 return context.accountSettingsView;
             };
@@ -164,6 +169,10 @@ define(['backbone',
                     Helpers.PLATFORM_NAME,
                     Helpers.CONTACT_EMAIL,
                     true,
+<<<<<<< HEAD
+=======
+                    Helpers.ENABLE_COPPA_COMPLIANCE,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     '',
 
                     Helpers.SYNC_LEARNER_PROFILE_DATA,

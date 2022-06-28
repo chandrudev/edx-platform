@@ -27,8 +27,13 @@ from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.certificates.data import CertificateStatuses
 from lms.djangoapps.certificates.tests.factories import GeneratedCertificateFactory
 from openedx.core.djangoapps.commerce.utils import ECOMMERCE_DATE_FORMAT
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 TEST_API_URL = 'http://www-internal.example.com/api'
@@ -235,7 +240,11 @@ class RefundableTest(SharedModuleStoreTestCase):
         )
         assert self.enrollment.is_order_voucher_refundable() is False
 
+<<<<<<< HEAD
     @patch('openedx.core.djangoapps.commerce.utils.ecommerce_api_client')
+=======
+    @patch('openedx.core.djangoapps.commerce.utils.get_ecommerce_api_client')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_get_order_attribute_from_ecommerce(self, mock_ecommerce_api_client):
         """
         Assert that the get_order_attribute_from_ecommerce method returns order details if it's already cached,
@@ -254,7 +263,11 @@ class RefundableTest(SharedModuleStoreTestCase):
         assert self.enrollment.get_order_attribute_from_ecommerce("vouchers") == order_details["vouchers"]
         mock_ecommerce_api_client.assert_not_called()
 
+<<<<<<< HEAD
     @patch('openedx.core.djangoapps.commerce.utils.ecommerce_api_client')
+=======
+    @patch('openedx.core.djangoapps.commerce.utils.get_ecommerce_api_client')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_refund_cutoff_date_with_date_placed_attr(self, mock_ecommerce_api_client):
         """
         Assert that the refund_cutoff_date returns order placement date if order:date_placed

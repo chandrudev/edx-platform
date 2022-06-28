@@ -213,7 +213,11 @@ class TestUserPreferenceMiddleware(CacheIsolationTestCase):
         result = self.middleware.process_response(self.request, response)
 
         assert result is response
+<<<<<<< HEAD
         assert response.mock_calls == []
+=======
+        assert not response.mock_calls
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_preference_update_noop(self):
         self.request.COOKIES[settings.LANGUAGE_COOKIE_NAME] = 'es'

@@ -12,7 +12,10 @@ from django.test.utils import override_settings
 from edx_django_utils.cache import RequestCache
 
 from openedx.core.lib.request_utils import (
+<<<<<<< HEAD
     CookieMonitoringMiddleware,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ExpectedErrorMiddleware,
     _get_expected_error_settings_dict,
     clear_cached_expected_error_settings,
@@ -73,7 +76,10 @@ class RequestUtilTestCase(unittest.TestCase):
         """ Test course_id_from_url(). """
 
         assert course_id_from_url('/login') is None
+<<<<<<< HEAD
         assert course_id_from_url('/course/edX/maths/2020') is None
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert course_id_from_url('/courses/edX/maths/') is None
         assert course_id_from_url('/api/courses/v1/blocks/edX/maths/2020') is None
         assert course_id_from_url('/api/courses/v1/blocks/course-v1:incidental+courseid+formatting') is None
@@ -82,9 +88,21 @@ class RequestUtilTestCase(unittest.TestCase):
         course_id = course_id_from_url('/courses/course-v1:edX+maths+2020')
         self.assertCourseIdFieldsMatch(course_id=course_id, org="edX", course='maths', run='2020')
 
+<<<<<<< HEAD
         course_id = course_id_from_url('/courses/edX/maths/2020')
         self.assertCourseIdFieldsMatch(course_id=course_id, org='edX', course='maths', run='2020')
 
+=======
+        course_id = course_id_from_url('/course/course-v1:edX+maths+2020')
+        self.assertCourseIdFieldsMatch(course_id=course_id, org="edX", course='maths', run='2020')
+
+        course_id = course_id_from_url('/courses/edX/maths/2020')
+        self.assertCourseIdFieldsMatch(course_id=course_id, org='edX', course='maths', run='2020')
+
+        course_id = course_id_from_url('/course/edX/maths/2020')
+        self.assertCourseIdFieldsMatch(course_id=course_id, org="edX", course='maths', run='2020')
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_id = course_id_from_url('/api/courses/v1/courses/course-v1:edX+maths+2020')
         self.assertCourseIdFieldsMatch(course_id=course_id, org='edX', course='maths', run='2020')
 
@@ -97,6 +115,7 @@ class RequestUtilTestCase(unittest.TestCase):
         assert course_id.course == course
         assert course_id.run == run
 
+<<<<<<< HEAD
     @patch("openedx.core.lib.request_utils.CAPTURE_COOKIE_SIZES")
     @patch("openedx.core.lib.request_utils.set_custom_attribute")
     def test_basic_cookie_monitoring(self, mock_set_custom_attribute, mock_capture_cookie_sizes):
@@ -262,6 +281,8 @@ class RequestUtilTestCase(unittest.TestCase):
             call('cookies_total_size', 25),
         ], any_order=True)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class TestGetExpectedErrorSettingsDict(unittest.TestCase):
     """

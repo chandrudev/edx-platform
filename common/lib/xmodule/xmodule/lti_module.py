@@ -78,6 +78,13 @@ from xmodule.mako_module import MakoTemplateBlockBase
 from openedx.core.djangolib.markup import HTML, Text
 from xmodule.editing_module import EditingMixin
 
+<<<<<<< HEAD
+=======
+from common.djangoapps.xblock_django.constants import (
+    ATTR_KEY_ANONYMOUS_USER_ID,
+    ATTR_KEY_USER_ROLE,
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.lti_2_util import LTI20BlockMixin, LTIError
 from xmodule.raw_module import EmptyDataRawMixin
 from xmodule.util.xmodule_django import add_webpack_to_fragment
@@ -86,7 +93,10 @@ from xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     shim_xmodule_js,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleMixin,
     XModuleToXBlockMixin,
 )
@@ -269,6 +279,11 @@ class LTIFields:
 
 
 @XBlock.needs("i18n")
+<<<<<<< HEAD
+=======
+@XBlock.needs("mako")
+@XBlock.needs("user")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class LTIBlock(
     LTIFields,
     LTI20BlockMixin,
@@ -276,7 +291,10 @@ class LTIBlock(
     XmlMixin,
     EditingMixin,
     MakoTemplateBlockBase,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -399,7 +417,11 @@ class LTIBlock(
         # Add our specific template information (the raw data body)
         context.update({'data': self.data})
         fragment = Fragment(
+<<<<<<< HEAD
             self.system.render_template(self.mako_template, context)
+=======
+            self.runtime.service(self, 'mako').render_template(self.mako_template, context)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         add_webpack_to_fragment(fragment, 'LTIBlockStudio')
         shim_xmodule_js(fragment, self.studio_js_module_name)
@@ -515,7 +537,11 @@ class LTIBlock(
         Return the student view.
         """
         fragment = Fragment()
+<<<<<<< HEAD
         fragment.add_content(self.system.render_template('lti.html', self.get_context()))
+=======
+        fragment.add_content(self.runtime.service(self, 'mako').render_template('lti.html', self.get_context()))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         add_webpack_to_fragment(fragment, 'LTIBlockPreview')
         shim_xmodule_js(fragment, 'LTI')
         return fragment
@@ -525,11 +551,22 @@ class LTIBlock(
         """
         This is called to get context with new oauth params to iframe.
         """
+<<<<<<< HEAD
         template = self.system.render_template('lti_form.html', self.get_context())
         return Response(template, content_type='text/html')
 
     def get_user_id(self):
         user_id = self.runtime.anonymous_student_id
+=======
+        template = self.runtime.service(self, 'mako').render_template('lti_form.html', self.get_context())
+        return Response(template, content_type='text/html')
+
+    def get_user_id(self):
+        """
+        Returns the current user ID, URL-escaped so it is safe to use as a URL component.
+        """
+        user_id = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_ANONYMOUS_USER_ID)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert user_id is not None
         return str(parse.quote(user_id))
 
@@ -620,7 +657,12 @@ class LTIBlock(
             'staff': 'Administrator',
             'instructor': 'Instructor',
         }
+<<<<<<< HEAD
         return roles.get(self.system.get_user_role(), 'Student')
+=======
+        user_role = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_USER_ROLE)
+        return roles.get(user_role, 'Student')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def get_icon_class(self):
         """ Returns the icon class """
@@ -670,6 +712,7 @@ class LTIBlock(
         # Username and email can't be sent in studio mode, because the user object is not defined.
         # To test functionality test in LMS
 
+<<<<<<< HEAD
         if callable(self.runtime.get_real_user):
             real_user_object = self.runtime.get_real_user(self.runtime.anonymous_student_id)
             try:
@@ -680,6 +723,17 @@ class LTIBlock(
                 self.user_username = real_user_object.username  # lint-amnesty, pylint: disable=attribute-defined-outside-init
             except AttributeError:
                 self.user_username = ""  # lint-amnesty, pylint: disable=attribute-defined-outside-init
+=======
+        real_user_object = self.runtime.service(self, 'user').get_user_by_anonymous_id()
+        try:
+            self.user_email = real_user_object.email  # lint-amnesty, pylint: disable=attribute-defined-outside-init
+        except AttributeError:
+            self.user_email = ""  # lint-amnesty, pylint: disable=attribute-defined-outside-init
+        try:
+            self.user_username = real_user_object.username  # lint-amnesty, pylint: disable=attribute-defined-outside-init
+        except AttributeError:
+            self.user_username = ""  # lint-amnesty, pylint: disable=attribute-defined-outside-init
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if self.ask_to_send_username and self.user_username:
             body["lis_person_sourcedid"] = self.user_username
@@ -830,7 +884,11 @@ oauth_consumer_key="", oauth_signature="frVp4JuvT1mVXlxktiAUjQ7%2F1cw%3D"'}
             log.debug("[LTI]: " + error_message)  # lint-amnesty, pylint: disable=logging-not-lazy
             return Response(response_xml_template.format(**failure_values), content_type="application/xml")
 
+<<<<<<< HEAD
         real_user = self.system.get_real_user(parse.unquote(sourcedId.split(':')[-1]))
+=======
+        real_user = self.runtime.service(self, 'user').get_user_by_anonymous_id(parse.unquote(sourcedId.split(':')[-1]))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if not real_user:  # that means we can't save to database, as we do not have real user id.
             failure_values['imsx_messageIdentifier'] = escape(imsx_messageIdentifier)
             failure_values['imsx_description'] = "User not found."

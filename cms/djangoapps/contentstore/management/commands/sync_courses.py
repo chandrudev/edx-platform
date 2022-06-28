@@ -12,8 +12,13 @@ from opaque_keys.edx.keys import CourseKey
 from cms.djangoapps.contentstore.management.commands.utils import user_from_str
 from cms.djangoapps.contentstore.views.course import create_new_course_in_store
 from openedx.core.djangoapps.catalog.utils import get_course_runs
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.exceptions import DuplicateCourseError
+=======
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import DuplicateCourseError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 logger = logging.getLogger(__name__)
 

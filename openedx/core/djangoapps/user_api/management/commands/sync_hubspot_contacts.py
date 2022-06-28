@@ -8,6 +8,7 @@ Management command to sync platform users with hubspot
 import json
 import time
 import traceback
+<<<<<<< HEAD
 from datetime import datetime, timedelta
 from textwrap import dedent
 
@@ -20,6 +21,20 @@ from slumber.exceptions import HttpClientError, HttpServerError
 from openedx.core.djangoapps.site_configuration.models import SiteConfiguration
 from common.djangoapps.student.models import UserAttribute
 from common.djangoapps.util.query import use_read_replica_if_available
+=======
+import urllib.parse  # pylint: disable=import-error
+from datetime import datetime, timedelta
+from textwrap import dedent
+
+import requests
+from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
+from django.core.management.base import BaseCommand, CommandError
+from requests.exceptions import HTTPError
+
+from common.djangoapps.student.models import UserAttribute
+from common.djangoapps.util.query import use_read_replica_if_available
+from openedx.core.djangoapps.site_configuration.models import SiteConfiguration
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 HUBSPOT_API_BASE_URL = 'https://api.hubapi.com'
 
@@ -139,6 +154,7 @@ class Command(BaseCommand):
             contacts.append(contact)
 
         api_key = site_conf.get_value('HUBSPOT_API_KEY')
+<<<<<<< HEAD
         client = EdxRestApiClient(urllib.parse.urljoin(HUBSPOT_API_BASE_URL, 'contacts/v1/contact'))
         try:
             client.batch.post(contacts, hapikey=api_key)
@@ -146,6 +162,16 @@ class Command(BaseCommand):
         except (HttpClientError, HttpServerError) as ex:
             message = 'An error occurred while syncing batch of contacts for site {domain}, {message}'.format(
                 domain=site_conf.site.domain, message=ex.message  # lint-amnesty, pylint: disable=no-member, exception-message-attribute
+=======
+        api_url = urllib.parse.urljoin(f"{HUBSPOT_API_BASE_URL}/", 'contacts/v1/contact/batch/')
+        try:
+            response = requests.post(api_url, json=contacts, params={"hapikey": api_key})
+            response.raise_for_status()
+            return len(contacts)
+        except HTTPError as ex:
+            message = 'An error occurred while syncing batch of contacts for site {domain}, {message}'.format(
+                domain=site_conf.site.domain, message=str(ex)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
             self.stderr.write(message)
             return 0

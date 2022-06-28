@@ -6,14 +6,21 @@ Helper functions for the course complete event that was originally included with
 import hashlib
 import logging
 
+<<<<<<< HEAD
 import django
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from lms.djangoapps.badges.models import BadgeAssertion, BadgeClass, CourseCompleteImageConfiguration
 from lms.djangoapps.badges.utils import requires_badges_enabled, site_prefix
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 LOGGER = logging.getLogger(__name__)
 
@@ -40,10 +47,14 @@ def course_slug(course_key, mode):
     # slugify() now removes leading and trailing dashes and underscores.
     # Reference: Django 3.2 Release Notes https://docs.djangoproject.com/en/3.2/releases/3.2/#miscellaneous
     # TODO: Remove this condition and make this return as default when platform is upgraded to 3.2
+<<<<<<< HEAD
     if django.VERSION >= (3, 2):
         return f'{base_slug}_{digest}'
 
     return base_slug + digest
+=======
+    return f'{base_slug}_{digest}'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def badge_description(course, mode):

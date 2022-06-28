@@ -103,7 +103,11 @@ edx_xml_parser = etree.XMLParser(dtd_validation=False, load_dtd=False,
 _cached_toc = {}
 
 
+<<<<<<< HEAD
 class Textbook:  # lint-amnesty, pylint: disable=missing-class-docstring,eq-without-hash
+=======
+class Textbook:  # lint-amnesty, pylint: disable=missing-class-docstring
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def __init__(self, title, book_url):
         self.title = title
         self.book_url = book_url
@@ -146,7 +150,11 @@ class Textbook:  # lint-amnesty, pylint: disable=missing-class-docstring,eq-with
                 # expire every 10 minutes
                 if age.seconds < 600:
                     return table_of_contents
+<<<<<<< HEAD
         except Exception as err:  # lint-amnesty, pylint: disable=broad-except
+=======
+        except Exception as err:  # lint-amnesty, pylint: disable=broad-except, unused-variable
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             pass
 
         # Get the table of contents from S3
@@ -213,9 +221,20 @@ class ProctoringProvider(String):
         and include any inherited values from the platform default.
         """
         value = super().from_json(value)
+<<<<<<< HEAD
         self._validate_proctoring_provider(value)
         value = self._get_proctoring_value(value)
         return value
+=======
+        if settings.FEATURES.get('ENABLE_PROCTORED_EXAMS'):
+            # Only validate the provider value if ProctoredExams are enabled on the environment
+            # Otherwise, the passed in provider does not matter. We should always return default
+            self._validate_proctoring_provider(value)
+            value = self._get_proctoring_value(value)
+            return value
+        else:
+            return self.default
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def _get_proctoring_value(self, value):
         """
@@ -406,6 +425,19 @@ class CourseFields:  # lint-amnesty, pylint: disable=missing-class-docstring
             "If false, they are sorted chronologically by creation date and time."
         )
     )
+<<<<<<< HEAD
+=======
+    discussions_settings = Dict(
+        display_name=_("Discussions Plugin Settings"),
+        scope=Scope.settings,
+        help=_("Settings for discussions plugins."),
+        default={
+            "enable_in_context": True,
+            "enable_graded_units": False,
+            "unit_level_visibility": False,
+        }
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     announcement = Date(
         display_name=_("Course Announcement Date"),
         help=_("Enter the date to announce your course."),

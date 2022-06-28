@@ -11,7 +11,11 @@ from django.core.management.base import BaseCommand
 from lms.djangoapps.grades import tasks
 from lms.djangoapps.grades.config.models import ComputeGradesSetting
 from openedx.core.lib.command_utils import get_mutually_exclusive_required_option, parse_course_keys
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 

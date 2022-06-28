@@ -2,6 +2,7 @@
 Tests for masquerading functionality on course_experience
 """
 
+<<<<<<< HEAD
 from edx_toggles.toggles.testutils import override_waffle_flag
 from lms.djangoapps.courseware.tests.helpers import MasqueradeMixin
 from openedx.features.course_experience import DISPLAY_COURSE_SOCK_FLAG, SHOW_UPGRADE_MSG_ON_COURSE_HOME
@@ -18,6 +19,24 @@ from .test_course_sock import TEST_VERIFICATION_SOCK_LOCATOR
 
 TEST_PASSWORD = 'test'
 UPGRADE_MESSAGE_CONTAINER = 'section-upgrade'
+=======
+from django.urls import reverse
+
+from edx_toggles.toggles.testutils import override_waffle_flag
+from lms.djangoapps.courseware.tests.helpers import MasqueradeMixin, set_preview_mode
+from openedx.features.course_experience import DISPLAY_COURSE_SOCK_FLAG
+from common.djangoapps.student.roles import CourseStaffRole
+from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions_service import PartitionService  # lint-amnesty, pylint: disable=wrong-import-order
+
+from .helpers import add_course_mode
+from .test_course_sock import TEST_VERIFICATION_SOCK_LOCATOR
+
+TEST_PASSWORD = 'test'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class MasqueradeTestBase(SharedModuleStoreTestCase, MasqueradeMixin):
@@ -61,12 +80,17 @@ class MasqueradeTestBase(SharedModuleStoreTestCase, MasqueradeMixin):
         return None
 
 
+<<<<<<< HEAD
+=======
+@set_preview_mode(True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class TestVerifiedUpgradesWithMasquerade(MasqueradeTestBase):
     """
     Tests for the course verification upgrade messages while the user is being masqueraded.
     """
 
     @override_waffle_flag(DISPLAY_COURSE_SOCK_FLAG, active=True)
+<<<<<<< HEAD
     @override_waffle_flag(SHOW_UPGRADE_MSG_ON_COURSE_HOME, active=True)
     def test_masquerade_as_student(self):
         # Elevate the staff user to be student
@@ -74,6 +98,13 @@ class TestVerifiedUpgradesWithMasquerade(MasqueradeTestBase):
         response = self.client.get(course_home_url(self.verified_course))
         self.assertContains(response, TEST_VERIFICATION_SOCK_LOCATOR, html=False)
         self.assertContains(response, UPGRADE_MESSAGE_CONTAINER, html=False)
+=======
+    def test_masquerade_as_student(self):
+        # Elevate the staff user to be student
+        self.update_masquerade(course=self.verified_course, user_partition_id=ENROLLMENT_TRACK_PARTITION_ID)
+        response = self.client.get(reverse('courseware', kwargs={'course_id': str(self.verified_course.id)}))
+        self.assertContains(response, TEST_VERIFICATION_SOCK_LOCATOR, html=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @override_waffle_flag(DISPLAY_COURSE_SOCK_FLAG, active=True)
     def test_masquerade_as_verified_student(self):
@@ -83,9 +114,14 @@ class TestVerifiedUpgradesWithMasquerade(MasqueradeTestBase):
         )
         self.update_masquerade(course=self.verified_course, group_id=user_group_id,
                                user_partition_id=ENROLLMENT_TRACK_PARTITION_ID)
+<<<<<<< HEAD
         response = self.client.get(course_home_url(self.verified_course))
         self.assertNotContains(response, TEST_VERIFICATION_SOCK_LOCATOR, html=False)
         self.assertNotContains(response, UPGRADE_MESSAGE_CONTAINER, html=False)
+=======
+        response = self.client.get(reverse('courseware', kwargs={'course_id': str(self.verified_course.id)}))
+        self.assertNotContains(response, TEST_VERIFICATION_SOCK_LOCATOR, html=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @override_waffle_flag(DISPLAY_COURSE_SOCK_FLAG, active=True)
     def test_masquerade_as_masters_student(self):
@@ -95,6 +131,12 @@ class TestVerifiedUpgradesWithMasquerade(MasqueradeTestBase):
         )
         self.update_masquerade(course=self.masters_course, group_id=user_group_id,
                                user_partition_id=ENROLLMENT_TRACK_PARTITION_ID)
+<<<<<<< HEAD
         response = self.client.get(course_home_url(self.masters_course))
         self.assertNotContains(response, TEST_VERIFICATION_SOCK_LOCATOR, html=False)
         self.assertNotContains(response, UPGRADE_MESSAGE_CONTAINER, html=False)
+=======
+        response = self.client.get(reverse('courseware', kwargs={'course_id': str(self.masters_course.id)}))
+
+        self.assertNotContains(response, TEST_VERIFICATION_SOCK_LOCATOR, html=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

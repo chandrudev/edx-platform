@@ -30,7 +30,11 @@ from xmodule.seq_module import SequenceBlock
 from xmodule.split_test_module import SplitTestBlock
 from xmodule.template_module import CustomTagBlock
 from xmodule.word_cloud_module import WordCloudBlock
+<<<<<<< HEAD
 from xmodule.x_module import XModuleDescriptor, HTMLSnippet
+=======
+from xmodule.x_module import HTMLSnippet
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 LOG = logging.getLogger(__name__)
 
@@ -91,21 +95,34 @@ XBLOCK_CLASSES = [
 
 def write_module_styles(output_root):
     """Write all registered XModule css, sass, and scss files to output root."""
+<<<<<<< HEAD
     return _write_styles('.xmodule_display', output_root, _list_modules(), 'get_preview_view_css')
+=======
+    return _write_styles('.xmodule_display', output_root, XBLOCK_CLASSES, 'get_preview_view_css')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def write_module_js(output_root):
     """Write all registered XModule js and coffee files to output root."""
+<<<<<<< HEAD
     return _write_js(output_root, _list_modules(), 'get_preview_view_js')
+=======
+    return _write_js(output_root, XBLOCK_CLASSES, 'get_preview_view_js')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def write_descriptor_styles(output_root):
     """Write all registered XModuleDescriptor css, sass, and scss files to output root."""
+<<<<<<< HEAD
     return _write_styles('.xmodule_edit', output_root, _list_descriptors(), 'get_studio_view_css')
+=======
+    return _write_styles('.xmodule_edit', output_root, XBLOCK_CLASSES, 'get_studio_view_css')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def write_descriptor_js(output_root):
     """Write all registered XModuleDescriptor js and coffee files to output root."""
+<<<<<<< HEAD
     return _write_js(output_root, _list_descriptors(), 'get_studio_view_js')
 
 
@@ -129,6 +146,9 @@ def _list_modules():
         ] + XBLOCK_CLASSES,
         key=str
     )
+=======
+    return _write_js(output_root, XBLOCK_CLASSES, 'get_studio_view_js')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def _ensure_dir(directory):

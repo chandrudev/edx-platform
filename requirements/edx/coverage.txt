@@ -4,6 +4,7 @@
 #
 #    make upgrade
 #
+<<<<<<< HEAD
 coverage==6.0.2
     # via -r requirements/edx/coverage.in
 diff-cover==4.0.0
@@ -23,4 +24,19 @@ markupsafe==2.0.1
 pluggy==1.0.0
     # via diff-cover
 pygments==2.10.0
+=======
+chardet==4.0.0
+    # via diff-cover
+coverage==6.4.1
+    # via -r requirements/edx/coverage.in
+diff-cover==6.5.0
+    # via -r requirements/edx/coverage.in
+jinja2==3.1.2
+    # via diff-cover
+markupsafe==2.1.1
+    # via jinja2
+pluggy==1.0.0
+    # via diff-cover
+pygments==2.12.0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via diff-cover

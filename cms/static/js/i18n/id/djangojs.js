@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=0;
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = 0;
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "\n        No, I want to continue working.\n      ": "\nTidak, saya ingin lanjut bekerja.",
     "\n      After you submit your exam, your exam will be graded.\n    ": "\nSetelah Anda mengirimkan jawaban ujian,  jawaban Anda akan dinilai.",
     " ${price} {currency} )": " ${price} {currency} )",
@@ -214,7 +230,10 @@
     "Basic Account Information": "Informasi Akun Dasar",
     "Be sure your entire face is inside the frame": "Pastikan seluruh wajah anda berada didalam frame",
     "Before proceeding, please confirm that your details match": "Sebelum proses, silakan konfirmasi bahwa detailnya sesuai",
+<<<<<<< HEAD
     "Before proceeding, please {htmlStart}activate your account{htmlEnd}.": "Sebelum melanjutkan, mohon {htmlStart}aktivasi akun Anda{htmlEnd}.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "Before proceeding, please {htmlStart}unlink all social media accounts{htmlEnd}.": "Sebelum melanjutkan, mohon {htmlStart}putuskan kaitan semua akun media sosial{htmlEnd}.",
     "Billing/Payment Options": "Pilihan Pembayaran",
     "Biography": "Riwayat hidup",
@@ -1003,7 +1022,10 @@
     "Proctored Exam": "Ujian Supervisi",
     "Proctored Option Available": "Pilihan proktor tersedia",
     "Proctored Option No Longer Available": "Pilihan proktor tidak tersedia lagi",
+<<<<<<< HEAD
     "Proctored exams are timed and they record video of each learner taking the exam. The videos are then reviewed to ensure that learners follow all examination rules.": "Ujian Tersupervisi dijadwalkan dan mereka merekam video dari setiap peserta didik yang menjalani ujian. Video kemudian ditinjau untuk memastikan bahwa peserta didik mengikuti semua aturan ujian.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "Proctoring": "Proctoring",
     "Product Name": "Nama Produk",
     "Professional Certificate for {courseName}": "Sertifikat Profesional untuk {courseName}",
@@ -1273,7 +1295,10 @@
     "Text to display": "Teks untuk ditampilkan",
     "Textbook Name": "Nama textbook",
     "Textbook information": "Informasi textbook",
+<<<<<<< HEAD
     "Thank you for setting your course goal to {goal}!": "Terima kasih sudah membuat {goal} sebagai tujuan kursus Anda!",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "Thank you for submitting your financial assistance application for {course_name}! You can expect a response in 2-4 business days.": "Terimakasih sudah mengirimkan aplikasi bantuan finansial untuk {course_name}. Anda dapat mengharapkan balasan dalam 2-4 hari kerja.",
     "Thank you for submitting your photos. We will review them shortly. You can now sign up for any %(platformName)s course that offers verified certificates. Verification is good for one year. After one year, you must submit photos for verification again.": "Terimakasih sudah mengirimkan foto Anda. Kami akan meninjaunya segera. Anda dapat mengikuti kursus %(platformName)s apapun yang menawarkan sertifikat terverifikasi. Verifikasi berlaku selamat satu tahun. Setelah itu, Anda harus mengirimkan foto untuk verifikasi lagi.",
     "The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?": "URL anda tampak seperti alamat email. Apakah anda ingin menambahkan prefiks mailto:?",
@@ -1329,7 +1354,10 @@
     "There was a problem creating the report. Select \"Create Executive Summary\" to try again.": "Terdapat permasalahan dalam membuat laporan. Pilih \"Buat Ringkasan Eksekutif\" untuk mencoba kembali.",
     "There was an error obtaining email content history for this course.": "Ada kesalahan dalam pengambilan sejarah konten email untuk kelas ini.",
     "There was an error obtaining email task history for this course.": "Terjadi kesalahan saat mengambil surel yang lampau untuk kursus ini.",
+<<<<<<< HEAD
     "There was an error updating your goal.": "Terjadi kesalahan ketika memperbarui tujuan Anda.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "There was an error when trying to add learners:": [
       "{numErrors} pembelajar tidak dapat ditambahkan dalam kohort ini:"
     ],
@@ -1354,9 +1382,12 @@
     "This comment could not be deleted. Refresh the page and try again.": "Komentar ini tidak dapat dihapus. Refresh halaman ini dan coba lagi.",
     "This configuration is currently used in content experiments. If you make changes to the groups, you may need to edit those experiments.": "Konfigurasi ini sekarang digunakan dalam percobaan konten. Jika anda membuat perubahan ke dalam grup, anda mungkin harus mengedit experiments/percobaan-percobaan itu",
     "This content group is used in one or more units.": "Grup konten ini digunakan alam satu atau lebih unit",
+<<<<<<< HEAD
     "This course has automatic cohorting enabled for verified track learners, but cohorts are disabled. You must enable cohorts for the feature to work.": "Kursus ini memiliki kohort otomatis yang diaktifkan untuk pembelajar jalur terverifikasi, namun kohort dinonaktifkan. Anda harus mengaktifkan kohort agar fitur ini dapat bekerja.",
     "This course has automatic cohorting enabled for verified track learners, but the required cohort does not exist. You must create a manually-assigned cohort named '{verifiedCohortName}' for the feature to work.": "Kursus ini memiliki kohort otomatis yang diaktifkan untuk pembelajar jalur terverifikasi, namun kohort yang diperlukan belum tersedia. Anda harus membuat kohort manual bernama '{verifiedCohortName}' agar fitur ini dapat bekerja.",
     "This course uses automatic cohorting for verified track learners. You cannot disable cohorts, and you cannot rename the manual cohort named '{verifiedCohortName}'. To change the configuration for verified track cohorts, contact your edX partner manager.": "Kursus ini menggunakan kohort otomatis untuk pembelajar jalur terverifikasi. Anda tidak dapat menonaktifkan kohort, dan Anda tidak dapat mengubah nama kohort manual bernama '{verifiedCohortName}'. Untuk mengubah konfigurasi kohort jalur terverifikasi, hubungi manajer mitra edX Anda.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "This discussion could not be loaded. Refresh the page and try again.": "Diskusi ini tidak dapat dimuat. Refresh halaman ini dan coba lagi.",
     "This exam has a time limit associated with it.": "Ujian ini memiliki batas waktu yang berkaitan dengan hal ini.",
     "This feedback could not be submitted.": "Umpan balik ini tidak dapat dikirimkan.",
@@ -1411,7 +1442,10 @@
     "Titles more than 100 characters may prevent students from printing their certificate on a single page.": "Judul yang lebih dari 100 karakter dapat membuat siswa tidak dapat mencetak sertifikat mereka pada satu halaman.",
     "To access the course, select a session.": "Untuk mengakses kursus, pilih sesi.",
     "To be sure all students can access the video, we recommend providing both an .mp4 and a .webm version of your video. Click below to add a URL for another version. These URLs cannot be YouTube URLs. The first listed video that's compatible with the student's computer will play.": "Pastikan semua pelajar dapat mengakses video, kami menyarankan menyediakan kedua versi .mp4 dan .webcam video anda, klik dibawah untuk menambah URL untuk versi lain. URLs tidak dapat menjadi URLs You Tube, video  pertama yang telah terdaftar harus kompatibel dengan komputer pelajar yang akan menghidupkannya",
+<<<<<<< HEAD
     "To complete the program, you must earn a verified certificate for each course.": "Untuk menyelesaikan program, Anda harus mendapatkan sertifikat terverifikasi untuk setiap kursus.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "To continue learning with this account, sign in below.": "Untuk melanjutkan belajar dengan akun ini, masuk di bawah.",
     "To pass this exam, you must complete the problems in the time allowed.": "Untuk lulus ujian, Anda harus menyelesaikan masalah dalam waktu yang telah ditentukan.",
     "To receive a certificate, you must also verify your identity.": "Untuk mendapatkan sertifikat, Anda harus memverifikasi identitas Anda.",
@@ -1616,11 +1650,18 @@
     "You have deleted an option. That option has been removed from its criterion in the sample responses in the Learner Training step. You might have to select a new option for the criterion.": "Anda telah menghapus sebuah opsi. Opsi tersebut telah dihapus dari kriteria pada contoh tanggapan pada langkah Pelatihan Pembelajar. Anda mungkin perlu memilih opsi baru untuk kriteria tersebut.",
     "You have no handouts defined": "Anda tidak memiliki handout yang terdefinisi",
     "You have not bookmarked any courseware pages yet": "Anda belum menandai halaman kursus.",
+<<<<<<< HEAD
     "You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button.": "Anda telah memilih sebuah aksi, tetapi belum mengubah bidang apapun. Kemungkinan Anda mencari tombol Buka dan bukan tombol Simpan.",
     "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action.": "Anda telah memilih sebuah aksi, tetapi belum menyimpan perubahan ke bidang yang ada. Klik OK untuk menyimpan perubahan ini. Anda akan perlu mengulangi aksi tersebut kembali.",
     "You have set your language to {beta_language}, which is currently not fully translated. You can help us translate this language fully by joining the Transifex community and adding translations from English for learners that speak {beta_language}.": "Anda telah menyetel bahasa menjadi {beta_language}, yang belum seluruhnya diterjemahkan. Anda dapat membantu kami menerjemahkan ke bahasa ini seluruhnya dengan bergabung dengan komunitas Transifex dan menambahkan terjemahan dari Bahasa Inggris untuk peserta yang berbicara {beta_language}.",
     "You have successfully signed into %(currentProvider)s, but your %(currentProvider)s account does not have a linked %(platformName)s account. To link your accounts, sign in now using your %(platformName)s password.": "Anda telah berhasil masuk ke %(currentProvider)s, namun akun %(currentProvider)s Anda tidak memiliki akun %(platformName)s yang terhubung. Untuk menghubungkan akun Anda, masuk sekarang dengan menggunakan kata sandi %(platformName)s Anda.",
     "You have successfully updated your goal.": "Anda telah berhasil memperbarui tujuan Anda",
+=======
+    "You have selected an action, and you haven\u2019t made any changes on individual fields. You\u2019re probably looking for the Go button rather than the Save button.": "Anda telah memilih tindakan, dan Anda belum membuat perubahan apa pun di setiap bidang. Anda mungkin mencari tombol Buka daripada tombol Simpan.",
+    "You have selected an action, but you haven\u2019t saved your changes to individual fields yet. Please click OK to save. You\u2019ll need to re-run the action.": "Anda telah memilih tindakan, tetapi Anda belum menyimpan perubahan ke masing-masing bidang. Silakan klik OK untuk menyimpan. Anda harus menjalankan kembali tindakan tersebut.",
+    "You have set your language to {beta_language}, which is currently not fully translated. You can help us translate this language fully by joining the Transifex community and adding translations from English for learners that speak {beta_language}.": "Anda telah menyetel bahasa menjadi {beta_language}, yang belum seluruhnya diterjemahkan. Anda dapat membantu kami menerjemahkan ke bahasa ini seluruhnya dengan bergabung dengan komunitas Transifex dan menambahkan terjemahan dari Bahasa Inggris untuk peserta yang berbicara {beta_language}.",
+    "You have successfully signed into %(currentProvider)s, but your %(currentProvider)s account does not have a linked %(platformName)s account. To link your accounts, sign in now using your %(platformName)s password.": "Anda telah berhasil masuk ke %(currentProvider)s, namun akun %(currentProvider)s Anda tidak memiliki akun %(platformName)s yang terhubung. Untuk menghubungkan akun Anda, masuk sekarang dengan menggunakan kata sandi %(platformName)s Anda.",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "You have unsaved changes are you sure you want to navigate away?": "Terdapat perubahan yang belum disimpan apakah anda yakin akan meninggalkan halaman ini?",
     "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "Beberapa perubahan bidang yang Anda lakukan belum tersimpan. Perubahan yang telah dilakukan akan hilang.",
     "You haven't added any assets to this course yet.": "Anda belum menambahkan beberapa aset dalam kursus ini",
@@ -1798,24 +1839,41 @@
     "{type} Progress": "Kemajuan {type} ",
     "\u2026": "\u2026"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -1825,16 +1883,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -1857,6 +1925,7 @@
       "%d-%m-%Y %H.%M.%S",
       "%d-%m-%Y %H.%M.%S.%f",
       "%d-%m-%Y %H.%M",
+<<<<<<< HEAD
       "%d-%m-%Y",
       "%d-%m-%y %H.%M.%S",
       "%d-%m-%y %H.%M.%S.%f",
@@ -1870,6 +1939,17 @@
       "%m/%d/%Y %H.%M.%S.%f",
       "%m/%d/%Y %H.%M",
       "%m/%d/%Y",
+=======
+      "%d-%m-%y %H.%M.%S",
+      "%d-%m-%y %H.%M.%S.%f",
+      "%d-%m-%y %H.%M",
+      "%m/%d/%y %H.%M.%S",
+      "%m/%d/%y %H.%M.%S.%f",
+      "%m/%d/%y %H.%M",
+      "%m/%d/%Y %H.%M.%S",
+      "%m/%d/%Y %H.%M.%S.%f",
+      "%m/%d/%Y %H.%M",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
@@ -1877,12 +1957,23 @@
     ],
     "DATE_FORMAT": "j N Y",
     "DATE_INPUT_FORMATS": [
+<<<<<<< HEAD
       "%d-%m-%y",
       "%d/%m/%y",
       "%d-%m-%Y",
       "%d/%m/%Y",
       "%d %b %Y",
       "%d %B %Y",
+=======
+      "%d-%m-%Y",
+      "%d/%m/%Y",
+      "%d-%m-%y",
+      "%d/%m/%y",
+      "%d %b %Y",
+      "%d %B %Y",
+      "%m/%d/%y",
+      "%m/%d/%Y",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       "%Y-%m-%d"
     ],
     "DECIMAL_SEPARATOR": ",",
@@ -1904,8 +1995,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -1924,6 +2020,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

@@ -2,6 +2,7 @@
 Course Goals Python API
 """
 
+<<<<<<< HEAD
 
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.reverse import reverse
@@ -27,6 +28,11 @@ def add_course_goal_deprecated(user, course_id, goal_key):
     CourseGoal.objects.update_or_create(
         user=user, course_key=course_key, defaults={'goal_key': goal_key}
     )
+=======
+from opaque_keys.edx.keys import CourseKey
+
+from lms.djangoapps.course_goals.models import CourseGoal
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def add_course_goal(user, course_id, subscribed_to_reminders, days_per_week=None):
@@ -61,6 +67,7 @@ def get_course_goal(user, course_key):
         return None
 
     return CourseGoal.objects.filter(user=user, course_key=course_key).first()
+<<<<<<< HEAD
 
 
 def get_goal_api_url(request):
@@ -116,3 +123,5 @@ def valid_course_goals_ordered(include_unsure=False):
         ordered_goal_options.append((GOAL_KEY_CHOICES.unsure, goal_options[GOAL_KEY_CHOICES.unsure]))
 
     return ordered_goal_options
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

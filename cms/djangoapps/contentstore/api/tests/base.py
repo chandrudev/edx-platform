@@ -5,11 +5,19 @@ Base test case for the course API views.
 
 from django.urls import reverse
 from rest_framework.test import APITestCase
+<<<<<<< HEAD
 
 from common.djangoapps.student.tests.factories import StaffFactory
 from common.djangoapps.student.tests.factories import UserFactory
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+from common.djangoapps.student.tests.factories import StaffFactory
+from common.djangoapps.student.tests.factories import UserFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 # pylint: disable=unused-variable
@@ -17,7 +25,10 @@ class BaseCourseViewTest(SharedModuleStoreTestCase, APITestCase):
     """
     Base test class for course data views.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = None  # The name of the view to use in reverse() call in self.get_url()
 
     @classmethod

@@ -9,9 +9,15 @@ from rest_framework.views import APIView
 
 from cms.djangoapps.contentstore.views.course import get_course_and_check_access
 from cms.djangoapps.models.settings.course_metadata import CourseMetadata
+<<<<<<< HEAD
 from xmodule.course_module import get_available_providers
 from openedx.core.lib.api.view_utils import view_auth_classes
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.course_module import get_available_providers  # lint-amnesty, pylint: disable=wrong-import-order
+from openedx.core.lib.api.view_utils import view_auth_classes
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .serializers import (
     LimitedProctoredExamSettingsSerializer,
@@ -107,10 +113,20 @@ class ProctoredExamSettingsView(APIView):
 
     def post(self, request, course_id):
         """ POST handler """
+<<<<<<< HEAD
         serializer = ProctoredExamSettingsSerializer if request.user.is_staff else LimitedProctoredExamSettingsSerializer
         exam_config = serializer(data=request.data.get('proctored_exam_settings', {}))
         valid_request = exam_config.is_valid()
         if not request.user.is_staff and valid_request and ProctoredExamSettingsSerializer(data=request.data.get('proctored_exam_settings', {})).is_valid():
+=======
+        serializer = ProctoredExamSettingsSerializer if request.user.is_staff \
+            else LimitedProctoredExamSettingsSerializer
+        exam_config = serializer(data=request.data.get('proctored_exam_settings', {}))
+        valid_request = exam_config.is_valid()
+        if not request.user.is_staff and valid_request and ProctoredExamSettingsSerializer(
+            data=request.data.get('proctored_exam_settings', {})
+        ).is_valid():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return Response(status=status.HTTP_403_FORBIDDEN)
 
         with modulestore().bulk_operations(CourseKey.from_string(course_id)):

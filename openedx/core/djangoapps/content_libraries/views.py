@@ -70,6 +70,10 @@ from openedx.core.djangoapps.content_libraries.serializers import (
 )
 import openedx.core.djangoapps.site_configuration.helpers as configuration_helpers
 from openedx.core.lib.api.view_utils import view_auth_classes
+<<<<<<< HEAD
+=======
+from openedx.core.djangoapps.safe_sessions.middleware import mark_user_change_as_expected
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.xblock import api as xblock_api
 
 from .models import ContentLibrary
@@ -924,7 +928,10 @@ class LtiToolLaunchView(TemplateResponseMixin, LtiToolView):
             sub=self.launch_data['sub'])
 
         if edx_user is not None:
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             login(self.request, edx_user)
             perms = api.get_library_user_permissions(
                 usage_key.lib_key,
@@ -1005,7 +1012,12 @@ class LtiToolLaunchView(TemplateResponseMixin, LtiToolView):
 
         # Authenticate the launch and setup LTI profiles.
 
+<<<<<<< HEAD
         if not self._authenticate_and_login(usage_key):
+=======
+        edx_user = self._authenticate_and_login(usage_key)
+        if not edx_user:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return self._bad_request_response()
 
         # Get the block.
@@ -1020,7 +1032,13 @@ class LtiToolLaunchView(TemplateResponseMixin, LtiToolView):
 
         # Render context and response.
         context = self.get_context_data()
+<<<<<<< HEAD
         return self.render_to_response(context)
+=======
+        response = self.render_to_response(context)
+        mark_user_change_as_expected(edx_user.id)
+        return response
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def handle_ags(self):
         """

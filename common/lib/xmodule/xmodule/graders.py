@@ -20,7 +20,11 @@ from xmodule.util.misc import get_short_labeler
 log = logging.getLogger("edx.courseware")
 
 
+<<<<<<< HEAD
 class ScoreBase(metaclass=abc.ABCMeta):  # pylint: disable=eq-without-hash
+=======
+class ScoreBase(metaclass=abc.ABCMeta):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Abstract base class for encapsulating fields of values scores.
     """

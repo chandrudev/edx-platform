@@ -82,7 +82,11 @@ def post_save_callback(sender, **kwargs):
     # We need to keep track of all_organization switch. If this switch is changed we are going to remove the
     # Course Creator group.
     if instance.state != instance.orig_state or instance.all_organizations != instance.orig_all_organizations:
+<<<<<<< HEAD
         granted_state_change = instance.state == CourseCreator.GRANTED or instance.orig_state == CourseCreator.GRANTED
+=======
+        granted_state_change = instance.state == CourseCreator.GRANTED or instance.orig_state == CourseCreator.GRANTED  # pylint: disable=consider-using-in
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # If either old or new state is 'granted', we must manipulate the course creator
         # group maintained by authz. That requires staff permissions (stored admin).
         if granted_state_change:

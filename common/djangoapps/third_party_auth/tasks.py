@@ -3,6 +3,7 @@ Code to manage fetching and storing the metadata of IdPs.
 """
 
 
+<<<<<<< HEAD
 import datetime
 import logging
 
@@ -18,17 +19,36 @@ from requests import exceptions
 
 from openedx.core.djangolib.markup import Text
 from common.djangoapps.third_party_auth.models import SAMLConfiguration, SAMLProviderConfig, SAMLProviderData
+=======
+import logging
+
+import requests
+from celery import shared_task
+from edx_django_utils.monitoring import set_code_owner_attribute
+from lxml import etree
+from requests import exceptions
+
+from common.djangoapps.third_party_auth.models import SAMLConfiguration, SAMLProviderConfig
+from common.djangoapps.third_party_auth.utils import (
+    MetadataParseError,
+    create_or_update_bulk_saml_provider_data,
+    parse_metadata_xml,
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
 SAML_XML_NS = 'urn:oasis:names:tc:SAML:2.0:metadata'  # The SAML Metadata XML namespace
 
 
+<<<<<<< HEAD
 class MetadataParseError(Exception):
     """ An error occurred while parsing the SAML metadata from an IdP """
     pass  # lint-amnesty, pylint: disable=unnecessary-pass
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @shared_task
 @set_code_owner_attribute
 def fetch_saml_metadata():
@@ -93,6 +113,7 @@ def fetch_saml_metadata():
 
             for entity_id in entity_ids:
                 log.info("Processing IdP with entityID %s", entity_id)
+<<<<<<< HEAD
                 public_key, sso_url, expires_at = _parse_metadata_xml(xml, entity_id)
                 changed = _update_data(entity_id, public_key, sso_url, expires_at)
                 if changed:
@@ -100,6 +121,15 @@ def fetch_saml_metadata():
                     num_updated += 1
                 else:
                     log.info("→ Updated existing SAMLProviderData. Nothing has changed.")
+=======
+                public_keys, sso_url, expires_at = parse_metadata_xml(xml, entity_id)
+                changed = create_or_update_bulk_saml_provider_data(entity_id, public_keys, sso_url, expires_at)
+                if changed:
+                    log.info(f"→ Created new record for SAMLProviderData for entityID {entity_id}")
+                    num_updated += 1
+                else:
+                    log.info(f"→ Updated existing SAMLProviderData. Nothing has changed for entityID {entity_id}")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         except (exceptions.SSLError, exceptions.HTTPError, exceptions.RequestException, MetadataParseError) as error:
             # Catch and process exception in case of errors during fetching and processing saml metadata.
             # Here is a description of each exception.
@@ -133,6 +163,7 @@ def fetch_saml_metadata():
 
     # Return counts for total, skipped, attempted, updated, and failed, along with any failure messages
     return num_total, num_skipped, num_attempted, num_updated, len(failure_messages), failure_messages
+<<<<<<< HEAD
 
 
 def _parse_metadata_xml(xml, entity_id):
@@ -208,3 +239,5 @@ def _update_data(entity_id, public_key, sso_url, expires_at):
             public_key=public_key,
         )
         return True
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 <%! from django.utils.translation import ugettext as _ %>
+=======
+<%! from django.utils.translation import gettext as _ %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ${_("{platform_name} {studio_name}: Task Status Update").format(platform_name=settings.PLATFORM_NAME, studio_name=settings.STUDIO_NAME)}

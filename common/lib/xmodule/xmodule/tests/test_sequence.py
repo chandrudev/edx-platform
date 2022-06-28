@@ -98,7 +98,11 @@ class SequenceBlockTestCase(XModuleXmlImportTest):
         block.xmodule_runtime._services['completion'] = Mock(  # pylint: disable=protected-access
             return_value=Mock(vertical_is_complete=Mock(return_value=True))
         )
+<<<<<<< HEAD
         block.xmodule_runtime._services['user'] = StubUserService()  # pylint: disable=protected-access
+=======
+        block.xmodule_runtime._services['user'] = StubUserService(user=Mock())  # pylint: disable=protected-access
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         block.parent = parent.location
         return block
 

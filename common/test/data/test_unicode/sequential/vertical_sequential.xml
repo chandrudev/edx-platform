@@ -1,4 +1,9 @@
 <sequential>
+<<<<<<< HEAD
     <vertical filename="vertical_test" slug="vertical_test" />
     <html slug="unicode">…</html>
+=======
+    <vertical filename="vertical_test" url_name="vertical_test" />
+    <html url_name="unicode">…</html>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 </sequential>

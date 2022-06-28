@@ -14,8 +14,16 @@ from django.utils.translation import gettext as _
 from opaque_keys.edx.keys import CourseKey
 
 from common.djangoapps.course_modes.models import CourseMode
+<<<<<<< HEAD
 from common.djangoapps.student.models import CourseEnrollment  # lint-amnesty, pylint: disable=unused-import
 from openedx.core.djangoapps.commerce.utils import ecommerce_api_client, is_commerce_service_configured
+=======
+from openedx.core.djangoapps.commerce.utils import (
+    get_ecommerce_api_base_url,
+    get_ecommerce_api_client,
+    is_commerce_service_configured,
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.theming import helpers as theming_helpers
 
@@ -164,7 +172,11 @@ def refund_entitlement(course_entitlement):
         return False
 
     service_user = user_model.objects.get(username=settings.ECOMMERCE_SERVICE_WORKER_USERNAME)
+<<<<<<< HEAD
     api_client = ecommerce_api_client(service_user)
+=======
+    api_client = get_ecommerce_api_client(service_user)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     log.info(
         'Attempting to create a refund for user [%s], course entitlement [%s]...',
@@ -173,13 +185,25 @@ def refund_entitlement(course_entitlement):
     )
 
     try:
+<<<<<<< HEAD
         refund_ids = api_client.refunds.post(
             {
+=======
+        refunds_url = urljoin(f"{get_ecommerce_api_base_url()}/", "refunds/")
+        refunds_response = api_client.post(
+            refunds_url,
+            data={
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'order_number': course_entitlement.order_number,
                 'username': enrollee.username,
                 'entitlement_uuid': entitlement_uuid,
             }
         )
+<<<<<<< HEAD
+=======
+        refunds_response.raise_for_status()
+        refund_ids = refunds_response.json()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     except Exception as exc:  # pylint: disable=broad-except
         # Catch any possible exceptions from the Ecommerce service to ensure we fail gracefully
         log.exception(
@@ -225,19 +249,39 @@ def refund_seat(course_enrollment, change_mode=False):
             (may be empty).
 
     Raises:
+<<<<<<< HEAD
         exceptions.SlumberBaseException: for any unhandled HTTP error during communication with the E-Commerce Service.
         exceptions.Timeout: if the attempt to reach the commerce service timed out.
+=======
+        requests.exceptions.RequestException: for any unhandled HTTP error during communication with
+            the E-Commerce Service.
+        requests.exceptions.Timeout: if the attempt to reach the commerce service timed out.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     User = get_user_model()  # pylint:disable=invalid-name
     course_key_str = str(course_enrollment.course_id)
     enrollee = course_enrollment.user
 
     service_user = User.objects.get(username=settings.ECOMMERCE_SERVICE_WORKER_USERNAME)
+<<<<<<< HEAD
     api_client = ecommerce_api_client(service_user)
 
     log.info('Attempting to create a refund for user [%s], course [%s]...', enrollee.id, course_key_str)
 
     refund_ids = api_client.refunds.post({'course_id': course_key_str, 'username': enrollee.username})
+=======
+    api_client = get_ecommerce_api_client(service_user)
+
+    log.info('Attempting to create a refund for user [%s], course [%s]...', enrollee.id, course_key_str)
+
+    refunds_url = urljoin(f"{get_ecommerce_api_base_url()}/", "refunds/")
+    refunds_response = api_client.post(
+        refunds_url,
+        data={'course_id': course_key_str, 'username': enrollee.username}
+    )
+    refunds_response.raise_for_status()
+    refund_ids = refunds_response.json() if refunds_response.content else None
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     if refund_ids:
         log.info('Refund successfully opened for user [%s], course [%s]: %r', enrollee.id, course_key_str, refund_ids)
@@ -284,7 +328,14 @@ def _process_refund(refund_ids, api_client, mode, user, always_notify=False):
                 # NOTE: The following assumes that the user has already been unenrolled.
                 # We are then able to approve payment. Additionally, this ensures we don't tie up an
                 # additional web worker when the E-Commerce Service tries to unenroll the learner.
+<<<<<<< HEAD
                 api_client.refunds(refund_id).process.put({'action': 'approve_payment_only'})
+=======
+                base_url = get_ecommerce_api_base_url()
+                api_url = urljoin(f"{base_url}/", f"refunds/{refund_id}/process/")
+                response = api_client.put(api_url, json={'action': 'approve_payment_only'})
+                response.raise_for_status()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 log.info('Refund [%d] successfully approved.', refund_id)
             except:  # pylint: disable=bare-except
                 # Push the refund to Support to process

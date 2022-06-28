@@ -14,7 +14,10 @@ from xmodule.modulestore.django import modulestore
 from xmodule.tabs import StaticTab
 
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
+<<<<<<< HEAD
 from common.djangoapps.edxmako.shortcuts import render_to_string
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.student import auth
 from common.djangoapps.student.roles import CourseCreatorRole, OrgContentCreatorRole
 from openedx.core.toggles import ENTRANCE_EXAMS
@@ -43,6 +46,7 @@ def event(request):
     return HttpResponse(status=204)
 
 
+<<<<<<< HEAD
 def render_from_lms(template_name, dictionary, namespace='main'):
     """
     Render a template using the LMS Mako templates
@@ -50,6 +54,8 @@ def render_from_lms(template_name, dictionary, namespace='main'):
     return render_to_string(template_name, dictionary, namespace="lms." + namespace)
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def get_parent_xblock(xblock):
     """
     Returns the xblock that is the parent of the specified xblock, or None if it has no parent.

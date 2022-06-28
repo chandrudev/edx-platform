@@ -5,6 +5,10 @@ Test signal handlers for program_enrollments
 
 from unittest import mock
 
+<<<<<<< HEAD
+=======
+import ddt
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import pytest
 from django.core.cache import cache
 from edx_django_utils.cache import RequestCache
@@ -12,6 +16,10 @@ from opaque_keys.edx.keys import CourseKey
 from organizations.tests.factories import OrganizationFactory
 from social_django.models import UserSocialAuth
 from testfixtures import LogCapture
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.models import CourseEnrollmentException
@@ -27,7 +35,10 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
 from openedx.core.djangoapps.user_api.accounts.tests.retirement_helpers import fake_completed_retirement
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ProgramEnrollmentRetireSignalTests(ModuleStoreTestCase):
@@ -100,6 +111,10 @@ class ProgramEnrollmentRetireSignalTests(ModuleStoreTestCase):
         self.assert_enrollment_and_history_retired(enrollment)
 
 
+<<<<<<< HEAD
+=======
+@ddt.ddt
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class SocialAuthEnrollmentCompletionSignalTest(CacheIsolationTestCase):
     """
     Test post-save handler on UserSocialAuth
@@ -110,7 +125,11 @@ class SocialAuthEnrollmentCompletionSignalTest(CacheIsolationTestCase):
     def setUpClass(cls):
         super().setUpClass()
 
+<<<<<<< HEAD
         cls.external_id = '0000'
+=======
+        cls.external_id = 'learner1a'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         cls.provider_slug = 'uox'
         cls.course_keys = [
             CourseKey.from_string('course-v1:edX+DemoX+Test_Course'),
@@ -197,13 +216,26 @@ class SocialAuthEnrollmentCompletionSignalTest(CacheIsolationTestCase):
         for program_course_enrollment in program_course_enrollments:
             self._assert_program_course_enrollment(program_course_enrollment)
 
+<<<<<<< HEAD
     def test_waiting_course_enrollments_completed(self):
+=======
+    @ddt.data(
+        'learner1a',
+        'LEarnER1A',
+        'LEARNER1A',
+    )
+    def test_waiting_course_enrollments_completed(self, auth_user_key):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         program_enrollment = self._create_waiting_program_enrollment()
         program_course_enrollments = self._create_waiting_course_enrollments(program_enrollment)
 
         UserSocialAuth.objects.create(
             user=self.user,
+<<<<<<< HEAD
             uid=f'{self.provider_slug}:{self.external_id}'
+=======
+            uid=f'{self.provider_slug}:{auth_user_key}'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
         self._assert_program_enrollment_user(program_enrollment, self.user)

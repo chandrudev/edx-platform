@@ -642,6 +642,14 @@
                     that.el.trigger('contentChanged', [that.id, response.contents, response]);
                     that.render(response.contents, that.focus_on_submit_notification);
                     that.updateProgress(response);
+<<<<<<< HEAD
+=======
+                    // This is used by the Learning MFE to know when the Entrance Exam has been passed
+                    // for a user. The MFE is then able to respond appropriately.
+                    if (response.entrance_exam_passed) {
+                        window.parent.postMessage({type: 'entranceExam.passed'}, '*');
+                    }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     break;
                 default:
                     that.saveNotification.hide();

@@ -5,6 +5,7 @@ Utilities for tests within the django_comment_client module.
 
 from unittest.mock import patch
 
+<<<<<<< HEAD
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 from common.djangoapps.util.testing import UrlResetMixin
 from openedx.core.djangoapps.course_groups.tests.helpers import CohortFactory
@@ -12,11 +13,23 @@ from openedx.core.djangoapps.django_comment_common.models import CourseDiscussio
 from openedx.core.djangoapps.django_comment_common.models import ForumsConfig, Role
 from openedx.core.djangoapps.django_comment_common.utils import seed_permissions_roles
 from openedx.core.lib.teams_config import TeamsConfig
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
+<<<<<<< HEAD
+=======
+from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+from common.djangoapps.util.testing import UrlResetMixin
+from openedx.core.djangoapps.course_groups.tests.helpers import CohortFactory
+from openedx.core.djangoapps.django_comment_common.models import CourseDiscussionSettings, ForumsConfig, Role
+from openedx.core.djangoapps.django_comment_common.utils import seed_permissions_roles
+from openedx.core.lib.teams_config import TeamsConfig
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class ForumsEnableMixin:
     """
@@ -83,7 +96,12 @@ def config_course_discussions(
         course,
         discussion_topics={},
         divided_discussions=[],
+<<<<<<< HEAD
         always_divide_inline_discussions=False
+=======
+        always_divide_inline_discussions=False,
+        reported_content_email_notifications=False,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ):
     """
     Set discussions and configure divided discussions for a course.
@@ -96,6 +114,11 @@ def config_course_discussions(
             list to use the same ids as discussion topic names.
         always_divide_inline_discussions (bool): Whether inline discussions
             should be divided by default.
+<<<<<<< HEAD
+=======
+        reported_content_email_notifications (bool): Whether email notifications
+            are enabled for reported content for moderators.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Returns:
         Nothing -- modifies course in place.
@@ -113,6 +136,10 @@ def config_course_discussions(
         ],
         'always_divide_inline_discussions': always_divide_inline_discussions,
         'division_scheme': CourseDiscussionSettings.COHORT,
+<<<<<<< HEAD
+=======
+        'reported_content_email_notifications': reported_content_email_notifications,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     })
 
     course.discussion_topics = {name: {"sort_key": "A", "id": to_id(name)}

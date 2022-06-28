@@ -79,7 +79,12 @@ class CapaFactory:
                               response_num, input_num))
 
     @classmethod
+<<<<<<< HEAD
     def create(cls, attempts=None, problem_state=None, correct=False, xml=None, override_get_score=True, **kwargs):
+=======
+    def create(cls, attempts=None, problem_state=None, correct=False, xml=None, override_get_score=True,
+               render_template=None, **kwargs):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         All parameters are optional, and are added to the created problem if specified.
 
@@ -95,6 +100,11 @@ class CapaFactory:
                 module.
 
             attempts: also added to instance state.  Will be converted to an int.
+<<<<<<< HEAD
+=======
+
+            render_template: pass function or Mock for testing
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         location = BlockUsageLocator(
             CourseLocator("edX", "capa_test", "2012_Fall", deprecated=True),
@@ -113,9 +123,17 @@ class CapaFactory:
             # since everything else is a string.
             field_data['attempts'] = int(attempts)
 
+<<<<<<< HEAD
         system = get_test_system(course_id=location.course_key)
         system.user_is_staff = kwargs.get('user_is_staff', False)
         system.render_template = Mock(return_value="<div>Test Template HTML</div>")
+=======
+        system = get_test_system(
+            course_id=location.course_key,
+            user_is_staff=kwargs.get('user_is_staff', False),
+            render_template=render_template or Mock(return_value="<div>Test Template HTML</div>"),
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         module = ProblemBlock(
             system,
             DictFieldData(field_data),
@@ -812,7 +830,12 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         # Expect that the number of attempts is NOT incremented
         assert module.attempts == 1
 
+<<<<<<< HEAD
     def test_submit_problem_with_files(self):
+=======
+    @patch.object(XQueueInterface, '_http_post')
+    def test_submit_problem_with_files(self, mock_xqueue_post):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Check a problem with uploaded files, using the submit_problem API.
         # pylint: disable=protected-access
 
@@ -825,10 +848,15 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
 
         module = CapaFactoryWithFiles.create()
 
+<<<<<<< HEAD
         # Mock the XQueueInterface.
         xqueue_interface = XQueueInterface("http://example.com/xqueue", Mock())
         xqueue_interface._http_post = Mock(return_value=(0, "ok"))
         module.system.xqueue['interface'] = xqueue_interface
+=======
+        # Mock the XQueueInterface post method
+        mock_xqueue_post.return_value = (0, "ok")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Create a request dictionary for submit_problem.
         get_request_dict = {
@@ -857,13 +885,23 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         #   )
         # pylint: enable=line-too-long
 
+<<<<<<< HEAD
         assert xqueue_interface._http_post.call_count == 1
         _, kwargs = xqueue_interface._http_post.call_args
+=======
+        assert mock_xqueue_post.call_count == 1
+        _, kwargs = mock_xqueue_post.call_args
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.assertCountEqual(fpaths, list(kwargs['files'].keys()))
         for fpath, fileobj in kwargs['files'].items():
             assert fpath == fileobj.name
 
+<<<<<<< HEAD
     def test_submit_problem_with_files_as_xblock(self):
+=======
+    @patch.object(XQueueInterface, '_http_post')
+    def test_submit_problem_with_files_as_xblock(self, mock_xqueue_post):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Check a problem with uploaded files, using the XBlock API.
         # pylint: disable=protected-access
 
@@ -876,10 +914,15 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
 
         module = CapaFactoryWithFiles.create()
 
+<<<<<<< HEAD
         # Mock the XQueueInterface.
         xqueue_interface = XQueueInterface("http://example.com/xqueue", Mock())
         xqueue_interface._http_post = Mock(return_value=(0, "ok"))
         module.system.xqueue['interface'] = xqueue_interface
+=======
+        # Mock the XQueueInterface post method
+        mock_xqueue_post.return_value = (0, "ok")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Create a webob Request with the files uploaded.
         post_data = []
@@ -890,8 +933,13 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
 
         module.handle('xmodule_handler', request, 'problem_check')
 
+<<<<<<< HEAD
         assert xqueue_interface._http_post.call_count == 1
         _, kwargs = xqueue_interface._http_post.call_args
+=======
+        assert mock_xqueue_post.call_count == 1
+        _, kwargs = mock_xqueue_post.call_args
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.assertCountEqual(fnames, list(kwargs['files'].keys()))
         for fpath, fileobj in kwargs['files'].items():
             assert fpath == fileobj.name
@@ -1521,7 +1569,12 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         # assert that we got here without exploding
 
     def test_get_problem_html(self):
+<<<<<<< HEAD
         module = CapaFactory.create()
+=======
+        render_template = Mock(return_value="<div>Test Template HTML</div>")
+        module = CapaFactory.create(render_template=render_template)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # We've tested the show/hide button logic in other tests,
         # so here we hard-wire the values
@@ -1533,9 +1586,12 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         module.should_show_reset_button = Mock(return_value=show_reset_button)
         module.should_show_save_button = Mock(return_value=show_save_button)
 
+<<<<<<< HEAD
         # Mock the system rendering function
         module.system.render_template = Mock(return_value="<div>Test Template HTML</div>")
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Patch the capa problem's HTML rendering
         with patch('capa.capa_problem.LoncapaProblem.get_html') as mock_html:
             mock_html.return_value = "<div>Test Problem HTML</div>"
@@ -1550,7 +1606,11 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         assert html == '<div>Test Template HTML</div>'
 
         # Check the rendering context
+<<<<<<< HEAD
         render_args, _ = module.system.render_template.call_args
+=======
+        render_args, _ = render_template.call_args
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert len(render_args) == 2
 
         template_name = render_args[0]
@@ -1585,9 +1645,16 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
     def test_demand_hint(self):
         # HTML generation is mocked out to be meaningless here, so instead we check
         # the context dict passed into HTML generation.
+<<<<<<< HEAD
         module = CapaFactory.create(xml=self.demand_xml)
         module.get_problem_html()  # ignoring html result
         context = module.system.render_template.call_args[0][1]
+=======
+        render_template = Mock(return_value="<div>Test Template HTML</div>")
+        module = CapaFactory.create(xml=self.demand_xml, render_template=render_template)
+        module.get_problem_html()  # ignoring html result
+        context = render_template.call_args[0][1]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert context['demand_hint_possible']
         assert context['should_enable_next_hint']
 
@@ -1622,9 +1689,16 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
               <hint>Only demand hint</hint>
             </demandhint>
             </problem>"""
+<<<<<<< HEAD
         module = CapaFactory.create(xml=test_xml)
         module.get_problem_html()  # ignoring html result
         context = module.system.render_template.call_args[0][1]
+=======
+        render_template = Mock(return_value="<div>Test Template HTML</div>")
+        module = CapaFactory.create(xml=test_xml, render_template=render_template)
+        module.get_problem_html()  # ignoring html result
+        context = render_template.call_args[0][1]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert context['demand_hint_possible']
         assert context['should_enable_next_hint']
 
@@ -1653,9 +1727,16 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
                 You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.</hint>
             </demandhint>
             </problem>"""
+<<<<<<< HEAD
         module = CapaFactory.create(xml=test_xml)
         module.get_problem_html()  # ignoring html result
         context = module.system.render_template.call_args[0][1]
+=======
+        render_template = Mock(return_value="<div>Test Template HTML</div>")
+        module = CapaFactory.create(xml=test_xml, render_template=render_template)
+        module.get_problem_html()  # ignoring html result
+        context = render_template.call_args[0][1]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert context['demand_hint_possible']
         assert context['should_enable_next_hint']
 
@@ -1697,7 +1778,12 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         rendering, a "dummy" problem is created with an error
         message to display to the user.
         """
+<<<<<<< HEAD
         module = CapaFactory.create()
+=======
+        render_template = Mock(return_value="<div>Test Template HTML</div>")
+        module = CapaFactory.create(render_template=render_template)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Save the original problem so we can compare it later
         original_problem = module.lcp
@@ -1706,9 +1792,12 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         # is asked to render itself as HTML
         module.lcp.get_html = Mock(side_effect=Exception("Test"))
 
+<<<<<<< HEAD
         # Stub out the get_test_system rendering function
         module.system.render_template = Mock(return_value="<div>Test Template HTML</div>")
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Turn off DEBUG
         module.system.DEBUG = False
 
@@ -1718,7 +1807,11 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         assert html is not None
 
         # Check the rendering context
+<<<<<<< HEAD
         render_args, _ = module.system.render_template.call_args
+=======
+        render_args, _ = render_template.call_args
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         context = render_args[1]
         assert 'error' in context['problem']['html']
 
@@ -1729,16 +1822,24 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         """
         Test the html response when an error occurs with DEBUG on
         """
+<<<<<<< HEAD
         module = CapaFactory.create()
+=======
+        render_template = Mock(return_value="<div>Test Template HTML</div>")
+        module = CapaFactory.create(render_template=render_template)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Simulate throwing an exception when the capa problem
         # is asked to render itself as HTML
         error_msg = "Superterrible error happened: ☠"
         module.lcp.get_html = Mock(side_effect=Exception(error_msg))
 
+<<<<<<< HEAD
         # Stub out the get_test_system rendering function
         module.system.render_template = Mock(return_value="<div>Test Template HTML</div>")
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Make sure DEBUG is on
         module.system.DEBUG = True
 
@@ -1748,7 +1849,11 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         assert html is not None
 
         # Check the rendering context
+<<<<<<< HEAD
         render_args, _ = module.system.render_template.call_args
+=======
+        render_args, _ = render_template.call_args
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         context = render_args[1]
         assert error_msg in context['problem']['html']
 
@@ -2112,9 +2217,16 @@ class ProblemBlockTest(unittest.TestCase):  # lint-amnesty, pylint: disable=miss
         """
         Verify that if problem display name is not provided then a default name is used.
         """
+<<<<<<< HEAD
         module = CapaFactory.create(display_name=display_name)
         module.get_problem_html()
         render_args, _ = module.system.render_template.call_args
+=======
+        render_template = Mock(return_value="<div>Test Template HTML</div>")
+        module = CapaFactory.create(display_name=display_name, render_template=render_template)
+        module.get_problem_html()
+        render_args, _ = render_template.call_args
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         context = render_args[1]
         assert context['problem']['name'] == module.location.block_type
 
@@ -2561,6 +2673,7 @@ class ProblemBlockXMLTest(unittest.TestCase):  # lint-amnesty, pylint: disable=m
     def test_solutions_not_indexed(self):
         xml = textwrap.dedent("""
             <problem>
+<<<<<<< HEAD
                 <solution>
                 <div class="detailed-solution">
                 <p>Explanation</p>
@@ -2580,6 +2693,34 @@ class ProblemBlockXMLTest(unittest.TestCase):  # lint-amnesty, pylint: disable=m
                 </solution>
 
 
+=======
+                <solution>Test solution.</solution>
+                <solution explanation-id="solution0">Test solution with attribute.</solution>
+                <solutionset>
+                    Test solutionset.
+                    <solution explanation-id="solution1">Test solution within solutionset.</solution>
+                </solutionset>
+
+                <targetedfeedback>Test feedback.</targetedfeedback>
+                <targetedfeedback explanation-id="feedback0">Test feedback with attribute.</targetedfeedback>
+                <targetedfeedbackset>
+                    Test FeedbackSet.
+                    <targetedfeedback explanation-id="feedback1">Test feedback within feedbackset.</targetedfeedback>
+                </targetedfeedbackset>
+
+                <answer>Test answer.</answer>
+                <answer type="loncapa/python">Test answer with attribute.</answer>
+
+                <script>Test script.</script>
+                <script type="loncapa/python">Test script with attribute.</script>
+
+                <style>Test style.</style>
+                <style media="all and (max-width: 1920px)">Test style with attribute.</style>
+
+                <choicehint>Test choicehint.</choicehint>
+                <hint>Test hint.</hint>
+                <hintpart>Test hintpart.</hintpart>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             </problem>
         """)
         name = "Blank Common Capa Problem"
@@ -2694,7 +2835,11 @@ class ProblemBlockXMLTest(unittest.TestCase):  # lint-amnesty, pylint: disable=m
         """)
         name = "Non latin Input"
         descriptor = self._create_descriptor(sample_text_input_problem_xml, name=name)
+<<<<<<< HEAD
         capa_content = " FX1_VAL='Καλημέρα' Δοκιμή με μεταβλητές με Ελληνικούς χαρακτήρες μέσα σε python: $FX1_VAL "
+=======
+        capa_content = " Δοκιμή με μεταβλητές με Ελληνικούς χαρακτήρες μέσα σε python: $FX1_VAL "
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         descriptor_dict = descriptor.index_dictionary()
         assert descriptor_dict['content']['capa_content'] == smart_str(capa_content)
@@ -3098,7 +3243,12 @@ class ProblemCheckTrackingTest(unittest.TestCase):
                                         'group_label': '',
                                         'variant': module.seed}}
 
+<<<<<<< HEAD
     def test_file_inputs(self):
+=======
+    @patch.object(XQueueInterface, '_http_post')
+    def test_file_inputs(self, mock_xqueue_post):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         fnames = ["prog1.py", "prog2.py", "prog3.py"]
         fpaths = [os.path.join(DATA_DIR, "capa", fname) for fname in fnames]
         fileobjs = [open(fpath) for fpath in fpaths]
@@ -3108,10 +3258,15 @@ class ProblemCheckTrackingTest(unittest.TestCase):
         factory = CapaFactoryWithFiles
         module = factory.create()
 
+<<<<<<< HEAD
         # Mock the XQueueInterface.
         xqueue_interface = XQueueInterface("http://example.com/xqueue", Mock())
         xqueue_interface._http_post = Mock(return_value=(0, "ok"))  # pylint: disable=protected-access
         module.system.xqueue['interface'] = xqueue_interface
+=======
+        # Mock the XQueueInterface post method
+        mock_xqueue_post.return_value = (0, "ok")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         answer_input_dict = {
             CapaFactoryWithFiles.input_key(response_num=2): fileobjs,
@@ -3157,9 +3312,16 @@ class ProblemCheckTrackingTest(unittest.TestCase):
 
         data = {}
         problem = CapaFactory.create(showanswer='always', xml=problem_xml)
+<<<<<<< HEAD
         problem.runtime.replace_jump_to_id_urls = Mock()
         problem.get_answer(data)
         assert problem.runtime.replace_jump_to_id_urls.called
+=======
+        problem.runtime.service(problem, 'replace_urls').replace_urls = Mock()
+
+        problem.get_answer(data)
+        assert problem.runtime.service(problem, 'replace_urls').replace_urls.called
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ProblemBlockReportGenerationTest(unittest.TestCase):

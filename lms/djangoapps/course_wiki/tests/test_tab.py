@@ -7,8 +7,13 @@ from django.conf import settings
 
 from common.djangoapps.student.tests.factories import AdminFactory, UserFactory
 from lms.djangoapps.courseware.tabs import get_course_tab_list
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class WikiTabTestCase(ModuleStoreTestCase):

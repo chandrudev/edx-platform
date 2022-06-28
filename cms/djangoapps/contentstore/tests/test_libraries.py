@@ -8,6 +8,14 @@ from unittest.mock import Mock, patch
 import ddt
 from django.test.utils import override_settings
 from opaque_keys.edx.locator import CourseKey, LibraryLocator
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from xmodule.x_module import STUDIO_VIEW
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from cms.djangoapps.contentstore.tests.utils import AjaxEnabledTestClient, parse_json
 from cms.djangoapps.contentstore.utils import reverse_library_url, reverse_url, reverse_usage_url
@@ -27,17 +35,24 @@ from common.djangoapps.student.roles import (
 )
 from common.djangoapps.student.tests.factories import UserFactory
 from common.djangoapps.xblock_django.user_service import DjangoXBlockUserService
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.x_module import STUDIO_VIEW
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class LibraryTestCase(ModuleStoreTestCase):
     """
     Common functionality for content libraries tests
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def setUp(self):
         super().setUp()

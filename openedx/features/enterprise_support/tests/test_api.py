@@ -15,8 +15,13 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from edx_django_utils.cache import get_cache_key
 from enterprise.models import EnterpriseCustomerUser  # lint-amnesty, pylint: disable=wrong-import-order
+<<<<<<< HEAD
 from six.moves.urllib.parse import parse_qs
 from slumber.exceptions import HttpClientError
+=======
+from requests.exceptions import HTTPError
+from six.moves.urllib.parse import parse_qs
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.tests.factories import UserFactory
 from openedx.core.djangoapps.site_configuration.tests.factories import SiteFactory
@@ -41,17 +46,33 @@ from openedx.features.enterprise_support.api import (
     get_consent_notification_data,
     get_consent_required_courses,
     get_dashboard_consent_notification,
+<<<<<<< HEAD
     get_enterprise_consent_url,
+=======
+    get_data_sharing_consents,
+    get_enterprise_consent_url,
+    get_enterprise_course_enrollments,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     get_enterprise_learner_data_from_api,
     get_enterprise_learner_data_from_db,
     get_enterprise_learner_portal_enabled_message,
     insert_enterprise_pipeline_elements,
+<<<<<<< HEAD
     unlink_enterprise_user_from_idp
 )
 from openedx.features.enterprise_support.tests import FEATURES_WITH_ENTERPRISE_ENABLED
 from openedx.features.enterprise_support.tests.factories import (
     EnterpriseCustomerIdentityProviderFactory,
     EnterpriseCustomerUserFactory
+=======
+    unlink_enterprise_user_from_idp,
+)
+from openedx.features.enterprise_support.tests import FEATURES_WITH_ENTERPRISE_ENABLED
+from openedx.features.enterprise_support.tests.factories import (
+    EnterpriseCourseEnrollmentFactory,
+    EnterpriseCustomerIdentityProviderFactory,
+    EnterpriseCustomerUserFactory,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from openedx.features.enterprise_support.tests.mixins.enterprise import EnterpriseServiceMockMixin
 from openedx.features.enterprise_support.utils import clear_data_consent_share_cache
@@ -95,7 +116,11 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
 
         mocked_jwt_builder.assert_called_once_with(enterprise_service_user)
         # pylint: disable=protected-access
+<<<<<<< HEAD
         assert enterprise_api_service_client.client._store['session'].auth.token == 'test-token'
+=======
+        assert enterprise_api_service_client.client.auth.token == 'test-token'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def _assert_api_client_with_user(self, api_client, mocked_jwt_builder):
         """
@@ -112,7 +137,11 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
 
         mocked_jwt_builder.assert_called_once_with(dummy_enterprise_user)
         # pylint: disable=protected-access
+<<<<<<< HEAD
         assert enterprise_api_service_client.client._store['session'].auth.token == 'test-token'
+=======
+        assert enterprise_api_service_client.client.auth.token == 'test-token'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return enterprise_api_service_client
 
     def _assert_get_enterprise_customer(self, api_client, enterprise_api_data_for_mock):
@@ -178,6 +207,7 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
         authenticate and access enterprise API.
         """
         api_client = self._assert_api_client_with_user(EnterpriseApiClient, mock_jwt_builder)
+<<<<<<< HEAD
         setattr(api_client.client, 'enterprise-course-enrollment', mock.Mock())
         mock_endpoint = getattr(api_client.client, 'enterprise-course-enrollment')
         if should_raise_http_error:
@@ -198,6 +228,29 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
             'course_id': course_id,
             'consent_granted': consent_granted,
         })
+=======
+        mock_client = mock.Mock()
+        api_client.client = mock_client
+        if should_raise_http_error:
+            mock_client.post.side_effect = HTTPError
+
+        username = 'spongebob'
+        course_id = 'burger-flipping-101'
+
+        if should_raise_http_error:
+            with pytest.raises(EnterpriseApiException):
+                api_client.post_enterprise_course_enrollment(username, course_id)
+        else:
+            api_client.post_enterprise_course_enrollment(username, course_id)
+
+        mock_client.post.assert_called_once_with(
+            f"{api_client.base_api_url}enterprise-course-enrollment/",
+            data={
+                'username': username,
+                'course_id': course_id,
+            }
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @mock.patch('openedx.features.enterprise_support.api.enterprise_customer_uuid_for_request')
     @mock.patch('openedx.features.enterprise_support.api.EnterpriseApiClient')
@@ -226,7 +279,12 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
         user to authenticate and access enterprise API.
         """
         consent_client = self._assert_api_client_with_user(ConsentApiClient, mock_jwt_builder)
+<<<<<<< HEAD
         consent_client.consent_endpoint = mock.Mock()
+=======
+        mock_client = mock.Mock()
+        consent_client.client = mock_client
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         kwargs = {
             'foo': 'a',
@@ -235,8 +293,13 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
         consent_client.provide_consent(**kwargs)
         consent_client.revoke_consent(**kwargs)
 
+<<<<<<< HEAD
         consent_client.consent_endpoint.post.assert_called_once_with(kwargs)
         consent_client.consent_endpoint.delete.assert_called_once_with(**kwargs)
+=======
+        mock_client.post.assert_called_once_with(consent_client.consent_endpoint, json=kwargs)
+        mock_client.delete.assert_called_once_with(consent_client.consent_endpoint, json=kwargs)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @httpretty.activate
     @mock.patch('openedx.features.enterprise_support.api.get_enterprise_learner_data_from_db')
@@ -342,23 +405,51 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
 
     @mock.patch('openedx.features.enterprise_support.api.create_jwt_for_user')
     def test_fetch_enterprise_learner_data(self, mock_jwt_builder):
+<<<<<<< HEAD
         api_client = self._assert_api_client_with_user(EnterpriseApiClient, mock_jwt_builder)
         setattr(api_client.client, 'enterprise-learner', mock.Mock())
         mock_endpoint = getattr(api_client.client, 'enterprise-learner')
+=======
+        """
+        Test EnterpriseApiClient's fetch_enterprise_learner_data method.
+        """
+        api_client = self._assert_api_client_with_user(EnterpriseApiClient, mock_jwt_builder)
+        mock_client = mock.Mock()
+        api_client.client = mock_client
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         user = mock.Mock(is_authenticated=True, username='spongebob')
         response = api_client.fetch_enterprise_learner_data(user)
 
+<<<<<<< HEAD
         assert mock_endpoint.return_value.get.return_value == response
         mock_endpoint.return_value.get.assert_called_once_with(username=user.username)
+=======
+        assert mock_client.get.return_value.json.return_value == response
+        mock_client.get.assert_called_once_with(
+            f"{api_client.base_api_url}enterprise-learner/",
+            params={'username': user.username},
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @mock.patch('openedx.features.enterprise_support.api.get_current_request')
     @mock.patch('openedx.features.enterprise_support.api.create_jwt_for_user')
     def test_fetch_enterprise_learner_data_http_error(self, mock_jwt_builder, mock_get_current_request):
+<<<<<<< HEAD
         api_client = self._assert_api_client_with_user(EnterpriseApiClient, mock_jwt_builder)
         setattr(api_client.client, 'enterprise-learner', mock.Mock())
         mock_endpoint = getattr(api_client.client, 'enterprise-learner')
         mock_endpoint.return_value.get.side_effect = HttpClientError
+=======
+        """
+        Test error handling for the EnterpriseApiClient's fetch_enterprise_learner_data method.
+        """
+        api_client = self._assert_api_client_with_user(EnterpriseApiClient, mock_jwt_builder)
+
+        mock_client = mock.Mock()
+        mock_client.get.side_effect = HTTPError
+        api_client.client = mock_client
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         mock_get_current_request.return_value.META = {
             'PATH_INFO': 'whatever',
         }
@@ -366,8 +457,13 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
         user = mock.Mock(is_authenticated=True, username='spongebob')
 
         assert api_client.fetch_enterprise_learner_data(user) is None
+<<<<<<< HEAD
 
         mock_endpoint.return_value.get.assert_called_once_with(username=user.username)
+=======
+        url = f"{api_client.base_api_url}enterprise-learner/"
+        mock_client.get.assert_called_once_with(url, params={'username': user.username})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @mock.patch('openedx.features.enterprise_support.api.EnterpriseApiClient')
     def test_get_enterprise_learner_data_from_api(self, mock_api_client_class):
@@ -395,6 +491,7 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
         assert request_mock.session['enterprise_customer']['uuid'] == str(enterprise_customer_uuid)
 
     def test_get_enterprise_learner_data_from_db_no_data(self):
+<<<<<<< HEAD
         assert [] == get_enterprise_learner_data_from_db(self.user)
 
     def test_get_enterprise_learner_data_from_db(self):
@@ -402,6 +499,50 @@ class TestEnterpriseApi(EnterpriseServiceMockMixin, CacheIsolationTestCase):
         user_data = get_enterprise_learner_data_from_db(self.user)[0]['user']
         assert user_data['username'] == self.user.username
 
+=======
+        assert not get_enterprise_learner_data_from_db(self.user)
+
+    def test_get_enterprise_learner_data_from_db(self):
+        EnterpriseCustomerUserFactory(user_id=self.user.id)
+        user_data = get_enterprise_learner_data_from_db(self.user)[0]['user']
+        assert user_data['username'] == self.user.username
+
+    @ddt.data(True, False)
+    @mock.patch('openedx.features.enterprise_support.api.enterprise_enabled')
+    def test_get_data_sharing_consents(self, is_enterprise_enabled, mock_enterprise_enabled):
+        mock_enterprise_enabled.return_value = is_enterprise_enabled
+        enterprise_customer_user = EnterpriseCustomerUserFactory(user_id=self.user.id)
+
+        if not is_enterprise_enabled:
+            assert get_data_sharing_consents(self.user) == []
+        else:
+            course_id = 'fake-course'
+            data_sharing_consent = DataSharingConsent(
+                course_id=course_id,
+                enterprise_customer=enterprise_customer_user.enterprise_customer,
+                username=self.user.username,
+                granted=False
+            )
+            data_sharing_consent.save()
+            data_sharing_consents = get_data_sharing_consents(self.user)
+            assert len(data_sharing_consents) == 1
+            assert data_sharing_consents[0].id == data_sharing_consent.id
+
+    @ddt.data(True, False)
+    @mock.patch('openedx.features.enterprise_support.api.enterprise_enabled')
+    def test_get_enterprise_course_enrollments(self, is_enterprise_enabled, mock_enterprise_enabled):
+        mock_enterprise_enabled.return_value = is_enterprise_enabled
+        enterprise_customer_user = EnterpriseCustomerUserFactory(user_id=self.user.id)
+
+        if not is_enterprise_enabled:
+            assert get_enterprise_course_enrollments(self.user) == []
+        else:
+            ece = EnterpriseCourseEnrollmentFactory(enterprise_customer_user=enterprise_customer_user)
+            enterprise_course_enrollments = get_enterprise_course_enrollments(self.user)
+            assert len(enterprise_course_enrollments) == 1
+            assert enterprise_course_enrollments[0].id == ece.id
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @httpretty.activate
     @mock.patch('openedx.features.enterprise_support.api.get_enterprise_learner_data_from_db')
     @mock.patch('openedx.features.enterprise_support.api.EnterpriseCustomer')

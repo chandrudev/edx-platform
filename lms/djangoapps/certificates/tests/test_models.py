@@ -3,7 +3,11 @@
 
 import json
 from unittest.mock import patch
+<<<<<<< HEAD
 from unittest import mock
+=======
+from unittest import mock, skipUnless
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 import ddt
 import pytest
@@ -12,10 +16,13 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.utils import override_settings
+<<<<<<< HEAD
 from edx_name_affirmation.api import create_verified_name, create_verified_name_config
 from edx_name_affirmation.statuses import VerifiedNameStatus
 from edx_name_affirmation.toggles import VERIFIED_NAME_FLAG
 from edx_toggles.toggles.testutils import override_waffle_flag
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys.edx.locator import CourseKey, CourseLocator
 from openedx_events.tests.utils import OpenEdxEventsTestMixin
 from path import Path as path
@@ -41,8 +48,14 @@ from lms.djangoapps.certificates.tests.factories import (
 )
 from lms.djangoapps.instructor_task.tests.factories import InstructorTaskFactory
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from openedx.features.name_affirmation_api.utils import get_name_affirmation_service
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 ENROLLMENT_METHOD = 'common.djangoapps.student.models.CourseEnrollment.enrollment_mode_for_user'
 PROFILE_METHOD = 'common.djangoapps.student.models_api.get_name'
@@ -55,6 +68,11 @@ TEST_DATA_DIR = 'common/test/data/'
 PLATFORM_ROOT = TEST_DIR.parent.parent.parent.parent
 TEST_DATA_ROOT = PLATFORM_ROOT / TEST_DATA_DIR
 
+<<<<<<< HEAD
+=======
+name_affirmation_service = get_name_affirmation_service()
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class ExampleCertificateTest(TestCase, OpenEdxEventsTestMixin):
     """Tests for the ExampleCertificate model. """
@@ -626,10 +644,17 @@ class GeneratedCertificateTest(SharedModuleStoreTestCase, OpenEdxEventsTestMixin
 
         self._assert_event_data(mock_emit_certificate_event, expected_event_data)
 
+<<<<<<< HEAD
     @override_waffle_flag(VERIFIED_NAME_FLAG, active=True)
     @ddt.data((True, VerifiedNameStatus.APPROVED),
               (True, VerifiedNameStatus.DENIED),
               (False, VerifiedNameStatus.PENDING))
+=======
+    @skipUnless(name_affirmation_service is not None, 'Requires Name Affirmation')
+    @ddt.data((True, 'approved'),
+              (True, 'denied'),
+              (False, 'pending'))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @ddt.unpack
     def test_invalidate_with_verified_name(self, should_use_verified_name_for_certs, status):
         """
@@ -637,8 +662,16 @@ class GeneratedCertificateTest(SharedModuleStoreTestCase, OpenEdxEventsTestMixin
         """
         verified_name = 'Jonathan Doe'
         profile = UserProfile.objects.get(user=self.user)
+<<<<<<< HEAD
         create_verified_name(self.user, verified_name, profile.name, status=status)
         create_verified_name_config(self.user, use_verified_name_for_certs=should_use_verified_name_for_certs)
+=======
+        name_affirmation_service.create_verified_name(self.user, verified_name, profile.name, status=status)
+        name_affirmation_service.create_verified_name_config(
+            self.user,
+            use_verified_name_for_certs=should_use_verified_name_for_certs
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         cert = GeneratedCertificateFactory.create(
             status=CertificateStatuses.downloadable,
@@ -652,7 +685,11 @@ class GeneratedCertificateTest(SharedModuleStoreTestCase, OpenEdxEventsTestMixin
         cert.invalidate(mode=mode, source=source)
 
         cert = GeneratedCertificate.objects.get(user=self.user, course_id=self.course_key)
+<<<<<<< HEAD
         if should_use_verified_name_for_certs and status == VerifiedNameStatus.APPROVED:
+=======
+        if should_use_verified_name_for_certs and status == 'approved':
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             assert cert.name == verified_name
         else:
             assert cert.name == profile.name

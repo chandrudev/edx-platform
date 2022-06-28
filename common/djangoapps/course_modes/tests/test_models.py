@@ -25,8 +25,13 @@ from common.djangoapps.course_modes.models import (
 )
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -341,6 +346,7 @@ class CourseModeModelTest(TestCase):
             assert exc.messages == ['Professional education modes are not allowed to have expiration_datetime set.']
 
     @ddt.data(
+<<<<<<< HEAD
         ("verified", "verify_need_to_verify"),
         ("verified", "verify_submitted"),
         ("verified", "verify_approved"),
@@ -371,6 +377,17 @@ class CourseModeModelTest(TestCase):
         elif mode == "professional":
             assert enrollment_mode_display(mode, verification_status, self.course_key) ==\
                    self._enrollment_display_modes_dicts(mode)
+=======
+        "verified",
+        "honor",
+        "audit",
+        "professional",
+        "no-id-professional",
+    )
+    def test_enrollment_mode_display(self, mode):
+        assert enrollment_mode_display(mode, self.course_key) == \
+               self._enrollment_display_modes_dicts(mode)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @ddt.data(
         (['honor', 'verified', 'credit'], ['honor', 'verified']),
@@ -394,12 +411,17 @@ class CourseModeModelTest(TestCase):
         all_modes = CourseMode.modes_for_course_dict(self.course_key, only_selectable=False)
         self.assertCountEqual(list(all_modes.keys()), available_modes)
 
+<<<<<<< HEAD
     def _enrollment_display_modes_dicts(self, dict_type):
+=======
+    def _enrollment_display_modes_dicts(self, mode):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Helper function to generate the enrollment display mode dict.
         """
         dict_keys = ['enrollment_title', 'enrollment_value', 'show_image', 'image_alt', 'display_mode']
         display_values = {
+<<<<<<< HEAD
             "verify_need_to_verify": ["Your verification is pending", "Verified: Pending Verification", True,
                                       'ID verification pending', 'verified'],
             "verify_approved": ["You're enrolled as a verified student", "Verified", True, 'ID Verified Ribbon/Badge',
@@ -416,6 +438,19 @@ class CourseModeModelTest(TestCase):
             return dict(list(zip(dict_keys, display_values.get('verify_none'))))
         else:
             return dict(list(zip(dict_keys, display_values.get(dict_type))))
+=======
+            "verified": ["You're enrolled as a verified student", "Verified", True, 'ID Verified Ribbon/Badge',
+                         'verified'],
+            "honor": ["You're enrolled as an honor code student", "Honor Code", False, '', 'honor'],
+            "audit": ["", "", False, '', 'audit'],
+            "professional": ["You're enrolled as a professional education student", "Professional Ed", False, '',
+                             'professional'],
+            "no-id-professional": ["You're enrolled as a professional education student", "Professional Ed", False, '',
+                                   'professional'],
+        }
+
+        return dict(list(zip(dict_keys, display_values.get(mode))))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_expiration_datetime_explicitly_set(self):
         """ Verify that setting the expiration_date property sets the explicit flag. """

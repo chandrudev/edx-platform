@@ -23,6 +23,7 @@ class TestLibraries(MixedSplitTestCase):
 
     def test_create_library(self):
         """
+<<<<<<< HEAD
         Test that we can create a library, and see how many mongo calls it uses to do so.
 
         Expected mongo calls, in order:
@@ -34,6 +35,23 @@ class TestLibraries(MixedSplitTestCase):
         get_course_index(bulk)
         """
         with check_mongo_calls(2, 3):
+=======
+        Test that we can create a library, and see how many database calls it uses to do so.
+
+        Expected mongo calls, in order:
+        -> insert(definition: {'block_type': 'library', 'fields': {}})
+        -> insert_structure(bulk)
+        -> insert_course_index(bulk)
+
+        Expected MySQL calls in order:
+        -> SELECT from SplitModulestoreCourseIndex case insensitive search for existing libraries
+        -> SELECT from SplitModulestoreCourseIndex lookup library with that exact ID
+        -> SELECT from XBlockConfiguration (?)
+        -> INSERT into SplitModulestoreCourseIndex to save the new library
+        -> INSERT a historical record of the SplitModulestoreCourseIndex
+        """
+        with check_mongo_calls(0, 3), self.assertNumQueries(5):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             LibraryFactory.create(modulestore=self.store)
 
     def test_duplicate_library(self):

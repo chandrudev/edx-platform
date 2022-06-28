@@ -8,8 +8,11 @@
 
 {% blocktrans %}To view proctoring instructions and requirements, please visit: {{ proctoring_requirements_url }}{% endblocktrans %}
 
+<<<<<<< HEAD
 {% blocktrans %}Before taking a graded proctored exam, you must have approved ID verification photos. You can submit ID verification photos here: {{ id_verification_url }}{% endblocktrans %}
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 {% trans "Thank you," %}
 {% blocktrans %}The {{ platform_name }} Team {% endblocktrans %}
 

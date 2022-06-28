@@ -152,6 +152,15 @@ if (is_proctored_exam) {
                             <span class="sr action-button-text"><%- gettext('Configure') %></span>
                         </a>
                     </li>
+<<<<<<< HEAD
+=======
+                    <li class="action-item action-upload">
+                        <a href="#" data-tooltip="<%- gettext('Upload Document') %>" class="doc-upload-button action-button">
+                            <span class="icon fa fa-file" aria-hidden="true"></span>
+                            <span class="sr action-button-text"><%- gettext('Upload Document') %></span>
+                        </a>
+                    </li>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 <% } %>
                 <% if (xblockInfo.isDuplicable()) { %>
                     <li class="action-item action-duplicate">
@@ -379,4 +388,8 @@ if (is_proctored_exam) {
 <% if (parentInfo) { %>
     <span class="draggable-drop-indicator draggable-drop-indicator-after"><span class="icon fa fa-caret-right" aria-hidden="true"></span></span>
 </li>
+<<<<<<< HEAD
 <% } %>
+=======
+<% } %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

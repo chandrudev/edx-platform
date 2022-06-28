@@ -18,8 +18,20 @@
 
 
 # using LTS django version
+<<<<<<< HEAD
 
+=======
+Django<4.0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # elasticsearch>=7.14.0 includes breaking changes in it which caused issues in discovery upgrade process.
 # elastic search changelog: https://www.elastic.co/guide/en/enterprise-search/master/release-notes-7.14.0.html
 elasticsearch<7.14.0
+<<<<<<< HEAD
+=======
+
+setuptools<60
+
+# django-simple-history>3.0.0 adds indexing and causes a lot of migrations to be affected
+django-simple-history==3.0.0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

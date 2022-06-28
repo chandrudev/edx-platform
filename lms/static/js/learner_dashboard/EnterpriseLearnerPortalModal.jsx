@@ -12,8 +12,14 @@ class EnterpriseLearnerPortalModal extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+<<<<<<< HEAD
     this.handleClick = this.handleClick.bind(this);
     this.handleEsc = this.handleEsc.bind(this);
+=======
+    this.handleModalBackdropClick = this.handleModalBackdropClick.bind(this);
+    this.handleEsc = this.handleEsc.bind(this);
+    this.handleLearnerPortalDashboardClick = this.handleLearnerPortalDashboardClick.bind(this);
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   }
 
   componentDidMount() {
@@ -21,7 +27,11 @@ class EnterpriseLearnerPortalModal extends React.Component {
     const hasViewedModal = window.sessionStorage.getItem(storageKey);
     if (!hasViewedModal) {
       this.openModal();
+<<<<<<< HEAD
       document.addEventListener('mousedown', this.handleClick, false);
+=======
+      document.addEventListener('mousedown', this.handleModalBackdropClick, false);
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       window.sessionStorage.setItem(storageKey, true);
       document.addEventListener('keydown', this.handleEsc, false);
     }
@@ -42,11 +52,19 @@ class EnterpriseLearnerPortalModal extends React.Component {
   componentWillUnmount() {
     // remove the class to allow the dashboard content to scroll
     document.body.classList.remove('modal-open');
+<<<<<<< HEAD
     document.removeEventListener('mousedown', this.handleClick, false);
     document.removeEventListener('keydown', this.handleEsc, false);
   }
 
   handleClick(e) {
+=======
+    document.removeEventListener('mousedown', this.handleModalBackdropClick, false);
+    document.removeEventListener('keydown', this.handleEsc, false);
+  }
+
+  handleModalBackdropClick(e) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if (this.modalRef && this.modalRef.contains(e.target)) {
       // click is inside modal, don't close it
       return;
@@ -58,6 +76,13 @@ class EnterpriseLearnerPortalModal extends React.Component {
   handleEsc(e) {
     const { key } = e;
     if (key === "Escape") {
+<<<<<<< HEAD
+=======
+      window.analytics.track('edx.ui.enterprise.lms.dashboard.learner_portal_modal.closed', {
+        enterpriseUUID: this.props.enterpriseCustomerUUID,
+        source: 'Escape',
+      });
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       this.closeModal();
     }
   }
@@ -69,6 +94,12 @@ class EnterpriseLearnerPortalModal extends React.Component {
   }
 
   openModal() {
+<<<<<<< HEAD
+=======
+    window.analytics.track('edx.ui.enterprise.lms.dashboard.learner_portal_modal.opened', {
+      enterpriseUUID: this.props.enterpriseCustomerUUID,
+    });
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     this.setState({
       isModalOpen: true,
     });
@@ -79,6 +110,19 @@ class EnterpriseLearnerPortalModal extends React.Component {
     return `${baseUrlWithSlug}?utm_source=lms_dashboard_modal`;
   }
 
+<<<<<<< HEAD
+=======
+  handleLearnerPortalDashboardClick(e) {
+    e.preventDefault();
+    window.analytics.track('edx.ui.enterprise.lms.dashboard.learner_portal_modal.dashboard_cta.clicked', {
+      enterpriseUUID: this.props.enterpriseCustomerUUID,
+    });
+    setTimeout(() => {
+      window.location.href = this.getLearnerPortalUrl();
+    }, 300);
+  }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   render() {
     if (!this.state.isModalOpen) {
       return null;
@@ -113,12 +157,26 @@ class EnterpriseLearnerPortalModal extends React.Component {
             <div className="mt-4 d-flex align-content-center justify-content-end">
               <button
                 className="btn-link mr-3"
+<<<<<<< HEAD
                 onClick={() => this.closeModal()}
+=======
+                onClick={() => {
+                  window.analytics.track('edx.ui.enterprise.lms.dashboard.learner_portal_modal.closed', {
+                    enterpriseUUID: this.props.enterpriseCustomerUUID,
+                    source: 'Cancel button',
+                  });
+                  this.closeModal();
+                }}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
               >
                 {gettext('Cancel')}
               </button>
               <AutoFocusInside>
                 <a
+<<<<<<< HEAD
+=======
+                  onClick={this.handleLearnerPortalDashboardClick}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                   href={this.getLearnerPortalUrl()}
                   className="btn btn-primary"
                 >

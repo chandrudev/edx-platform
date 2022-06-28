@@ -7,6 +7,7 @@ perform some LMS-specific tab display gymnastics for the Entrance Exams feature
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_noop
+<<<<<<< HEAD
 
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.entrance_exams import user_can_skip_entrance_exam
@@ -16,6 +17,17 @@ from openedx.features.course_experience import DISABLE_UNIFIED_COURSE_TAB_FLAG, 
 from openedx.features.course_experience.url_helpers import get_learning_mfe_home_url
 from common.djangoapps.student.models import CourseEnrollment
 from xmodule.tabs import CourseTab, CourseTabList, course_reverse_func_from_name_func, key_checker
+=======
+from xmodule.tabs import CourseTab, CourseTabList, key_checker
+
+from lms.djangoapps.courseware.access import has_access
+from lms.djangoapps.courseware.entrance_exams import user_can_skip_entrance_exam
+from lms.djangoapps.course_home_api.toggles import course_home_mfe_progress_tab_is_active
+from openedx.core.lib.course_tabs import CourseTabPluginManager
+from openedx.features.course_experience import DISABLE_UNIFIED_COURSE_TAB_FLAG, default_course_url
+from openedx.features.course_experience.url_helpers import get_learning_mfe_home_url
+from common.djangoapps.student.models import CourseEnrollment
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class EnrolledTab(CourseTab):
@@ -34,13 +46,18 @@ class CoursewareTab(EnrolledTab):
     """
     type = 'courseware'
     title = gettext_noop('Course')
+<<<<<<< HEAD
     priority = 10
+=======
+    priority = 11
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'courseware'
     is_movable = False
     is_default = False
     supports_preview_menu = True
 
     def __init__(self, tab_dict):
+<<<<<<< HEAD
         def link_func(course, reverse_func):
             if course_home_legacy_is_active(course.id):
                 reverse_name_func = lambda course: default_course_url_name(course.id)
@@ -48,6 +65,10 @@ class CoursewareTab(EnrolledTab):
                 return url_func(course, reverse_func)
             else:
                 return get_learning_mfe_home_url(course_key=course.id, view_name='home')
+=======
+        def link_func(course, _reverse_func):
+            return default_course_url(course.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         tab_dict['link_func'] = link_func
         super().__init__(tab_dict)
@@ -69,7 +90,11 @@ class CourseInfoTab(CourseTab):
     """
     type = 'course_info'
     title = gettext_noop('Home')
+<<<<<<< HEAD
     priority = 20
+=======
+    priority = 10
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'info'
     tab_id = 'info'
     is_movable = False
@@ -86,7 +111,11 @@ class SyllabusTab(EnrolledTab):
     """
     type = 'syllabus'
     title = gettext_noop('Syllabus')
+<<<<<<< HEAD
     priority = 30
+=======
+    priority = 80
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'syllabus'
     allow_multiple = True
     is_default = False
@@ -104,7 +133,11 @@ class ProgressTab(EnrolledTab):
     """
     type = 'progress'
     title = gettext_noop('Progress')
+<<<<<<< HEAD
     priority = 40
+=======
+    priority = 20
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'progress'
     is_hideable = True
     is_default = False
@@ -112,7 +145,11 @@ class ProgressTab(EnrolledTab):
     def __init__(self, tab_dict):
         def link_func(course, reverse_func):
             if course_home_mfe_progress_tab_is_active(course.id):
+<<<<<<< HEAD
                 return get_learning_mfe_home_url(course_key=course.id, view_name=self.view_name)
+=======
+                return get_learning_mfe_home_url(course_key=course.id, url_fragment=self.view_name)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             else:
                 return reverse_func(self.view_name, args=[str(course.id)])
 
@@ -153,7 +190,11 @@ class TextbookTabs(TextbookTabsBase):
     A tab representing the collection of all textbook tabs.
     """
     type = 'textbooks'
+<<<<<<< HEAD
     priority = None
+=======
+    priority = 200
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'book'
 
     @classmethod
@@ -177,7 +218,11 @@ class PDFTextbookTabs(TextbookTabsBase):
     A tab representing the collection of all PDF textbook tabs.
     """
     type = 'pdf_textbooks'
+<<<<<<< HEAD
     priority = None
+=======
+    priority = 201
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'pdf_book'
 
     @classmethod
@@ -196,7 +241,11 @@ class HtmlTextbookTabs(TextbookTabsBase):
     A tab representing the collection of all Html textbook tabs.
     """
     type = 'html_textbooks'
+<<<<<<< HEAD
     priority = None
+=======
+    priority = 202
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     view_name = 'html_book'
 
     @classmethod
@@ -210,7 +259,11 @@ class HtmlTextbookTabs(TextbookTabsBase):
             )
 
 
+<<<<<<< HEAD
 class LinkTab(CourseTab):  # lint-amnesty, pylint: disable=eq-without-hash
+=======
+class LinkTab(CourseTab):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Abstract class for tabs that contain external links.
     """
@@ -277,7 +330,13 @@ class ExternalDiscussionCourseTab(LinkTab):
     def is_enabled(cls, course, user=None):
         if not super().is_enabled(course, user=user):
             return False
+<<<<<<< HEAD
         return course.discussion_link
+=======
+        # Course Overview objects don't have this attribute so avoid the error for now and figure
+        # out a better long-term solution
+        return hasattr(course, 'discussion_link') and course.discussion_link
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ExternalLinkCourseTab(LinkTab):
@@ -285,7 +344,11 @@ class ExternalLinkCourseTab(LinkTab):
     A course tab containing an external link.
     """
     type = 'external_link'
+<<<<<<< HEAD
     priority = None
+=======
+    priority = 110
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     is_default = False    # An external link tab is not added to a course by default
     allow_multiple = True
 
@@ -326,6 +389,7 @@ class DatesTab(EnrolledTab):
     A tab representing the relevant dates for a course.
     """
     type = "dates"
+<<<<<<< HEAD
     title = gettext_noop(
         "Dates")  # We don't have the user in this context, so we don't want to translate it at this level.
     priority = 50
@@ -338,6 +402,16 @@ class DatesTab(EnrolledTab):
                 return reverse_func(self.view_name, args=[str(course.id)])
             else:
                 return get_learning_mfe_home_url(course_key=course.id, view_name=self.view_name)
+=======
+    # We don't have the user in this context, so we don't want to translate it at this level.
+    title = gettext_noop("Dates")
+    priority = 30
+    view_name = "dates"
+
+    def __init__(self, tab_dict):
+        def link_func(course, _reverse_func):
+            return get_learning_mfe_home_url(course_key=course.id, url_fragment='dates')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         tab_dict['link_func'] = link_func
         super().__init__(tab_dict)
@@ -361,18 +435,25 @@ def get_course_tab_list(user, course):
             if tab.type != 'courseware':
                 continue
             tab.name = _("Entrance Exam")
+<<<<<<< HEAD
+=======
+            tab.title = _("Entrance Exam")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # TODO: LEARNER-611 - once the course_info tab is removed, remove this code
         if not DISABLE_UNIFIED_COURSE_TAB_FLAG.is_enabled(course.id) and tab.type == 'course_info':
             continue
         if tab.type == 'static_tab' and tab.course_staff_only and \
                 not bool(user and has_access(user, 'staff', course, course.id)):
             continue
+<<<<<<< HEAD
         # We had initially created a CourseTab.load() for dates that ended up
         # persisting the dates tab tomodulestore on Course Run creation, but
         # ignoring any static dates tab here we can fix forward without
         # allowing the bug to continue to surface
         if tab.type == 'dates':
             continue
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_tab_list.append(tab)
 
     # Add in any dynamic tabs, i.e. those that are not persisted

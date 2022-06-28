@@ -17,7 +17,10 @@ def emit_course_goal_event(sender, instance, **kwargs):  # lint-amnesty, pylint:
     name = 'edx.course.goal.added' if kwargs.get('created', False) else 'edx.course.goal.updated'
     properties = {
         'courserun_key': str(instance.course_key),
+<<<<<<< HEAD
         'goal_key': instance.goal_key,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         'days_per_week': instance.days_per_week,
         'subscribed_to_reminders': instance.subscribed_to_reminders,
     }

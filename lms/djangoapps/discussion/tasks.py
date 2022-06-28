@@ -18,13 +18,24 @@ from edx_django_utils.monitoring import set_code_owner_attribute
 from eventtracking import tracker
 from opaque_keys.edx.keys import CourseKey
 from six.moves.urllib.parse import urljoin
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.django import modulestore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 import openedx.core.djangoapps.django_comment_common.comment_client as cc
 from common.djangoapps.track import segment
 from lms.djangoapps.discussion.django_comment_client.utils import (
+<<<<<<< HEAD
     get_accessible_discussion_xblocks_by_course_id,
     permalink
 )
+=======
+    permalink,
+    get_users_with_moderator_roles,
+)
+from openedx.core.djangoapps.discussions.utils import get_accessible_discussion_xblocks_by_course_id
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.ace_common.message import BaseMessageType
 from openedx.core.djangoapps.ace_common.template_context import get_base_template_context
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
@@ -62,6 +73,15 @@ class ResponseNotification(BaseMessageType):
         self.options['transactional'] = True
 
 
+<<<<<<< HEAD
+=======
+class ReportedContentNotification(BaseMessageType):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.options['transactional'] = True
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @shared_task(base=LoggedTask)
 @set_code_owner_attribute
 def send_ace_message(context):  # lint-amnesty, pylint: disable=missing-function-docstring
@@ -82,6 +102,34 @@ def send_ace_message(context):  # lint-amnesty, pylint: disable=missing-function
             _track_notification_sent(message, context)
 
 
+<<<<<<< HEAD
+=======
+@shared_task(base=LoggedTask)
+@set_code_owner_attribute
+def send_ace_message_for_reported_content(context):  # lint-amnesty, pylint: disable=missing-function-docstring
+    context['course_id'] = CourseKey.from_string(context['course_id'])
+    context['course_name'] = modulestore().get_course(context['course_id']).display_name
+
+    moderators = get_users_with_moderator_roles(context)
+    context['site'] = Site.objects.get(id=context['site_id']
+                                       )
+    if not _is_content_still_reported(context):
+        log.info('Reported content is no longer in reported state. Email to moderators will not be sent.')
+        return
+    for moderator in moderators:
+        with emulate_http_request(site=context['site'], user=User.objects.get(id=context['user_id'])):
+            message_context = _build_message_context_for_reported_content(context, moderator)
+            message = ReportedContentNotification().personalize(
+                Recipient(moderator.id, moderator.email),
+                _get_course_language(context['course_id']),
+                message_context
+            )
+            log.info(f'Sending forum reported content email notification with context {message_context}')
+            ace.send(message)
+            # TODO: add tracking for reported content email
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _track_notification_sent(message, context):
     """
     Send analytics event for a sent email
@@ -121,6 +169,15 @@ def _should_send_message(context):
     )
 
 
+<<<<<<< HEAD
+=======
+def _is_content_still_reported(context):
+    if context.get('comment_id') is not None:
+        return len(cc.Comment.find(context['comment_id']).abuse_flaggers) > 0
+    return len(cc.Thread.find(context['thread_id']).abuse_flaggers) > 0
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _is_not_subcomment(comment_id):
     comment = cc.Comment.find(id=comment_id).retrieve()
     return not getattr(comment, 'parent_id', None)
@@ -176,6 +233,19 @@ def _build_message_context(context):  # lint-amnesty, pylint: disable=missing-fu
     return message_context
 
 
+<<<<<<< HEAD
+=======
+def _build_message_context_for_reported_content(context, moderator):  # lint-amnesty, pylint: disable=missing-function-docstring
+    message_context = get_base_template_context(context['site'])
+    message_context.update(context)
+    message_context.update({
+        'post_link': _get_thread_url(context),
+        'moderator_email': moderator.email,
+    })
+    return message_context
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _get_thread_url(context):  # lint-amnesty, pylint: disable=missing-function-docstring
     scheme = 'https' if settings.HTTPS == 'on' else 'http'
     base_url = '{}://{}'.format(scheme, context['site'].domain)

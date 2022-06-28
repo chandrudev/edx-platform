@@ -30,8 +30,13 @@ from lms.djangoapps.instructor_task.subtasks import (
     initialize_subtask_info,
     update_subtask_status
 )
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class EmailTestException(Exception):
@@ -206,8 +211,13 @@ class TestEmailErrors(ModuleStoreTestCase):
         """
         Tests exception when the to_option in the email doesn't exist
         """
+<<<<<<< HEAD
         with self.assertRaisesRegex(ValueError, 'Course email being sent to unrecognized target: "IDONTEXIST" *'):
             email = CourseEmail.create(  # pylint: disable=unused-variable
+=======
+        with self.assertRaisesRegex(ValueError, "Course email being sent to an unrecognized target: 'IDONTEXIST' *"):
+            CourseEmail.create(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 self.course.id,
                 self.instructor,
                 ["IDONTEXIST"],
@@ -221,7 +231,11 @@ class TestEmailErrors(ModuleStoreTestCase):
         Tests exception when the cohort or course mode doesn't exist
         """
         with self.assertRaisesRegex(ValueError, '.* IDONTEXIST does not exist .*'):
+<<<<<<< HEAD
             email = CourseEmail.create(  # pylint: disable=unused-variable
+=======
+            CourseEmail.create(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 self.course.id,
                 self.instructor,
                 [f"{target_type}:IDONTEXIST"],

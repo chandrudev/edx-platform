@@ -12,7 +12,11 @@ import lms.djangoapps.lti_provider.outcomes as outcomes
 from lms import CELERY_APP
 from lms.djangoapps.grades.api import CourseGradeFactory
 from lms.djangoapps.lti_provider.models import GradedAssignment
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 

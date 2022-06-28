@@ -13,6 +13,14 @@ from django.http import QueryDict
 from django.test.utils import override_settings
 from django.urls import reverse
 from edx_toggles.toggles.testutils import override_waffle_flag
+<<<<<<< HEAD
+=======
+from pyquery import PyQuery as pq
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+from xmodule.modulestore.tests.utils import TEST_DATA_DIR
+from xmodule.modulestore.xml_importer import import_course_from_xml
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from lms.djangoapps.ccx.tests.factories import CcxFactory
 from openedx.core.djangoapps.self_paced.models import SelfPacedConfiguration
@@ -21,6 +29,7 @@ from openedx.core.djangoapps.waffle_utils.testutils import WAFFLE_TABLES
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.course_experience import DISABLE_UNIFIED_COURSE_TAB_FLAG
 from openedx.features.enterprise_support.tests.mixins.enterprise import EnterpriseTestConsentRequired
+<<<<<<< HEAD
 from pyquery import PyQuery as pq  # lint-amnesty, pylint: disable=wrong-import-order
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import AdminFactory
@@ -38,6 +47,15 @@ from xmodule.modulestore.xml_importer import import_course_from_xml
 from .helpers import LoginEnrollmentTestCase
 
 QUERY_COUNT_TABLE_BLACKLIST = WAFFLE_TABLES
+=======
+from common.djangoapps.student.models import CourseEnrollment
+from common.djangoapps.student.tests.factories import AdminFactory
+from common.djangoapps.util.date_utils import strftime_localized
+
+from .helpers import LoginEnrollmentTestCase
+
+QUERY_COUNT_TABLE_IGNORELIST = WAFFLE_TABLES
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @override_waffle_flag(DISABLE_UNIFIED_COURSE_TAB_FLAG, active=True)
@@ -192,7 +210,11 @@ class CourseInfoLastAccessedTestCase(LoginEnrollmentTestCase, ModuleStoreTestCas
             category="chapter", parent_location=self.course.location
         )
         section = ItemFactory.create(
+<<<<<<< HEAD
             category='section', parent_location=chapter.location
+=======
+            category='sequential', parent_location=chapter.location
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         section_url = reverse(
             'courseware_section',
@@ -298,7 +320,11 @@ class CourseInfoTitleTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase):
         assert expected_title == content('.page-title').contents()[0].strip()
 
         if expected_subtitle is None:
+<<<<<<< HEAD
             assert [] == content('.page-subtitle')
+=======
+            assert not content('.page-subtitle')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         else:
             assert expected_subtitle == content('.page-subtitle').contents()[0].strip()
 
@@ -309,9 +335,12 @@ class CourseInfoTestCaseCCX(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
     Test for unenrolled student tries to access ccx.
     Note: Only CCX coach can enroll a student in CCX. In sum self-registration not allowed.
     """
+<<<<<<< HEAD
 
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -345,8 +374,11 @@ class CourseInfoTestCaseXML(LoginEnrollmentTestCase, ModuleStoreTestCase):
     """
     Tests for the Course Info page for an XML course
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_MIXED_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         """
         Set up the tests
@@ -359,7 +391,11 @@ class CourseInfoTestCaseXML(LoginEnrollmentTestCase, ModuleStoreTestCase):
         self.xml_course_key = self.store.make_course_key('edX', 'detached_pages', '2014')
         import_course_from_xml(
             self.store,
+<<<<<<< HEAD
             'test_user',
+=======
+            self.user.id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             TEST_DATA_DIR,
             source_dirs=['2014'],
             static_content_store=None,
@@ -412,7 +448,11 @@ class SelfPacedCourseInfoTestCase(LoginEnrollmentTestCase, SharedModuleStoreTest
         and Mongo queries.
         """
         url = reverse('info', args=[str(course.id)])
+<<<<<<< HEAD
         with self.assertNumQueries(sql_queries, table_blacklist=QUERY_COUNT_TABLE_BLACKLIST):
+=======
+        with self.assertNumQueries(sql_queries, table_ignorelist=QUERY_COUNT_TABLE_IGNORELIST):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             with check_mongo_calls(mongo_queries):
                 with mock.patch("openedx.core.djangoapps.theming.helpers.get_current_site", return_value=None):
                     resp = self.client.get(url)
@@ -420,8 +460,16 @@ class SelfPacedCourseInfoTestCase(LoginEnrollmentTestCase, SharedModuleStoreTest
 
     def test_num_queries_instructor_paced(self):
         # TODO: decrease query count as part of REVO-28
+<<<<<<< HEAD
         self.fetch_course_info_with_queries(self.instructor_paced_course, 42, 3)
 
     def test_num_queries_self_paced(self):
         # TODO: decrease query count as part of REVO-28
         self.fetch_course_info_with_queries(self.self_paced_course, 42, 3)
+=======
+        self.fetch_course_info_with_queries(self.instructor_paced_course, 41, 2)
+
+    def test_num_queries_self_paced(self):
+        # TODO: decrease query count as part of REVO-28
+        self.fetch_course_info_with_queries(self.self_paced_course, 41, 2)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

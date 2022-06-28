@@ -11,7 +11,11 @@ from pytz import utc
 
 from lms.djangoapps.certificates.utils import has_html_certificates_enabled, should_certificate_be_visible
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
+<<<<<<< HEAD
 from xmodule.data import CertificatesDisplayBehaviors
+=======
+from xmodule.data import CertificatesDisplayBehaviors  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 _TODAY = datetime.now(utc)
 _LAST_MONTH = _TODAY - timedelta(days=30)

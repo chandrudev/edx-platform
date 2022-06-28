@@ -70,7 +70,10 @@
           },
           "show_calculator": false,
           "original_user_is_staff": true,
+<<<<<<< HEAD
           "can_view_legacy_courseware": true,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
           "is_staff": true,
           "course_access": {
             "has_access": true,
@@ -200,9 +203,12 @@
           "$.body.original_user_is_staff": {
             "match": "type"
           },
+<<<<<<< HEAD
           "$.body.can_view_legacy_courseware": {
             "match": "type"
           },
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
           "$.body.is_staff": {
             "match": "type"
           },

@@ -22,6 +22,10 @@
             platformName,
             contactEmail,
             allowEmailChange,
+<<<<<<< HEAD
+=======
+            enableCoppaCompliance,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             socialPlatforms,
             syncLearnerProfileData,
             enterpriseName,
@@ -38,7 +42,11 @@
                 emailFieldView, secondaryEmailFieldView, socialFields, accountDeletionFields, platformData,
                 aboutSectionMessageType, aboutSectionMessage, fullnameFieldView, countryFieldView,
                 fullNameFieldData, emailFieldData, secondaryEmailFieldData, countryFieldData, additionalFields,
+<<<<<<< HEAD
                 fieldItem, emailFieldViewIndex, focusId,
+=======
+                fieldItem, emailFieldViewIndex, focusId, yearOfBirthViewIndex, levelOfEducationFieldData,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 tabIndex = 0;
 
             $accountSettingsElement = $('.wrapper-account-settings');
@@ -134,6 +142,14 @@
                 };
             }
 
+<<<<<<< HEAD
+=======
+            levelOfEducationFieldData = fieldsData.level_of_education.options;
+            if (enableCoppaCompliance) {
+                levelOfEducationFieldData = levelOfEducationFieldData.filter(option => option[0] !== 'el');
+            }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             aboutSectionsData = [
                 {
                     title: gettext('Basic Account Information'),
@@ -211,7 +227,11 @@
                                 model: userAccountModel,
                                 title: gettext('Education Completed'),
                                 valueAttribute: 'level_of_education',
+<<<<<<< HEAD
                                 options: fieldsData.level_of_education.options,
+=======
+                                options: levelOfEducationFieldData,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                                 persistChanges: true
                             })
                         },
@@ -246,6 +266,16 @@
                 }
             ];
 
+<<<<<<< HEAD
+=======
+            if (enableCoppaCompliance){
+              yearOfBirthViewIndex = aboutSectionsData[1]['fields'].findIndex(function (field) {
+	              return field['view']['options']['valueAttribute']=== 'year_of_birth';
+                });
+              aboutSectionsData[1]['fields'].splice(yearOfBirthViewIndex,1)
+}
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 			// Secondary email address
             if (isSecondaryEmailFeatureEnabled) {
                 secondaryEmailFieldView = {

@@ -111,7 +111,12 @@ class ProviderConfig(ConfigurationModel):
             'SVG images are recommended as they can scale to any size.'
         ),
     )
+<<<<<<< HEAD
     name = models.CharField(max_length=50, blank=False, help_text="Name of this provider (shown to users)")
+=======
+    name = models.CharField(
+        max_length=50, blank=True, help_text="Name of this provider (shown to users)")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     slug = models.SlugField(
         max_length=30, db_index=True, default='default',
         help_text=(
@@ -222,6 +227,17 @@ class ProviderConfig(ConfigurationModel):
         )
     )
 
+<<<<<<< HEAD
+=======
+    was_valid_at = models.DateTimeField(
+        blank=True,
+        null=True,
+        help_text=(
+            "Timestamped field that indicates a user has successfully logged in using this configuration at least once."
+        )
+    )
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     prefix = None  # used for provider_id. Set to a string value in subclass
     backend_name = None  # Set to a field or fixed value in subclass
     accepts_logins = True  # Whether to display a sign-in button when the provider is enabled
@@ -429,6 +445,10 @@ class SAMLConfiguration(ConfigurationModel):
     slug = models.SlugField(
         max_length=30,
         default='default',
+<<<<<<< HEAD
+=======
+        blank=True,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         help_text=(
             'A short string uniquely identifying this configuration. '
             'Cannot contain spaces. Examples: "ubc", "mit-staging"'
@@ -569,6 +589,7 @@ class SAMLProviderConfig(ProviderConfig):
     .. no_pii:
     """
     prefix = 'saml'
+<<<<<<< HEAD
     backend_name = models.CharField(
         max_length=50, default='tpa-saml', blank=False,
         help_text="Which python-social-auth provider backend to use. 'tpa-saml' is the standard edX SAML backend.")
@@ -576,6 +597,19 @@ class SAMLProviderConfig(ProviderConfig):
         max_length=255, verbose_name="Entity ID", help_text="Example: https://idp.testshib.org/idp/shibboleth")
     metadata_source = models.CharField(
         max_length=255,
+=======
+    display_name = models.CharField(
+        max_length=35, blank=True,
+        help_text=_("A configuration nickname."))
+    backend_name = models.CharField(
+        max_length=50, default='tpa-saml', blank=True,
+        help_text="Which python-social-auth provider backend to use. 'tpa-saml' is the standard edX SAML backend.")
+    entity_id = models.CharField(
+        max_length=255, verbose_name="Entity ID", blank=True,
+        help_text="Example: https://idp.testshib.org/idp/shibboleth")
+    metadata_source = models.CharField(
+        max_length=255, blank=True,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         help_text=(
             "URL to this provider's XML metadata. Should be an HTTPS URL. "
             "Example: https://www.testshib.org/metadata/testshib-providers.xml"
@@ -622,7 +656,11 @@ class SAMLProviderConfig(ProviderConfig):
                   "in the automatic refresh job, if configured."
     )
     identity_provider_type = models.CharField(
+<<<<<<< HEAD
         max_length=128, blank=False, verbose_name="Identity Provider Type", default=STANDARD_SAML_PROVIDER_KEY,
+=======
+        max_length=128, blank=True, verbose_name="Identity Provider Type", default=STANDARD_SAML_PROVIDER_KEY,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         choices=get_saml_idp_choices(), help_text=(
             "Some SAML providers require special behavior. For example, SAP SuccessFactors SAML providers require an "
             "additional API call to retrieve user metadata not provided in the SAML response. Select the provider type "
@@ -770,16 +808,33 @@ class SAMLProviderConfig(ProviderConfig):
             conf['attr_defaults'][field] = default
 
         # Now get the data fetched automatically from the metadata.xml:
+<<<<<<< HEAD
         data = SAMLProviderData.current(self.entity_id)
         if not data or not data.is_valid():
+=======
+        data_records = SAMLProviderData.objects.filter(entity_id=self.entity_id)
+        public_keys = []
+        for record in data_records:
+            if record.is_valid():
+                public_keys.append(record.public_key)
+                sso_url = record.sso_url
+        if not public_keys:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             log.error(
                 'No SAMLProviderData found for provider "%s" with entity id "%s" and IdP slug "%s". '
                 'Run "manage.py saml pull" to fix or debug.',
                 self.name, self.entity_id, self.slug
             )
             raise AuthNotConfigured(provider_name=self.name)
+<<<<<<< HEAD
         conf['x509cert'] = data.public_key
         conf['url'] = data.sso_url
+=======
+
+        conf['x509certMulti'] = {'signing': public_keys}
+        conf['x509cert'] = ''
+        conf['url'] = sso_url
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Add SAMLConfiguration appropriate for this IdP
         conf['saml_sp_configuration'] = (

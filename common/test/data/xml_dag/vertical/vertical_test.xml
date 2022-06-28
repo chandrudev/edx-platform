@@ -1,4 +1,8 @@
 <sequential>
     <html url_name="toyhtml"/>
+<<<<<<< HEAD
     <discussion for="topic 0" id="duplicate_def" slug="duplicate_def" discussion_category="Lecture"/>
+=======
+    <discussion discussion_target="topic 0" discussion_id="duplicate_def" url_name="duplicate_def" discussion_category="Lecture"/>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 </sequential>

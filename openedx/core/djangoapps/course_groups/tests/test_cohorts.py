@@ -16,9 +16,15 @@ from openedx_events.tests.utils import OpenEdxEventsTestMixin
 
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MIXED_MODULESTORE, ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import ToyCourseFactory
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MIXED_MODULESTORE, ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import ToyCourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .. import cohorts
 from ..models import CourseCohort, CourseUserGroup, CourseUserGroupPartitionGroup, UnregisteredLearnerCohortAssignments
@@ -488,7 +494,11 @@ class TestCohorts(ModuleStoreTestCase):
         """
         course = modulestore().get_course(self.toy_course_key)
         config_course_cohorts(course, is_cohorted=True)
+<<<<<<< HEAD
         assert [] == cohorts.get_course_cohorts(course)
+=======
+        assert not cohorts.get_course_cohorts(course)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_get_course_cohorts(self):
         """
@@ -743,7 +753,11 @@ class TestCohortsAndPartitionGroups(ModuleStoreTestCase):
             self.partition_id,
             self.group1_id,
         )
+<<<<<<< HEAD
         with pytest.raises(IntegrityError):
+=======
+        with pytest.raises(IntegrityError), self.allow_transaction_exception():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             self._link_cohort_partition_group(
                 self.first_cohort,
                 self.partition_id,

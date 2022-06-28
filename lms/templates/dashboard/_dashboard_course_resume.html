@@ -2,7 +2,11 @@
 
 <%!
 import six
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 %>
 
 % if resume_button_url != '':
@@ -16,9 +20,16 @@ from django.utils.translation import ugettext as _
   </a>
 % else:
   <a href="${course_target}"
+<<<<<<< HEAD
       class="course-target-link enter-course ${'hidden' if is_unfulfilled_entitlement else ''}"
       data-course-key="${enrollment.course_id}">
     ${_('View Course')}
+=======
+  style="background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100"
+      class="course-target-link enter-course ${'hidden' if is_unfulfilled_entitlement else ''}" style="margin-center"
+      data-course-key="${enrollment.course_id}">
+    ${_('Start Course')}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     <span class="sr">
       &nbsp;${course_overview.display_name_with_default}
     </span>

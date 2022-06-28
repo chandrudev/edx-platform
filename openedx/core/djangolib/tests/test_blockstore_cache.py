@@ -1,12 +1,24 @@
 """
 Tests for BundleCache
 """
+<<<<<<< HEAD
 
 import unittest
 from unittest.mock import patch
 
 from django.conf import settings
 from openedx.core.djangolib.blockstore_cache import BundleCache
+=======
+from unittest.mock import patch
+
+from django.test import TestCase
+from openedx.core.djangolib.blockstore_cache import BundleCache
+from openedx.core.djangoapps.content_libraries.tests.base import (
+    BlockstoreAppTestMixin,
+    requires_blockstore,
+    requires_blockstore_app,
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.lib import blockstore_api as api
 
 
@@ -23,9 +35,14 @@ class TestWithBundleMixin:
         cls.draft = api.get_or_create_bundle_draft(cls.bundle.uuid, draft_name="test-draft")
 
 
+<<<<<<< HEAD
 @unittest.skipUnless(settings.RUN_BLOCKSTORE_TESTS, "Requires a running Blockstore server")
 @patch('openedx.core.djangolib.blockstore_cache.MAX_BLOCKSTORE_CACHE_DELAY', 0)
 class BundleCacheTest(TestWithBundleMixin, unittest.TestCase):
+=======
+@patch('openedx.core.djangolib.blockstore_cache.MAX_BLOCKSTORE_CACHE_DELAY', 0)
+class BundleCacheTestMixin(TestWithBundleMixin):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Tests for BundleCache
     """
@@ -80,8 +97,12 @@ class BundleCacheTest(TestWithBundleMixin, unittest.TestCase):
         assert cache.get(key2) is None
 
 
+<<<<<<< HEAD
 @unittest.skipUnless(settings.RUN_BLOCKSTORE_TESTS, "Requires a running Blockstore server")
 class BundleCacheClearTest(TestWithBundleMixin, unittest.TestCase):
+=======
+class BundleCacheClearTest(TestWithBundleMixin, TestCase):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Tests for BundleCache's clear() method.
     Requires MAX_BLOCKSTORE_CACHE_DELAY to be non-zero. This clear() method does
@@ -111,3 +132,20 @@ class BundleCacheClearTest(TestWithBundleMixin, unittest.TestCase):
         # Now "clear" the cache, forcing the check of the new version:
         cache.clear()
         assert cache.get(key1) is None
+<<<<<<< HEAD
+=======
+
+
+@requires_blockstore
+class BundleCacheBlockstoreServiceTest(BundleCacheTestMixin, TestCase):
+    """
+    Tests BundleCache using the standalone Blockstore service.
+    """
+
+
+@requires_blockstore_app
+class BundleCacheTest(BundleCacheTestMixin, BlockstoreAppTestMixin, TestCase):
+    """
+    Tests BundleCache using the installed Blockstore app.
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

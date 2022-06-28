@@ -2,6 +2,10 @@
 This file contains implementation override of SearchFilterGenerator which will allow
     * Filter by all courses in which the user is enrolled in
 """
+<<<<<<< HEAD
+=======
+from django.conf import settings
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from search.filter_generator import SearchFilterGenerator
 
 from openedx.core.djangoapps.course_groups.partition_scheme import CohortPartitionScheme
@@ -52,4 +56,12 @@ class LmsSearchFilterGenerator(SearchFilterGenerator):
             if org_filter_out_set:
                 exclude_dictionary['org'] = list(org_filter_out_set)
 
+<<<<<<< HEAD
+=======
+        if not getattr(settings, "SEARCH_SKIP_INVITATION_ONLY_FILTERING", True):
+            exclude_dictionary['invitation_only'] = True
+        if not getattr(settings, "SEARCH_SKIP_SHOW_IN_CATALOG_FILTERING", True):
+            exclude_dictionary['catalog_visibility'] = 'none'
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return exclude_dictionary

@@ -22,6 +22,10 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from edx_proctoring.api import does_backend_support_onboarding
 from edx_when.api import is_enabled_for_course
+<<<<<<< HEAD
+=======
+from edx_django_utils.plugins import get_plugins_view_context
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from xblock.field_data import DictFieldData
@@ -38,6 +42,10 @@ from common.djangoapps.student.roles import (
 )
 from common.djangoapps.util.json_request import JsonResponse
 from lms.djangoapps.bulk_email.api import is_bulk_email_feature_enabled
+<<<<<<< HEAD
+=======
+from lms.djangoapps.bulk_email.models_api import is_bulk_email_disabled_for_course
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.certificates import api as certs_api
 from lms.djangoapps.certificates.data import CertificateStatuses
 from lms.djangoapps.certificates.models import (
@@ -49,6 +57,7 @@ from lms.djangoapps.certificates.models import (
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.courses import get_studio_url
 from lms.djangoapps.courseware.module_render import get_module_by_usage_id
+<<<<<<< HEAD
 from lms.djangoapps.discussion.django_comment_client.utils import available_division_schemes, has_forum_access
 from lms.djangoapps.grades.api import is_writable_gradebook_enabled
 from openedx.core.djangoapps.course_groups.cohorts import DEFAULT_COHORT_NAME, get_course_cohorts, is_course_cohorted
@@ -56,13 +65,30 @@ from openedx.core.djangoapps.discussions.config.waffle_utils import legacy_discu
 from openedx.core.djangoapps.django_comment_common.models import FORUM_ROLE_ADMINISTRATOR, CourseDiscussionSettings
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.verified_track_content.models import VerifiedTrackCohortedCourse
+=======
+from lms.djangoapps.discussion.django_comment_client.utils import has_forum_access
+from lms.djangoapps.grades.api import is_writable_gradebook_enabled
+from lms.djangoapps.instructor.constants import INSTRUCTOR_DASHBOARD_PLUGIN_VIEW_NAME
+from openedx.core.djangoapps.course_groups.cohorts import DEFAULT_COHORT_NAME, get_course_cohorts, is_course_cohorted
+from openedx.core.djangoapps.discussions.config.waffle_utils import legacy_discussion_experience_enabled
+from openedx.core.djangoapps.discussions.utils import available_division_schemes
+from openedx.core.djangoapps.django_comment_common.models import FORUM_ROLE_ADMINISTRATOR, CourseDiscussionSettings
+from openedx.core.djangoapps.plugins.constants import ProjectType
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.core.lib.courses import get_course_by_id
 from openedx.core.lib.url_utils import quote_slashes
 from openedx.core.lib.xblock_utils import wrap_xblock
+<<<<<<< HEAD
 from xmodule.html_module import HtmlBlock
 from xmodule.modulestore.django import modulestore
 from xmodule.tabs import CourseTab
+=======
+from xmodule.html_module import HtmlBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.tabs import CourseTab  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .. import permissions
 from ..toggles import data_download_v2_is_enabled
@@ -80,6 +106,10 @@ class InstructorDashboardTab(CourseTab):
     title = gettext_noop('Instructor')
     view_name = "instructor_dashboard"
     is_dynamic = True    # The "Instructor" tab is instead dynamically added when it is enabled
+<<<<<<< HEAD
+=======
+    priority = 300
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def is_enabled(cls, course, user=None):
@@ -113,7 +143,11 @@ def instructor_dashboard_2(request, course_id):  # lint-amnesty, pylint: disable
         log.error("Unable to find course with course key %s while loading the Instructor Dashboard.", course_id)
         return HttpResponseServerError()
 
+<<<<<<< HEAD
     course = get_course_by_id(course_key, depth=0)
+=======
+    course = get_course_by_id(course_key, depth=None)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     access = {
         'admin': request.user.is_staff,
@@ -128,10 +162,13 @@ def instructor_dashboard_2(request, course_id):  # lint-amnesty, pylint: disable
     if not request.user.has_perm(permissions.VIEW_DASHBOARD, course_key):
         raise Http404()
 
+<<<<<<< HEAD
     is_white_label = CourseMode.is_white_label(course_key)  # lint-amnesty, pylint: disable=unused-variable
 
     reports_enabled = configuration_helpers.get_value('SHOW_ECOMMERCE_REPORTS', False)  # lint-amnesty, pylint: disable=unused-variable
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     sections = []
     if access['staff']:
         sections_content = [
@@ -179,7 +216,15 @@ def instructor_dashboard_2(request, course_id):  # lint-amnesty, pylint: disable
         sections.insert(3, _section_extensions(course))
 
     # Gate access to course email by feature flag & by course-specific authorization
+<<<<<<< HEAD
     if is_bulk_email_feature_enabled(course_key) and (access['staff'] or access['instructor']):
+=======
+    if (
+        is_bulk_email_feature_enabled(course_key) and not
+        is_bulk_email_disabled_for_course(course_key) and
+        (access['staff'] or access['instructor'])
+    ):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         sections.append(_section_send_email(course, access))
 
     # Gate access to Special Exam tab depending if either timed exams or proctored exams
@@ -252,6 +297,17 @@ def instructor_dashboard_2(request, course_id):  # lint-amnesty, pylint: disable
         'xqa_server': settings.FEATURES.get('XQA_SERVER', "http://your_xqa_server.com"),
     }
 
+<<<<<<< HEAD
+=======
+    context_from_plugins = get_plugins_view_context(
+        ProjectType.LMS,
+        INSTRUCTOR_DASHBOARD_PLUGIN_VIEW_NAME,
+        context
+    )
+
+    context.update(context_from_plugins)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return render_to_response('instructor/instructor_dashboard_2/instructor_dashboard_2.html', context)
 
 
@@ -494,9 +550,12 @@ def _section_cohort_management(course, access):
         ),
         'cohorts_url': reverse('cohorts', kwargs={'course_key_string': str(course_key)}),
         'upload_cohorts_csv_url': reverse('add_users_to_cohorts', kwargs={'course_id': str(course_key)}),
+<<<<<<< HEAD
         'verified_track_cohorting_url': reverse(
             'verified_track_cohorting', kwargs={'course_key_string': str(course_key)}
         ),
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     }
     return section_data
 
@@ -665,9 +724,13 @@ def _section_send_email(course, access):
     cohorts = []
     if is_course_cohorted(course_key):
         cohorts = get_course_cohorts(course)
+<<<<<<< HEAD
     course_modes = []
     if not VerifiedTrackCohortedCourse.is_verified_track_cohort_enabled(course_key):
         course_modes = CourseMode.modes_for_course(course_key, include_expired=True, only_selectable=False)
+=======
+    course_modes = CourseMode.modes_for_course(course_key, include_expired=True, only_selectable=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     email_editor = fragment.content
     section_data = {
         'section_key': 'send_email',
@@ -688,6 +751,13 @@ def _section_send_email(course, access):
             'list_email_content', kwargs={'course_id': str(course_key)}
         ),
     }
+<<<<<<< HEAD
+=======
+    if settings.FEATURES.get("ENABLE_NEW_BULK_EMAIL_EXPERIENCE", False) is not False:
+        section_data[
+            "communications_mfe_url"
+        ] = f"{settings.COMMUNICATIONS_MICROFRONTEND_URL}/courses/{str(course_key)}/bulk_email"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return section_data
 
 
@@ -731,6 +801,10 @@ def _section_open_response_assessment(request, course, openassessment_blocks, ac
             'parent_name': parents[block_parent_id].display_name,
             'staff_assessment': 'staff-assessment' in block.assessment_steps,
             'peer_assessment': 'peer-assessment' in block.assessment_steps,
+<<<<<<< HEAD
+=======
+            'team_assignment': block.teams_enabled,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'url_base': reverse('xblock_view', args=[course.id, block.location, 'student_view']),
             'url_grade_available_responses': reverse('xblock_view', args=[course.id, block.location,
                                                                           'grade_available_responses_view']),

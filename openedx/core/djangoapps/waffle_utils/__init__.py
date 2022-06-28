@@ -3,6 +3,7 @@ Extra utilities for waffle: most classes are defined in edx_toggles.toggles (htt
 we keep here some extra classes for usage within edx-platform. These classes cover course override use cases.
 """
 import logging
+<<<<<<< HEAD
 import warnings
 from contextlib import contextmanager
 
@@ -13,27 +14,48 @@ from edx_toggles.toggles import (
     LegacyWaffleSwitch,
     LegacyWaffleSwitchNamespace,
 )
+=======
+
+from edx_toggles.toggles import WaffleFlag
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys.edx.keys import CourseKey
 
 log = logging.getLogger(__name__)
 
 
+<<<<<<< HEAD
 class CourseWaffleFlag(LegacyWaffleFlag):
     """
     Represents a single waffle flag that can be forced on/off for a course. This class should be used instead of
     WaffleFlag when in the context of a course.
+=======
+class CourseWaffleFlag(WaffleFlag):
+    """
+    Represents a single waffle flag that can be forced on/off for a course.
+
+    This class should be used instead of WaffleFlag when in the context of a course.
+    This class will also respect any org-level overrides, though course-level overrides will take precedence.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Uses a cached waffle namespace.
 
     Usage:
 
+<<<<<<< HEAD
        SOME_COURSE_FLAG = CourseWaffleFlag('my_namespace', 'some_course_feature', __name__)
+=======
+       SOME_COURSE_FLAG = CourseWaffleFlag('my_namespace.some_course_feature', __name__, log_prefix='')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     And then we can check this flag in code with::
 
         SOME_COURSE_FLAG.is_enabled(course_key)
 
+<<<<<<< HEAD
     To configure, go to "Waffle flag course overrides" under the Django Admin "waffle_utils" section.
+=======
+    To configure a course-level override, go to Django Admin "waffle_utils" -> "Waffle flag course overrides".
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         Waffle flag: Set this to the flag name (e.g. my_namespace.some_course_feature).
         Course id: Set this to the course id (e.g. course-v1:edx+100+Demo)
@@ -41,6 +63,7 @@ class CourseWaffleFlag(LegacyWaffleFlag):
             overriding any behavior configured on the waffle flag itself. "Force off" will disable the waffle flag
             for all users in a course, overriding any behavior configured on the waffle flag itself. Requires
             "Enabled" (see below) to apply.
+<<<<<<< HEAD
         Enabled: This must be marked as enabled in order for the override to be applied. These settings can't be
             deleted, so instead, you need to disable if it should no longer apply.
 
@@ -50,6 +73,28 @@ class CourseWaffleFlag(LegacyWaffleFlag):
         """
         Returns True/False if the flag was forced on or off for the provided course. Returns None if the flag was not
         overridden.
+=======
+        Enabled: Must be marked as "enabled" in order for the override to be applied. These settings can't be
+            deleted, so instead, you need to add another disabled override entry to disable the override.
+
+    To configure an org-level override, go to Django Admin "waffle_utils" -> "Waffle flag org overrides".
+
+        Waffle flag: Set this to the flag name (e.g. my_namespace.some_course_feature).
+        Org name: Set this to the organization name (e.g. edx)
+        Override choice: (Force on/Force off). "Force on" will enable the waffle flag for all users in an org's courses,
+            overriding any behavior configured on the waffle flag itself. "Force off" will disable the waffle flag
+            for all users in a org's courses, overriding any behavior configured on the waffle flag itself. Requires
+            "Enabled" (see below) to apply.
+        Enabled: Must be marked as "enabled" in order for the override to be applied. These settings can't be
+            deleted, so instead, you need to add another disabled override entry to disable the override.
+    """
+    def _get_course_override_value(self, course_key):
+        """
+        Check whether the course flag was overriden.
+
+        Returns True/False if the flag was forced on or off for the provided course.
+        Returns None if the flag was not overridden.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         Note: Has side effect of caching the override value.
 
@@ -57,21 +102,53 @@ class CourseWaffleFlag(LegacyWaffleFlag):
             course_key (CourseKey): The course to check for override before checking waffle.
         """
         # Import is placed here to avoid model import at project startup.
+<<<<<<< HEAD
         from .models import WaffleFlagCourseOverrideModel
 
         cache_key = f"{self.name}.{str(course_key)}"
         course_override = self.cached_flags().get(cache_key)
+=======
+        from .models import WaffleFlagCourseOverrideModel, WaffleFlagOrgOverrideModel
+
+        course_cache_key = f"{self.name}.cwaffle.{str(course_key)}"
+        course_override = self.cached_flags().get(course_cache_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if course_override is None:
             course_override = WaffleFlagCourseOverrideModel.override_value(
                 self.name, course_key
             )
+<<<<<<< HEAD
             self.cached_flags()[cache_key] = course_override
+=======
+            self.cached_flags()[course_cache_key] = course_override
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if course_override == WaffleFlagCourseOverrideModel.ALL_CHOICES.on:
             return True
         if course_override == WaffleFlagCourseOverrideModel.ALL_CHOICES.off:
             return False
+<<<<<<< HEAD
+=======
+
+        # Since no course-specific override was found, fall back to checking at the org-level.
+        if course_key:
+            org = course_key.org
+            org_cache_key = f"{self.name}.owaffle.{org}"
+            org_override = self.cached_flags().get(org_cache_key)
+
+            if org_override is None:
+                org_override = WaffleFlagOrgOverrideModel.override_value(
+                    self.name, org
+                )
+                self.cached_flags()[org_cache_key] = org_override
+
+            if org_override == WaffleFlagOrgOverrideModel.ALL_CHOICES.on:
+                return True
+            if org_override == WaffleFlagOrgOverrideModel.ALL_CHOICES.off:
+                return False
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return None
 
     def is_enabled(self, course_key=None):  # pylint: disable=arguments-differ

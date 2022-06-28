@@ -6,7 +6,11 @@ from unittest.mock import patch
 
 from edx_toggles.toggles.testutils import override_waffle_flag
 from xmodule.modulestore.django import SignalHandler
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, SharedModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from .signals import export_course_metadata
@@ -18,7 +22,10 @@ class TestExportCourseMetadata(SharedModuleStoreTestCase):
     """
     Tests for the export_course_metadata function
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ENABLED_SIGNALS = ['course_published']
 
     def setUp(self):

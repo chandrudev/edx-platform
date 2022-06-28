@@ -20,6 +20,10 @@ class CourseOverviewFactory(DjangoModelFactory):  # lint-amnesty, pylint: disabl
     version = CourseOverview.VERSION
     pre_requisite_courses = []
     org = 'edX'
+<<<<<<< HEAD
+=======
+    display_number_with_default = 'toy'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     run = factory.Sequence('2012_Fall_{}'.format)
 
     @factory.lazy_attribute
@@ -32,7 +36,15 @@ class CourseOverviewFactory(DjangoModelFactory):  # lint-amnesty, pylint: disabl
 
     @factory.lazy_attribute
     def id(self):
+<<<<<<< HEAD
         return CourseLocator(self.org, 'toy', self.run)
+=======
+        return CourseLocator(self.org, self.display_number_with_default, self.run)
+
+    @factory.lazy_attribute
+    def display_org_with_default(self):
+        return self.org
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @factory.lazy_attribute
     def display_name(self):

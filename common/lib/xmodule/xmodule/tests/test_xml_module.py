@@ -347,8 +347,12 @@ class EditableMetadataFieldsTest(unittest.TestCase):
                 non_editable_fields.append(TestModuleDescriptor.due)
                 return non_editable_fields
 
+<<<<<<< HEAD
         system = get_test_descriptor_system()
         system.render_template = Mock(return_value="<div>Test Template HTML</div>")
+=======
+        system = get_test_descriptor_system(render_template=Mock())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return system.construct_xblock_from_class(TestModuleDescriptor, field_data=field_data, scope_ids=Mock())
 
     def assert_field_values(self, editable_fields, name, field, explicitly_set, value, default_value,  # lint-amnesty, pylint: disable=dangerous-default-value

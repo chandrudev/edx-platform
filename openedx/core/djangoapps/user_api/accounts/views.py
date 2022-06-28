@@ -7,19 +7,29 @@ https://openedx.atlassian.net/wiki/display/TNL/User+API
 
 import datetime
 import logging
+<<<<<<< HEAD
 import uuid
 from functools import wraps
 
 import pytz
 from rest_framework.exceptions import UnsupportedMediaType
 
+=======
+from functools import wraps
+
+import pytz
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from consent.models import DataSharingConsent
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model, logout
 from django.contrib.sites.models import Site
 from django.core.cache import cache
+<<<<<<< HEAD
 from django.db import models, transaction
+=======
+from django.db import transaction
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.utils.translation import gettext as _
 from edx_ace import ace
 from edx_ace.recipient import Recipient
@@ -30,6 +40,10 @@ from integrated_channels.degreed.models import DegreedLearnerDataTransmissionAud
 from integrated_channels.sap_success_factors.models import SapSuccessFactorsLearnerDataTransmissionAudit
 from rest_framework import permissions, status
 from rest_framework.authentication import SessionAuthentication
+<<<<<<< HEAD
+=======
+from rest_framework.exceptions import UnsupportedMediaType
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
@@ -40,21 +54,34 @@ from wiki.models.pluginbase import RevisionPluginRevision
 
 from common.djangoapps.entitlements.models import CourseEntitlement
 from common.djangoapps.student.models import (  # lint-amnesty, pylint: disable=unused-import
+<<<<<<< HEAD
     AccountRecovery,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     CourseEnrollmentAllowed,
     LoginFailures,
     ManualEnrollmentAudit,
     PendingEmailChange,
     PendingNameChange,
+<<<<<<< HEAD
     Registration,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     User,
     UserProfile,
     get_potentially_retired_user_by_username,
     get_retired_email_by_email,
     get_retired_username_by_username,
+<<<<<<< HEAD
     is_username_retired
 )
 from common.djangoapps.student.models_api import do_name_change_request
+=======
+    is_username_retired,
+    is_email_retired
+)
+from common.djangoapps.student.models_api import confirm_name_change, do_name_change_request, get_pending_name_change
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.ace_common.template_context import get_base_template_context
 from openedx.core.djangoapps.api_admin.models import ApiAccessRequest
 from openedx.core.djangoapps.course_groups.models import UnregisteredLearnerCohortAssignments
@@ -62,6 +89,10 @@ from openedx.core.djangoapps.credit.models import CreditRequest, CreditRequireme
 from openedx.core.djangoapps.external_user_ids.models import ExternalId, ExternalIdType
 from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
 from openedx.core.djangoapps.profile_images.images import remove_profile_images
+<<<<<<< HEAD
+=======
+from openedx.core.djangoapps.user_api.accounts import RETIRED_EMAIL_MSG
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_names, set_has_profile_image
 from openedx.core.djangoapps.user_authn.exceptions import AuthFailedError
 from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser
@@ -74,7 +105,11 @@ from ..models import (
     RetirementStateError,
     UserOrgTag,
     UserRetirementPartnerReportingStatus,
+<<<<<<< HEAD
     UserRetirementStatus
+=======
+    UserRetirementStatus,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from .api import get_account_settings, update_account_settings
 from .permissions import CanDeactivateUser, CanGetAccountInfo, CanReplaceUsername, CanRetireUser
@@ -82,10 +117,17 @@ from .serializers import (
     PendingNameChangeSerializer,
     UserRetirementPartnerReportSerializer,
     UserRetirementStatusSerializer,
+<<<<<<< HEAD
     UserSearchEmailSerializer
 )
 from .signals import USER_RETIRE_LMS_CRITICAL, USER_RETIRE_LMS_MISC, USER_RETIRE_MAILINGS
 from .utils import create_retirement_request_and_deactivate_account
+=======
+    UserSearchEmailSerializer,
+)
+from .signals import USER_RETIRE_LMS_CRITICAL, USER_RETIRE_LMS_MISC, USER_RETIRE_MAILINGS
+from .utils import create_retirement_request_and_deactivate_account, username_suffix_generator
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 try:
     from coaching.api import has_ever_consented_to_coaching
@@ -186,6 +228,10 @@ class AccountViewSet(ViewSet):
             * secondary_email: A secondary email address for the user. Unlike
               the email field, GET will reflect the latest update to this field
               even if changes have yet to be confirmed.
+<<<<<<< HEAD
+=======
+            * verified_name: Approved verified name of the learner present in name affirmation plugin
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             * gender: One of the following values:
 
                 * null
@@ -252,9 +298,12 @@ class AccountViewSet(ViewSet):
             * pending_name_change: If the user has an active name change request, returns the
               requested name.
 
+<<<<<<< HEAD
             * is_verified_name_enabled: Temporary flag to control verified name field - see
               https://github.com/edx/edx-name-affirmation/blob/main/edx_name_affirmation/toggles.py
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             For all text fields, plain text instead of HTML is supported. The
             data is stored exactly as specified. Clients must HTML escape
             rendered values to avoid script injections.
@@ -320,6 +369,11 @@ class AccountViewSet(ViewSet):
         if usernames:
             search_usernames = usernames.strip(',').split(',')
         elif user_email:
+<<<<<<< HEAD
+=======
+            if is_email_retired(user_email):
+                return Response({'error_msg': RETIRED_EMAIL_MSG}, status=status.HTTP_404_NOT_FOUND)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             user_email = user_email.strip('')
             try:
                 user = User.objects.get(email=user_email)
@@ -331,6 +385,11 @@ class AccountViewSet(ViewSet):
                 user = User.objects.get(id=lms_user_id)
             except (UserNotFound, User.DoesNotExist):
                 return Response(status=status.HTTP_404_NOT_FOUND)
+<<<<<<< HEAD
+=======
+            except ValueError:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             search_usernames = [user.username]
         try:
             account_settings = get_account_settings(
@@ -431,18 +490,34 @@ class AccountViewSet(ViewSet):
         return Response(account_settings)
 
 
+<<<<<<< HEAD
 class NameChangeView(APIView):
     """
     Request a profile name change. This creates a PendingNameChange to be verified later,
     rather than updating the user's profile name directly.
+=======
+class NameChangeView(ViewSet):
+    """
+    Viewset to manage profile name change requests.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     authentication_classes = (JwtAuthentication, SessionAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
+<<<<<<< HEAD
     def post(self, request):
         """
         POST /api/user/v1/accounts/name_change/
 
+=======
+    def create(self, request):
+        """
+        POST /api/user/v1/accounts/name_change/
+
+        Request a profile name change. This creates a PendingNameChange to be verified later,
+        rather than updating the user's profile name directly.
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         Example request:
             {
                 "name": "Jon Doe"
@@ -466,6 +541,28 @@ class NameChangeView(APIView):
 
         return Response(status=status.HTTP_400_BAD_REQUEST, data=serializer.errors)
 
+<<<<<<< HEAD
+=======
+    def confirm(self, request, username):
+        """
+        POST /api/user/v1/account/name_change/{username}/confirm
+
+        Confirm a name change request for the specified user, and update their profile name.
+        """
+        if not request.user.is_staff:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+        user_model = get_user_model()
+        user = user_model.objects.get(username=username)
+        pending_name_change = get_pending_name_change(user)
+
+        if pending_name_change:
+            confirm_name_change(user, pending_name_change)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class AccountDeactivationView(APIView):
     """
@@ -556,7 +653,11 @@ class DeactivateLogoutView(APIView):
                     ace.send(notification)
                 except Exception as exc:
                     log.exception('Error sending out deletion notification email')
+<<<<<<< HEAD
                     raise
+=======
+                    raise exc
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                 # Log the user out.
                 logout(request)
@@ -656,6 +757,7 @@ class AccountRetirementPartnerReportView(ViewSet):
             # Org can conceivably be blank or this bogus default value
             if org and org != 'outdated_entry':
                 orgs.add(org)
+<<<<<<< HEAD
         try:
             # if the user has ever launched a managed Zoom xblock,
             # we'll notify Zoom to delete their records.
@@ -666,6 +768,8 @@ class AccountRetirementPartnerReportView(ViewSet):
         except AttributeError:
             # Zoom XBlock not installed
             pass
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return orgs
 
     def retirement_partner_report(self, request):  # pylint: disable=unused-argument
@@ -951,10 +1055,15 @@ class AccountRetirementStatusView(ViewSet):
         Updates the RetirementStatus row for the given user to the new
         status, and append any messages to the message log.
 
+<<<<<<< HEAD
         Note that this implementation DOES NOT use the "merge patch"
         implementation seen in AccountViewSet. Slumber, the project
         we use to power edx-rest-api-client, does not currently support
         it. The content type for this request is 'application/json'.
+=======
+        Note that this implementation DOES NOT use the "merge patch" implementation seen in AccountViewSet.
+        The content type for this request is 'application/json'.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         try:
             username = request.data['username']
@@ -1331,8 +1440,13 @@ class UsernameReplacementView(APIView):
         # Keep checking usernames in case desired_username + random suffix is already taken
         while True:
             if User.objects.filter(username=new_username).exists():
+<<<<<<< HEAD
                 unique_suffix = uuid.uuid4().hex[:suffix_length]
                 new_username = desired_username + unique_suffix
+=======
+                # adding a dash between user-supplied and system-generated values to avoid weird combinations
+                new_username = desired_username + '-' + username_suffix_generator(suffix_length)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             else:
                 break
         return new_username

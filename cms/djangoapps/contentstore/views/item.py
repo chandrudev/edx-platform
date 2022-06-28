@@ -13,6 +13,10 @@ from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_http_methods
+<<<<<<< HEAD
+=======
+from edx_django_utils.plugins import pluggable_override
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edx_proctoring.api import (
     does_backend_support_onboarding,
     get_exam_by_content_id,
@@ -31,6 +35,10 @@ from xblock.fields import Scope
 from cms.djangoapps.contentstore.config.waffle import SHOW_REVIEW_RULES_FLAG
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from cms.lib.xblock.authoring_mixin import VISIBILITY_VIEW
+<<<<<<< HEAD
+=======
+from common.djangoapps.edxmako.services import MakoService
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.edxmako.shortcuts import render_to_string
 from common.djangoapps.static_replace import replace_static_urls
 from common.djangoapps.student.auth import has_studio_read_access, has_studio_write_access
@@ -38,6 +46,7 @@ from common.djangoapps.util.date_utils import get_default_time_display
 from common.djangoapps.util.json_request import JsonResponse, expect_json
 from common.djangoapps.xblock_django.user_service import DjangoXBlockUserService
 from openedx.core.djangoapps.bookmarks import api as bookmarks_api
+<<<<<<< HEAD
 from openedx.core.lib.gating import api as gating_api
 from openedx.core.lib.xblock_utils import hash_resource, request_token, wrap_xblock, wrap_xblock_aside
 from openedx.core.toggles import ENTRANCE_EXAMS
@@ -51,6 +60,22 @@ from xmodule.modulestore.inheritance import own_metadata
 from xmodule.services import ConfigurationService, SettingsService, TeamsConfigurationService
 from xmodule.tabs import CourseTabList
 from xmodule.x_module import AUTHOR_VIEW, PREVIEW_VIEWS, STUDENT_VIEW, STUDIO_VIEW
+=======
+from openedx.core.djangoapps.discussions.models import DiscussionsConfiguration
+from openedx.core.lib.gating import api as gating_api
+from openedx.core.lib.xblock_utils import hash_resource, request_token, wrap_xblock, wrap_xblock_aside
+from openedx.core.toggles import ENTRANCE_EXAMS
+from xmodule.course_module import DEFAULT_START_DATE  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.library_tools import LibraryToolsService  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import EdxJSONEncoder, ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import InvalidLocationError, ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.inheritance import own_metadata  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.services import ConfigurationService, SettingsService, TeamsConfigurationService  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.tabs import CourseTabList  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.x_module import AUTHOR_VIEW, PREVIEW_VIEWS, STUDENT_VIEW, STUDIO_VIEW  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..utils import (
     ancestor_has_staff_lock,
@@ -308,6 +333,11 @@ class StudioEditModuleRuntime:
                 return DjangoXBlockUserService(self._user)
             if service_name == "studio_user_permissions":
                 return StudioPermissionsService(self._user)
+<<<<<<< HEAD
+=======
+            if service_name == "mako":
+                return MakoService()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if service_name == "settings":
                 return SettingsService()
             if service_name == "lti-configuration":
@@ -1116,6 +1146,10 @@ def _get_gating_info(course, xblock):
     return info
 
 
+<<<<<<< HEAD
+=======
+@pluggable_override('OVERRIDE_CREATE_XBLOCK_INFO')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=False, include_child_info=False,  # lint-amnesty, pylint: disable=too-many-statements
                        course_outline=False, include_children_predicate=NEVER, parent_xblock=None, graders=None,
                        user=None, course=None, is_concise=False):
@@ -1134,6 +1168,16 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
 
     In addition, an optional include_children_predicate argument can be provided to define whether or
     not a particular xblock should have its children included.
+<<<<<<< HEAD
+=======
+
+    You can customize the behavior of this function using the `OVERRIDE_CREATE_XBLOCK_INFO` pluggable override point.
+    For example:
+    >>> def create_xblock_info(default_fn, xblock, *args, **kwargs):
+    ...     xblock_info = default_fn(xblock, *args, **kwargs)
+    ...     xblock_info['icon'] = xblock.icon_override
+    ...     return xblock_info
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     is_library_block = isinstance(xblock.location, LibraryUsageLocator)
     is_xblock_unit = is_unit(xblock, parent_xblock)
@@ -1209,6 +1253,20 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
         'category': xblock.category,
         'has_children': xblock.has_children
     }
+<<<<<<< HEAD
+=======
+
+    if xblock.category == 'course':
+        discussions_config = DiscussionsConfiguration.get(course.id)
+        show_unit_level_discussions_toggle = (
+            discussions_config.enabled and
+            discussions_config.supports_in_context_discussions() and
+            discussions_config.enable_in_context and
+            discussions_config.unit_level_visibility
+        )
+        xblock_info["unit_level_discussions"] = show_unit_level_discussions_toggle
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if is_concise:
         if child_info and child_info.get('children', []):
             xblock_info['child_info'] = child_info
@@ -1284,7 +1342,11 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
 
                 xblock_info.update({
                     'is_proctored_exam': xblock.is_proctored_exam,
+<<<<<<< HEAD
                     'was_ever_special_exam': _was_xblock_ever_special_exam(
+=======
+                    'was_exam_ever_linked_with_external': _was_xblock_ever_exam_linked_with_external(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         course, xblock
                     ),
                     'online_proctoring_rules': rules_url,
@@ -1300,7 +1362,13 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
 
         # Update with gating info
         xblock_info.update(_get_gating_info(course, xblock))
+<<<<<<< HEAD
 
+=======
+        if is_xblock_unit:
+            # if xblock is a Unit we add the discussion_enabled option
+            xblock_info['discussion_enabled'] = xblock.discussion_enabled
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if xblock.category == 'sequential':
             # Entrance exam subsection should be hidden. in_entrance_exam is
             # inherited metadata, all children will have it.
@@ -1338,6 +1406,7 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
     return xblock_info
 
 
+<<<<<<< HEAD
 def _was_xblock_ever_special_exam(course, xblock):
     """
     Determine whether this XBlock is or was ever configured as a special exam.
@@ -1347,6 +1416,18 @@ def _was_xblock_ever_special_exam(course, xblock):
     edx-proctoring has an exam record associated with the block's ID.
     If an exception is not raised, then we know that such a record exists,
     indicating that this *was* once a special exam.
+=======
+def _was_xblock_ever_exam_linked_with_external(course, xblock):
+    """
+    Determine whether this XBlock is or was ever configured as an external proctored exam.
+
+    If this block is *not* currently an externally linked proctored exam, the best way for us to tell
+    whether it was was *ever* such is by checking whether
+    edx-proctoring has an exam record associated with the block's ID,
+    and the exam record has external_id.
+    If an exception is not raised, then we know that such a record exists,
+    indicating that this *was* once an externally linked proctored exam.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Arguments:
         course (CourseBlock)
@@ -1354,6 +1435,7 @@ def _was_xblock_ever_special_exam(course, xblock):
 
     Returns: bool
     """
+<<<<<<< HEAD
     if xblock.is_time_limited:
         return True
     try:
@@ -1362,6 +1444,14 @@ def _was_xblock_ever_special_exam(course, xblock):
         return False
     else:
         return True
+=======
+    try:
+        exam = get_exam_by_content_id(course.id, xblock.location)
+        return bool('external_id' in exam and exam['external_id'])
+    except ProctoredExamNotFoundException:
+        pass
+    return False
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def add_container_page_publishing_info(xblock, xblock_info):

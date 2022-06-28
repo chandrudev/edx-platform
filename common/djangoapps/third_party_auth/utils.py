@@ -2,6 +2,7 @@
 Utility functions for third_party_auth
 """
 
+<<<<<<< HEAD
 from uuid import UUID
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from enterprise.models import EnterpriseCustomerUser, EnterpriseCustomerIdentityProvider
@@ -10,6 +11,134 @@ from social_core.pipeline.social_auth import associate_by_email
 from common.djangoapps.third_party_auth.models import OAuth2ProviderConfig
 from . import provider
 
+=======
+import datetime
+import logging
+from uuid import UUID
+
+import dateutil.parser
+import pytz
+import requests
+from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
+from django.utils.timezone import now
+from enterprise.models import EnterpriseCustomerIdentityProvider, EnterpriseCustomerUser
+from lxml import etree
+from onelogin.saml2.utils import OneLogin_Saml2_Utils
+from requests import exceptions
+from social_core.pipeline.social_auth import associate_by_email
+
+from common.djangoapps.third_party_auth.models import OAuth2ProviderConfig, SAMLProviderData
+from openedx.core.djangolib.markup import Text
+
+from . import provider
+
+SAML_XML_NS = 'urn:oasis:names:tc:SAML:2.0:metadata'  # The SAML Metadata XML namespace
+
+log = logging.getLogger(__name__)
+
+
+class MetadataParseError(Exception):
+    """ An error occurred while parsing the SAML metadata from an IdP """
+    pass  # lint-amnesty, pylint: disable=unnecessary-pass
+
+
+def fetch_metadata_xml(url):
+    """
+    Fetches IDP metadata from provider url
+    Returns: xml document
+    """
+    try:
+        log.info("Fetching %s", url)
+        if not url.lower().startswith('https'):
+            log.warning("This SAML metadata URL is not secure! It should use HTTPS. (%s)", url)
+        response = requests.get(url, verify=True)  # May raise HTTPError or SSLError or ConnectionError
+        response.raise_for_status()  # May raise an HTTPError
+
+        try:
+            parser = etree.XMLParser(remove_comments=True)
+            xml = etree.fromstring(response.content, parser)
+        except etree.XMLSyntaxError:  # lint-amnesty, pylint: disable=try-except-raise
+            raise
+        # TODO: Can use OneLogin_Saml2_Utils to validate signed XML if anyone is using that
+        return xml
+    except (exceptions.SSLError, exceptions.HTTPError, exceptions.RequestException, MetadataParseError) as error:
+        # Catch and process exception in case of errors during fetching and processing saml metadata.
+        # Here is a description of each exception.
+        # SSLError is raised in case of errors caused by SSL (e.g. SSL cer verification failure etc.)
+        # HTTPError is raised in case of unexpected status code (e.g. 500 error etc.)
+        # RequestException is the base exception for any request related error that "requests" lib raises.
+        # MetadataParseError is raised if there is error in the fetched meta data (e.g. missing @entityID etc.)
+        log.exception(str(error), exc_info=error)
+        raise error
+    except etree.XMLSyntaxError as error:
+        log.exception(str(error), exc_info=error)
+        raise error
+
+
+def parse_metadata_xml(xml, entity_id):
+    """
+    Given an XML document containing SAML 2.0 metadata, parse it and return a tuple of
+    (public_key, sso_url, expires_at) for the specified entityID.
+
+    Raises MetadataParseError if anything is wrong.
+    """
+
+    if xml.tag == etree.QName(SAML_XML_NS, 'EntityDescriptor'):
+        entity_desc = xml
+    else:
+        if xml.tag != etree.QName(SAML_XML_NS, 'EntitiesDescriptor'):
+            raise MetadataParseError(Text("Expected root element to be <EntitiesDescriptor>, not {}").format(xml.tag))
+        entity_desc = xml.find(
+            ".//{}[@entityID='{}']".format(etree.QName(SAML_XML_NS, 'EntityDescriptor'), entity_id)
+        )
+        if entity_desc is None:
+            raise MetadataParseError(f"Can't find EntityDescriptor for entityID {entity_id}")
+
+    expires_at = None
+    if "validUntil" in xml.attrib:
+        expires_at = dateutil.parser.parse(xml.attrib["validUntil"])
+    if "cacheDuration" in xml.attrib:
+        cache_expires = OneLogin_Saml2_Utils.parse_duration(xml.attrib["cacheDuration"])
+        cache_expires = datetime.datetime.fromtimestamp(cache_expires, tz=pytz.utc)
+        if expires_at is None or cache_expires < expires_at:
+            expires_at = cache_expires
+
+    sso_desc = entity_desc.find(etree.QName(SAML_XML_NS, "IDPSSODescriptor"))
+    if sso_desc is None:
+        raise MetadataParseError("IDPSSODescriptor missing")
+    if 'urn:oasis:names:tc:SAML:2.0:protocol' not in sso_desc.get("protocolSupportEnumeration"):
+        raise MetadataParseError("This IdP does not support SAML 2.0")
+
+    # Now we just need to get the public_key and sso_url
+    # We want the use='signing' cert, not the 'encryption' one
+    # There may be multiple signing certs returned by the server so create one record per signing cert found.
+    certs = sso_desc.findall("./{}[@use='signing']//{}".format(
+        etree.QName(SAML_XML_NS, "KeyDescriptor"), "{http://www.w3.org/2000/09/xmldsig#}X509Certificate"
+    ))
+
+    if not certs:
+        # it's possible that there is just one keyDescription with no use attribute
+        # that is a shortcut for both signing and encryption combined. So we can use that as fallback.
+        certs = sso_desc.findall("./{}//{}".format(
+            etree.QName(SAML_XML_NS, "KeyDescriptor"), "{http://www.w3.org/2000/09/xmldsig#}X509Certificate"
+        ))
+        if not certs:
+            raise MetadataParseError("Public Key missing. Expected an <X509Certificate>")
+
+    public_keys = []
+    for key in certs:
+        public_keys.append(key.text.replace(" ", ""))
+
+    binding_elements = sso_desc.iterfind("./{}".format(etree.QName(SAML_XML_NS, "SingleSignOnService")))
+    sso_bindings = {element.get('Binding'): element.get('Location') for element in binding_elements}
+    try:
+        # The only binding supported by python-saml and python-social-auth is HTTP-Redirect:
+        sso_url = sso_bindings['urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect']
+    except KeyError:
+        raise MetadataParseError("Unable to find SSO URL with HTTP-Redirect binding.")  # lint-amnesty, pylint: disable=raise-missing-from
+    return public_keys, sso_url, expires_at
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 def user_exists(details):
     """
@@ -52,6 +181,27 @@ def get_user_from_email(details):
     return None
 
 
+<<<<<<< HEAD
+=======
+def create_or_update_bulk_saml_provider_data(entity_id, public_keys, sso_url, expires_at):
+    """
+    Placeholder
+    """
+    fetched_at = now()
+    new_records_created = False
+    # Create a data record for each of the public keys provided
+    for key in public_keys:
+        _, created = SAMLProviderData.objects.update_or_create(
+            public_key=key, entity_id=entity_id,
+            defaults={'sso_url': sso_url, 'expires_at': expires_at, 'fetched_at': fetched_at},
+        )
+        if created:
+            new_records_created = True
+
+    return new_records_created
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def convert_saml_slug_provider_id(provider):  # lint-amnesty, pylint: disable=redefined-outer-name
     """
     Provider id is stored with the backend type prefixed to it (ie "saml-")

@@ -2,11 +2,20 @@
 APIs providing support for enterprise functionality.
 """
 
+<<<<<<< HEAD
 
 import logging
 import traceback
 from functools import wraps
 
+=======
+import logging
+import traceback
+from functools import wraps
+from urllib.parse import urljoin
+
+import requests
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from crum import get_current_request
 from django.conf import settings
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
@@ -18,28 +27,51 @@ from django.urls import reverse
 from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from edx_django_utils.cache import TieredCache, get_cache_key
+<<<<<<< HEAD
 from edx_rest_api_client.client import EdxRestApiClient
 from slumber.exceptions import HttpClientError, HttpNotFoundError, HttpServerError
 
+=======
+from edx_rest_api_client.auth import SuppliedJwtAuth
+from requests.exceptions import HTTPError
+
+from common.djangoapps.third_party_auth.pipeline import get as get_partial_pipeline
+from common.djangoapps.third_party_auth.provider import Registry
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.features.enterprise_support.utils import get_data_consent_share_cache_key
+<<<<<<< HEAD
 from common.djangoapps.third_party_auth.pipeline import get as get_partial_pipeline
 from common.djangoapps.third_party_auth.provider import Registry
 
 
 try:
     from enterprise.models import (
+=======
+
+try:
+    from consent.models import DataSharingConsent, DataSharingConsentTextOverrides
+    from enterprise.api.v1.serializers import (
+        EnterpriseCustomerUserReadOnlySerializer,
+        EnterpriseCustomerUserWriteSerializer
+    )
+    from enterprise.models import (
+        EnterpriseCourseEnrollment,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         EnterpriseCustomer,
         EnterpriseCustomerIdentityProvider,
         EnterpriseCustomerUser,
         PendingEnterpriseCustomerUser
     )
+<<<<<<< HEAD
     from enterprise.api.v1.serializers import (
         EnterpriseCustomerUserReadOnlySerializer, EnterpriseCustomerUserWriteSerializer
     )
     from consent.models import DataSharingConsent, DataSharingConsentTextOverrides
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 except ImportError:  # pragma: no cover
     pass
 
@@ -69,6 +101,7 @@ class ConsentApiClient:
         provided user.
         """
         jwt = create_jwt_for_user(user)
+<<<<<<< HEAD
         url = configuration_helpers.get_value('ENTERPRISE_CONSENT_API_URL', settings.ENTERPRISE_CONSENT_API_URL)
         self.client = EdxRestApiClient(
             url,
@@ -76,6 +109,14 @@ class ConsentApiClient:
             append_slash=False,
         )
         self.consent_endpoint = self.client.data_sharing_consent
+=======
+        base_api_url = configuration_helpers.get_value(
+            'ENTERPRISE_CONSENT_API_URL', settings.ENTERPRISE_CONSENT_API_URL
+        )
+        self.client = requests.Session()
+        self.client.auth = SuppliedJwtAuth(jwt)
+        self.consent_endpoint = urljoin(f"{base_api_url}/", "data_sharing_consent")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def revoke_consent(self, **kwargs):
         """
@@ -84,7 +125,13 @@ class ConsentApiClient:
         This endpoint takes any given kwargs, which are understood as filtering the
         conceptual scope of the consent involved in the request.
         """
+<<<<<<< HEAD
         return self.consent_endpoint.delete(**kwargs)
+=======
+        response = self.client.delete(self.consent_endpoint, json=kwargs)
+        response.raise_for_status()
+        return response.json()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def provide_consent(self, **kwargs):
         """
@@ -93,7 +140,13 @@ class ConsentApiClient:
         This endpoint takes any given kwargs, which are understood as filtering the
         conceptual scope of the consent involved in the request.
         """
+<<<<<<< HEAD
         return self.consent_endpoint.post(kwargs)
+=======
+        response = self.client.post(self.consent_endpoint, json=kwargs)
+        response.raise_for_status()
+        return response.json()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def consent_required(self, enrollment_exists=False, **kwargs):
         """
@@ -104,7 +157,13 @@ class ConsentApiClient:
         """
 
         # Call the endpoint with the given kwargs, and check the value that it provides.
+<<<<<<< HEAD
         response = self.consent_endpoint.get(**kwargs)
+=======
+        response = self.client.get(self.consent_endpoint, params=kwargs)
+        response.raise_for_status()
+        response = response.json()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         LOGGER.info(
             '[ENTERPRISE DSC] Consent Requirement Info. APIParams: [%s], APIResponse: [%s], EnrollmentExists: [%s]',
@@ -148,6 +207,7 @@ class EnterpriseApiClient:
 
     def __init__(self, user):
         """
+<<<<<<< HEAD
         Initialize an authenticated Enterprise service API client by using the
         provided user.
         """
@@ -163,12 +223,32 @@ class EnterpriseApiClient:
         return endpoint(uuid).get()
 
     def post_enterprise_course_enrollment(self, username, course_id, consent_granted):
+=======
+        Initialize an authenticated Enterprise service API client.
+
+        Authentificate by jwt token using the provided user.
+        """
+        self.user = user
+        jwt = create_jwt_for_user(user)
+        self.base_api_url = configuration_helpers.get_value('ENTERPRISE_API_URL', settings.ENTERPRISE_API_URL)
+        self.client = requests.Session()
+        self.client.auth = SuppliedJwtAuth(jwt)
+
+    def get_enterprise_customer(self, uuid):
+        api_url = urljoin(f"{self.base_api_url}/", f"enterprise-customer/{uuid}/")
+        response = self.client.get(api_url)
+        response.raise_for_status()
+        return response.json()
+
+    def post_enterprise_course_enrollment(self, username, course_id):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Create an EnterpriseCourseEnrollment by using the corresponding serializer (for validation).
         """
         data = {
             'username': username,
             'course_id': course_id,
+<<<<<<< HEAD
             'consent_granted': consent_granted,
         }
         endpoint = getattr(self.client, 'enterprise-course-enrollment')
@@ -182,6 +262,20 @@ class EnterpriseApiClient:
                 username=username,
                 course_id=course_id,
                 consent_granted=consent_granted,
+=======
+        }
+        api_url = urljoin(f"{self.base_api_url}/", "enterprise-course-enrollment/")
+        try:
+            response = self.client.post(api_url, data=data)
+            response.raise_for_status()
+        except HTTPError:
+            message = (
+                "An error occured while posting EnterpriseCourseEnrollment for user {username} and "
+                "course run {course_id}."
+            ).format(
+                username=username,
+                course_id=course_id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
             LOGGER.exception(message)
             raise EnterpriseApiException(message)  # lint-amnesty, pylint: disable=raise-missing-from
@@ -252,6 +346,7 @@ class EnterpriseApiClient:
                     }
                 ],
             }
+<<<<<<< HEAD
 
         Raises:
             ConnectionError: requests exception "ConnectionError", raised if if ecommerce is unable to connect
@@ -261,10 +356,13 @@ class EnterpriseApiClient:
             Timeout: requests exception "Timeout", raised if enterprise API is taking too long for returning
                 a response. This exception is raised for both connection timeout and read timeout.
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         if not user.is_authenticated:
             return None
 
+<<<<<<< HEAD
         api_resource_name = 'enterprise-learner'
 
         try:
@@ -272,6 +370,15 @@ class EnterpriseApiClient:
             querystring = {'username': user.username}
             response = endpoint().get(**querystring)
         except (HttpClientError, HttpServerError):
+=======
+        api_url = urljoin(f"{self.base_api_url}/", "enterprise-learner/")
+
+        try:
+            querystring = {'username': user.username}
+            response = self.client.get(api_url, params=querystring)
+            response.raise_for_status()
+        except HTTPError:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             LOGGER.exception(
                 'Failed to get enterprise-learner for user [%s] with client user [%s]. Caller: %s, Request PATH: %s',
                 user.username,
@@ -281,7 +388,11 @@ class EnterpriseApiClient:
             )
             return None
 
+<<<<<<< HEAD
         return response
+=======
+        return response.json()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class EnterpriseApiServiceClient(EnterpriseServiceClientMixin, EnterpriseApiClient):
@@ -296,8 +407,15 @@ class EnterpriseApiServiceClient(EnterpriseServiceClientMixin, EnterpriseApiClie
         """
         enterprise_customer = enterprise_customer_from_cache(uuid=uuid)
         if enterprise_customer is _CACHE_MISS:
+<<<<<<< HEAD
             endpoint = getattr(self.client, 'enterprise-customer')
             enterprise_customer = endpoint(uuid).get()
+=======
+            api_url = urljoin(f"{self.base_api_url}/", f"enterprise-customer/{uuid}/")
+            response = self.client.get(api_url)
+            response.raise_for_status()
+            enterprise_customer = response.json() if response.content else None
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if enterprise_customer:
                 cache_enterprise(enterprise_customer)
 
@@ -477,8 +595,16 @@ def enterprise_customer_from_api(request):
 
         try:
             enterprise_customer = enterprise_api_client.get_enterprise_customer(enterprise_customer_uuid)
+<<<<<<< HEAD
         except HttpNotFoundError:
             enterprise_customer = None
+=======
+        except HTTPError as err:
+            if err.response.status_code == 404:
+                enterprise_customer = None
+            else:
+                raise
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return enterprise_customer
 
 
@@ -786,6 +912,36 @@ def get_enterprise_learner_data_from_db(user):
         return serializer.data
 
 
+<<<<<<< HEAD
+=======
+@enterprise_is_enabled(otherwise=[])
+def get_data_sharing_consents(user):
+    """
+    Returns a list of data sharing consent records for the given user.
+    """
+
+    return DataSharingConsent.objects.filter(
+        username=user.username
+    )
+
+
+@enterprise_is_enabled(otherwise=[])
+def get_enterprise_course_enrollments(user):
+    """
+    Returns a list of enterprise course enrollments for the given user.
+    """
+
+    return EnterpriseCourseEnrollment.objects.select_related(
+        'licensed_with',
+        'enterprise_customer_user'
+    ).prefetch_related(
+        'enterprise_customer_user__enterprise_customer'
+    ).filter(
+        enterprise_customer_user__user_id=user.id
+    )
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @enterprise_is_enabled()
 def enterprise_customer_from_session_or_learner_data(request):
     """

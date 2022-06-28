@@ -38,8 +38,11 @@ class TestLoginHelper(TestCase):
     @ddt.data(
         (logging.WARNING, "WARNING", "https://www.amazon.com", "text/html", None,
          "Unsafe redirect parameter detected after login page: 'https://www.amazon.com'"),
+<<<<<<< HEAD
         (logging.WARNING, "WARNING", "testserver/edx.org/images/logo", "text/html", None,
          "Redirect to theme content detected after login page: 'testserver/edx.org/images/logo'"),
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         (logging.INFO, "INFO", "favicon.ico", "image/*", "test/agent",
          "Redirect to non html content 'image/*' detected from 'test/agent' after login page: 'favicon.ico'"),
         (logging.WARNING, "WARNING", "https://www.test.com/test.jpg", "image/*", None,

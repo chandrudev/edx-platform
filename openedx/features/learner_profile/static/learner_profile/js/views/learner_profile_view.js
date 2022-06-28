@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 (function(define) {
+=======
+(function (define){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     'use strict';
 
     define(
@@ -7,10 +11,17 @@
             'common/js/components/views/tabbed_view',
             'learner_profile/js/views/section_two_tab'
         ],
+<<<<<<< HEAD
         function(gettext, $, _, Backbone, HtmlUtils, TabbedView, SectionTwoTab) {
             var LearnerProfileView = Backbone.View.extend({
 
                 initialize: function(options) {
+=======
+        function (gettext, $, _, Backbone, HtmlUtils, TabbedView, SectionTwoTab){
+            var LearnerProfileView = Backbone.View.extend({
+
+                initialize: function (options){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     var Router;
                     this.options = _.extend({}, options);
                     _.bindAll(this, 'showFullProfile', 'render', 'renderFields', 'showLoadingError');
@@ -23,7 +34,11 @@
                     this.firstRender = true;
                 },
 
+<<<<<<< HEAD
                 showFullProfile: function() {
+=======
+                showFullProfile: function () {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     var isAboveMinimumAge = this.options.accountSettingsModel.isAboveMinimumAge();
                     if (this.options.ownProfile) {
                         return isAboveMinimumAge
@@ -33,14 +48,22 @@
                     }
                 },
 
+<<<<<<< HEAD
                 setActiveTab: function(tab) {
+=======
+                setActiveTab: function (tab){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     // This tab may not actually exist.
                     if (this.tabbedView.getTabMeta(tab).tab) {
                         this.tabbedView.setActiveTab(tab);
                     }
                 },
 
+<<<<<<< HEAD
                 render: function() {
+=======
+                render: function (){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     var tabs,
                         $tabbedViewElement,
                         $wrapperProfileBioElement = this.$el.find('.wrapper-profile-bio'),
@@ -77,9 +100,15 @@
                         ];
 
                         // Build the accomplishments Tab and fill with data
+<<<<<<< HEAD
                         this.options.badgeListContainer.collection.fetch().done(function() {
                             self.options.badgeListContainer.render();
                         }).error(function() {
+=======
+                        this.options.badgeListContainer.collection.fetch().done(function (){
+                            self.options.badgeListContainer.render();
+                        }).error(function (){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                             self.options.badgeListContainer.renderError();
                         });
 
@@ -107,19 +136,40 @@
                             Backbone.history.start();
                         }
                     } else {
+<<<<<<< HEAD
                         // xss-lint: disable=javascript-jquery-html
                         $wrapperProfileBioElement.html(this.sectionTwoView.render().el);
+=======
+                        if (this.isCoppaCompliant()) {
+                            // xss-lint: disable=javascript-jquery-html
+                            $wrapperProfileBioElement.html(this.sectionTwoView.render().el);
+                        }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     }
                     return this;
                 },
 
+<<<<<<< HEAD
                 renderFields: function() {
+=======
+                isCoppaCompliant: function (){
+                    var enableCoppaCompliance = this.options.accountSettingsModel.get('enable_coppa_compliance'),
+                        isAboveAge = this.options.accountSettingsModel.isAboveMinimumAge();
+                    return !enableCoppaCompliance || (enableCoppaCompliance && isAboveAge);
+                },
+
+                renderFields: function (){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     var view = this,
                         fieldView,
                         imageView,
                         settings;
 
+<<<<<<< HEAD
                     if (this.options.ownProfile) {
+=======
+                    if (this.options.ownProfile && this.isCoppaCompliant()) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         fieldView = this.options.accountPrivacyFieldView;
                         settings = this.options.accountSettingsModel;
                         fieldView.profileIsPrivate = !settings.get('year_of_birth');
@@ -142,14 +192,23 @@
                     imageView = this.options.profileImageFieldView;
                     this.$('.profile-image-field').append(imageView.render().el);
 
+<<<<<<< HEAD
                     if (this.showFullProfile()) {
                         _.each(this.options.sectionOneFieldViews, function(childFieldView) {
+=======
+                    if (this.showFullProfile()){
+                        _.each(this.options.sectionOneFieldViews, function (childFieldView) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                             view.$('.profile-section-one-fields').append(childFieldView.render().el);
                         });
                     }
                 },
 
+<<<<<<< HEAD
                 showLoadingError: function() {
+=======
+                showLoadingError: function (){
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     this.$('.ui-loading-indicator').addClass('is-hidden');
                     this.$('.ui-loading-error').removeClass('is-hidden');
                 }

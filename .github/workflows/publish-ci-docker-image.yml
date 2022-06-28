@@ -1,6 +1,14 @@
 name: Push CI Runner Docker Image
 
+<<<<<<< HEAD
 on: workflow_dispatch
+=======
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * 3"
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 jobs:
   push:
     runs-on: ubuntu-20.04
@@ -9,6 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+<<<<<<< HEAD
       - name: Build and Push docker image
         env:
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -17,4 +26,25 @@ jobs:
           docker build -t openedx/edx-platform-ci-runner:latest -f scripts/ci-runner.Dockerfile .
           make docker_auth
           docker push 'openedx/edx-platform-ci-runner:latest'
+=======
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.TOOLS_EDX_ECR_USER_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.TOOLS_EDX_ECR_USER_AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Log in to ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: actions-runner
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f scripts/ci-runner.Dockerfile .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

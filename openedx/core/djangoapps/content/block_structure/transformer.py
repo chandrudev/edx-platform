@@ -106,7 +106,10 @@ class BlockStructureTransformer:
                 block structure that is to be modified with collected
                 data to be cached for the transformer.
         """
+<<<<<<< HEAD
         pass  # lint-amnesty, pylint: disable=unnecessary-pass
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @abstractmethod
     def transform(self, usage_info, block_structure):

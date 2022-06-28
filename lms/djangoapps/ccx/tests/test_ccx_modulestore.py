@@ -10,18 +10,29 @@ from itertools import chain
 import pytz
 from ccx_keys.locator import CCXLocator
 from six.moves import zip_longest
+<<<<<<< HEAD
 
 from common.djangoapps.student.tests.factories import AdminFactory, UserFactory
 from lms.djangoapps.ccx.models import CustomCourseForEdX
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+from common.djangoapps.student.tests.factories import AdminFactory, UserFactory
+from lms.djangoapps.ccx.models import CustomCourseForEdX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestCCXModulestoreWrapper(SharedModuleStoreTestCase):
     """tests for a modulestore wrapped by CCXModulestoreWrapper
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

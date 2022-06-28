@@ -40,9 +40,15 @@ from openedx.core.djangoapps.course_groups.cohorts import bulk_cache_cohorts, ge
 from openedx.core.djangoapps.user_api.course_tag.api import BulkCourseTags
 from openedx.core.lib.cache_utils import get_cache
 from openedx.core.lib.courses import get_course_by_id
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.partitions.partitions_service import PartitionService
 from xmodule.split_test_module import get_split_user_partitions
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions_service import PartitionService  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.split_test_module import get_split_user_partitions  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .runner import TaskProgress
 from .utils import upload_csv_to_report_store
@@ -184,9 +190,28 @@ class GradeReportBase:
         Creates and uploads a CSV for the given headers and rows.
         """
         date = datetime.now(UTC)
+<<<<<<< HEAD
         upload_csv_to_report_store(success_rows, context.upload_filename, context.course_id, date)
         if len(error_rows) > 1:
             upload_csv_to_report_store(error_rows, context.upload_filename + '_err', context.course_id, date)
+=======
+        upload_csv_to_report_store(
+            success_rows,
+            context.upload_filename,
+            context.course_id,
+            date,
+            parent_dir=context.upload_parent_dir
+        )
+
+        if len(error_rows) > 1:
+            upload_csv_to_report_store(
+                error_rows,
+                context.upload_filename + '_err',
+                context.course_id,
+                date,
+                parent_dir=context.upload_parent_dir
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def log_additional_info_for_testing(self, context, message):
         """
@@ -317,7 +342,11 @@ class _ProblemGradeReportContext:
         self.report_for_verified_only = problem_grade_report_verified_only(self.course_id)
         self.task_progress = TaskProgress(self.action_name, total=None, start_time=time())
         self.upload_filename = _task_input.get('filename', 'problem_grade_report')
+<<<<<<< HEAD
         self.upload_dir = _task_input.get('upload_parent_dir', '')
+=======
+        self.upload_parent_dir = _task_input.get('upload_parent_dir', '')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @lazy
     def course(self):

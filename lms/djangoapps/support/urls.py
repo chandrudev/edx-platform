@@ -12,8 +12,22 @@ from .views.enrollments import EnrollmentSupportListView, EnrollmentSupportView
 from .views.feature_based_enrollments import FeatureBasedEnrollmentsSupportView, FeatureBasedEnrollmentSupportAPIView
 from .views.index import index
 from .views.manage_user import ManageUserDetailView, ManageUserSupportView
+<<<<<<< HEAD
 from .views.program_enrollments import LinkProgramEnrollmentSupportView, ProgramEnrollmentsInspectorView
 from .views.sso_records import SsoView
+=======
+from .views.program_enrollments import (
+    LinkProgramEnrollmentSupportView,
+    LinkProgramEnrollmentSupportAPIView,
+    ProgramEnrollmentsInspectorView,
+    SAMLProvidersWithOrg,
+    ProgramEnrollmentsInspectorAPIView,
+)
+from .views.sso_records import (
+    SsoView,
+)
+from .views.onboarding_status import OnboardingView
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 COURSE_ENTITLEMENTS_VIEW = EntitlementSupportView.as_view()
 
@@ -45,12 +59,43 @@ urlpatterns = [
         FeatureBasedEnrollmentSupportAPIView.as_view(),
         name="feature_based_enrollment_details"
     ),
+<<<<<<< HEAD
     re_path(r'link_program_enrollments/?$', LinkProgramEnrollmentSupportView.as_view(),
             name='link_program_enrollments'),
+=======
+    re_path(
+        r'link_program_enrollments/?$',
+        LinkProgramEnrollmentSupportView.as_view(),
+        name='link_program_enrollments'
+    ),
+    re_path(
+        r'link_program_enrollments_details/?$',
+        LinkProgramEnrollmentSupportAPIView.as_view(),
+        name='link_program_enrollments_details'
+    ),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     re_path(
         r'program_enrollments_inspector/?$',
         ProgramEnrollmentsInspectorView.as_view(),
         name='program_enrollments_inspector'
     ),
+<<<<<<< HEAD
     re_path(r'sso_records/(?P<username_or_email>[\w.@+-]+)?$', SsoView.as_view(), name='sso_records'),
+=======
+    re_path(
+        r'get_saml_providers/?$',
+        SAMLProvidersWithOrg.as_view(),
+        name='get_saml_providers'
+    ),
+    re_path(
+        r'program_enrollments_inspector_details/?$',
+        ProgramEnrollmentsInspectorAPIView.as_view(),
+        name='program_enrollments_inspector_details'
+    ),
+    re_path(r'sso_records/(?P<username_or_email>[\w.@+-]+)?$', SsoView.as_view(), name='sso_records'),
+    re_path(
+        r'onboarding_status/(?P<username_or_email>[\w.@+-]+)?$',
+        OnboardingView.as_view(), name='onboarding_status'
+    ),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ]

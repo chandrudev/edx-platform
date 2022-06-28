@@ -1,6 +1,10 @@
 # #-#-#-#-#  djangojs-partial.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Portuguese (Brazil) (http://www.transifex.com/open-edx/edx-platform/language/pt_BR/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
+=======
+# Copyright (C) 2022 EdX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -91,7 +95,11 @@
 # William Bellinazo Roca <williambr_1331@hotmail.com>, 2016
 # #-#-#-#-#  djangojs-studio.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Portuguese (Brazil) (http://www.transifex.com/open-edx/edx-platform/language/pt_BR/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
+=======
+# Copyright (C) 2022 EdX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -143,7 +151,11 @@
 # RenataBarboza, 2013
 # Renata Barboza, 2014-2016
 # Rodrigo Rocha <prof.rodrigorocha@yahoo.com>, 2020
+<<<<<<< HEAD
 # Sarina Canelake <sarina@edx.org>, 2014
+=======
+# Sarina Canelake <sarina@tcril.org>, 2014
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Siderlan Santos <siderlan.santos@gmail.com>, 2015
 # Stefania Trabucchi <stefania.trabucchi@abstract-technology.de>, 2019
 # e05a6f0c527312287ac027cf3d3a35f5_685166c <0e3f187c36e42a887ffaef9a9e407417_190443>, 2014
@@ -152,9 +164,15 @@
 # William Bellinazo Roca <williambr_1331@hotmail.com>, 2016
 # #-#-#-#-#  djangojs-account-settings-view.po (0.1a)  #-#-#-#-#
 # edX community translations have been downloaded from Portuguese (Brazil) (https://www.transifex.com/open-edx/teams/6205/pt_BR/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 # EdX Team <info@edx.org>, 2021.
+=======
+# Copyright (C) 2022 EdX
+# This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+# EdX Team <info@edx.org>, 2022.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #
 # Translators:
 # Victor Hochgreb de Freitas <victorhochgreb@gmail.com>, 2019
@@ -163,7 +181,11 @@
 #
 # #-#-#-#-#  underscore.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Portuguese (Brazil) (http://www.transifex.com/open-edx/edx-platform/language/pt_BR/)
+<<<<<<< HEAD
 # Copyright (C) 2021 edX
+=======
+# Copyright (C) 2022 edX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -210,7 +232,11 @@
 # William Bellinazo Roca <williambr_1331@hotmail.com>, 2016
 # #-#-#-#-#  underscore-studio.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Portuguese (Brazil) (http://www.transifex.com/open-edx/edx-platform/language/pt_BR/)
+<<<<<<< HEAD
 # Copyright (C) 2021 edX
+=======
+# Copyright (C) 2022 edX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -228,7 +254,11 @@
 # Marco Túlio Pires <mtrpires@outlook.com>, 2014
 # Mariana Jó de Souza <mariana.jsouza@gmail.com>, 2015
 # Matheus Gomes Correia, 2017
+<<<<<<< HEAD
 # mmauryx <matheus_w_dias@hotmail.com>, 2014
+=======
+# fb1100192853591078ce093a2958833f_1c08340 <6229efa64eb5c47989565636219dbce1_187150>, 2014
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Maurício Gonçalves Melara Camargo <mauriciogmc@gmail.com>, 2015
 # Mike Job <mikejobrn@gmail.com>, 2015
 # Monica Farias <monifar.tp@gmail.com>, 2015-2016
@@ -246,15 +276,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2021-09-21 17:10+0000\n"
 "PO-Revision-Date: 2021-08-01 20:44+0000\n"
 "Last-Translator: edx_transifex_bot <i18n-working-group+edx-transifex-bot@edx.org>\n"
+=======
+"POT-Creation-Date: 2022-05-29 20:43+0000\n"
+"PO-Revision-Date: 2014-06-11 15:18+0000\n"
+"Last-Translator: Rodrigo Rocha <prof.rodrigorocha@yahoo.com>, 2020\n"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/open-edx/edx-platform/language/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+<<<<<<< HEAD
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+=======
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "Generated-By: Babel 2.8.0\n"
 
 #: cms/static/cms/js/main.js cms/static/js/views/active_video_upload_list.js
@@ -525,6 +565,10 @@ msgid "{num_points} point possible (graded, results hidden)"
 msgid_plural "{num_points} points possible (graded, results hidden)"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #. Translators: {num_points} is the number of points possible (examples: 1, 3,
 #. 10).;
@@ -533,6 +577,10 @@ msgid "{num_points} point possible (ungraded, results hidden)"
 msgid_plural "{num_points} points possible (ungraded, results hidden)"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #. Translators: {num_points} is the number of points possible (examples: 1, 3,
 #. 10).;
@@ -541,6 +589,10 @@ msgid "{num_points} point possible (graded)"
 msgid_plural "{num_points} points possible (graded)"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #. Translators: {num_points} is the number of points possible (examples: 1, 3,
 #. 10).;
@@ -549,6 +601,10 @@ msgid "{num_points} point possible (ungraded)"
 msgid_plural "{num_points} points possible (ungraded)"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #. Translators: {earned} is the number of points earned. {possible} is the
 #. total number of points (examples: 0/1, 1/1, 2/3, 5/10). The total number of
@@ -559,6 +615,10 @@ msgid "{earned}/{possible} point (graded)"
 msgid_plural "{earned}/{possible} points (graded)"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #. Translators: {earned} is the number of points earned. {possible} is the
 #. total number of points (examples: 0/1, 1/1, 2/3, 5/10). The total number of
@@ -569,6 +629,10 @@ msgid "{earned}/{possible} point (ungraded)"
 msgid_plural "{earned}/{possible} points (ungraded)"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/lib/xmodule/xmodule/js/src/capa/display.js
 msgid "The grading process is still running. Refresh the page to see updates."
@@ -1998,18 +2062,30 @@ msgid "%(value)s hour"
 msgid_plural "%(value)s hours"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/lib/xmodule/xmodule/js/src/video/06_video_progress_slider.js
 msgid "%(value)s minute"
 msgid_plural "%(value)s minutes"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/lib/xmodule/xmodule/js/src/video/06_video_progress_slider.js
 msgid "%(value)s second"
 msgid_plural "%(value)s seconds"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/lib/xmodule/xmodule/js/src/video/07_video_volume_control.js
 msgid ""
@@ -2174,12 +2250,20 @@ msgid "there is currently {numVotes} vote"
 msgid_plural "there are currently {numVotes} votes"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/common/js/discussion/views/discussion_content_view.js
 msgid "{numVotes} Vote"
 msgid_plural "{numVotes} Votes"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/common/js/discussion/views/discussion_content_view.js
 msgid ""
@@ -2308,12 +2392,20 @@ msgid "{numResponses} other response"
 msgid_plural "{numResponses} other responses"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/common/js/discussion/views/discussion_thread_view.js
 msgid "{numResponses} response"
 msgid_plural "{numResponses} responses"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/common/js/discussion/views/discussion_thread_view.js
 msgid "Showing all responses"
@@ -2324,6 +2416,10 @@ msgid "Showing first response"
 msgid_plural "Showing first {numResponses} responses"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/common/js/discussion/views/discussion_thread_view.js
 msgid "Load all responses"
@@ -2420,6 +2516,10 @@ msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/js/src/jquery.timeago.locale.js
 msgid "about an hour"
@@ -2431,6 +2531,10 @@ msgid "about %d hour"
 msgid_plural "about %d hours"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/js/src/jquery.timeago.locale.js
 msgid "a day"
@@ -2442,6 +2546,10 @@ msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/js/src/jquery.timeago.locale.js
 msgid "about a month"
@@ -2453,6 +2561,10 @@ msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/js/src/jquery.timeago.locale.js
 msgid "about a year"
@@ -2464,6 +2576,10 @@ msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/djangoapps/instructor/static/instructor/ProblemBrowser/components/Main/Main.jsx
 msgid "Select a section or problem"
@@ -2908,6 +3024,10 @@ msgid " Member"
 msgid_plural " Members"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/djangoapps/teams/static/teams/js/views/teams.js
 msgid "All teams"
@@ -3028,6 +3148,10 @@ msgid "{team_count} Team"
 msgid_plural "{team_count} Teams"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/djangoapps/teams/static/teams/js/views/topic_card.js
 msgid "Topic"
@@ -3119,6 +3243,10 @@ msgid "Markdown Editing Help"
 msgstr "Ajuda para Editar Markdown"
 
 #: cms/templates/js/asset-library.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "URL"
 msgstr "URL"
 
@@ -3132,6 +3260,10 @@ msgid "%(errorCount)s error found in form."
 msgid_plural "%(errorCount)s errors found in form."
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/Markdown.Editor.js
 msgid "Bold (Ctrl+B)"
@@ -3566,6 +3698,10 @@ msgid "Viewing %s course"
 msgid_plural "Viewing %s courses"
 msgstr[0] "Visualizando %s curso"
 msgstr[1] "Visualizando %s cursos"
+<<<<<<< HEAD
+=======
+msgstr[2] "Visualizando %s cursos"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/discovery/views/search_form.js
 #, javascript-format
@@ -3742,18 +3878,30 @@ msgid "{numUsersAdded} learner has been added to this cohort. "
 msgid_plural "{numUsersAdded} learners have been added to this cohort. "
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/groups/views/cohort_editor.js
 msgid "{numMoved} learner was moved from {prevCohort}"
 msgid_plural "{numMoved} learners were moved from {prevCohort}"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/groups/views/cohort_editor.js
 msgid "{numPresent} learner was already in the cohort"
 msgid_plural "{numPresent} learners were already in the cohort"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/groups/views/cohort_editor.js
 msgid "{email}"
@@ -3768,6 +3916,10 @@ msgid_plural ""
 "will automatically be added to the cohort when they enroll in the course."
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/groups/views/cohort_editor.js
 msgid "Unknown username: {user}"
@@ -3782,6 +3934,10 @@ msgid "There was an error when trying to add learners:"
 msgid_plural "{numErrors} learners could not be added to this cohort:"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/groups/views/cohort_editor.js
 msgid "View all errors"
@@ -3855,6 +4011,7 @@ msgstr "Agrupamento habilitado"
 msgid "Cohorts Disabled"
 msgstr "Agrupamento desabilitado"
 
+<<<<<<< HEAD
 #: lms/static/js/groups/views/verified_track_settings_notification.js
 msgid ""
 "This course uses automatic cohorting for verified track learners. You cannot"
@@ -3876,6 +4033,8 @@ msgid ""
 " cohorts are disabled. You must enable cohorts for the feature to work."
 msgstr ""
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: lms/static/js/instructor_dashboard/certificates.js
 msgid "Allow students to generate certificates for this course?"
 msgstr "Permitir que os estudantes possam gerar certificados deste curso?"
@@ -4787,7 +4946,11 @@ msgid ""
 msgstr ""
 
 #: lms/static/js/student_account/components/StudentAccountDeletion.jsx
+<<<<<<< HEAD
 msgid "Before proceeding, please {htmlStart}activate your account{htmlEnd}."
+=======
+msgid "Before proceeding, please {htmlStart}{emailMsg}{htmlEnd}."
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgstr ""
 
 #: lms/static/js/student_account/components/StudentAccountDeletion.jsx
@@ -5446,6 +5609,7 @@ msgstr ""
 msgid "Bookmark this page"
 msgstr ""
 
+<<<<<<< HEAD
 #: openedx/features/course_experience/static/course_experience/js/CourseGoals.js
 msgid "Thank you for setting your course goal to {goal}!"
 msgstr ""
@@ -5476,11 +5640,17 @@ msgstr ""
 msgid "Show Less"
 msgstr ""
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: openedx/features/course_search/static/course_search/js/views/search_results_view.js
 msgid "{total_results} result found for \"{search_term}\""
 msgid_plural "{total_results} results found for \"{search_term}\""
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: openedx/features/learner_profile/static/learner_profile/js/learner_profile_factory.js
 msgid "Profile Visibility:"
@@ -6195,6 +6365,10 @@ msgid "Contains {count} group"
 msgid_plural "Contains {count} groups"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/static/js/views/group_configuration_details.js
 #: cms/static/js/views/partition_group_details.js
@@ -6211,6 +6385,10 @@ msgid "Used in {count} location"
 msgid_plural "Used in {count} locations"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #. Translators: this refers to a collection of groups.
 #: cms/static/js/views/group_configuration_item.js
@@ -7049,6 +7227,14 @@ msgstr "Ações"
 msgid "Unscheduled"
 msgstr "Não agendado"
 
+<<<<<<< HEAD
+=======
+#: cms/templates/js/discussion-editor.underscore
+#: common/static/common/templates/discussion/templates.underscore
+msgid "Discussion"
+msgstr ""
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/paging-header.underscore
 #: common/static/common/templates/components/paging-footer.underscore
 #: common/static/common/templates/discussion/templates.underscore
@@ -7175,6 +7361,10 @@ msgid "Show Comment (%(num_comments)s)"
 msgid_plural "Show Comments (%(num_comments)s)"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: common/static/common/templates/discussion/templates.underscore
 msgid "Add a comment"
@@ -7280,10 +7470,13 @@ msgid "follow this post"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+<<<<<<< HEAD
 msgid "post anonymously"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "post anonymously to classmates"
 msgstr ""
 
@@ -7348,10 +7541,13 @@ msgid "Question"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+<<<<<<< HEAD
 msgid "Discussion"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Endorse"
 msgstr ""
 
@@ -7739,6 +7935,17 @@ msgid "This catalog's courses:"
 msgstr ""
 
 #: lms/templates/ccx/schedule.underscore
+<<<<<<< HEAD
+=======
+msgid "Expand All"
+msgstr "Expandir Tudo"
+
+#: lms/templates/ccx/schedule.underscore
+msgid "Collapse All"
+msgstr "Retrair Tudo"
+
+#: lms/templates/ccx/schedule.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Start Date"
 msgstr "Data de Início"
 
@@ -7821,6 +8028,17 @@ msgid ""
 "before you select \"End My Exam\"."
 msgstr ""
 
+<<<<<<< HEAD
+=======
+#: lms/templates/courseware/proctored-exam-status.underscore
+msgid "Show More"
+msgstr ""
+
+#: lms/templates/courseware/proctored-exam-status.underscore
+msgid "Show Less"
+msgstr ""
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: lms/templates/discovery/course_card.underscore
 msgid "LEARN MORE"
 msgstr "APRENDER MAIS"
@@ -8185,6 +8403,10 @@ msgid "(contains %(student_count)s student)"
 msgid_plural "(contains %(student_count)s students)"
 msgstr[0] "(contém %(student_count)s aluno)"
 msgstr[1] "(contém %(student_count)s alunos)"
+<<<<<<< HEAD
+=======
+msgstr[2] "(contém %(student_count)s alunos)"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/templates/instructor/instructor_dashboard_2/cohort-group-header.underscore
 msgid ""
@@ -8383,6 +8605,10 @@ msgid "Course"
 msgid_plural "Courses"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/templates/learner_dashboard/program_card.underscore
 msgid "Completed"
@@ -8449,6 +8675,7 @@ msgstr ""
 
 #: lms/templates/learner_dashboard/program_details_tab_view.underscore
 #: lms/templates/learner_dashboard/program_details_view.underscore
+<<<<<<< HEAD
 msgid ""
 "To complete the program, you must earn a verified certificate for each "
 "course."
@@ -8456,6 +8683,8 @@ msgstr ""
 
 #: lms/templates/learner_dashboard/program_details_tab_view.underscore
 #: lms/templates/learner_dashboard/program_details_view.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Upgrade All Remaining Courses ("
 msgstr ""
 
@@ -9302,6 +9531,10 @@ msgid "Load next {num_items} result"
 msgid_plural "Load next {num_items} results"
 msgstr[0] ""
 msgstr[1] ""
+<<<<<<< HEAD
+=======
+msgstr[2] ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: openedx/features/course_search/static/course_search/templates/course_search_results.underscore
 #: openedx/features/course_search/static/course_search/templates/dashboard_search_results.underscore
@@ -10064,6 +10297,13 @@ msgstr ""
 msgid "Post"
 msgstr "Enviar"
 
+<<<<<<< HEAD
+=======
+#: cms/templates/js/discussion-editor.underscore
+msgid "Enable discussion"
+msgstr ""
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/due-date-editor.underscore
 msgid "Due Date:"
 msgstr "Data de Vencimento"
@@ -10287,6 +10527,10 @@ msgstr "Novo %(item_type)s"
 #: cms/templates/js/metadata-list-entry.underscore
 #: cms/templates/js/metadata-number-entry.underscore
 #: cms/templates/js/metadata-option-entry.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/metadata-string-entry.underscore
 msgid "Clear"
 msgstr "Limpar"
@@ -10296,6 +10540,10 @@ msgstr "Limpar"
 #: cms/templates/js/metadata-list-entry.underscore
 #: cms/templates/js/metadata-number-entry.underscore
 #: cms/templates/js/metadata-option-entry.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/metadata-string-entry.underscore
 msgid "Clear Value"
 msgstr "Limpar Valor"
@@ -10532,6 +10780,7 @@ msgstr ""
 #: cms/templates/js/show-correctness-editor.underscore
 msgid ""
 "Learners do not see whether their answers to assessments were correct or "
+<<<<<<< HEAD
 "incorrect, nor the score received, until after the course end date has "
 "passed."
 msgstr ""
@@ -10545,6 +10794,8 @@ msgstr ""
 #: cms/templates/js/show-correctness-editor.underscore
 msgid ""
 "Learners do not see whether their answers to assessments were correct or "
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "incorrect, nor the score received, until after the due date for the "
 "subsection has passed."
 msgstr ""
@@ -10692,17 +10943,30 @@ msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
+<<<<<<< HEAD
 "This subsection was released to learners as a special exam, but was reverted"
 " back to a basic exam. You may not configure it as a special exam now. "
 "Contact edX Support for assistance."
+=======
+"This subsection was released to learners as a proctored exam, but was "
+"reverted back to a basic or timed exam. You may not configure it as a "
+"proctored exam now. Contact edX Support for assistance."
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
+<<<<<<< HEAD
 "This special exam has been released to learners. You may not convert it to "
 "another type of special exam. You may revert this subsection back to being a"
 " basic exam by selecting 'None', but you will NOT be able to configure it as"
 " a special exam in the future."
+=======
+"This proctored exam has been released to learners. You may not convert it to"
+" another type of special exam. You may revert this subsection back to being "
+"a basic exam by selecting 'None', or a timed exam, but you will NOT be able "
+"to configure it as a proctored exam in the future."
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
@@ -10729,11 +10993,17 @@ msgstr "Supervisionado"
 msgid ""
 "Proctored exams are timed and they record video of each learner taking the "
 "exam. The videos are then reviewed to ensure that learners follow all "
+<<<<<<< HEAD
 "examination rules."
 msgstr ""
 "Exames supervisionados são cronometrados e eles gravam um vídeo de cada "
 "aluno fazendo a prova. Os vídeos são então revisados para garantir que os "
 "alunos sigam as regras do exame."
+=======
+"examination rules. Please note that setting this exam as proctored will "
+"change the visibility settings to \"Hide content after due date.\""
+msgstr ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid "Onboarding"

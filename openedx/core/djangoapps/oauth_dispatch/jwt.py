@@ -5,7 +5,10 @@ import json
 from time import time
 
 from django.conf import settings
+<<<<<<< HEAD
 from edx_django_utils.monitoring import set_custom_attribute
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edx_rbac.utils import create_role_auth_claim_for_user
 from jwkest import jwk
 from jwkest.jws import JWS
@@ -44,6 +47,7 @@ def create_jwt_for_user(user, secret=None, aud=None, additional_claims=None, sco
     )
 
 
+<<<<<<< HEAD
 def create_jwt_from_token(token_dict, oauth_adapter, use_asymmetric_key=None):
     """
     Returns a JWT created from the given access token.
@@ -51,6 +55,16 @@ def create_jwt_from_token(token_dict, oauth_adapter, use_asymmetric_key=None):
     Arguments:
         token_dict (dict): An access token structure as returned from an
             underlying OAuth provider.
+=======
+def create_jwt_token_dict(token_dict, oauth_adapter, use_asymmetric_key=None):
+    """
+    Returns a JWT access token dict based on the provided access token.
+
+    Arguments:
+        token_dict (dict): An access token structure as returned from an
+            underlying OAuth provider. Dict includes "access_token",
+            "expires_in", "token_type", and "scope".
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Deprecated Arguments (to be removed):
         oauth_adapter (DOPAdapter|DOTAdapter): An OAuth adapter that will
@@ -62,16 +76,64 @@ def create_jwt_from_token(token_dict, oauth_adapter, use_asymmetric_key=None):
     access_token = oauth_adapter.get_access_token(token_dict['access_token'])
     client = oauth_adapter.get_client_for_token(access_token)
 
+<<<<<<< HEAD
     # TODO (ARCH-204) put access_token as a JWT ID claim (jti)
     return _create_jwt(
         access_token.user,
         scopes=token_dict['scope'].split(' '),
         expires_in=token_dict['expires_in'],
+=======
+    jwt_expires_in = _get_jwt_access_token_expire_seconds()
+
+    jwt_access_token = _create_jwt(
+        access_token.user,
+        scopes=token_dict['scope'].split(' '),
+        expires_in=jwt_expires_in,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         use_asymmetric_key=use_asymmetric_key,
         is_restricted=oauth_adapter.is_client_restricted(client),
         filters=oauth_adapter.get_authorization_filters(client),
     )
 
+<<<<<<< HEAD
+=======
+    jwt_token_dict = token_dict.copy()
+    # Note: only "scope" is not overwritten at this point.
+    jwt_token_dict.update({
+        "access_token": jwt_access_token,
+        "token_type": "JWT",
+        "expires_in": jwt_expires_in,
+    })
+    return jwt_token_dict
+
+
+def create_jwt_from_token(token_dict, oauth_adapter, use_asymmetric_key=None):
+    """
+    Returns a JWT created from the provided access token dict.
+
+    Note: if you need the token dict, and not just the JWT, use
+        create_jwt_token_dict instead. See its docs for more details.
+    """
+    jwt_token_dict = create_jwt_token_dict(token_dict, oauth_adapter, use_asymmetric_key)
+    return jwt_token_dict["access_token"]
+
+
+def _get_jwt_access_token_expire_seconds():
+    """
+    Returns the number of seconds before a JWT access token expires.
+
+    .. setting_name: JWT_ACCESS_TOKEN_EXPIRE_SECONDS
+    .. setting_default: 60 * 60
+    .. setting_description: The number of seconds a JWT access token remains valid. We use this
+        custom setting for JWT formatted access tokens, rather than the django-oauth-toolkit setting
+        ACCESS_TOKEN_EXPIRE_SECONDS, because the JWT is non-revocable and we want it to be shorter
+        lived than the legacy Bearer (opaque) access tokens, and thus to have a smaller default.
+    .. setting_warning: For security purposes, 1 hour (the default) is the maximum recommended setting
+        value. For tighter security, you can use a shorter amount of time.
+    """
+    return getattr(settings, 'JWT_ACCESS_TOKEN_EXPIRE_SECONDS', 60 * 60)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 def _create_jwt(
     user,
@@ -146,7 +208,10 @@ def _compute_time_fields(expires_in):
     """
     now = int(time())
     expires_in = expires_in or settings.JWT_AUTH['JWT_EXPIRATION']
+<<<<<<< HEAD
     set_custom_attribute('jwt_expires_in', expires_in)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return now, now + expires_in
 
 
@@ -195,7 +260,10 @@ def _attach_profile_claim(payload, user):
 
 def _encode_and_sign(payload, use_asymmetric_key, secret):
     """Encode and sign the provided payload."""
+<<<<<<< HEAD
     set_custom_attribute('jwt_is_asymmetric', use_asymmetric_key)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     keys = jwk.KEYS()
 
     if use_asymmetric_key:

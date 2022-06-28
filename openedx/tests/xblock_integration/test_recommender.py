@@ -14,12 +14,20 @@ import simplejson as json
 from ddt import data, ddt
 from django.conf import settings
 from django.urls import reverse
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.tests.factories import GlobalStaffFactory
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
 from openedx.core.lib.url_utils import quote_slashes
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestRecommender(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
@@ -65,6 +73,7 @@ class TestRecommender(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
                 display_name='recommender_second'
             )
 
+<<<<<<< HEAD
         cls.course_url = reverse(
             'courseware_section',
             kwargs={
@@ -73,6 +82,9 @@ class TestRecommender(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
                 'section': 'Welcome',
             }
         )
+=======
+        cls.course_url = reverse('render_xblock', args=[str(cls.section.location)])
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         cls.resource_urls = [
             (

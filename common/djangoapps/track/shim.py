@@ -3,6 +3,12 @@
 
 import json
 
+<<<<<<< HEAD
+=======
+from opaque_keys import InvalidKeyError
+from opaque_keys.edx.keys import CourseKey
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .transformers import EventTransformerRegistry
 
 CONTEXT_FIELDS_TO_INCLUDE = [
@@ -85,6 +91,18 @@ class GoogleAnalyticsProcessor:
         copied_event = event.copy()
         if course_id is not None:
             copied_event['label'] = course_id
+<<<<<<< HEAD
+=======
+            # The value stored as course_id is not always a courserun_key.
+            # It may, for example, be a library instead.  So we parse it first to be sure.
+            # We add a str() call to the input so that sentinel values don't cause
+            # CourseKey to spit up with a different error.
+            try:
+                courserun_key = CourseKey.from_string(str(course_id))
+                copied_event['courserun_key'] = str(courserun_key)
+            except InvalidKeyError:
+                pass
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         copied_event['nonInteraction'] = 1
 

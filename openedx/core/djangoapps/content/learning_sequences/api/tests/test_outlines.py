@@ -16,7 +16,10 @@ from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import LibraryLocator
 import attr
 import ddt
+<<<<<<< HEAD
 import django.test
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import pytest
 
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase
@@ -26,7 +29,11 @@ from common.djangoapps.course_modes.signals import update_masters_access_course
 from common.djangoapps.student.auth import user_has_role
 from common.djangoapps.student.roles import CourseBetaTesterRole
 from common.djangoapps.student.tests.factories import BetaTesterFactory, UserFactory
+<<<<<<< HEAD
 from xmodule.partitions.partitions import (
+=======
+from xmodule.partitions.partitions import (  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ENROLLMENT_TRACK_PARTITION_ID,
 )
 
@@ -40,14 +47,20 @@ from ...data import (
     VisibilityData,
 
 )
+<<<<<<< HEAD
 from ...toggles import USE_FOR_OUTLINES
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..outlines import (
     get_content_errors,
     get_course_outline,
     get_user_course_outline,
     get_user_course_outline_details,
     key_supports_outlines,
+<<<<<<< HEAD
     public_api_available,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     replace_course_outline,
 )
 from ..processors.enrollment_track_partition_groups import EnrollmentTrackPartitionGroupsOutlineProcessor
@@ -67,6 +80,7 @@ class OutlineSupportTestCase(unittest.TestCase):
         assert not key_supports_outlines(LibraryLocator(org="edX", library="100"))
 
 
+<<<<<<< HEAD
 class PublicApiAvailableTestCase(django.test.TestCase):
     """
     Test API availability checks.
@@ -117,6 +131,8 @@ class PublicApiAvailableTestCase(django.test.TestCase):
         assert public_api_available(self.course_key)
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CourseOutlineTestCase(CacheIsolationTestCase):
     """
     Simple tests around reading and writing CourseOutlineData. No user info.

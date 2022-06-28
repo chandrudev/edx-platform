@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 <%! from django.utils.translation import ugettext as _ %>
+=======
+<%! from django.utils.translation import gettext as _ %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 ${_("Your request for course creation rights to {studio_name} have been denied. If you believe this was in error, please contact {email}").format(studio_name=settings.STUDIO_NAME, email=studio_request_email)}

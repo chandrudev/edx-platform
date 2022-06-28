@@ -19,6 +19,10 @@ from xmodule.x_module import XModuleMixin
 
 
 @pytest.mark.mongo
+<<<<<<< HEAD
+=======
+@pytest.mark.django_db
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class SplitWMongoCourseBootstrapper(unittest.TestCase):
     """
     Helper for tests which need to construct split mongo & old mongo based courses to get interesting internal structure.  # lint-amnesty, pylint: disable=line-too-long

@@ -28,12 +28,20 @@ from xblock.scorable import ScorableXBlockMixin
 
 from common.djangoapps import static_replace
 from common.djangoapps.edxmako.shortcuts import render_to_string
+<<<<<<< HEAD
 from xmodule.seq_module import SequenceBlock
 from xmodule.util.xmodule_django import add_webpack_to_fragment
 from xmodule.vertical_block import VerticalBlock
 from xmodule.x_module import (
     PREVIEW_VIEWS, STUDENT_VIEW, STUDIO_VIEW,
     XModule, XModuleDescriptor, shim_xmodule_js,
+=======
+from xmodule.seq_module import SequenceBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.util.xmodule_django import add_webpack_to_fragment  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.vertical_block import VerticalBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.x_module import (  # lint-amnesty, pylint: disable=wrong-import-order
+    PREVIEW_VIEWS, STUDENT_VIEW, STUDIO_VIEW, shim_xmodule_js,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 log = logging.getLogger(__name__)
@@ -114,7 +122,11 @@ def wrap_xblock(
     if view == STUDENT_VIEW and getattr(block, 'HIDDEN', False):
         css_classes.append('is-hidden')
 
+<<<<<<< HEAD
     if isinstance(block, (XModule, XModuleDescriptor)) or getattr(block, 'uses_xmodule_styles_setup', False):
+=======
+    if getattr(block, 'uses_xmodule_styles_setup', False):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if view in PREVIEW_VIEWS:
             # The block is acting as an XModule
             css_classes.append('xmodule_display')
@@ -124,10 +136,13 @@ def wrap_xblock(
 
         css_classes.append('xmodule_' + markupsafe.escape(class_name))
 
+<<<<<<< HEAD
     if isinstance(block, (XModule, XModuleDescriptor)):
         data['type'] = block.js_module_name
         shim_xmodule_js(frag, block.js_module_name)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if frag.js_init_fn:
         data['init'] = frag.js_init_fn
         data['runtime-class'] = runtime_class
@@ -155,10 +170,13 @@ def wrap_xblock(
     else:
         template_context['js_init_parameters'] = ""
 
+<<<<<<< HEAD
     if isinstance(block, (XModule, XModuleDescriptor)):
         # Add the webpackified asset tags
         add_webpack_to_fragment(frag, class_name)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return wrap_fragment(frag, render_to_string('xblock_wrapper.html', template_context))
 
 
@@ -231,6 +249,7 @@ def wrap_xblock_aside(
     return wrap_fragment(frag, render_to_string('xblock_wrapper.html', template_context))
 
 
+<<<<<<< HEAD
 def replace_jump_to_id_urls(course_id, jump_to_id_base_url, block, view, frag, context):  # pylint: disable=unused-argument
     """
     This will replace a link between courseware in the format
@@ -273,6 +292,8 @@ def replace_static_urls(data_dir, block, view, frag, context, course_id=None, st
     ))
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def grade_histogram(module_id):
     '''
     Print out a histogram of grades on a given problem in staff member debug info.
@@ -336,9 +357,15 @@ def add_staff_markup(user, disable_staff_debug_info, block, view, frag, context)
         histogram = None
         render_histogram = False
 
+<<<<<<< HEAD
     if settings.FEATURES.get('ENABLE_LMS_MIGRATION') and hasattr(block.runtime, 'filestore'):
         [filepath, filename] = getattr(block, 'xml_attributes', {}).get('filename', ['', None])
         osfs = block.runtime.filestore
+=======
+    if settings.FEATURES.get('ENABLE_LMS_MIGRATION') and hasattr(block.runtime, 'resources_fs'):
+        [filepath, filename] = getattr(block, 'xml_attributes', {}).get('filename', ['', None])
+        osfs = block.runtime.resources_fs
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if filename is not None and osfs.exists(filename):
             # if original, unmangled filename exists then use it (github
             # doesn't like symlinks)
@@ -558,6 +585,10 @@ def get_icon(block):
     """
     A function that returns the CSS class representing an icon to use for this particular
     XBlock (in the courseware navigation bar). Mostly used for Vertical/Unit XBlocks.
+<<<<<<< HEAD
     It can be overridden by setting `GET_UNIT_ICON_IMPL` to an alternative implementation.
+=======
+    It can be overridden by setting `OVERRIDE_GET_UNIT_ICON` to an alternative implementation.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     return block.get_icon_class()

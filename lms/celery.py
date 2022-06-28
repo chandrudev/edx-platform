@@ -8,7 +8,11 @@ Taken from: https://celery.readthedocs.org/en/latest/django/first-steps-with-dja
 import os
 
 # Patch the xml libs before anything else.
+<<<<<<< HEAD
 from safe_lxml import defuse_xml_libs
+=======
+from openedx.core.lib.safe_lxml import defuse_xml_libs
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 defuse_xml_libs()
 

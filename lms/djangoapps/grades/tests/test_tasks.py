@@ -16,6 +16,12 @@ from django.conf import settings
 from django.db.utils import IntegrityError
 from django.utils import timezone
 from edx_toggles.toggles.testutils import override_waffle_flag
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.models import CourseEnrollment, anonymous_id_for_user
 from common.djangoapps.student.tests.factories import UserFactory
@@ -23,7 +29,11 @@ from common.djangoapps.track.event_transaction_utils import create_new_event_tra
 from common.djangoapps.util.date_utils import to_timestamp
 from lms.djangoapps.grades import tasks
 from lms.djangoapps.grades.config.models import PersistentGradesEnabledFlag
+<<<<<<< HEAD
 from lms.djangoapps.grades.config.waffle import ENFORCE_FREEZE_GRADE_AFTER_COURSE_END, waffle_flags
+=======
+from lms.djangoapps.grades.config.waffle import ENFORCE_FREEZE_GRADE_AFTER_COURSE_END
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.grades.constants import ScoreDatabaseTableEnum
 from lms.djangoapps.grades.models import PersistentCourseGrade, PersistentSubsectionGrade
 from lms.djangoapps.grades.signals.signals import PROBLEM_WEIGHTED_SCORE_CHANGED
@@ -36,10 +46,13 @@ from lms.djangoapps.grades.tasks import (
     recalculate_subsection_grade_v3
 )
 from openedx.core.djangoapps.content.block_structure.exceptions import BlockStructureNotFound
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .utils import mock_get_score
 
@@ -162,10 +175,17 @@ class RecalculateSubsectionGradeTest(HasCourseWithProblemsMixin, ModuleStoreTest
             assert mock_block_structure_create.call_count == 1
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.mongo, 1, 40, True),
         (ModuleStoreEnum.Type.mongo, 1, 40, False),
         (ModuleStoreEnum.Type.split, 3, 40, True),
         (ModuleStoreEnum.Type.split, 3, 40, False),
+=======
+        (ModuleStoreEnum.Type.mongo, 1, 41, True),
+        (ModuleStoreEnum.Type.mongo, 1, 41, False),
+        (ModuleStoreEnum.Type.split, 2, 41, True),
+        (ModuleStoreEnum.Type.split, 2, 41, False),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_query_counts(self, default_store, num_mongo_calls, num_sql_calls, create_multiple_subsections):
@@ -177,8 +197,13 @@ class RecalculateSubsectionGradeTest(HasCourseWithProblemsMixin, ModuleStoreTest
                     self._apply_recalculate_subsection_grade()
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.mongo, 1, 40),
         (ModuleStoreEnum.Type.split, 3, 40),
+=======
+        (ModuleStoreEnum.Type.mongo, 1, 41),
+        (ModuleStoreEnum.Type.split, 2, 41),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_query_counts_dont_change_with_more_content(self, default_store, num_mongo_calls, num_sql_calls):
@@ -208,7 +233,12 @@ class RecalculateSubsectionGradeTest(HasCourseWithProblemsMixin, ModuleStoreTest
         # So in total, 3 sequential parents, with one inaccessible.
         for sequential in (accessible_seq, inaccessible_seq):
             sequential.children = [self.problem.location]
+<<<<<<< HEAD
             modulestore().update_item(sequential, self.user.id)
+=======
+            with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, self.course.id):
+                self.store.update_item(sequential, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Make sure the signal is sent for only the 2 accessible sequentials.
         self._apply_recalculate_subsection_grade()
@@ -223,8 +253,13 @@ class RecalculateSubsectionGradeTest(HasCourseWithProblemsMixin, ModuleStoreTest
         )
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.mongo, 1, 23),
         (ModuleStoreEnum.Type.split, 3, 23),
+=======
+        (ModuleStoreEnum.Type.mongo, 1, 24),
+        (ModuleStoreEnum.Type.split, 2, 24),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_persistent_grades_not_enabled_on_course(self, default_store, num_mongo_queries, num_sql_queries):
@@ -238,8 +273,13 @@ class RecalculateSubsectionGradeTest(HasCourseWithProblemsMixin, ModuleStoreTest
             assert len(PersistentSubsectionGrade.bulk_read_grades(self.user.id, self.course.id)) == 0
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.mongo, 1, 41),
         (ModuleStoreEnum.Type.split, 3, 41),
+=======
+        (ModuleStoreEnum.Type.mongo, 1, 42),
+        (ModuleStoreEnum.Type.split, 2, 42),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_persistent_grades_enabled_on_course(self, default_store, num_mongo_queries, num_sql_queries):
@@ -490,7 +530,11 @@ class FreezeGradingAfterCourseEndTest(HasCourseWithProblemsMixin, ModuleStoreTes
         super().setUp()
         self.users = [UserFactory.create() for _ in range(12)]
         self.user = self.users[0]
+<<<<<<< HEAD
         self.freeze_grade_flag = waffle_flags()[ENFORCE_FREEZE_GRADE_AFTER_COURSE_END]
+=======
+        self.freeze_grade_flag = ENFORCE_FREEZE_GRADE_AFTER_COURSE_END
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def _assert_log(self, mock_log, method_name):
         assert mock_log.info.called

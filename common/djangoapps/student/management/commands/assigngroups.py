@@ -54,7 +54,11 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
         print("Groups", groups)
 
         # Confirm group probabilities add up to 1
+<<<<<<< HEAD
         total = sum(zip(*groups)[1])  # lint-amnesty, pylint: disable=unsubscriptable-object, zip-builtin-not-iterating
+=======
+        total = sum(zip(*groups)[1])  # lint-amnesty, pylint: disable=unsubscriptable-object
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         print("Total:", total)
         if abs(total - 1) > 0.01:
             print("Total not 1")

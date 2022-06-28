@@ -9,7 +9,11 @@ import random
 from eventtracking import tracker
 
 import openedx.core.djangoapps.user_api.course_tag.api as course_tag_api
+<<<<<<< HEAD
 from xmodule.partitions.partitions import NoSuchUserPartitionGroupError, UserPartitionError
+=======
+from xmodule.partitions.partitions import NoSuchUserPartitionGroupError, UserPartitionError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 

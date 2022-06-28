@@ -278,12 +278,21 @@ class TeamsConfigurationTestCase(unittest.TestCase):
         self.course.teams_configuration = TeamsConfig(None)
         self.count = itertools.count()
 
+<<<<<<< HEAD
     def add_team_configuration(self, max_team_size=3, topics=None):
+=======
+    def add_team_configuration(self, max_team_size=3, topics=None, enabled=None):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """ Add a team configuration to the course. """
         teams_config_data = {}
         teams_config_data["topics"] = [] if topics is None else topics
         if max_team_size is not None:
             teams_config_data["max_team_size"] = max_team_size
+<<<<<<< HEAD
+=======
+        if enabled is not None:
+            teams_config_data["enabled"] = enabled
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.course.teams_configuration = TeamsConfig(teams_config_data)
 
     def make_topic(self):
@@ -301,6 +310,7 @@ class TeamsConfigurationTestCase(unittest.TestCase):
         }
 
     def test_teams_enabled_new_course(self):
+<<<<<<< HEAD
         # Make sure we can detect when no teams exist.
         assert not self.course.teams_enabled
 
@@ -313,30 +323,104 @@ class TeamsConfigurationTestCase(unittest.TestCase):
         assert not self.course.teams_enabled
 
     def test_teams_enabled_max_size_only(self):
+=======
+        """
+        Tests that teams are not enabled by default as no teamsets exist.
+        """
+        # Make sure we can detect when no teams exist.
+        assert not self.course.teams_enabled
+        assert not self.course.teams_configuration.is_enabled
+
+    def test_teams_enabled_with_default(self):
+        """
+        Test that teams are automatically enabled if a teamset is added, but it can be disabled via the `enabled` field.
+        """
+        # Test that teams is enabled if topic are created
+        self.add_team_configuration(max_team_size=4, topics=[self.make_topic()])
+        assert self.course.teams_enabled
+        assert self.course.teams_configuration.is_enabled
+
+        # Test that teams are disabled if topic exists, but enabled is False
+        self.add_team_configuration(max_team_size=4, topics=[self.make_topic()], enabled=False)
+        assert not self.course.teams_enabled
+        assert not self.course.teams_configuration.is_enabled
+
+    def test_teams_disabled_no_teamsets(self):
+        """
+        Test that teams is disabled if there are no teamsets whether enabled is set to true or false
+        """
+        self.add_team_configuration(max_team_size=4, topics=[], enabled=True)
+        assert not self.course.teams_enabled
+        assert not self.course.teams_configuration.is_enabled
+        self.add_team_configuration(max_team_size=4, topics=[], enabled=False)
+        assert not self.course.teams_enabled
+        assert not self.course.teams_configuration.is_enabled
+
+    def test_teams_enabled_max_size_only(self):
+        """
+        Test that teams isn't enabled if only a max team size is configured.
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.add_team_configuration(max_team_size=4)
         assert not self.course.teams_enabled
 
     def test_teams_enabled_no_max_size(self):
+<<<<<<< HEAD
+=======
+        """
+        Test that teams is enabled if a max team size is missing but teamsets are created.s
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.add_team_configuration(max_team_size=None, topics=[self.make_topic()])
         assert self.course.teams_enabled
 
     def test_teams_max_size_no_teams_configuration(self):
+<<<<<<< HEAD
         assert self.course.teams_configuration.default_max_team_size == DEFAULT_COURSE_RUN_MAX_TEAM_SIZE
 
     def test_teams_max_size_with_teams_configured(self):
+=======
+        """
+        Test that the default maximum team size matches the configured maximum
+        """
+        assert self.course.teams_configuration.default_max_team_size == DEFAULT_COURSE_RUN_MAX_TEAM_SIZE
+
+    def test_teams_max_size_with_teams_configured(self):
+        """
+        Test that if you provide a custom global max_team_size, it reflects in the config.
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         size = 4
         self.add_team_configuration(max_team_size=size, topics=[self.make_topic(), self.make_topic()])
         assert self.course.teams_enabled
         assert size == self.course.teams_configuration.default_max_team_size
 
     def test_teamsets_no_config(self):
+<<<<<<< HEAD
         assert self.course.teamsets == []
 
     def test_teamsets_empty(self):
+=======
+        """
+        Tests that no teamsets are configured by default.
+        """
+        assert self.course.teamsets == []
+
+    def test_teamsets_empty(self):
+        """
+        Test that if only the max team size is configured then there are no teamsets
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.add_team_configuration(max_team_size=4)
         assert self.course.teamsets == []
 
     def test_teamsets_present(self):
+<<<<<<< HEAD
+=======
+        """
+        Tests that if valid teamsets are added they show up in the config
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         topics = [self.make_topic(), self.make_topic()]
         self.add_team_configuration(max_team_size=4, topics=topics)
         assert self.course.teams_enabled
@@ -347,6 +431,12 @@ class TeamsConfigurationTestCase(unittest.TestCase):
         assert expected_teamsets_data == topics
 
     def test_teams_conf_cached_by_xblock_field(self):
+<<<<<<< HEAD
+=======
+        """
+        Test that the teamsets are cached in the field so repeated queries don't perform re-computation
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.add_team_configuration(max_team_size=5, topics=[self.make_topic()])
         cold_cache_conf = self.course.teams_configuration
         warm_cache_conf = self.course.teams_configuration
@@ -409,6 +499,10 @@ class CourseBlockTestCase(unittest.TestCase):
         assert self.course.number == COURSE
 
 
+<<<<<<< HEAD
+=======
+@ddt.ddt
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class ProctoringProviderTestCase(unittest.TestCase):
     """
     Tests for ProctoringProvider, including the default value, validation, and inheritance behavior.
@@ -439,7 +533,12 @@ class ProctoringProviderTestCase(unittest.TestCase):
             'mock_proctoring_without_rules': {}
         }
     )
+<<<<<<< HEAD
     def test_from_json_with_invalid_provider(self):
+=======
+    @ddt.data(True, False)
+    def test_from_json_with_invalid_provider(self, proctored_exams_setting_enabled):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Test that an invalid provider (i.e. not one configured at the platform level)
         throws a ValueError with the correct error message.
@@ -447,11 +546,27 @@ class ProctoringProviderTestCase(unittest.TestCase):
         provider = 'invalid-provider'
         allowed_proctoring_providers = ['mock', 'mock_proctoring_without_rules']
 
+<<<<<<< HEAD
         with pytest.raises(InvalidProctoringProvider) as context_manager:
             self.proctoring_provider.from_json(provider)
         expected_error = f'The selected proctoring provider, {provider}, is not a valid provider. ' \
                          f'Please select from one of {allowed_proctoring_providers}.'
         assert str(context_manager.value) == expected_error
+=======
+        FEATURES_WITH_PROCTORED_EXAMS = settings.FEATURES.copy()
+        FEATURES_WITH_PROCTORED_EXAMS['ENABLE_PROCTORED_EXAMS'] = proctored_exams_setting_enabled
+
+        with override_settings(FEATURES=FEATURES_WITH_PROCTORED_EXAMS):
+            if proctored_exams_setting_enabled:
+                with pytest.raises(InvalidProctoringProvider) as context_manager:
+                    self.proctoring_provider.from_json(provider)
+                expected_error = f'The selected proctoring provider, {provider}, is not a valid provider. ' \
+                    f'Please select from one of {allowed_proctoring_providers}.'
+                assert str(context_manager.value) == expected_error
+            else:
+                provider_value = self.proctoring_provider.from_json(provider)
+                assert provider_value == self.proctoring_provider.default
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_from_json_adds_platform_default_for_missing_provider(self):
         """

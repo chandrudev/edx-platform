@@ -17,7 +17,11 @@ from lms.djangoapps.courseware.courses import has_access
 from lms.djangoapps.discussion.django_comment_client.utils import has_discussion_privileges
 from lms.djangoapps.teams.models import CourseTeam, CourseTeamMembership
 from openedx.core.lib.teams_config import TeamsetType
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 logger = logging.getLogger(__name__)
 
@@ -375,6 +379,25 @@ def get_team_for_user_course_topic(user, course_id, topic_id):
         ).first()
 
 
+<<<<<<< HEAD
+=======
+def get_teams_in_teamset(course_id, topic_id):
+    """
+    Given a course_id and topic_id, return all CourseTeams in the course and topic
+    """
+    try:
+        course_key = CourseKey.from_string(course_id)
+    except InvalidKeyError as exc:
+        raise ValueError("The supplied course id {course_id} is not valid.".format(
+            course_id=course_id
+        )) from exc
+    return CourseTeam.objects.filter(
+        course_id=course_key,
+        topic_id=topic_id,
+    ).all()
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def anonymous_user_ids_for_team(user, team):
     """ Get the anonymous user IDs for members of a team, used in team submissions
         Requesting user must be a member of the team or course staff

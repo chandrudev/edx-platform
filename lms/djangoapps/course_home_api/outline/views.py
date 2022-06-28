@@ -2,6 +2,7 @@
 Outline Tab Views
 """
 from datetime import datetime, timezone
+<<<<<<< HEAD
 from lms.djangoapps.grades.course_grade_factory import CourseGradeFactory
 
 from completion.exceptions import UnavailableCompletionData
@@ -20,12 +21,31 @@ from rest_framework.exceptions import APIException, ParseError
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+=======
+
+from completion.exceptions import UnavailableCompletionData  # lint-amnesty, pylint: disable=wrong-import-order
+from completion.utilities import get_key_to_last_completed_block  # lint-amnesty, pylint: disable=wrong-import-order
+from django.conf import settings  # lint-amnesty, pylint: disable=wrong-import-order
+from django.shortcuts import get_object_or_404  # lint-amnesty, pylint: disable=wrong-import-order
+from django.urls import reverse  # lint-amnesty, pylint: disable=wrong-import-order
+from django.utils.translation import gettext as _  # lint-amnesty, pylint: disable=wrong-import-order
+from edx_django_utils import monitoring as monitoring_utils  # lint-amnesty, pylint: disable=wrong-import-order
+from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication  # lint-amnesty, pylint: disable=wrong-import-order
+from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser  # lint-amnesty, pylint: disable=wrong-import-order
+from opaque_keys.edx.keys import CourseKey  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.decorators import api_view, authentication_classes, permission_classes  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.exceptions import APIException, ParseError  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.generics import RetrieveAPIView  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.permissions import IsAuthenticated  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.response import Response  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.util.views import expose_header
 from lms.djangoapps.course_goals.api import (
     add_course_goal,
+<<<<<<< HEAD
     add_course_goal_deprecated,
     get_course_goal,
     get_course_goal_text,
@@ -38,16 +58,27 @@ from lms.djangoapps.course_home_api.outline.serializers import OutlineTabSeriali
 from lms.djangoapps.course_home_api.toggles import (
     course_home_legacy_is_active,
 )
+=======
+    get_course_goal,
+)
+from lms.djangoapps.course_goals.models import CourseGoal
+from lms.djangoapps.course_home_api.outline.serializers import OutlineTabSerializer
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.context_processor import user_timezone_locale_prefs
 from lms.djangoapps.courseware.courses import get_course_date_blocks, get_course_info_section, get_course_with_access
 from lms.djangoapps.courseware.date_summary import TodaysDate
 from lms.djangoapps.courseware.masquerade import is_masquerading, setup_masquerade
 from lms.djangoapps.courseware.views.views import get_cert_data
+<<<<<<< HEAD
 from openedx.core.djangoapps.content.learning_sequences.api import (
     get_user_course_outline,
     public_api_available as learning_sequences_api_available,
 )
+=======
+from lms.djangoapps.grades.course_grade_factory import CourseGradeFactory
+from openedx.core.djangoapps.content.learning_sequences.api import get_user_course_outline
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.content.course_overviews.api import get_course_overview_or_404
 from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser
 from openedx.features.course_duration_limits.access import get_access_expiration_data
@@ -60,8 +91,12 @@ from openedx.features.course_experience.course_updates import (
 from openedx.features.course_experience.url_helpers import get_learning_mfe_home_url
 from openedx.features.course_experience.utils import get_course_outline_block_tree, get_start_block
 from openedx.features.discounts.utils import generate_offer_data
+<<<<<<< HEAD
 from xmodule.course_module import COURSE_VISIBILITY_PUBLIC, COURSE_VISIBILITY_PUBLIC_OUTLINE
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.course_module import COURSE_VISIBILITY_PUBLIC, COURSE_VISIBILITY_PUBLIC_OUTLINE  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class UnableToDismissWelcomeMessage(APIException):
@@ -113,6 +148,10 @@ class OutlineTabView(RetrieveAPIView):
             selected_goal:
                 days_per_week: (int) The number of days the learner wants to learn per week
                 subscribed_to_reminders: (bool) Whether the learner wants email reminders about their goal
+<<<<<<< HEAD
+=======
+            weekly_learning_goal_enabled: Flag indicating if this feature is enabled for this call
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_tools: List of serialized Course Tool objects. Each serialization has the following fields:
             analytics_id: (str) The unique id given to the tool.
             title: (str) The display title of the tool.
@@ -169,6 +208,7 @@ class OutlineTabView(RetrieveAPIView):
 
     serializer_class = OutlineTabSerializer
 
+<<<<<<< HEAD
     def get(self, request, *args, **kwargs):
         course_key_string = kwargs.get('course_key_string')
         course_key = CourseKey.from_string(course_key_string)
@@ -176,6 +216,11 @@ class OutlineTabView(RetrieveAPIView):
 
         if course_home_legacy_is_active(course_key):
             raise Http404
+=======
+    def get(self, request, *args, **kwargs):  # pylint: disable=too-many-statements
+        course_key_string = kwargs.get('course_key_string')
+        course_key = CourseKey.from_string(course_key_string)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Enable NR tracing for this view based on course
         monitoring_utils.set_custom_attribute('course_id', course_key_string)
@@ -204,18 +249,27 @@ class OutlineTabView(RetrieveAPIView):
         user_timezone_locale = user_timezone_locale_prefs(request)
         user_timezone = user_timezone_locale['user_timezone']
 
+<<<<<<< HEAD
         if course_home_legacy_is_active(course.id):
             dates_tab_link = request.build_absolute_uri(reverse('dates', args=[course.id]))
         else:
             dates_tab_link = get_learning_mfe_home_url(course_key=course.id, view_name='dates')
+=======
+        dates_tab_link = get_learning_mfe_home_url(course_key=course.id, url_fragment='dates')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Set all of the defaults
         access_expiration = None
         cert_data = None
         course_blocks = None
         course_goals = {
+<<<<<<< HEAD
             'goal_options': [],
             'selected_goal': None
+=======
+            'selected_goal': None,
+            'weekly_learning_goal_enabled': False,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         }
         course_tools = CourseToolsPluginManager.get_enabled_course_tools(request, course_key)
         dates_widget = {
@@ -238,6 +292,10 @@ class OutlineTabView(RetrieveAPIView):
         is_enrolled = enrollment and enrollment.is_active
         is_staff = bool(has_access(request.user, 'staff', course_key))
         show_enrolled = is_enrolled or is_staff
+<<<<<<< HEAD
+=======
+        enable_proctored_exams = False
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if show_enrolled:
             course_blocks = get_course_outline_block_tree(request, course_key_string, request.user)
             date_blocks = get_course_date_blocks(course, request.user, request, num_assignments=1)
@@ -250,6 +308,7 @@ class OutlineTabView(RetrieveAPIView):
             access_expiration = get_access_expiration_data(request.user, course_overview)
             cert_data = get_cert_data(request.user, course, enrollment.mode) if is_enrolled else None
 
+<<<<<<< HEAD
             if COURSE_GOALS_NUMBER_OF_DAYS_GOALS.is_enabled():
                 if (is_enrolled and ENABLE_COURSE_GOALS.is_enabled(course_key)):
 
@@ -281,6 +340,19 @@ class OutlineTabView(RetrieveAPIView):
                             'text': get_course_goal_text(selected_goal.goal_key),
                         }
 
+=======
+            enable_proctored_exams = course_overview.enable_proctored_exams
+
+            if (is_enrolled and ENABLE_COURSE_GOALS.is_enabled(course_key)):
+                course_goals['weekly_learning_goal_enabled'] = True
+                selected_goal = get_course_goal(request.user, course_key)
+                if selected_goal:
+                    course_goals['selected_goal'] = {
+                        'days_per_week': selected_goal.days_per_week,
+                        'subscribed_to_reminders': selected_goal.subscribed_to_reminders,
+                    }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             try:
                 resume_block = get_key_to_last_completed_block(request.user, course.id)
                 resume_course['has_visited_course'] = True
@@ -298,15 +370,27 @@ class OutlineTabView(RetrieveAPIView):
             if allow_public or user_is_masquerading:
                 handouts_html = get_course_info_section(request, request.user, course, 'handouts')
 
+<<<<<<< HEAD
         if not show_enrolled:
+=======
+        if not is_enrolled:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if CourseMode.is_masters_only(course_key):
                 enroll_alert['can_enroll'] = False
                 enroll_alert['extra_text'] = _(
                     'Please contact your degree administrator or '
                     '{platform_name} Support if you have questions.'
                 ).format(platform_name=settings.PLATFORM_NAME)
+<<<<<<< HEAD
             elif course.invitation_only:
                 enroll_alert['can_enroll'] = False
+=======
+            elif CourseEnrollment.is_enrollment_closed(request.user, course_overview):
+                enroll_alert['can_enroll'] = False
+            elif CourseEnrollment.objects.is_course_full(course_overview):
+                enroll_alert['can_enroll'] = False
+                enroll_alert['extra_text'] = _('Course is full')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Sometimes there are sequences returned by Course Blocks that we
         # don't actually want to show to the user, such as when a sequence is
@@ -316,7 +400,11 @@ class OutlineTabView(RetrieveAPIView):
         #
         # The long term goal is to remove the Course Blocks API call entirely,
         # so this is a tiny first step in that migration.
+<<<<<<< HEAD
         if course_blocks and learning_sequences_api_available(course_key):
+=======
+        if course_blocks:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             user_course_outline = get_user_course_outline(
                 course_key, request.user, datetime.now(tz=timezone.utc)
             )
@@ -324,7 +412,11 @@ class OutlineTabView(RetrieveAPIView):
 
             # course_blocks is a reference to the root of the course, so we go
             # through the chapters (sections) to look for sequences to remove.
+<<<<<<< HEAD
             for chapter_data in course_blocks['children']:
+=======
+            for chapter_data in course_blocks.get('children', []):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 chapter_data['children'] = [
                     seq_data
                     for seq_data in chapter_data['children']
@@ -350,6 +442,10 @@ class OutlineTabView(RetrieveAPIView):
             'course_goals': course_goals,
             'course_tools': course_tools,
             'dates_widget': dates_widget,
+<<<<<<< HEAD
+=======
+            'enable_proctored_exams': enable_proctored_exams,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'enroll_alert': enroll_alert,
             'enrollment_mode': enrollment_mode,
             'handouts_html': handouts_html,
@@ -385,7 +481,11 @@ class OutlineTabView(RetrieveAPIView):
 @api_view(['POST'])
 @authentication_classes((JwtAuthentication,))
 @permission_classes((IsAuthenticated,))
+<<<<<<< HEAD
 def dismiss_welcome_message(request):
+=======
+def dismiss_welcome_message(request):  # pylint: disable=missing-function-docstring
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     course_id = request.data.get('course_id', None)
 
     # If body doesn't contain 'course_id', return 400 to client.
@@ -402,16 +502,25 @@ def dismiss_welcome_message(request):
         dismiss_current_update_for_user(request, course)
         return Response({'message': _('Welcome message successfully dismissed.')})
     except Exception:
+<<<<<<< HEAD
         raise UnableToDismissWelcomeMessage
+=======
+        raise UnableToDismissWelcomeMessage  # pylint: disable=raise-missing-from
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 # Another version of this endpoint exists in ../course_goals/views.py
 @api_view(['POST'])
 @authentication_classes((JwtAuthentication, SessionAuthenticationAllowInactiveUser,))
 @permission_classes((IsAuthenticated,))
+<<<<<<< HEAD
 def save_course_goal(request):
     course_id = request.data.get('course_id')
     goal_key = request.data.get('goal_key')
+=======
+def save_course_goal(request):  # pylint: disable=missing-function-docstring
+    course_id = request.data.get('course_id')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     days_per_week = request.data.get('days_per_week')
     subscribed_to_reminders = request.data.get('subscribed_to_reminders')
 
@@ -419,6 +528,7 @@ def save_course_goal(request):
     if not course_id:
         raise ParseError("'course_id' is required.")
 
+<<<<<<< HEAD
     if COURSE_GOALS_NUMBER_OF_DAYS_GOALS.is_enabled():
         # If body doesn't contain the required goals fields, return 400 to client.
         if subscribed_to_reminders is None:
@@ -446,6 +556,20 @@ def save_course_goal(request):
             })
         except Exception:
             raise UnableToSaveCourseGoal
+=======
+    # If body doesn't contain the required goals fields, return 400 to client.
+    if subscribed_to_reminders is None:
+        raise ParseError("'subscribed_to_reminders' is required.")
+
+    try:
+        add_course_goal(request.user, course_id, subscribed_to_reminders, days_per_week)
+        return Response({
+            'header': _('Your course goal has been successfully set.'),
+            'message': _('Course goal updated successfully.'),
+        })
+    except Exception as exc:
+        raise UnableToSaveCourseGoal from exc
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @api_view(['POST'])

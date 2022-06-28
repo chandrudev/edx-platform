@@ -107,6 +107,7 @@ module.exports = Merge.smart({
             CompletionOnViewService: './lms/static/completion/js/CompletionOnViewService.js',
 
             // Features
+<<<<<<< HEAD
             CourseGoals: './openedx/features/course_experience/static/course_experience/js/CourseGoals.js',
             CourseHome: './openedx/features/course_experience/static/course_experience/js/CourseHome.js',
             CourseOutline: './openedx/features/course_experience/static/course_experience/js/CourseOutline.js',
@@ -115,6 +116,10 @@ module.exports = Merge.smart({
             Enrollment: './openedx/features/course_experience/static/course_experience/js/Enrollment.js',
             LatestUpdate: './openedx/features/course_experience/static/course_experience/js/LatestUpdate.js',
             WelcomeMessage: './openedx/features/course_experience/static/course_experience/js/WelcomeMessage.js',
+=======
+            CourseSock: './openedx/features/course_experience/static/course_experience/js/CourseSock.js',
+            Currency: './openedx/features/course_experience/static/course_experience/js/currency.js',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             AnnouncementsView: './openedx/features/announcements/static/announcements/jsx/Announcements.jsx',
             CookiePolicyBanner: './common/static/js/src/CookiePolicyBanner.jsx',

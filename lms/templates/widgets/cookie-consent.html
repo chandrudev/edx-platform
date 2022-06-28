@@ -1,8 +1,14 @@
 <!-- Cookie Consent -->
 <%page expression_filter="h"/>
+<<<<<<< HEAD
 <%! from django.utils.translation import ugettext as _ %>
 <%namespace name='static' file='../static_content.html'/>
  
+=======
+<%! from django.utils.translation import gettext as _ %>
+<%namespace name='static' file='../static_content.html'/>
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.1/cookieconsent.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.1/cookieconsent.min.js"></script>
 
@@ -33,14 +39,22 @@ window.addEventListener("load", function(){
     $(".cc-window").on('keydown', function(event) {
       if (event.keyCode == 27 ){
         popup.close();
+<<<<<<< HEAD
       } 
+=======
+      }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     });
 
     $("#dismiss").on('keydown', function(event) {
       if (event.keyCode == 13 || event.keyCode == 32 ) {
         popup.onButtonClick(event);
       }
+<<<<<<< HEAD
     });  
+=======
+    });
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   });
 });
 </script>

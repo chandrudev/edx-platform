@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+# pylint: disable=missing-module-docstring
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import unittest
 from unittest.mock import patch
 

@@ -14,8 +14,13 @@ from edx_toggles.toggles.testutils import override_waffle_flag  # lint-amnesty, 
 
 from common.djangoapps.student.roles import CourseInstructorRole, CourseStaffRole
 from common.djangoapps.student.tests.factories import AdminFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @patch.dict(settings.FEATURES, {'ENABLE_SPECIAL_EXAMS': True})
@@ -160,6 +165,7 @@ class TestProctoringDashboardViews(SharedModuleStoreTestCase):
         self.instructor.save()
         self._assert_escalation_email_available(False)
 
+<<<<<<< HEAD
     @patch.dict(settings.PROCTORING_BACKENDS,
                 {
                     'DEFAULT': 'test_proctoring_provider',
@@ -167,6 +173,17 @@ class TestProctoringDashboardViews(SharedModuleStoreTestCase):
                     'proctortrack': {}
                 },
                 )
+=======
+    @patch.dict(
+        settings.PROCTORING_BACKENDS,
+        {
+            'DEFAULT': 'test_proctoring_provider',
+            'test_proctoring_provider': {},
+            'proctortrack': {}
+        },
+    )
+    @patch.dict(settings.FEATURES, {'ENABLE_PROCTORED_EXAMS': True})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_proctortrack_provider_with_email(self):
         """
         Escalation email will be visible if proctortrack is the proctoring provider, and there

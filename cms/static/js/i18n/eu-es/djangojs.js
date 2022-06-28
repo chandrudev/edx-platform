@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=(n != 1);
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n != 1);
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     " ${price} {currency} )": " ${price} {currency} )",
     " and ": "eta",
     " and {num_of_minutes} minute": "eta {num_of_minutes} minutu",
@@ -1151,7 +1167,10 @@
     "There was an error during the upload process.": "Errorea gertatu da kargatze-prozesuan",
     "There was an error obtaining email content history for this course.": "Errorea gertatu da e-posten historia lortzean ikastaro honetan.",
     "There was an error obtaining email task history for this course.": "Errorea gertatu da e-posta bidezko lanen historia lortzean ikastaro honetan.",
+<<<<<<< HEAD
     "There was an error updating your goal.": "Errorea gertatu da helburua eguneratzean.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "There was an error while importing the new course to our database.": "Errorea gertatu da ikastaro berria gure datu-basera inportatzean.",
     "There was an error while importing the new library to our database.": "Errorea gertatu da liburutegi berria gure datu-basera inportatzean.",
     "There was an error with the upload": "Errorea gertatu da igotzean",
@@ -1361,7 +1380,10 @@
     "You have not created any group configurations yet.": "Oraindik ez duzu talde-ezarpenik sortu.",
     "You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button.": "Ekintza bat hautatu duzu, baina ez duzu inongo aldaketarik egin eremuetan. Litekeena da, Gorde botoia beharrean Aurrera botoiaren bila aritzea.",
     "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action.": "Ekintza bat hautatu duzu, baina oraindik ez duzu eremuetako aldaketak gorde. Mesedez, sakatu OK gordetzeko. Ekintza berriro exekutatu beharko duzu.",
+<<<<<<< HEAD
     "You have successfully updated your goal.": "Helburua ondo eguneratu duzu.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "You have unsaved changes are you sure you want to navigate away?": "Gorde gabeko aldaketak dituzu. Ziur al zaude aurrera egin nahi duzula?",
     "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "Gorde gabeko aldaketak dauzkazu eremuetan. Ekintza bat exekutatzen baduzu, gorde gabeko aldaketak galduko dira.",
     "You have unsaved changes. Do you really want to leave this page?": "Gorde gabeko aldaketak dituzu. Ziur al zaude orri hau utzi egin nahi duzula?",
@@ -1460,7 +1482,10 @@
     "or": "edo",
     "or create a new one here": "edo sortu beste bat hemen",
     "or sign in with": "edo hasi saioa ondokoarekin",
+<<<<<<< HEAD
     "post anonymously": "bidali anonimoki",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "post anonymously to classmates": "bidali anonimoki ikaskideei",
     "posted %(time_ago)s by %(author)s": "%(author)s -k bidalia duela %(time_ago)s",
     "price": "prezioa",
@@ -1534,24 +1559,41 @@
     "{type} Progress": "{type} Aurrerapena",
     "\u2026": "\u2026"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -1561,16 +1603,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -1593,6 +1645,7 @@
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
+<<<<<<< HEAD
       "%Y-%m-%d",
       "%m/%d/%Y %H:%M:%S",
       "%m/%d/%Y %H:%M:%S.%f",
@@ -1602,6 +1655,14 @@
       "%m/%d/%y %H:%M:%S.%f",
       "%m/%d/%y %H:%M",
       "%m/%d/%y"
+=======
+      "%m/%d/%Y %H:%M:%S",
+      "%m/%d/%Y %H:%M:%S.%f",
+      "%m/%d/%Y %H:%M",
+      "%m/%d/%y %H:%M:%S",
+      "%m/%d/%y %H:%M:%S.%f",
+      "%m/%d/%y %H:%M"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ],
     "DATE_FORMAT": "Y\\k\\o N j\\a",
     "DATE_INPUT_FORMATS": [
@@ -1634,8 +1695,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -1654,6 +1720,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

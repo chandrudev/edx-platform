@@ -12,8 +12,13 @@ These are all of our well-documented feature toggles!
 
 * Type: {{ group.toggle_type[0] }}
 * Use cases: {{ group.toggle_use_cases|join(", ") }}
+<<<<<<< HEAD
 {% if group.toggle_warnings != 'None' -%}
 * Warnings: {{ group.toggle_warnings }}
+=======
+{% if group.toggle_warning != 'None' -%}
+* Warnings: {{ group.toggle_warning }}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 {% endif -%}
 {% if group.toggle_target_removal_date != 'None' -%}
 * Expiration date: {{ group.toggle_target_removal_date }}

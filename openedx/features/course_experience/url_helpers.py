@@ -4,6 +4,7 @@ Helper functions for logic related to learning (courseare & course home) URLs.
 Centralized in openedx/features/course_experience instead of lms/djangoapps/courseware
 because the Studio course outline may need these utilities.
 """
+<<<<<<< HEAD
 from enum import Enum
 from typing import Optional
 
@@ -11,17 +12,31 @@ import six  # lint-amnesty, pylint: disable=unused-import
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http import HttpRequest
+=======
+from typing import Optional
+
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.http import HttpRequest
+from django.http.request import QueryDict
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.urls import reverse
 from opaque_keys.edx.keys import CourseKey, UsageKey
 from six.moves.urllib.parse import urlencode, urlparse
 
 from lms.djangoapps.courseware.toggles import courseware_mfe_is_active
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.search import navigation_index, path_to_location
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.search import navigation_index, path_to_location  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 User = get_user_model()
 
 
+<<<<<<< HEAD
 class ExperienceOption(Enum):
     """
     Versions of the courseware experience that can be requested.
@@ -40,6 +55,11 @@ def get_courseware_url(
         usage_key: UsageKey,
         request: Optional[HttpRequest] = None,
         experience: ExperienceOption = ExperienceOption.ACTIVE,
+=======
+def get_courseware_url(
+        usage_key: UsageKey,
+        request: Optional[HttpRequest] = None,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ) -> str:
     """
     Return the URL to the canonical learning experience for a given block.
@@ -56,12 +76,16 @@ def get_courseware_url(
         * ItemNotFoundError if no data at the `usage_key`.
         * NoPathToItem if we cannot build a path to the `usage_key`.
     """
+<<<<<<< HEAD
     course_key = usage_key.course_key.replace(version_guid=None, branch=None)
     if experience == ExperienceOption.NEW:
         get_url_fn = _get_new_courseware_url
     elif experience == ExperienceOption.LEGACY:
         get_url_fn = _get_legacy_courseware_url
     elif courseware_mfe_is_active(course_key):
+=======
+    if courseware_mfe_is_active():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         get_url_fn = _get_new_courseware_url
     else:
         get_url_fn = _get_legacy_courseware_url
@@ -148,6 +172,10 @@ def make_learning_mfe_courseware_url(
         course_key: CourseKey,
         sequence_key: Optional[UsageKey] = None,
         unit_key: Optional[UsageKey] = None,
+<<<<<<< HEAD
+=======
+        params: Optional[QueryDict] = None,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ) -> str:
     """
     Return a str with the URL for the specified courseware content in the Learning MFE.
@@ -176,6 +204,10 @@ def make_learning_mfe_courseware_url(
 
     `course_key`, `sequence_key`, and `unit_key` can be either OpaqueKeys or
     strings. They're only ever used to concatenate a URL string.
+<<<<<<< HEAD
+=======
+    `params` is an optional QueryDict object (e.g. request.GET)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     mfe_link = f'{settings.LEARNING_MICROFRONTEND_URL}/course/{course_key}'
 
@@ -185,11 +217,23 @@ def make_learning_mfe_courseware_url(
         if unit_key:
             mfe_link += f'/{unit_key}'
 
+<<<<<<< HEAD
+=======
+    if params:
+        mfe_link += f'?{params.urlencode()}'
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return mfe_link
 
 
 def get_learning_mfe_home_url(
+<<<<<<< HEAD
         course_key: CourseKey, view_name: Optional[str] = None
+=======
+        course_key: CourseKey,
+        url_fragment: Optional[str] = None,
+        params: Optional[QueryDict] = None,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ) -> str:
     """
     Given a course run key and view name, return the appropriate course home (MFE) URL.
@@ -199,12 +243,25 @@ def get_learning_mfe_home_url(
     http://localhost:2000/course/course-v1:edX+DemoX+Demo_Course/dates
 
     `course_key` can be either an OpaqueKey or a string.
+<<<<<<< HEAD
     `view_name` is an optional string.
     """
     mfe_link = f'{settings.LEARNING_MICROFRONTEND_URL}/course/{course_key}'
 
     if view_name:
         mfe_link += f'/{view_name}'
+=======
+    `url_fragment` is an optional string.
+    `params` is an optional QueryDict object (e.g. request.GET)
+    """
+    mfe_link = f'{settings.LEARNING_MICROFRONTEND_URL}/course/{course_key}'
+
+    if url_fragment:
+        mfe_link += f'/{url_fragment}'
+
+    if params:
+        mfe_link += f'?{params.urlencode()}'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     return mfe_link
 

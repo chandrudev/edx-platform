@@ -4,7 +4,11 @@
 <%namespace name='static' file='static_content.html'/>
 <%!
   from django.conf import settings
+<<<<<<< HEAD
   from django.utils.translation import ugettext as _
+=======
+  from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   from openedx.core.djangolib.markup import HTML, Text
 %>
 
@@ -153,6 +157,10 @@
   </section>
 </div>
 
+<<<<<<< HEAD
+=======
+% if static.get_value('ALLOW_PUBLIC_ACCOUNT_CREATION', settings.FEATURES.get('ALLOW_PUBLIC_ACCOUNT_CREATION')):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 <div class="wrapper-content-cta wrapper">
   <section class="content content-cta">
     <header>
@@ -169,6 +177,10 @@
     </ul>
   </section>
 </div>
+<<<<<<< HEAD
+=======
+% endif
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 <div class="content-modal" id="hiw-feature1">
   <h3 class="title">${_("Outlining Your Course")}</h3>

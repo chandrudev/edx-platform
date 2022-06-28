@@ -1,14 +1,25 @@
 """
 Tests for cache_utils.py
 """
+<<<<<<< HEAD
 
+=======
+from time import sleep
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from unittest import TestCase
 from unittest.mock import Mock
 
 import ddt
 from edx_django_utils.cache import RequestCache
+<<<<<<< HEAD
 
 from openedx.core.lib.cache_utils import request_cached
+=======
+from django.core.cache import cache
+from django.test.utils import override_settings
+
+from openedx.core.lib.cache_utils import CacheService, request_cached
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -295,3 +306,29 @@ class TestRequestCachedDecorator(TestCase):
         result = wrapped(3)
         assert result == 2
         assert to_be_wrapped.call_count == 2
+<<<<<<< HEAD
+=======
+
+
+class CacheServiceTest(TestCase):
+    """
+    Test CacheService methods.
+    """
+    @override_settings(CACHES={
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }
+    })
+    def test_cache(self):
+        '''
+        Ensure the default cache works as expected.
+        '''
+        cache_service = CacheService(cache)
+        key = 'my_key'
+        value = 'some random value'
+        timeout = 1
+        cache_service.set(key, value, timeout=timeout)
+        assert cache_service.get(key) == value
+        sleep(timeout)
+        assert cache_service.get(key) is None
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -1,10 +1,19 @@
 """
 Mixin to support editing in Studio.
 """
+<<<<<<< HEAD
 from xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW, module_attr
 
 
 class StudioEditableBlock:
+=======
+from xblock.core import XBlock, XBlockMixin
+from xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW
+
+
+@XBlock.needs('mako')
+class StudioEditableBlock(XBlockMixin):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Helper methods for supporting Studio editing of XBlocks.
 
@@ -31,7 +40,11 @@ class StudioEditableBlock:
                 'content': rendered_child.content
             })
 
+<<<<<<< HEAD
         fragment.add_content(self.system.render_template("studio_render_children_view.html", {  # pylint: disable=no-member
+=======
+        fragment.add_content(self.runtime.service(self, 'mako').render_template("studio_render_children_view.html", {  # pylint: disable=no-member
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'items': contents,
             'xblock_context': context,
             'can_add': can_add,
@@ -49,6 +62,7 @@ class StudioEditableBlock:
 StudioEditableModule = StudioEditableBlock
 
 
+<<<<<<< HEAD
 class StudioEditableDescriptor:
     """
     Helper mixin for supporting Studio editing of xmodules.
@@ -60,6 +74,8 @@ class StudioEditableDescriptor:
     has_author_view = True
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def has_author_view(descriptor):
     """
     Returns True if the xmodule linked to the descriptor supports "author_view".

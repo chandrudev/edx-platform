@@ -72,7 +72,11 @@ class StartDateTransformerTestCase(BlockParentsMapTestCase):
 
         # has_access checks on block directly and doesn't follow negative access set on parent/ancestor (i.e., 0)
         (STUDENT, {1: StartDateType.released}, {}, {1, 3, 4, 6}),
+<<<<<<< HEAD
         (STUDENT, {2: StartDateType.released}, {}, {2, 5, 6}),
+=======
+        (STUDENT, {2: StartDateType.released}, {}, {2, 5}),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         (STUDENT, {1: StartDateType.released, 2: StartDateType.released}, {}, {1, 2, 3, 4, 5, 6}),
 
         # DAG conflicts: has_access relies on field inheritance so it takes only the value from the first parent-chain

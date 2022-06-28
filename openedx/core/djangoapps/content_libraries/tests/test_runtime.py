@@ -6,7 +6,12 @@ from gettext import GNUTranslations
 
 from completion.test_utils import CompletionWaffleTestMixin
 from django.db import connections
+<<<<<<< HEAD
 from django.test import TestCase, override_settings
+=======
+from django.test import LiveServerTestCase, TestCase
+from django.utils.text import slugify
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from organizations.models import Organization
 from rest_framework.test import APIClient
 from xblock.core import XBlock
@@ -14,7 +19,13 @@ from xblock.core import XBlock
 from lms.djangoapps.courseware.model_data import get_score
 from openedx.core.djangoapps.content_libraries import api as library_api
 from openedx.core.djangoapps.content_libraries.tests.base import (
+<<<<<<< HEAD
     requires_blockstore,
+=======
+    BlockstoreAppTestMixin,
+    requires_blockstore,
+    requires_blockstore_app,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     URL_BLOCK_RENDER_VIEW,
     URL_BLOCK_GET_HANDLER_URL,
     URL_BLOCK_METADATA_URL,
@@ -26,13 +37,18 @@ from openedx.core.djangoapps.xblock import api as xblock_api
 from openedx.core.djangolib.testing.utils import skip_unless_lms, skip_unless_cms
 from openedx.core.lib import blockstore_api
 from common.djangoapps.student.tests.factories import UserFactory
+<<<<<<< HEAD
 from xmodule.unit_block import UnitBlock
+=======
+from xmodule.unit_block import UnitBlock  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ContentLibraryContentTestMixin:
     """
     Mixin for content library tests that creates two students and a library.
     """
+<<<<<<< HEAD
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -53,6 +69,29 @@ class ContentLibraryContentTestMixin:
             org=cls.organization,
             slug=cls.__name__,
             title=(cls.__name__ + " Test Lib"),
+=======
+    def setUp(self):
+        super().setUp()
+        # Create a couple students that the tests can use
+        self.student_a = UserFactory.create(username="Alice", email="alice@example.com", password="edx")
+        self.student_b = UserFactory.create(username="Bob", email="bob@example.com", password="edx")
+
+        # Create a collection using Blockstore API directly only because there
+        # is not yet any Studio REST API for doing so:
+        self.collection = blockstore_api.create_collection("Content Library Test Collection")
+        # Create an organization
+        self.organization = Organization.objects.create(
+            name="Content Libraries Tachyon Exploration & Survey Team",
+            short_name="CL-TEST",
+        )
+        _, slug = self.id().rsplit('.', 1)
+        self.library = library_api.create_library(
+            collection_uuid=self.collection.uuid,
+            library_type=COMPLEX,
+            org=self.organization,
+            slug=slugify(slug),
+            title=(f"{slug} Test Lib"),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             description="",
             allow_public_learning=True,
             allow_public_read=False,
@@ -60,10 +99,14 @@ class ContentLibraryContentTestMixin:
         )
 
 
+<<<<<<< HEAD
 @requires_blockstore
 # EphemeralKeyValueStore requires a working cache, and the default test cache doesn't work:
 @override_settings(XBLOCK_RUNTIME_V2_EPHEMERAL_DATA_CACHE='blockstore')
 class ContentLibraryRuntimeTest(ContentLibraryContentTestMixin, TestCase):
+=======
+class ContentLibraryRuntimeTestMixin(ContentLibraryContentTestMixin):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Basic tests of the Blockstore-based XBlock runtime using XBlocks in a
     content library.
@@ -181,10 +224,32 @@ class ContentLibraryRuntimeTest(ContentLibraryContentTestMixin, TestCase):
 
 
 @requires_blockstore
+<<<<<<< HEAD
 # We can remove the line below to enable this in Studio once we implement a session-backed
 # field data store which we can use for both studio users and anonymous users
 @skip_unless_lms
 class ContentLibraryXBlockUserStateTest(ContentLibraryContentTestMixin, TestCase):
+=======
+class ContentLibraryRuntimeBServiceTest(ContentLibraryRuntimeTestMixin, TestCase):
+    """
+    Tests XBlock runtime using XBlocks in a content library using the standalone Blockstore service.
+    """
+
+
+@requires_blockstore_app
+class ContentLibraryRuntimeTest(ContentLibraryRuntimeTestMixin, BlockstoreAppTestMixin, LiveServerTestCase):
+    """
+    Tests XBlock runtime using XBlocks in a content library using the installed Blockstore app.
+
+    We run this test with a live server, so that the blockstore asset files can be served.
+    """
+
+
+# We can remove the line below to enable this in Studio once we implement a session-backed
+# field data store which we can use for both studio users and anonymous users
+@skip_unless_lms
+class ContentLibraryXBlockUserStateTestMixin(ContentLibraryContentTestMixin):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Test that the Blockstore-based XBlock runtime can store and retrieve student
     state for XBlocks when learners access blocks directly in a library context,
@@ -487,8 +552,32 @@ class ContentLibraryXBlockUserStateTest(ContentLibraryContentTestMixin, TestCase
 
 
 @requires_blockstore
+<<<<<<< HEAD
 @skip_unless_lms  # No completion tracking in Studio
 class ContentLibraryXBlockCompletionTest(ContentLibraryContentTestMixin, CompletionWaffleTestMixin, TestCase):
+=======
+class ContentLibraryXBlockUserStateBServiceTest(ContentLibraryXBlockUserStateTestMixin, TestCase):
+    """
+    Tests XBlock user state for XBlocks in a content library using the standalone Blockstore service.
+    """
+
+
+@requires_blockstore_app
+class ContentLibraryXBlockUserStateTest(
+    ContentLibraryXBlockUserStateTestMixin,
+    BlockstoreAppTestMixin,
+    LiveServerTestCase,
+):
+    """
+    Tests XBlock user state for XBlocks in a content library using the installed Blockstore app.
+
+    We run this test with a live server, so that the blockstore asset files can be served.
+    """
+
+
+@skip_unless_lms  # No completion tracking in Studio
+class ContentLibraryXBlockCompletionTestMixin(ContentLibraryContentTestMixin, CompletionWaffleTestMixin):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Test that the Blockstore-based XBlocks can track their completion status
     using the completion library.
@@ -539,3 +628,33 @@ class ContentLibraryXBlockCompletionTest(ContentLibraryContentTestMixin, Complet
 
         # Now the block is completed
         assert get_block_completion_status() == 1
+<<<<<<< HEAD
+=======
+
+
+@requires_blockstore
+class ContentLibraryXBlockCompletionBServiceTest(
+    ContentLibraryXBlockCompletionTestMixin,
+    CompletionWaffleTestMixin,
+    TestCase,
+):
+    """
+    Test that the Blockstore-based XBlocks can track their completion status
+    using the standalone Blockstore service.
+    """
+
+
+@requires_blockstore_app
+class ContentLibraryXBlockCompletionTest(
+    ContentLibraryXBlockCompletionTestMixin,
+    CompletionWaffleTestMixin,
+    BlockstoreAppTestMixin,
+    LiveServerTestCase,
+):
+    """
+    Test that the Blockstore-based XBlocks can track their completion status
+    using the installed Blockstore app.
+
+    We run this test with a live server, so that the blockstore asset files can be served.
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

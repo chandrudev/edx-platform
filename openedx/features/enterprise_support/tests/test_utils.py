@@ -14,7 +14,11 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.test import TestCase
 from django.test.utils import override_settings
+<<<<<<< HEAD
 from django.urls import NoReverseMatch, reverse
+=======
+from django.urls import NoReverseMatch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edx_toggles.toggles.testutils import override_waffle_flag, override_waffle_switch
 from opaque_keys.edx.keys import CourseKey, UsageKey
 
@@ -46,8 +50,13 @@ from openedx.features.enterprise_support.utils import (
     update_logistration_context_for_enterprise,
     update_third_party_auth_context_for_enterprise
 )
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 TEST_PASSWORD = 'test'
 
@@ -481,6 +490,18 @@ class TestEnterpriseUtils(TestCase):
 
         assert not mock_cache_set.called
 
+<<<<<<< HEAD
+=======
+    @mock.patch('django.core.cache.cache.set')
+    @mock.patch('django.core.cache.cache.get')
+    @mock.patch('openedx.features.enterprise_support.api.enterprise_enabled', return_value=False)
+    def test_is_enterprise_learner_enterprise_disabled(self, _, mock_cache_get, mock_cache_set):
+        assert not is_enterprise_learner(self.user)
+        assert not is_enterprise_learner(self.user.id)
+        assert not mock_cache_get.called
+        assert not mock_cache_set.called
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @mock.patch('openedx.features.enterprise_support.utils.reverse')
     def test_get_enterprise_slug_login_url_no_reverse_match(self, mock_reverse):
         mock_reverse.side_effect = NoReverseMatch
@@ -606,6 +627,7 @@ class TestCourseAccessed(SharedModuleStoreTestCase, CompletionWaffleTestMixin):
             completion=completion
         )
 
+<<<<<<< HEAD
     def course_home_url(self, course):
         """
         Returns the URL for the course's home page.
@@ -638,6 +660,8 @@ class TestCourseAccessed(SharedModuleStoreTestCase, CompletionWaffleTestMixin):
         course_accessed = is_course_accessed(self.user, str(self.course.id))
         self.assertFalse(course_accessed)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @override_settings(LMS_BASE='test_url:9999')
     def test_course_accessed_with_completion_api(self):
         """

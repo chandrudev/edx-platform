@@ -17,6 +17,7 @@ Studio and LMS need to be configured in each environment to enable the new flow,
 
 Follow these steps for each deployed environment (stage, production, etc.):
 
+<<<<<<< HEAD
 #. Register an SSO OAuth2 client in LMS:
 
    - Add OAuth2 client:
@@ -39,6 +40,19 @@ Follow these steps for each deployed environment (stage, production, etc.):
 #. Configure LMS to log out Studio when logging out by adding ``<public Studio root>/logout/`` to the LMS ``IDA_LOGOUT_URI_LIST``.
 
 #. Configure Studio to allow completion of OAuth flow::
+=======
+#. Create a ``studio_worker`` service account in the LMS::
+
+    ./manage.py lms manage_user studio_worker some-email@your-domain --unusable-password
+
+#. Register an SSO OAuth2 client in LMS::
+
+    ./manage.py lms create_dot_application --grant-type authorization-code --skip-authorization --redirect-uris "https://studio.YOURSITE/complete/edx-oauth2/" --scopes "user_id" studio-sso studio_worker
+
+#. Configure LMS to log out Studio when logging out by adding ``<public Studio root>/logout/`` to the LMS ``IDA_LOGOUT_URI_LIST``.
+
+#. Find your new client in your LMS Django admin (``/admin/oauth2_provider/application/?q=studio-sso``) and then configure Studio to allow completion of OAuth flow::
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     SOCIAL_AUTH_EDX_OAUTH2_KEY: <client id>
     SOCIAL_AUTH_EDX_OAUTH2_SECRET: <client secret>

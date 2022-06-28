@@ -6,7 +6,11 @@ from xblock.core import XBlockMixin
 from xblock.fields import Scope, String
 
 # Make '_' a no-op so we can scrape strings. Using lambda instead of
+<<<<<<< HEAD
 #  `django.utils.translation.ugettext_noop` because Django cannot be imported in this file
+=======
+#  `django.utils.translation.gettext_noop` because Django cannot be imported in this file
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 _ = lambda text: text
 
 

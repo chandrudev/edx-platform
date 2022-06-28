@@ -6,6 +6,10 @@ Decorators related to edXNotes.
 import json
 
 from django.conf import settings
+<<<<<<< HEAD
+=======
+from xblock.exceptions import NoSuchServiceError
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.edxmako.shortcuts import render_to_string
 
@@ -40,7 +44,14 @@ def edxnotes(cls):
         # - Harvard Annotation Tool is enabled for the course
         # - the feature flag or `edxnotes` setting of the course is set to False
         # - the user is not authenticated
+<<<<<<< HEAD
         user = self.runtime.get_real_user(self.runtime.anonymous_student_id)
+=======
+        try:
+            user = self.runtime.service(self, 'user').get_user_by_anonymous_id()
+        except NoSuchServiceError:
+            user = None
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if is_studio or not is_feature_enabled(course, user):
             return original_get_html(self, *args, **kwargs)

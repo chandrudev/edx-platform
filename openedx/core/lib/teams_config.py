@@ -14,7 +14,11 @@ MANAGED_TEAM_MAX_TEAM_SIZE = 200
 DEFAULT_COURSE_RUN_MAX_TEAM_SIZE = 50
 
 
+<<<<<<< HEAD
 class TeamsConfig:  # pylint: disable=eq-without-hash
+=======
+class TeamsConfig:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Configuration for the Course Teams feature on a course run.
 
@@ -30,6 +34,7 @@ class TeamsConfig:  # pylint: disable=eq-without-hash
     def __str__(self):
         """
         Return user-friendly string.
+<<<<<<< HEAD
 
         TODO move this code to __str__ after Py3 upgrade.
         """
@@ -41,14 +46,27 @@ class TeamsConfig:  # pylint: disable=eq-without-hash
         """
         return "Teams configuration for {} team-sets".format(len(self.teamsets))
 
+=======
+        """
+        return f"Teams configuration for {len(self.teamsets)} team-sets"
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def __repr__(self):
         """
         Return developer-helpful string.
         """
+<<<<<<< HEAD
         return "<{} default_max_team_size={} teamsets=[{}]>".format(
             self.__class__.__name__,
             self.default_max_team_size,
             ", ".join(repr(teamset) for teamset in self.teamsets),
+=======
+        return "<{} default_max_team_size={} teamsets=[{}] enabled={}>".format(
+            self.__class__.__name__,
+            self.default_max_team_size,
+            ", ".join(repr(teamset) for teamset in self.teamsets),
+            self.is_enabled,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
     def __eq__(self, other):
@@ -77,6 +95,10 @@ class TeamsConfig:  # pylint: disable=eq-without-hash
         JSON-friendly dictionary containing cleaned data from this TeamsConfig.
         """
         return {
+<<<<<<< HEAD
+=======
+            'enabled': self.is_enabled,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'max_team_size': self.default_max_team_size,
             'team_sets': [
                 teamset.cleaned_data for teamset in self.teamsets
@@ -88,7 +110,20 @@ class TeamsConfig:  # pylint: disable=eq-without-hash
         """
         Whether the Course Teams feature is enabled for this course run.
         """
+<<<<<<< HEAD
         return bool(self.teamsets)
+=======
+        # Check if the enabled field is set, and teamsets are defined
+        has_teamsets = bool(self.teamsets)
+        return self._data.get('enabled', True) and has_teamsets
+
+    @is_enabled.setter
+    def is_enabled(self, value):
+        """
+        Setter to set value of enabled value
+        """
+        self._data['enabled'] = value
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @cached_property
     def teamsets(self):
@@ -155,7 +190,11 @@ class TeamsConfig:  # pylint: disable=eq-without-hash
         return self.default_max_team_size
 
 
+<<<<<<< HEAD
 class TeamsetConfig:  # pylint: disable=eq-without-hash
+=======
+class TeamsetConfig:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Configuration for a team-set within a course run.
 

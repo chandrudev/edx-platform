@@ -2,6 +2,7 @@
 Public views
 """
 
+<<<<<<< HEAD
 
 from django.conf import settings
 from django.shortcuts import redirect
@@ -13,6 +14,22 @@ from common.djangoapps.edxmako.shortcuts import render_to_response
 from ..config import waffle
 
 __all__ = ['register_redirect_to_lms', 'login_redirect_to_lms', 'howitworks', 'accessibility']
+=======
+from urllib.parse import quote_plus
+
+from django.conf import settings
+from django.http.response import Http404
+from django.shortcuts import redirect
+
+from common.djangoapps.edxmako.shortcuts import render_to_response
+
+from ..config.waffle import ENABLE_ACCESSIBILITY_POLICY_PAGE
+
+__all__ = [
+    'register_redirect_to_lms', 'login_redirect_to_lms', 'howitworks', 'accessibility',
+    'redirect_to_lms_login_for_admin',
+]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def register_redirect_to_lms(request):
@@ -39,6 +56,16 @@ def login_redirect_to_lms(request):
     return redirect(login_url)
 
 
+<<<<<<< HEAD
+=======
+def redirect_to_lms_login_for_admin(request):
+    """
+    This view redirect the admin/login url to the site's login page.
+    """
+    return redirect('/login?next=/admin')
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _build_next_param(request):
     """ Returns the next param to be used with login or register. """
     next_url = request.GET.get('next')
@@ -59,12 +86,23 @@ def howitworks(request):
         return render_to_response('howitworks.html', {})
 
 
+<<<<<<< HEAD
 @waffle_switch(f'{waffle.WAFFLE_NAMESPACE}.{waffle.ENABLE_ACCESSIBILITY_POLICY_PAGE}')
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def accessibility(request):
     """
     Display the accessibility accommodation form.
     """
+<<<<<<< HEAD
 
     return render_to_response('accessibility.html', {
         'language_code': request.LANGUAGE_CODE
     })
+=======
+    if ENABLE_ACCESSIBILITY_POLICY_PAGE.is_enabled():
+        return render_to_response('accessibility.html', {
+            'language_code': request.LANGUAGE_CODE
+        })
+    raise Http404
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

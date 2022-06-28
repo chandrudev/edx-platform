@@ -262,7 +262,11 @@ def get_bundle_draft_direct_links_cached(bundle_uuid, draft_name):
     cache_key = ('bundle_draft_direct_links', )
     result = bundle_cache.get(cache_key)
     if result is None:
+<<<<<<< HEAD
         links = blockstore_api.get_bundle_links(bundle_uuid, use_draft=draft_name).values()  # lint-amnesty, pylint: disable=dict-values-not-iterating
+=======
+        links = blockstore_api.get_bundle_links(bundle_uuid, use_draft=draft_name).values()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         result = {link.name: link.direct for link in links}
         bundle_cache.set(cache_key, result)
     return result

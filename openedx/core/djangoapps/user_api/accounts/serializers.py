@@ -13,7 +13,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from rest_framework import serializers
 
+<<<<<<< HEAD
 from edx_name_affirmation.toggles import is_verified_name_enabled
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.models import (
     LanguageProficiency,
@@ -29,6 +32,10 @@ from openedx.core.djangoapps.user_api.accounts.utils import is_secondary_email_f
 from openedx.core.djangoapps.user_api.models import RetirementState, UserPreference, UserRetirementStatus
 from openedx.core.djangoapps.user_api.serializers import ReadOnlyFieldsSerializerMixin
 from openedx.core.djangoapps.user_authn.views.registration_form import contains_html, contains_url
+<<<<<<< HEAD
+=======
+from openedx.features.name_affirmation_api.utils import get_name_affirmation_service
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from . import (
     ACCOUNT_VISIBILITY_PREF_KEY,
@@ -170,7 +177,11 @@ class UserReadOnlySerializer(serializers.Serializer):  # lint-amnesty, pylint: d
             "extended_profile_fields": None,
             "phone_number": None,
             "pending_name_change": None,
+<<<<<<< HEAD
             "is_verified_name_enabled": is_verified_name_enabled(),
+=======
+            "verified_name": None,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         }
 
         if user_profile:
@@ -209,6 +220,15 @@ class UserReadOnlySerializer(serializers.Serializer):  # lint-amnesty, pylint: d
         except PendingNameChange.DoesNotExist:
             pass
 
+<<<<<<< HEAD
+=======
+        name_affirmation_service = get_name_affirmation_service()
+        if name_affirmation_service:
+            verified_name_obj = name_affirmation_service.get_verified_name(user, is_verified=True)
+            if verified_name_obj:
+                data.update({"verified_name": verified_name_obj.verified_name})
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if is_secondary_email_feature_enabled():
             data.update(
                 {

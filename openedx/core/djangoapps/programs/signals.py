@@ -177,7 +177,11 @@ def handle_course_cert_revoked(sender, user, course_key, mode, status, **kwargs)
 
 
 @receiver(COURSE_CERT_DATE_CHANGE, dispatch_uid='course_certificate_date_change_handler')
+<<<<<<< HEAD
 def handle_course_cert_date_change(sender, course_key, available_date, **kwargs):  # lint-amnesty, pylint: disable=unused-argument
+=======
+def handle_course_cert_date_change(sender, course_key, **kwargs):  # lint-amnesty, pylint: disable=unused-argument
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     If course is updated and the certificate_available_date is changed,
     schedule a celery task to update visible_date for all certificates
@@ -185,7 +189,10 @@ def handle_course_cert_date_change(sender, course_key, available_date, **kwargs)
 
     Args:
         course_key (CourseLocator): refers to the course whose certificate_available_date was updated.
+<<<<<<< HEAD
         available_date (datetime): the date to update the certificate's available date to
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Returns:
         None
@@ -208,4 +215,8 @@ def handle_course_cert_date_change(sender, course_key, available_date, **kwargs)
 
     # import here, because signal is registered at startup, but items in tasks are not yet loaded
     from openedx.core.djangoapps.programs.tasks import update_certificate_visible_date_on_course_update
+<<<<<<< HEAD
     update_certificate_visible_date_on_course_update.delay(str(course_key), available_date)
+=======
+    update_certificate_visible_date_on_course_update.delay(str(course_key))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

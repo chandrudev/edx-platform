@@ -16,8 +16,13 @@ from organizations.api import (
 )
 
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import LibraryFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import LibraryFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .. import backfill_orgs_and_org_courses
 

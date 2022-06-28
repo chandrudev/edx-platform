@@ -39,7 +39,11 @@ from ..models import (
     PublishReport,
     UserPartitionGroup
 )
+<<<<<<< HEAD
 from .permissions import can_call_public_api, can_see_all_content
+=======
+from .permissions import can_see_all_content
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .processors.content_gating import ContentGatingOutlineProcessor
 from .processors.enrollment import EnrollmentOutlineProcessor
 from .processors.enrollment_track_partition_groups import EnrollmentTrackPartitionGroupsOutlineProcessor
@@ -58,7 +62,10 @@ __all__ = [
     'get_user_course_outline',
     'get_user_course_outline_details',
     'key_supports_outlines',
+<<<<<<< HEAD
     'public_api_available',
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     'replace_course_outline',
 ]
 
@@ -85,6 +92,7 @@ def key_supports_outlines(opaque_key: OpaqueKey) -> bool:
     return False
 
 
+<<<<<<< HEAD
 def public_api_available(course_key: CourseKey) -> bool:
     """
     Is the Public API available for this Course to this User?
@@ -100,6 +108,8 @@ def public_api_available(course_key: CourseKey) -> bool:
     )
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @function_trace('learning_sequences.api.get_course_keys_with_outlines')
 def get_course_keys_with_outlines() -> QuerySet:
     """

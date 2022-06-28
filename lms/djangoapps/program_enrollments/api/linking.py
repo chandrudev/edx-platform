@@ -11,6 +11,10 @@ import logging
 
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError, transaction
+<<<<<<< HEAD
+=======
+from requests.structures import CaseInsensitiveDict
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.api import get_access_role_by_role_name
@@ -158,10 +162,17 @@ def _get_program_enrollments_by_ext_key(program_uuid, external_user_keys):
     ).prefetch_related(
         'program_course_enrollments'
     ).select_related('user')
+<<<<<<< HEAD
     return {
         program_enrollment.external_user_key: program_enrollment
         for program_enrollment in program_enrollments
     }
+=======
+    return CaseInsensitiveDict({
+        program_enrollment.external_user_key: program_enrollment
+        for program_enrollment in program_enrollments
+    })
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def _get_lms_users(lms_usernames):

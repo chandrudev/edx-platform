@@ -105,6 +105,7 @@ def verification_for_datetime(deadline, candidates):
         return None
 
 
+<<<<<<< HEAD
 def most_recent_verification(photo_id_verifications, sso_id_verifications, manual_id_verifications, most_recent_key):
     """
     Return the most recent verification given querysets for photo, sso and manual verifications.
@@ -117,10 +118,20 @@ def most_recent_verification(photo_id_verifications, sso_id_verifications, manua
         sso_id_verifications: Queryset containing sso verifications
         manual_id_verifications: Queryset containing manual verifications
         most_recent_key: Either 'updated_at' or 'created_at'
+=======
+def most_recent_verification(verification_sets):
+    """
+    Return the most recent verification (by updated date) given querysets for multiple types of verifications.
+    Photo, sso and manual are the current use.
+
+    Arguments:
+        tuple or other iterable of verification sets
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Returns:
         The most recent verification.
     """
+<<<<<<< HEAD
     photo_id_verification = photo_id_verifications and photo_id_verifications.first()
     sso_id_verification = sso_id_verifications and sso_id_verifications.first()
     manual_id_verification = manual_id_verifications and manual_id_verifications.first()
@@ -134,6 +145,14 @@ def most_recent_verification(photo_id_verifications, sso_id_verifications, manua
     }
 
     return max(verifications_map, key=lambda k: verifications_map[k]) if verifications_map else None
+=======
+    most_recent = None
+    for s in verification_sets:
+        for v in s:
+            if not most_recent or v.updated_at > most_recent.updated_at:
+                most_recent = v
+    return most_recent
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def auto_verify_for_testing_enabled(override=None):

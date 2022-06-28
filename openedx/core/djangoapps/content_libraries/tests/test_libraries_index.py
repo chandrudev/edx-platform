@@ -10,12 +10,23 @@ from opaque_keys.edx.locator import LibraryLocatorV2, LibraryUsageLocatorV2
 from search.search_engine_base import SearchEngine
 
 from openedx.core.djangoapps.content_libraries.libraries_index import ContentLibraryIndexer, LibraryBlockIndexer
+<<<<<<< HEAD
 from openedx.core.djangoapps.content_libraries.tests.base import ContentLibrariesRestApiTest, elasticsearch_test
 
 
 @override_settings(FEATURES={**settings.FEATURES, 'ENABLE_CONTENT_LIBRARY_INDEX': True})
 @elasticsearch_test
 class ContentLibraryIndexerTest(ContentLibrariesRestApiTest):
+=======
+from openedx.core.djangoapps.content_libraries.tests.base import (
+    ContentLibrariesRestApiBlockstoreServiceTest,
+    ContentLibrariesRestApiTest,
+    elasticsearch_test,
+)
+
+
+class ContentLibraryIndexerTestMixin:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Tests the operation of ContentLibraryIndexer
     """
@@ -181,7 +192,31 @@ class ContentLibraryIndexerTest(ContentLibrariesRestApiTest):
 
 @override_settings(FEATURES={**settings.FEATURES, 'ENABLE_CONTENT_LIBRARY_INDEX': True})
 @elasticsearch_test
+<<<<<<< HEAD
 class LibraryBlockIndexerTest(ContentLibrariesRestApiTest):
+=======
+class ContentLibraryIndexerBlockstoreServiceTest(
+    ContentLibraryIndexerTestMixin,
+    ContentLibrariesRestApiBlockstoreServiceTest,
+):
+    """
+    Tests the operation of ContentLibraryIndexer using the standalone Blockstore service.
+    """
+
+
+@override_settings(FEATURES={**settings.FEATURES, 'ENABLE_CONTENT_LIBRARY_INDEX': True})
+@elasticsearch_test
+class ContentLibraryIndexerTest(
+    ContentLibraryIndexerTestMixin,
+    ContentLibrariesRestApiTest,
+):
+    """
+    Tests the operation of ContentLibraryIndexer using the installed Blockstore app.
+    """
+
+
+class LibraryBlockIndexerTestMixin:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Tests the operation of LibraryBlockIndexer
     """
@@ -279,3 +314,28 @@ class LibraryBlockIndexerTest(ContentLibrariesRestApiTest):
         LibraryBlockIndexer.get_items([block['id']])
         self._delete_library(lib['id'])
         assert LibraryBlockIndexer.get_items([block['id']]) == []
+<<<<<<< HEAD
+=======
+
+
+@override_settings(FEATURES={**settings.FEATURES, 'ENABLE_CONTENT_LIBRARY_INDEX': True})
+@elasticsearch_test
+class LibraryBlockIndexerBlockstoreServiceTest(
+    LibraryBlockIndexerTestMixin,
+    ContentLibrariesRestApiBlockstoreServiceTest,
+):
+    """
+    Tests the operation of LibraryBlockIndexer using the standalone Blockstore service.
+    """
+
+
+@override_settings(FEATURES={**settings.FEATURES, 'ENABLE_CONTENT_LIBRARY_INDEX': True})
+@elasticsearch_test
+class LibraryBlockIndexerTest(
+    LibraryBlockIndexerTestMixin,
+    ContentLibrariesRestApiTest,
+):
+    """
+    Tests the operation of LibraryBlockIndexer using the installed Blockstore app.
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

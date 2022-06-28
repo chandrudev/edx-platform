@@ -70,6 +70,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         site_id = options.get('site_id')
         domain = options.get('domain')
+<<<<<<< HEAD
+=======
+        name = domain
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         configuration = options.get('configuration')
         config_file_data = options.get('config_file_data')
 
@@ -78,9 +82,24 @@ class Command(BaseCommand):
         if site_id is not None:
             site, created = Site.objects.get_or_create(id=site_id)
         else:
+<<<<<<< HEAD
             site, created = Site.objects.get_or_create(
                 domain=domain,
                 name=domain,
+=======
+            name_max_length = Site._meta.get_field("name").max_length
+            if name:
+                if len(str(name)) > name_max_length:
+                    LOG.warning(
+                        f"The name {name} is too long, truncating to {name_max_length}"
+                        " characters. Please update site name in admin."
+                    )
+                # trim name as the column has a limit of 50 characters
+                name = name[:name_max_length]
+            site, created = Site.objects.get_or_create(
+                domain=domain,
+                name=name,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
         if created:
             LOG.info(f"Site does not exist. Created new site '{site.domain}'")

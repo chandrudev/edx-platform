@@ -134,10 +134,19 @@ def undo_override_subsection_grade(user_id, course_key_or_id, usage_key_or_id, f
 
 
 def should_override_grade_on_rejected_exam(course_key_or_id):
+<<<<<<< HEAD
     """Convenience function to return the state of the CourseWaffleFlag REJECTED_EXAM_OVERRIDES_GRADE"""
     from .config.waffle import waffle_flags, REJECTED_EXAM_OVERRIDES_GRADE
     course_key = _get_key(course_key_or_id, CourseKey)
     return waffle_flags()[REJECTED_EXAM_OVERRIDES_GRADE].is_enabled(course_key)
+=======
+    """
+    Convenience function to return the state of the CourseWaffleFlag REJECTED_EXAM_OVERRIDES_GRADE
+    """
+    from .config.waffle import REJECTED_EXAM_OVERRIDES_GRADE
+    course_key = _get_key(course_key_or_id, CourseKey)
+    return REJECTED_EXAM_OVERRIDES_GRADE.is_enabled(course_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def _create_subsection_grade(user_id, course_key, usage_key):

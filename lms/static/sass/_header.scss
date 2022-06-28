@@ -366,7 +366,11 @@
         width: 100%;
         padding: $baseline*0.6 $baseline;
         border-bottom: 1px solid theme-color('light');
+<<<<<<< HEAD
         text-align: left;
+=======
+        @include text-align(left);
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         cursor: pointer;
 
         &:hover,

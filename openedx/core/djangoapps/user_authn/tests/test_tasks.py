@@ -6,7 +6,11 @@ Tests for the Sending activation email celery tasks
 from django.conf import settings
 from django.test import TestCase
 from edx_ace.errors import ChannelError, RecoverableChannelDeliveryError
+<<<<<<< HEAD
 from unittest import mock
+=======
+from unittest import mock  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.models import Registration
 from common.djangoapps.student.views.management import compose_activation_email, compose_and_send_activation_email

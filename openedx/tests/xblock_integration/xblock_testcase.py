@@ -49,11 +49,19 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django.urls import reverse
 from xblock.plugin import Plugin
+<<<<<<< HEAD
 
 import lms.djangoapps.lms_xblock.runtime
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+import lms.djangoapps.lms_xblock.runtime
+from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class XBlockEventTestMixin:
@@ -240,7 +248,11 @@ class XBlockScenarioTestCaseMixin:
         with cls.store.bulk_operations(cls.course.id, emit_signals=False):
             for chapter_config in cls.test_configuration:
                 chapter = ItemFactory.create(
+<<<<<<< HEAD
                     parent=cls.course,
+=======
+                    parent_location=cls.course.location,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     display_name="ch_" + chapter_config['urlname'],
                     category='chapter'
                 )
@@ -271,6 +283,7 @@ class XBlockScenarioTestCaseMixin:
                     )
                     cls.xblocks[xblock_config['urlname']] = xblock
 
+<<<<<<< HEAD
                 scenario_url = str(reverse(
                     'courseware_section',
                     kwargs={
@@ -279,6 +292,9 @@ class XBlockScenarioTestCaseMixin:
                         'section': "sec_" + chapter_config['urlname']
                     }
                 ))
+=======
+                scenario_url = reverse('render_xblock', args=[str(section.location)])
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                 cls.scenario_urls[chapter_config['urlname']] = scenario_url
 

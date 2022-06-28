@@ -19,9 +19,14 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 from openedx.core.djangoapps.enrollments.api import is_enrollment_valid_for_proctoring
 from common.djangoapps.student.models import CourseAccessRole
 from common.djangoapps.student.roles import CourseRole, OrgRole
+<<<<<<< HEAD
 from xmodule.course_module import CourseBlock
 from xmodule.error_module import ErrorBlock
 from xmodule.x_module import XModule
+=======
+from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 from .access import has_access
@@ -106,7 +111,11 @@ class HasStaffAccessToContent(Rule):
         # (start with more specific types, then get more general)
         if isinstance(instance, (CourseBlock, CourseOverview)):
             course_key = instance.id
+<<<<<<< HEAD
         elif isinstance(instance, (ErrorBlock, XModule, XBlock)):
+=======
+        elif isinstance(instance, (ErrorBlock, XBlock)):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             course_key = instance.scope_ids.usage_id.course_key
         elif isinstance(instance, CourseKey):
             course_key = instance
@@ -164,7 +173,11 @@ class HasRolesRule(Rule):  # lint-amnesty, pylint: disable=abstract-method, miss
             course_key = instance
         elif isinstance(instance, (CourseBlock, CourseOverview)):
             course_key = instance.id
+<<<<<<< HEAD
         elif isinstance(instance, (ErrorBlock, XModule, XBlock)):
+=======
+        elif isinstance(instance, (ErrorBlock, XBlock)):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             course_key = instance.scope_ids.usage_id.course_key
         else:
             course_key = CourseKey.from_string(str(instance))

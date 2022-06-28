@@ -40,7 +40,11 @@ class StubYouTubeHandler(StubHttpRequestHandler):
         """
         Allow callers to delete all the server configurations using the /del_config URL.
         """
+<<<<<<< HEAD
         if self.path == "/del_config" or self.path == "/del_config/":
+=======
+        if self.path in ("/del_config", "/del_config/"):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             self.server.config = {}
             self.log_message("Reset Server Configuration.")
             self.send_response(200)

@@ -11,9 +11,16 @@ import ddt
 from django.conf import settings
 from django.urls import reverse
 from rest_framework.test import APIClient
+<<<<<<< HEAD
 
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 from xmodule.modulestore import ModuleStoreEnum
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE
+
+from openedx.core.djangolib.testing.utils import skip_unless_lms
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .test_api import BookmarkApiEventTestMixin
 from .test_models import BookmarksTestsBase
@@ -71,6 +78,10 @@ class BookmarksListViewTests(BookmarksViewsTestsBase):
     GET /api/bookmarks/v1/bookmarks/?course_id={course_id1}
     POST /api/bookmarks/v1/bookmarks
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @ddt.data(
         (1, False),

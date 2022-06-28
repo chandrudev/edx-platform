@@ -6,7 +6,11 @@ from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 
 from cms.djangoapps.contentstore.views.item import _delete_orphans
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
+=======
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class Command(BaseCommand):

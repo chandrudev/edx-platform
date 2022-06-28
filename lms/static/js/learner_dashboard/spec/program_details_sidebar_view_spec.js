@@ -57,7 +57,11 @@ describe('Program Progress View', () => {
     programRecordUrl: '/foo/bar',
     industryPathways: data.industryPathways,
     creditPathways: data.creditPathways,
+<<<<<<< HEAD
     programDiscussionEnabled: false
+=======
+    programTabViewEnabled: false
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
   });
 
@@ -155,7 +159,11 @@ describe('Program Progress View', () => {
       programRecordUrl: '/foo/bar',
       industryPathways: [],
       creditPathways: [],
+<<<<<<< HEAD
       programDiscussionEnabled: false
+=======
+      programTabViewEnabled: false
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     });
 
     expect(emptyView.$('.program-credit-pathways .divider-heading')).toHaveLength(0);

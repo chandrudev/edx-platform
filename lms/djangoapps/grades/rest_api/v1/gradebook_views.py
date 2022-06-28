@@ -67,8 +67,13 @@ from openedx.core.lib.api.view_utils import (
 )
 from openedx.core.lib.cache_utils import request_cached
 from openedx.core.lib.courses import get_course_by_id
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.util.misc import get_default_short_labeler
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.util.misc import get_default_short_labeler  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
@@ -1088,9 +1093,15 @@ class SubsectionGradeView(GradeViewMixin, APIView):
             if original_grade is not None and hasattr(original_grade, 'override'):
                 override = original_grade.override
                 # pylint: disable=no-member
+<<<<<<< HEAD
                 history = list(PersistentSubsectionGradeOverride.history.filter(grade_id=original_grade.id).order_by(
                     'history_date'
                 )[:history_record_limit])
+=======
+                history = list(reversed(PersistentSubsectionGradeOverride.history.filter(
+                    grade_id=original_grade.id
+                ).order_by('-history_date')[:history_record_limit]))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             grade_data = {
                 'earned_all': original_grade.earned_all,
                 'possible_all': original_grade.possible_all,

@@ -9,7 +9,11 @@ from numpy import around
 from xblock.core import XBlock
 
 from openedx.core.lib.cache_utils import process_cached
+<<<<<<< HEAD
 from xmodule.graders import ProblemScore
+=======
+from xmodule.graders import ProblemScore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .transformer import GradesTransformer
 

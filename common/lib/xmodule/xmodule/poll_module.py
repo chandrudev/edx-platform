@@ -18,6 +18,10 @@ from web_fragments.fragment import Fragment
 
 from lxml import etree
 from openedx.core.djangolib.markup import Text, HTML
+<<<<<<< HEAD
+=======
+from xblock.core import XBlock
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xblock.fields import Boolean, Dict, List, Scope, String  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.mako_module import MakoTemplateBlockBase
 from xmodule.stringify import stringify_children
@@ -27,7 +31,10 @@ from xmodule.x_module import (
     ResourceTemplates,
     shim_xmodule_js,
     XModuleMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
 )
 from xmodule.xml_module import XmlMixin
@@ -36,10 +43,17 @@ log = logging.getLogger(__name__)
 _ = lambda text: text
 
 
+<<<<<<< HEAD
 class PollBlock(
     MakoTemplateBlockBase,
     XmlMixin,
     XModuleDescriptorToXBlockMixin,
+=======
+@XBlock.needs('mako')
+class PollBlock(
+    MakoTemplateBlockBase,
+    XmlMixin,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -162,7 +176,11 @@ class PollBlock(
             'ajax_url': self.ajax_url,
             'configuration_json': self.dump_poll(),
         }
+<<<<<<< HEAD
         fragment.add_content(self.system.render_template('poll.html', params))
+=======
+        fragment.add_content(self.runtime.service(self, 'mako').render_template('poll.html', params))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         add_webpack_to_fragment(fragment, 'PollBlockPreview')
         shim_xmodule_js(fragment, 'Poll')
         return fragment

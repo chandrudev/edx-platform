@@ -9,7 +9,11 @@ frac() and __str__().
 import numbers
 
 
+<<<<<<< HEAD
 class Progress:  # pylint: disable=eq-without-hash
+=======
+class Progress:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     '''Represents a progress of a/b (a out of b done)
 
     a and b must be numeric, but not necessarily integer, with

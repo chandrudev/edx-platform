@@ -14,7 +14,11 @@ from django.test.utils import override_settings
 
 import cms.djangoapps.contentstore.git_export_utils as git_export_utils
 from cms.djangoapps.contentstore.utils import reverse_course_url
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .utils import CourseTestCase
 

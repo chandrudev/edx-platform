@@ -22,7 +22,11 @@ from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.course_modes.models import CourseMode
 
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class MicrobachelorsExternalIDTest(ModuleStoreTestCase, CacheIsolationTestCase):

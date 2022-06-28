@@ -103,10 +103,16 @@ class LoncapaSystem(object):
         can_execute_unsafe_code,
         get_python_lib_zip,
         DEBUG,
+<<<<<<< HEAD
         filestore,
         i18n,
         node_path,
         render_template,
+=======
+        i18n,
+        render_template,
+        resources_fs,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         seed,      # Why do we do this if we have self.seed?
         STATIC_URL,
         xqueue,
@@ -118,10 +124,16 @@ class LoncapaSystem(object):
         self.can_execute_unsafe_code = can_execute_unsafe_code
         self.get_python_lib_zip = get_python_lib_zip
         self.DEBUG = DEBUG                              # pylint: disable=invalid-name
+<<<<<<< HEAD
         self.filestore = filestore
         self.i18n = i18n
         self.node_path = node_path
         self.render_template = render_template
+=======
+        self.i18n = i18n
+        self.render_template = render_template
+        self.resources_fs = resources_fs
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.seed = seed                     # Why do we do this if we have self.seed?
         self.STATIC_URL = STATIC_URL                    # pylint: disable=invalid-name
         self.xqueue = xqueue
@@ -814,8 +826,13 @@ class LoncapaProblem(object):
             filename = inc.get('file') if six.PY3 else inc.get('file').decode('utf-8')
             if filename is not None:
                 try:
+<<<<<<< HEAD
                     # open using LoncapaSystem OSFS filestore
                     ifp = self.capa_system.filestore.open(filename)
+=======
+                    # open using LoncapaSystem OSFS filesystem
+                    ifp = self.capa_system.resources_fs.open(filename)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 except Exception as err:  # lint-amnesty, pylint: disable=broad-except
                     log.warning(
                         'Error %s in problem xml include: %s',
@@ -823,7 +840,11 @@ class LoncapaProblem(object):
                         etree.tostring(inc, pretty_print=True)
                     )
                     log.warning(
+<<<<<<< HEAD
                         'Cannot find file %s in %s', filename, self.capa_system.filestore
+=======
+                        'Cannot find file %s in %s', filename, self.capa_system.resources_fs
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     )
                     # if debugging, don't fail - just log error
                     # TODO (vshnayder): need real error handling, display to users
@@ -876,9 +897,15 @@ class LoncapaProblem(object):
                 continue
 
             # path is an absolute path or a path relative to the data dir
+<<<<<<< HEAD
             dir = os.path.join(self.capa_system.filestore.root_path, dir)
             # Check that we are within the filestore tree.
             reldir = os.path.relpath(dir, self.capa_system.filestore.root_path)
+=======
+            dir = os.path.join(self.capa_system.resources_fs.root_path, dir)
+            # Check that we are within the resources_fs tree.
+            reldir = os.path.relpath(dir, self.capa_system.resources_fs.root_path)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if ".." in reldir:
                 log.warning("Ignoring Python directory outside of course: %r", dir)
                 continue

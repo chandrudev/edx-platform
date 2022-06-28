@@ -27,12 +27,19 @@ from lms.djangoapps.courseware.access_response import (
     MilestoneAccessError,
     MobileAvailabilityError,
     NoAllowedPartitionGroupsError,
+<<<<<<< HEAD
+=======
+    OldMongoAccessError,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     VisibilityError
 )
 from lms.djangoapps.courseware.access_utils import (
     ACCESS_DENIED,
     ACCESS_GRANTED,
+<<<<<<< HEAD
     adjust_start_date,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     check_course_open_for_learner,
     check_start_date,
     debug,
@@ -42,7 +49,11 @@ from lms.djangoapps.courseware.masquerade import get_masquerade_role, is_masquer
 from lms.djangoapps.ccx.custom_exception import CCXLocatorValidationException
 from lms.djangoapps.ccx.models import CustomCourseForEdX
 from lms.djangoapps.mobile_api.models import IgnoreMobileAvailableFlagConfig
+<<<<<<< HEAD
 from lms.djangoapps.courseware.toggles import is_courses_default_invite_only_enabled
+=======
+from lms.djangoapps.courseware.toggles import course_is_invitation_only
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.features.course_duration_limits.access import check_course_expired
 from common.djangoapps.student import auth
@@ -63,10 +74,16 @@ from common.djangoapps.util.milestones_helpers import (
     get_pre_requisite_courses_not_completed,
     is_prerequisite_courses_enabled
 )
+<<<<<<< HEAD
 from xmodule.course_module import CATALOG_VISIBILITY_ABOUT, CATALOG_VISIBILITY_CATALOG_AND_ABOUT, CourseBlock
 from xmodule.error_module import ErrorBlock
 from xmodule.partitions.partitions import NoSuchUserPartitionError, NoSuchUserPartitionGroupError
 from xmodule.x_module import XModule
+=======
+from xmodule.course_module import CATALOG_VISIBILITY_ABOUT, CATALOG_VISIBILITY_CATALOG_AND_ABOUT, CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import NoSuchUserPartitionError, NoSuchUserPartitionGroupError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
@@ -151,9 +168,12 @@ def has_access(user, action, obj, course_key=None):
     if isinstance(obj, ErrorBlock):
         return _has_access_error_desc(user, action, obj, course_key)
 
+<<<<<<< HEAD
     if isinstance(obj, XModule):
         return _has_access_xmodule(user, action, obj, course_key)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # NOTE: any descriptor access checkers need to go above this
     if isinstance(obj, XBlock):
         return _has_access_descriptor(user, action, obj, course_key)
@@ -272,8 +292,13 @@ def _can_enroll_courselike(user, courselike):
     if _has_staff_access_to_descriptor(user, courselike, course_key):
         return ACCESS_GRANTED
 
+<<<<<<< HEAD
     # Access denied when default value of COURSES_INVITE_ONLY set to True
     if is_courses_default_invite_only_enabled() or courselike.invitation_only:
+=======
+    # Access denied when the course requires an invitation
+    if course_is_invitation_only(courselike):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         debug("Deny: invitation only")
         return ACCESS_DENIED
 
@@ -329,6 +354,12 @@ def _has_access_course(user, action, courselike):
         # ).or(
         #     _has_staff_access_to_descriptor, user, courselike, courselike.id
         # )
+<<<<<<< HEAD
+=======
+        if courselike.id.deprecated:  # we no longer support accessing Old Mongo courses
+            return OldMongoAccessError(courselike)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         visible_to_nonstaff = _visible_to_nonstaff_users(courselike)
         if not visible_to_nonstaff:
             staff_access = _has_staff_access_to_descriptor(user, courselike, courselike.id)
@@ -696,6 +727,7 @@ def _dispatch(table, action, user, obj):
         type(obj), action))
 
 
+<<<<<<< HEAD
 def _adjust_start_date_for_beta_testers(user, descriptor, course_key):
     """
     If user is in a beta test group, adjust the start date by the appropriate number of
@@ -719,6 +751,8 @@ def _adjust_start_date_for_beta_testers(user, descriptor, course_key):
     return adjust_start_date(user, descriptor.days_early_for_beta, descriptor.start, course_key)
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _has_instructor_access_to_location(user, location, course_key=None):
     if course_key is None:
         course_key = location.course_key

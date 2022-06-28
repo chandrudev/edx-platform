@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=0;
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = 0;
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "%(cohort_name)s (%(user_count)s)": "%(cohort_name)s (%(user_count)s)",
     "%(new_item_message)s": "%(new_item_message)s",
     "%(sel)s of %(cnt)s selected": [
@@ -722,24 +738,41 @@
     "{email} is already on the {container} team. Recheck the email address if you want to add a new member.": "{email} \u0e19\u0e35\u0e49\u0e16\u0e39\u0e01\u0e43\u0e0a\u0e49\u0e43\u0e19\u0e17\u0e35\u0e21 {container} \u0e41\u0e25\u0e49\u0e27 \u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e2d\u0e35\u0e40\u0e21\u0e25\u0e4c\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07 \u0e2b\u0e32\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e08\u0e30\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e2a\u0e21\u0e32\u0e0a\u0e34\u0e01\u0e43\u0e2b\u0e21\u0e48",
     "\u2026": "\u2026"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -749,16 +782,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -810,8 +853,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -830,6 +878,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

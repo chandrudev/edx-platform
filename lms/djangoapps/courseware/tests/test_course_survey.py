@@ -5,15 +5,28 @@ Python tests for the Survey workflows
 
 from collections import OrderedDict
 from copy import deepcopy
+<<<<<<< HEAD
 
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from django.urls import reverse
+=======
+from urllib.parse import quote
+
+from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
+from django.urls import reverse
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.test.utils import XssTestMixin
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
 from lms.djangoapps.survey.models import SurveyAnswer, SurveyForm
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from openedx.features.course_experience import course_home_url
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class SurveyViewsTests(LoginEnrollmentTestCase, SharedModuleStoreTestCase, XssTestMixin):
@@ -75,7 +88,11 @@ class SurveyViewsTests(LoginEnrollmentTestCase, SharedModuleStoreTestCase, XssTe
         """
         Helper method to assert that all known redirect points do redirect as expected
         """
+<<<<<<< HEAD
         for view_name in ['courseware', 'openedx.course_experience.course_home', 'progress']:
+=======
+        for view_name in ['courseware', 'progress']:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             resp = self.client.get(
                 reverse(
                     view_name,
@@ -92,7 +109,11 @@ class SurveyViewsTests(LoginEnrollmentTestCase, SharedModuleStoreTestCase, XssTe
         Helper method to asswer that all known conditionally redirect points do
         not redirect as expected
         """
+<<<<<<< HEAD
         for view_name in ['courseware', 'openedx.course_experience.course_home', 'progress']:
+=======
+        for view_name in ['courseware', 'progress']:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             resp = self.client.get(
                 reverse(
                     view_name,
@@ -116,17 +137,33 @@ class SurveyViewsTests(LoginEnrollmentTestCase, SharedModuleStoreTestCase, XssTe
 
     def test_anonymous_user_visiting_course_with_survey(self):
         """
+<<<<<<< HEAD
         Verifies that anonymous user going to the courseware home with an unanswered survey is not
         redirected to survey and home page renders without server error.
+=======
+        Verifies that anonymous user going to the course with an unanswered survey is not
+        redirected to survey.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         self.logout()
         resp = self.client.get(
             reverse(
+<<<<<<< HEAD
                 'openedx.course_experience.course_home',
                 kwargs={'course_id': str(self.course.id)}
             )
         )
         assert resp.status_code == 200
+=======
+                'courseware',
+                kwargs={'course_id': str(self.course.id)}
+            )
+        )
+        self.assertRedirects(
+            resp,
+            f'/login?next=/courses/{quote(str(self.course.id))}/courseware'
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_visiting_course_with_existing_answers(self):
         """
@@ -203,10 +240,17 @@ class SurveyViewsTests(LoginEnrollmentTestCase, SharedModuleStoreTestCase, XssTe
                 kwargs={'course_id': str(self.course_with_bogus_survey.id)}
             )
         )
+<<<<<<< HEAD
         course_home_path = 'openedx.course_experience.course_home'
         self.assertRedirects(
             resp,
             reverse(course_home_path, kwargs={'course_id': str(self.course_with_bogus_survey.id)})
+=======
+        self.assertRedirects(
+            resp,
+            course_home_url(self.course_with_bogus_survey.id),
+            fetch_redirect_response=False,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
     def test_visiting_survey_with_no_course_survey(self):
@@ -220,10 +264,17 @@ class SurveyViewsTests(LoginEnrollmentTestCase, SharedModuleStoreTestCase, XssTe
                 kwargs={'course_id': str(self.course_without_survey.id)}
             )
         )
+<<<<<<< HEAD
         course_home_path = 'openedx.course_experience.course_home'
         self.assertRedirects(
             resp,
             reverse(course_home_path, kwargs={'course_id': str(self.course_without_survey.id)})
+=======
+        self.assertRedirects(
+            resp,
+            course_home_url(self.course_without_survey.id),
+            fetch_redirect_response=False,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
     def test_survey_xss(self):

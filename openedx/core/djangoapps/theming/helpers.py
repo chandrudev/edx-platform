@@ -37,9 +37,14 @@ def get_template_path(relative_path, **kwargs):  # lint-amnesty, pylint: disable
 
 def is_request_in_themed_site():
     """
+<<<<<<< HEAD
     This is a proxy function to hide microsite_configuration behind comprehensive theming.
     """
     # We need to give priority to theming/site-configuration over microsites
+=======
+    This is a proxy function to site_configuration.
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return configuration_helpers.is_site_configuration_enabled()
 
 

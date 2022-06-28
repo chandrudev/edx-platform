@@ -3,15 +3,29 @@ Tests for the Credit xBlock service
 """
 
 
+<<<<<<< HEAD
 import ddt
 
 from common.djangoapps.course_modes.models import CourseMode
+=======
+from unittest.mock import patch
+from datetime import datetime
+import ddt
+
+from common.djangoapps.course_modes.models import CourseMode
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.credit.api.eligibility import set_credit_requirements
 from openedx.core.djangoapps.credit.models import CreditCourse
 from openedx.core.djangoapps.credit.services import CreditService
 from common.djangoapps.student.models import CourseEnrollment, UserProfile
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -261,6 +275,29 @@ class CreditServiceTests(ModuleStoreTestCase):
         assert 'course_name' in credit_state
         assert credit_state['course_name'] == self.course.display_name
 
+<<<<<<< HEAD
+=======
+    @patch("openedx.core.djangoapps.credit.services.log")
+    def test_get_info_from_non_existent_course(self, exception_log):
+        """
+        Make sure we catch the CourseOverview.DoesNotExist exception and log it instead of raising
+        """
+        with patch("openedx.core.djangoapps.content.course_overviews.models.CourseOverview.get_from_id",
+                   side_effect=CourseOverview.DoesNotExist):
+
+            self.enroll()
+            credit_state = self.service.get_credit_state(self.user.id, self.course.id, return_course_info=True)
+
+            assert credit_state is not None
+            # When exception is caught, the course_end_date should always be in past
+            assert credit_state["course_end_date"] < datetime.now()
+
+            exception_log.exception.assert_called_once_with(
+                "Could not get name and end_date for course %s, This happened because we were unable to "
+                "get/create CourseOverview object for the course. It's possible that the Course has been deleted.",
+                str(self.course.id))
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_set_status_non_credit(self):
         """
         assert that we can still try to update a credit status but return quickly if

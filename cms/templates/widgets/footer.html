@@ -1,12 +1,20 @@
 ## mako
 <%page expression_filter="h"/>
 <%!
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.urls import reverse
 from datetime import datetime
 from django.conf import settings
 import pytz
+<<<<<<< HEAD
 from cms.djangoapps.contentstore.config.waffle import waffle, ENABLE_ACCESSIBILITY_POLICY_PAGE
+=======
+from cms.djangoapps.contentstore.config.waffle import ENABLE_ACCESSIBILITY_POLICY_PAGE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangolib.markup import HTML, Text
 %>
 
@@ -30,7 +38,11 @@ from openedx.core.djangolib.markup import HTML, Text
                 <a href="${marketing_link('PRIVACY')}">${_("Privacy Policy")}</a>
               </li>
             % endif
+<<<<<<< HEAD
             % if waffle().is_enabled(ENABLE_ACCESSIBILITY_POLICY_PAGE):
+=======
+            % if ENABLE_ACCESSIBILITY_POLICY_PAGE.is_enabled():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
               <li class="nav-item nav-peripheral-aar">
                 <a href="${reverse('accessibility')}">${_("Accessibility Accommodation Request")}</a>
               </li>
@@ -56,10 +68,17 @@ from openedx.core.djangolib.markup import HTML, Text
 
       <div class="footer-about-openedx">
         <a href="https://open.edx.org" title="${_("Powered by Open edX")}">
+<<<<<<< HEAD
           <img alt="${_("Powered by Open edX")}" src="https://files.edx.org/openedx-logos/open-edx-logo-tag.png">
+=======
+          <img alt="${_("Powered by Open edX")}" src="https://logos.openedx.org/open-edx-logo-tag.png">
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         </a>
       </div>
     </div>
   </footer>
 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -29,6 +29,7 @@ from common.djangoapps.student.views import (
 )
 from common.djangoapps.third_party_auth.views import inactive_user_view
 from common.djangoapps.util.testing import EventTestMixin
+<<<<<<< HEAD
 from lms.djangoapps.verify_student.services import IDVerificationService
 from openedx.core.djangoapps.ace_common.tests.mixins import EmailTemplateTagMixin
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
@@ -37,6 +38,14 @@ from openedx.core.djangolib.testing.utils import CacheIsolationMixin, CacheIsola
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from openedx.core.djangoapps.ace_common.tests.mixins import EmailTemplateTagMixin
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangolib.testing.utils import CacheIsolationMixin, CacheIsolationTestCase
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestException(Exception):
@@ -129,12 +138,15 @@ class ActivationEmailTests(EmailTemplateTagMixin, CacheIsolationTestCase):
         self._create_account()
         self._assert_activation_email(self.ACTIVATION_SUBJECT, self.OPENEDX_FRAGMENTS, test_body_type)
 
+<<<<<<< HEAD
     @with_comprehensive_theme("edx.org")
     @ddt.data('plain_text', 'html')
     def test_activation_email_edx_domain(self, test_body_type):
         self._create_account()
         self._assert_activation_email(self.ACTIVATION_SUBJECT, self.OPENEDX_FRAGMENTS, test_body_type)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _create_account(self):
         """
         Create an account, triggering the activation email.
@@ -237,6 +249,18 @@ class ProctoringRequirementsEmailTests(EmailTemplateTagMixin, ModuleStoreTestCas
         send_proctoring_requirements_email(context)
         self._assert_email()
 
+<<<<<<< HEAD
+=======
+    def test_send_proctoring_requirements_email_honor(self):
+        self.course = CourseFactory(
+            display_name='honor code on course',
+            enable_proctored_exams=True
+        )
+        context = generate_proctoring_requirements_email_context(self.user, self.course.id)
+        send_proctoring_requirements_email(context)
+        self._assert_email()
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _assert_email(self):
         """
         Verify that the email was sent.
@@ -249,6 +273,7 @@ class ProctoringRequirementsEmailTests(EmailTemplateTagMixin, ModuleStoreTestCas
 
         assert message.subject == f"Proctoring requirements for {self.course.display_name}"
 
+<<<<<<< HEAD
         for fragment in self._get_fragments():
             assert fragment in text
             assert fragment in html
@@ -258,6 +283,20 @@ class ProctoringRequirementsEmailTests(EmailTemplateTagMixin, ModuleStoreTestCas
         proctoring_provider = capwords(course_module.proctoring_provider.replace('_', ' '))
         id_verification_url = IDVerificationService.get_verify_location()
         return [
+=======
+        appears = self._get_fragments()
+        for fragment in appears:
+            self.assertIn(fragment, text)
+            self.assertIn(fragment, html)
+
+    def _get_fragments(self):
+        """
+        Provide a tuple of string[]s that should be (in, not_in) the email
+        """
+        course_module = modulestore().get_course(self.course.id)
+        proctoring_provider = capwords(course_module.proctoring_provider.replace('_', ' '))
+        fragments = [
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             (
                 "You are enrolled in {} at {}. This course contains proctored exams.".format(
                     self.course.display_name,
@@ -274,9 +313,14 @@ class ProctoringRequirementsEmailTests(EmailTemplateTagMixin, ModuleStoreTestCas
                 "exam in order to ensure that you are prepared."
             ),
             settings.PROCTORING_SETTINGS.get('LINK_URLS', {}).get('faq', ''),
+<<<<<<< HEAD
             escape("Before taking a graded proctored exam, you must have approved ID verification photos."),
             id_verification_url
         ]
+=======
+        ]
+        return fragments
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', "Test only valid in LMS")

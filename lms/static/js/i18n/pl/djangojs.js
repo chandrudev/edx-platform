@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     " ${price} {currency} )": " ${price} {currency} )",
     " and ": "i",
     "${listPrice}": "${listPrice}",
@@ -595,7 +611,10 @@
     "ID": "Identyfikator",
     "ID-Verification is not required for this Professional Education course.": "Ten kurs edukacji specjalistycznej nie wymaga potwierdzenia to\u017csamo\u015bci studenta.",
     "Identity Verification In Progress": "Potwierdzenie to\u017csamo\u015bci w toku",
+<<<<<<< HEAD
     "If the course does not have an end date, learners always see their scores when they submit answers to assessments.": "Je\u015bli kurs nie posiada daty zako\u0144czenia, studenci zawsze zobacz\u0105 swoje wyniki po przes\u0142aniu odpowiedzi na zadania.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "If the subsection does not have a due date, learners always see their scores when they submit answers to assessments.": "Je\u015bli lekcja nie posiada terminu ko\u0144cowego, studenci zawsze zobacz\u0105 swoje wyniki po przes\u0142aniu odpowiedzi na zadania.",
     "If the unit was previously published and released to learners, any changes you made to the unit when it was hidden will now be visible to learners.": "Je\u015bli ten ekran zosta\u0142 wcze\u015bniej opublikowany i upubliczniony dla student\u00f3w, wszystkie zmiany, jakich dokona\u0142e\u015b kiedy ekran by\u0142 ukryty, b\u0119d\u0105 teraz widoczne dla student\u00f3w.",
     "If you do not yet have an account, use the button below to register.": "Je\u015bli nie posiadasz konta, u\u017cyj poni\u017cszego przycisku, aby si\u0119 zarejestrowa\u0107.",
@@ -661,7 +680,10 @@
     "Learners are added to this cohort automatically.": "Studenci zostaj\u0105 automatycznie dodani do tej kohorty.",
     "Learners are added to this cohort only when you provide their email addresses or usernames on this page.": "Studenci zostaj\u0105 dodani do tej kohorty wy\u0142\u0105cznie je\u015bli podajesz na tej stronie ich adresy e-mail lub nazwy u\u017cytkownika.",
     "Learners do not see the subsection in the course outline. The subsection is not included in grade calculations.": "Studenci nie widz\u0105 lekcji w programie kursu. Lekcja nie jest obj\u0119ta przez system ocen.",
+<<<<<<< HEAD
     "Learners do not see whether their answers to assessments were correct or incorrect, nor the score received, until after the course end date has passed.": "Studenci nie widz\u0105, czy ich odpowiedzi na zadania s\u0105 poprawne, czy b\u0142\u0119dne, ani uzyskanego wyniku, do czasu zako\u0144czenia kursu.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "Learners do not see whether their answers to assessments were correct or incorrect, nor the score received, until after the due date for the subsection has passed.": "Studenci nie widz\u0105, czy ich odpowiedzi na zadania s\u0105 poprawne, czy b\u0142\u0119dne, ani uzyskanego wyniku, do czasu up\u0142yni\u0119cia terminu ko\u0144cowego na uko\u0144czenie lekcji.",
     "Learners never see whether their answers to assessments are correct or incorrect, nor the score received.": "Studenci nie widz\u0105, czy ich odpowiedzi na zadania s\u0105 poprawne, czy b\u0142\u0119dne, ani uzyskanego wyniku.",
     "Learners see the published subsection and can access its content.": "Studenci widz\u0105 opublikowan\u0105 lekcj\u0119 i maj\u0105 dost\u0119p do jej zawarto\u015bci.",
@@ -893,7 +915,10 @@
     "Processing Re-run Request": "Przetwarzanie \u017c\u0105dania wznowienia",
     "Proctored": "Nadzorowany",
     "Proctored Exam": "Egzamin nadzorowany",
+<<<<<<< HEAD
     "Proctored exams are timed and they record video of each learner taking the exam. The videos are then reviewed to ensure that learners follow all examination rules.": "Egzaminy nadzorowane s\u0105 egzaminami z limitem czasu i obejmuj\u0105 nagrywanie filmowe ka\u017cdego studenta w trakcie przebiegu jego egzaminu. Filmy mo\u017cna nast\u0119pnie sprawdzi\u0107 i upewni\u0107 si\u0119, \u017ce studenci stosowali si\u0119 do zasad egzaminacyjnych.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "Product Name": "Nazwa produktu",
     "Professional Certificate for {courseName}": "Certyfikat Edukacji Specjalistycznej kursu {courseName}",
     "Professional Education": "Edukacja Specjalistyczna",
@@ -1210,7 +1235,10 @@
     "There was an error obtaining email content history for this course.": "Wyst\u0105pi\u0142 b\u0142\u0105d przy pozyskiwaniu historii tre\u015bci e-maili dla tego kursu.",
     "There was an error obtaining email task history for this course.": "Wyst\u0105pi\u0142 b\u0142\u0105d przy pozyskiwaniu historii dzia\u0142a\u0144 e-mailowych dla tego kursu.",
     "There was an error retrieving preview results for this catalog. Please check that your query is correct and try again.": "Wyst\u0105pi\u0142 b\u0142\u0105d w trakcie odzyskiwania wynik\u00f3w podgl\u0105du dla tego katalogu. Prosz\u0119 upewni\u0107 si\u0119, czy zapytanie jest prawid\u0142owe i spr\u00f3bowa\u0107 ponownie.",
+<<<<<<< HEAD
     "There was an error updating your goal.": "Wyst\u0105pi\u0142 b\u0142\u0105d w trakcie aktualizowania celu nauki.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "There was an error when trying to add learners:": [
       "Wyst\u0105pi\u0142 b\u0142\u0105d w trakcie dodawania student\u00f3w:",
       "Nie uda\u0142o si\u0119 doda\u0107 {numErrors} student\u00f3w do kohorty:",
@@ -1240,9 +1268,12 @@
     "This comment could not be deleted. Refresh the page and try again.": "Nie uda\u0142o si\u0119 usun\u0105\u0107 tego komentarza. Od\u015bwie\u017c stron\u0119 i spr\u00f3buj ponownie.",
     "This configuration is currently used in content experiments. If you make changes to the groups, you may need to edit those experiments.": "Ta konfiguracja znajduje si\u0119 w u\u017cyciu w eksperymentach z tre\u015bci\u0105. Je\u015bli naniesiesz zmiany do grup, by\u0107 mo\u017ce konieczna b\u0119dzie edycja tych eksperyment\u00f3w.",
     "This content group is used in one or more units.": "Ta grupa tre\u015bci znajduje si\u0119 w u\u017cyciu w co najmniej jednym ekranie.",
+<<<<<<< HEAD
     "This course has automatic cohorting enabled for verified track learners, but cohorts are disabled. You must enable cohorts for the feature to work.": "Ten kurs wykorzystuje system automatycznych kohort dla student\u00f3w \u015bcie\u017cki zweryfikowanej, jednak system kohort zosta\u0142 wy\u0142\u0105czony. Chc\u0105c korzysta\u0107 z tego rozwi\u0105zania musisz w\u0142\u0105czy\u0107 system kohort.",
     "This course has automatic cohorting enabled for verified track learners, but the required cohort does not exist. You must create a manually-assigned cohort named '{verifiedCohortName}' for the feature to work.": "Ten kurs wykorzystuje system automatycznych kohort dla student\u00f3w \u015bcie\u017cki zweryfikowanej, jednak wymagana kohorta nie istnieje. Musisz utworzy\u0107 r\u0119cznie przydzielon\u0105 kohort\u0119 o nazwie '{verifiedCohortName}'.",
     "This course uses automatic cohorting for verified track learners. You cannot disable cohorts, and you cannot rename the manual cohort named '{verifiedCohortName}'. To change the configuration for verified track cohorts, contact your edX partner manager.": "Ten kurs wykorzystuje system automatycznych kohort dla student\u00f3w \u015bcie\u017cki zweryfikowanej. Nie mo\u017cesz wy\u0142\u0105czy\u0107 kohort, ani zmieni\u0107 nazwy kohorty '{verifiedCohortName}'. Aby zmieni\u0107 konfiguracj\u0119 kohort \u015bcie\u017cki zweryfikowanej, skontaktuj si\u0119 ze swoim Opiekunem Partnera.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "This discussion could not be loaded. Refresh the page and try again.": "Nie uda\u0142o si\u0119 wczyta\u0107 dyskusji. Od\u015bwie\u017c stron\u0119 i spr\u00f3buj ponownie.",
     "This feedback could not be submitted.": "Nie uda\u0142o si\u0119 wys\u0142a\u0107 tej opinii.",
     "This file type is not supported. Supported file type is {supportedFileFormat}.": "Ten format pliku jest niewspierany. Wspieranym formatem plik\u00f3w jest {supportedFileFormat}.",
@@ -1296,7 +1327,10 @@
     "Titles more than 100 characters may prevent students from printing their certificate on a single page.": "Tytu\u0142y maj\u0105ce powy\u017cej 100 znak\u00f3w d\u0142ugo\u015bci mog\u0105 uniemo\u017cliwi\u0107 studentom wydrukowanie certyfikatu na pojedynczej stronie.",
     "To access the course, select a session.": "Aby przej\u015b\u0107 do kursu, wybierz sesj\u0119.",
     "To be sure all students can access the video, we recommend providing both an .mp4 and a .webm version of your video. Click below to add a URL for another version. These URLs cannot be YouTube URLs. The first listed video that's compatible with the student's computer will play.": "Aby upewni\u0107 si\u0119, \u017ce wszyscy studenci b\u0119d\u0105 mogli odtworzy\u0107 film, zalecamy dostarczenie wersji filmu w formatach .mp4 jak i .webm. Kliknij poni\u017cej, aby doda\u0107 odno\u015bnik do kolejnej wersji. Odno\u015bnik nie mo\u017ce prowadzi\u0107 do Youtube. Studentowi odtworzony zostanie pierwszy film kompatybilny z jego komputerem.",
+<<<<<<< HEAD
     "To complete the program, you must earn a verified certificate for each course.": "Aby uko\u0144czy\u0107 program, musisz uzyska\u0107 potwierdzony certyfikat z ka\u017cdego kursu.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "To continue learning with this account, sign in below.": "Aby kontynuowa\u0107 nauk\u0119 za po\u015brednictwem tego konta, zaloguj si\u0119.",
     "To invalidate a certificate for a particular learner, add the username or email address below.": "W celu uniewa\u017cnienia certyfikatu dla okre\u015blonego studenta, wprowad\u017a poni\u017cej jego nazw\u0119 u\u017cytkownika lub adres e-mail.",
     "To receive a certificate, you must also verify your identity before {date}.": "Aby otrzyma\u0107 certyfikat, musisz r\u00f3wnie\u017c potwierdzi\u0107 swoj\u0105 to\u017csamo\u015b\u0107 przed {date}.",
@@ -1505,10 +1539,16 @@
     "You have not created any certificates yet.": "Nie stworzy\u0142e\u015b jeszcze \u017cadnych certyfikat\u00f3w.",
     "You have not created any content groups yet.": "Nie stworzy\u0142e\u015b jeszcze \u017cadnej grupy tre\u015bci.",
     "You have not created any group configurations yet.": "Nie stworzy\u0142e\u015b jeszcze \u017cadnych konfiguracji grupy.",
+<<<<<<< HEAD
     "You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button.": "Wybrano akcj\u0119, lecz nie dokonano \u017cadnych zmian w polach. Prawdopodobnie szukasz przycisku \u201eWykonaj\u201d, a nie \u201eZapisz\u201d.",
     "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action.": "Wybrano akcj\u0119, lecz cz\u0119\u015b\u0107 zmian w polach nie zosta\u0142a zachowana. Kliknij OK, aby zapisa\u0107. Aby wykona\u0107 akcj\u0119, nale\u017cy j\u0105 ponownie uruchomi\u0107.",
     "You have successfully signed into %(currentProvider)s, but your %(currentProvider)s account does not have a linked %(platformName)s account. To link your accounts, sign in now using your %(platformName)s password.": "Pomy\u015blnie zalogowa\u0142e\u015b si\u0119 do %(currentProvider)s, ale twoje konto %(currentProvider)s nie jest po\u0142\u0105czone z kontem w %(platformName)s. Aby po\u0142\u0105czy\u0107 konta, zaloguj si\u0119 u\u017cywaj\u0105c swojego has\u0142a w %(platformName)s.",
     "You have successfully updated your goal.": "Pomy\u015blnie zaktualizowano cel nauki.",
+=======
+    "You have selected an action, and you haven\u2019t made any changes on individual fields. You\u2019re probably looking for the Go button rather than the Save button.": "Wybrano akcj\u0119, lecz nie dokonano \u017cadnych zmian w polach. Prawdopodobnie szukasz przycisku \u201eWykonaj\u201d, a nie \u201eZapisz\u201d.",
+    "You have selected an action, but you haven\u2019t saved your changes to individual fields yet. Please click OK to save. You\u2019ll need to re-run the action.": "Wybrano akcj\u0119, lecz cz\u0119\u015b\u0107 zmian w polach nie zosta\u0142a zachowana. Kliknij OK, aby zapisa\u0107. Aby wykona\u0107 akcj\u0119, nale\u017cy j\u0105 ponownie uruchomi\u0107.",
+    "You have successfully signed into %(currentProvider)s, but your %(currentProvider)s account does not have a linked %(platformName)s account. To link your accounts, sign in now using your %(platformName)s password.": "Pomy\u015blnie zalogowa\u0142e\u015b si\u0119 do %(currentProvider)s, ale twoje konto %(currentProvider)s nie jest po\u0142\u0105czone z kontem w %(platformName)s. Aby po\u0142\u0105czy\u0107 konta, zaloguj si\u0119 u\u017cywaj\u0105c swojego has\u0142a w %(platformName)s.",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "Zmiany w niekt\u00f3rych polach nie zosta\u0142y zachowane. Po wykonaniu akcji, zmiany te zostan\u0105 utracone.",
     "You haven't added any assets to this course yet.": "Jeszcze nie doda\u0142e\u015b \u017cadnych zasob\u00f3w do tego kursu.",
     "You haven't added any content to this course yet.": "Jeszcze nie doda\u0142e\u015b \u017cadnej tre\u015bci do tego kursu.",
@@ -1570,6 +1610,21 @@
     "Zoom In": "Powi\u0119ksz",
     "Zoom Out": "Pomniejsz",
     "[no tags]": "[brak tag\u00f3w]",
+<<<<<<< HEAD
+=======
+    "abbrev. month April\u0004Apr": "Kwi",
+    "abbrev. month August\u0004Aug": "Sie",
+    "abbrev. month December\u0004Dec": "Gru",
+    "abbrev. month February\u0004Feb": "Lut",
+    "abbrev. month January\u0004Jan": "Sty",
+    "abbrev. month July\u0004Jul": "Lip",
+    "abbrev. month June\u0004Jun": "Cze",
+    "abbrev. month March\u0004Mar": "Mar",
+    "abbrev. month May\u0004May": "Maj",
+    "abbrev. month November\u0004Nov": "Lis",
+    "abbrev. month October\u0004Oct": "Pa\u017a",
+    "abbrev. month September\u0004Sep": "Wrz",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "and others": "i inni",
     "anonymous": "anonimowy",
     "bytes": "bajt\u00f3w",
@@ -1700,24 +1755,41 @@
     "{type} Progress": "{type} - post\u0119p",
     "\u2026": "\u2026"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -1727,16 +1799,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -1759,7 +1841,10 @@
       "%d.%m.%Y %H:%M:%S",
       "%d.%m.%Y %H:%M:%S.%f",
       "%d.%m.%Y %H:%M",
+<<<<<<< HEAD
       "%d.%m.%Y",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
@@ -1789,8 +1874,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -1809,6 +1899,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

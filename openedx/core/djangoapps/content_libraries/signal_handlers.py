@@ -8,8 +8,13 @@ from django.conf import settings
 from django.dispatch import receiver
 
 from lms.djangoapps.grades.api import signals as grades_signals
+<<<<<<< HEAD
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.locator import LibraryUsageLocatorV2
+=======
+from opaque_keys import InvalidKeyError  # lint-amnesty, pylint: disable=wrong-import-order
+from opaque_keys.edx.locator import LibraryUsageLocatorV2  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .models import LtiGradedResource
 

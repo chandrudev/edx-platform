@@ -136,6 +136,13 @@ class CourseMode(models.Model):
     CREDIT_MODE = 'credit'
     MASTERS = 'masters'
     EXECUTIVE_EDUCATION = 'executive-education'
+<<<<<<< HEAD
+=======
+    PAID_EXECUTIVE_EDUCATION = 'paid-executive-education'
+    UNPAID_EXECUTIVE_EDUCATION = 'unpaid-executive-education'
+    PAID_BOOTCAMP = 'paid-bootcamp'
+    UNPAID_BOOTCAMP = 'unpaid-bootcamp'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     DEFAULT_MODE = Mode(
         settings.COURSE_MODE_DEFAULTS['slug'],
@@ -158,6 +165,7 @@ class CourseMode(models.Model):
         PROFESSIONAL,
         VERIFIED,
         MASTERS,
+<<<<<<< HEAD
         EXECUTIVE_EDUCATION
     ]
 
@@ -166,6 +174,22 @@ class CourseMode(models.Model):
 
     # Modes that allow a student to pursue a verified certificate
     VERIFIED_MODES = [VERIFIED, PROFESSIONAL, MASTERS, EXECUTIVE_EDUCATION]
+=======
+        EXECUTIVE_EDUCATION,
+        PAID_EXECUTIVE_EDUCATION,
+        UNPAID_EXECUTIVE_EDUCATION,
+        PAID_BOOTCAMP,
+        UNPAID_BOOTCAMP
+    ]
+
+    # Modes utilized for audit/free enrollments
+    AUDIT_MODES = [AUDIT, HONOR, UNPAID_EXECUTIVE_EDUCATION, UNPAID_BOOTCAMP]
+
+    # Modes that allow a student to pursue a verified certificate
+    VERIFIED_MODES = [
+        VERIFIED, PROFESSIONAL, MASTERS, EXECUTIVE_EDUCATION, PAID_EXECUTIVE_EDUCATION, PAID_BOOTCAMP
+    ]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # Modes that allow a student to pursue a non-verified certificate
     NON_VERIFIED_MODES = [HONOR, AUDIT, NO_ID_PROFESSIONAL_MODE]
@@ -174,7 +198,14 @@ class CourseMode(models.Model):
     CREDIT_MODES = [CREDIT_MODE]
 
     # Modes that are eligible to purchase credit
+<<<<<<< HEAD
     CREDIT_ELIGIBLE_MODES = [VERIFIED, PROFESSIONAL, NO_ID_PROFESSIONAL_MODE, EXECUTIVE_EDUCATION]
+=======
+    CREDIT_ELIGIBLE_MODES = [
+        VERIFIED, PROFESSIONAL, NO_ID_PROFESSIONAL_MODE, EXECUTIVE_EDUCATION, PAID_EXECUTIVE_EDUCATION,
+        PAID_BOOTCAMP
+    ]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # Modes for which certificates/programs may need to be updated
     CERTIFICATE_RELEVANT_MODES = CREDIT_MODES + CREDIT_ELIGIBLE_MODES + [MASTERS]

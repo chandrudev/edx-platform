@@ -2,7 +2,10 @@
 Adapter to isolate django-oauth-toolkit dependencies
 """
 
+<<<<<<< HEAD
 from edx_django_utils.monitoring import set_custom_attribute
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from oauth2_provider import models
 
 from openedx.core.djangoapps.oauth_dispatch.models import RestrictedApplication
@@ -101,7 +104,10 @@ class DOTAdapter:
         filter_set = set()
         if hasattr(application, 'access') and application.access.filters:
             filter_set.update(application.access.filters)
+<<<<<<< HEAD
         filter_set = self._add_org_relation_filters_to_set(application, filter_set)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Allow applications configured with the client credentials grant type to access
         # data for all users. This will enable these applications to fetch data in bulk.
@@ -111,6 +117,7 @@ class DOTAdapter:
             filter_set.add(self.FILTER_USER_ME)
 
         return list(filter_set)
+<<<<<<< HEAD
 
     def _add_org_relation_filters_to_set(self, application, filter_set):
         """
@@ -128,3 +135,5 @@ class DOTAdapter:
         set_custom_attribute('filter_set_difference', list(filter_set.difference(filter_set_before_orgs)))
 
         return filter_set
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

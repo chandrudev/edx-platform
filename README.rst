@@ -10,7 +10,11 @@ recommend that you use a service provider to run the software for you.  They
 have free trials that make it easy to get started:
 https://openedx.org/get-started/
 
+<<<<<<< HEAD
 If you will be modifying edx-platform code, the `Open edX Devstack`_ (Developer Stack) is
+=======
+If you will be modifying edx-platform code, the `Open edX Developer Stack`_ (Devstack) is
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 a Docker-based development environment.
 
 If you want to run your own Open edX server and have the technical skills to do

@@ -2,14 +2,28 @@
 Tests the forum notification signals.
 """
 from unittest import mock
+<<<<<<< HEAD
 from django.test import TestCase
 from edx_django_utils.cache import RequestCache
+=======
+
+from django.test import TestCase
+from edx_django_utils.cache import RequestCache
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import (
+    CourseFactory,
+    ItemFactory
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from lms.djangoapps.discussion.signals.handlers import ENABLE_FORUM_NOTIFICATIONS_FOR_SITE_KEY
 from openedx.core.djangoapps.django_comment_common import models, signals
 from openedx.core.djangoapps.site_configuration.tests.factories import SiteConfigurationFactory, SiteFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class SendMessageHandlerTestCase(TestCase):  # lint-amnesty, pylint: disable=missing-class-docstring

@@ -6,7 +6,11 @@ xblock_config Application Configuration
 from django.apps import AppConfig
 
 import cms.lib.xblock.runtime
+<<<<<<< HEAD
 import xmodule.x_module
+=======
+import xmodule.x_module  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class XBlockConfig(AppConfig):

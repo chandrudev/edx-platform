@@ -359,7 +359,15 @@
                         },
                         thread.toJSON()
                     );
+<<<<<<< HEAD
                 return $(this.threadListItemTemplate(context).toString());
+=======
+                var $threadHTML = $(this.threadListItemTemplate(context).toString());
+                var previewBody = $threadHTML.find('.thread-preview-body').text();
+                previewBody = new DOMParser().parseFromString(previewBody, "text/html").documentElement.textContent;
+                $threadHTML.find('.thread-preview-body').text(previewBody);
+                return $threadHTML;
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             };
 
             DiscussionThreadListView.prototype.threadSelected = function(e) {

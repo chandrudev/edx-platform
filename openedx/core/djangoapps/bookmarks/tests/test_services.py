@@ -69,7 +69,11 @@ class BookmarksServiceTests(BookmarksTestsBase):
             assert not self.bookmark_service\
                 .set_bookmarked(usage_key=UsageKey.from_string('i4x://ed/ed/ed/interactive'))
 
+<<<<<<< HEAD
         with self.assertNumQueries(9):
+=======
+        with self.assertNumQueries(10):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             assert self.bookmark_service.set_bookmarked(usage_key=self.vertical_2.location)
 
     def test_unset_bookmarked(self):

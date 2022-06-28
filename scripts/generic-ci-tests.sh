@@ -49,7 +49,10 @@ set -e
 # Note that you will still need to pass a value for 'TEST_SUITE'
 # or else no tests will be executed.
 SHARD=${SHARD:="all"}
+<<<<<<< HEAD
 NUMBER_OF_BOKCHOY_THREADS=${NUMBER_OF_BOKCHOY_THREADS:=1}
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Clean up previous builds
 git clean -qxfd
@@ -131,6 +134,7 @@ case "$TEST_SUITE" in
                 echo "Finding ESLint violations and storing report..."
                 run_paver_quality run_eslint -l $ESLINT_THRESHOLD || { EXIT=1; }
                 echo "Finding Stylelint violations and storing report..."
+<<<<<<< HEAD
                 run_paver_quality run_stylelint -l $STYLELINT_THRESHOLD || { EXIT=1; }
                 echo "Running xss linter report."
                 run_paver_quality run_xsslint -t $XSSLINT_THRESHOLDS || { EXIT=1; }
@@ -140,6 +144,11 @@ case "$TEST_SUITE" in
                 else
                     echo "Skipping safe commit linter report."
                 fi
+=======
+                run_paver_quality run_stylelint || { EXIT=1; }
+                echo "Running xss linter report."
+                run_paver_quality run_xsslint -t $XSSLINT_THRESHOLDS || { EXIT=1; }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 echo "Running PII checker on all Django models..."
                 run_paver_quality run_pii_check || { EXIT=1; }
                 echo "Running reserved keyword checker on all Django models..."
@@ -180,6 +189,7 @@ case "$TEST_SUITE" in
         # which is considered successful.
         exit $EXIT
         ;;
+<<<<<<< HEAD
 
     "bok-choy")
 
@@ -222,4 +232,6 @@ case "$TEST_SUITE" in
                 ;;
         esac
         ;;
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 esac

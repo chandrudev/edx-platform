@@ -13,7 +13,11 @@ from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.courseware.testutils import RenderXBlockTestMixin
 from lms.djangoapps.lti_provider import models, views
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 LTI_DEFAULT_PARAMS = {
     'roles': 'Instructor,urn:lti:instrole:ims/lis/Administrator',
@@ -221,6 +225,7 @@ class LtiLaunchTestRender(LtiTestMixin, RenderXBlockTestMixin, ModuleStoreTestCa
         self.setup_course()
         self.setup_user(admin=False, enroll=True, login=False)
         self.verify_response()
+<<<<<<< HEAD
 
     def get_success_enrolled_staff_mongo_count(self):
         """
@@ -239,3 +244,5 @@ class LtiLaunchTestRender(LtiTestMixin, RenderXBlockTestMixin, ModuleStoreTestCa
         #   (9) edx_notes descriptor call to get_course
         """
         return 9
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

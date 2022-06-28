@@ -67,7 +67,11 @@ class TestPaverQualityViolations(unittest.TestCase):
 class TestPaverReportViolationsCounts(unittest.TestCase):
     """
     For testing utility functions for getting counts from reports for
+<<<<<<< HEAD
     run_eslint, run_xsslint, and run_xsscommitlint.
+=======
+    run_eslint and run_xsslint.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
 
     def setUp(self):
@@ -158,6 +162,7 @@ class TestPaverReportViolationsCounts(unittest.TestCase):
             'total': None,
         })
 
+<<<<<<< HEAD
     def test_get_xsscommitlint_count_happy(self):
         """
         Test happy path getting violation count from xsscommitlint report.
@@ -204,6 +209,8 @@ class TestPaverReportViolationsCounts(unittest.TestCase):
 
         assert count == 0
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class TestPrepareReportDir(unittest.TestCase):
     """

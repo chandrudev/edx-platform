@@ -9,6 +9,11 @@ import itertools
 import json
 import unittest
 from unittest.mock import patch
+<<<<<<< HEAD
+=======
+from urllib.parse import quote
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import pytest
 import ddt
 import httpretty
@@ -23,6 +28,11 @@ from django.urls import reverse
 from freezegun import freeze_time
 from rest_framework import status
 from rest_framework.test import APITestCase
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls_range
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
@@ -43,8 +53,11 @@ from common.djangoapps.student.roles import CourseStaffRole
 from common.djangoapps.student.tests.factories import AdminFactory, SuperuserFactory, UserFactory
 from common.djangoapps.util.models import RateLimitConfiguration
 from common.djangoapps.util.testing import UrlResetMixin
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls_range
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class EnrollmentTestMixin:
@@ -520,8 +533,13 @@ class EnrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase, APITestCase, Ente
         self.assert_enrollment_status(
             course_id='entirely/fake/course',
             expected_status=status.HTTP_400_BAD_REQUEST,
+<<<<<<< HEAD
             min_mongo_calls=3,
             max_mongo_calls=4
+=======
+            min_mongo_calls=2,
+            max_mongo_calls=3
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
     def test_get_enrollment_details_bad_course(self):
@@ -1349,6 +1367,10 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         """ Create a course and user, then log in. """
         super().setUp()
         self.superuser = SuperuserFactory()
+<<<<<<< HEAD
+=======
+        self.superuser_client = Client()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Pass emit_signals when creating the course so it would be cached
         # as a CourseOverview. Enrollments require a cached CourseOverview.
         self.first_org_course = CourseFactory.create(emit_signals=True, org="org", course="course", run="run")
@@ -1404,7 +1426,11 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
     def test_deactivate_enrollments(self):
         self._assert_active()
         self._create_test_retirement(self.user)
+<<<<<<< HEAD
         response = self._submit_unenroll(self.superuser, self.user.username)
+=======
+        response = self._submit_unenroll(self.user.username)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_200_OK
         data = json.loads(response.content.decode('utf-8'))
         # order doesn't matter so compare sets
@@ -1413,18 +1439,30 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
 
     def test_deactivate_enrollments_no_retirement_status(self):
         self._assert_active()
+<<<<<<< HEAD
         response = self._submit_unenroll(self.superuser, self.user.username)
+=======
+        response = self._submit_unenroll(self.user.username)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
     def test_deactivate_enrollments_unauthorized(self):
         self._assert_active()
+<<<<<<< HEAD
         response = self._submit_unenroll(self.user, self.user.username)
+=======
+        response = self._submit_unenroll(self.user.username, submitting_user=self.user, client=self.client)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_403_FORBIDDEN
         self._assert_active()
 
     def test_deactivate_enrollments_no_username(self):
         self._assert_active()
+<<<<<<< HEAD
         response = self._submit_unenroll(self.superuser, None)
+=======
+        response = self._submit_unenroll(None)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_404_NOT_FOUND
         data = json.loads(response.content.decode('utf-8'))
         assert data == 'Username not specified.'
@@ -1433,23 +1471,37 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
     def test_deactivate_enrollments_empty_username(self):
         self._assert_active()
         self._create_test_retirement(self.user)
+<<<<<<< HEAD
         response = self._submit_unenroll(self.superuser, "")
+=======
+        response = self._submit_unenroll("")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_404_NOT_FOUND
         self._assert_active()
 
     def test_deactivate_enrollments_invalid_username(self):
         self._assert_active()
         self._create_test_retirement(self.user)
+<<<<<<< HEAD
         response = self._submit_unenroll(self.superuser, "a made up username")
+=======
+        response = self._submit_unenroll("a made up username")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_404_NOT_FOUND
         self._assert_active()
 
     def test_deactivate_enrollments_called_twice(self):
         self._assert_active()
         self._create_test_retirement(self.user)
+<<<<<<< HEAD
         response = self._submit_unenroll(self.superuser, self.user.username)
         assert response.status_code == status.HTTP_200_OK
         response = self._submit_unenroll(self.superuser, self.user.username)
+=======
+        response = self._submit_unenroll(self.user.username)
+        assert response.status_code == status.HTTP_200_OK
+        response = self._submit_unenroll(self.user.username)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert response.content.decode('utf-8') == ''
         self._assert_inactive()
@@ -1465,14 +1517,30 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
             _, is_active = CourseEnrollment.enrollment_mode_for_user(self.user, course.id)
             assert not is_active
 
+<<<<<<< HEAD
     def _submit_unenroll(self, submitting_user, unenrolling_username):
+=======
+    def _submit_unenroll(self, unenrolling_username, submitting_user=None, client=None):
+        """ Submit enrollment, by default as superuser. """
+        # Provide both or neither of the overrides
+        assert (submitting_user is None) == (client is None)
+
+        # Avoid mixing cookies between two users
+        client = client or self.superuser_client
+        submitting_user = submitting_user or self.superuser
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         data = {}
         if unenrolling_username is not None:
             data['username'] = unenrolling_username
 
         url = reverse('unenrollment')
         headers = self.build_jwt_headers(submitting_user)
+<<<<<<< HEAD
         return self.client.post(url, json.dumps(data), content_type='application/json', **headers)
+=======
+        return client.post(url, json.dumps(data), content_type='application/json', **headers)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -1601,7 +1669,11 @@ class CourseEnrollmentsApiListTest(APITestCase, ModuleStoreTestCase):
         self.rate_limit, __ = throttle.parse_rate(throttle.rate)
 
         self.course = CourseFactory.create(org='e', number='d', run='X', emit_signals=True)
+<<<<<<< HEAD
         self.course2 = CourseFactory.create(org='x', number='y', run='Z', emit_signal=True)
+=======
+        self.course2 = CourseFactory.create(org='x', number='y', run='Z', emit_signals=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         for mode_slug in ('honor', 'verified', 'audit'):
             CourseModeFactory.create(
@@ -1689,12 +1761,20 @@ class CourseEnrollmentsApiListTest(APITestCase, ModuleStoreTestCase):
 
     def test_user_not_authenticated(self):
         self.client.logout()
+<<<<<<< HEAD
         response = self.client.get(self.url, {'course_id': str(self.course.id)})
+=======
+        response = self.client.get(self.url, {'course_id': quote(str(self.course.id))})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_user_not_authorized(self):
         self.client.login(username=self.student1.username, password='edx')
+<<<<<<< HEAD
         response = self.client.get(self.url, {'course_id': str(self.course.id)})
+=======
+        response = self.client.get(self.url, {'course_id': quote(str(self.course.id))})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     @ddt.data(

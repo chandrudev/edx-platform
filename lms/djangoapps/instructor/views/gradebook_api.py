@@ -16,7 +16,11 @@ from common.djangoapps.edxmako.shortcuts import render_to_response
 from lms.djangoapps.courseware.courses import get_course_with_access
 from lms.djangoapps.grades.api import CourseGradeFactory
 from lms.djangoapps.instructor.views.api import require_course_permission
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .. import permissions
 

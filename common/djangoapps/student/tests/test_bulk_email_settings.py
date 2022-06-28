@@ -16,8 +16,13 @@ from django.urls import reverse
 from lms.djangoapps.bulk_email.api import is_bulk_email_feature_enabled
 from lms.djangoapps.bulk_email.models import BulkEmailFlag, CourseAuthorization
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', 'Test only valid in lms')
@@ -42,7 +47,11 @@ class TestStudentDashboardEmailView(SharedModuleStoreTestCase):
         # URL for email settings modal
         self.email_modal_link = (
             '<a href="#email-settings-modal" class="action action-email-settings" rel="leanModal" '
+<<<<<<< HEAD
             'data-course-id="{org}/{num}/{name}" data-course-number="{num}" '
+=======
+            'data-course-id="course-v1:{org}+{num}+{name}" data-course-number="{num}" '
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'data-dashboard-index="0" data-optout="False">Email Settings</a>'
         ).format(
             org=self.course.org,

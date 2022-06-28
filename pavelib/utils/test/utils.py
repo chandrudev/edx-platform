@@ -4,13 +4,17 @@ Helper functions for test tasks
 
 
 import os
+<<<<<<< HEAD
 import re
 import subprocess
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from paver.easy import cmdopts, sh, task
 
 from pavelib.utils.envs import Env
 from pavelib.utils.timer import timed
+<<<<<<< HEAD
 from pavelib.utils.db_utils import get_file_from_s3, upload_to_s3
 
 try:
@@ -20,6 +24,11 @@ except ImportError:
 
 MONGO_PORT_NUM = int(os.environ.get('EDXAPP_TEST_MONGO_PORT', '27017'))
 MINIMUM_FIREFOX_VERSION = 28.0
+=======
+
+
+MONGO_PORT_NUM = int(os.environ.get('EDXAPP_TEST_MONGO_PORT', '27017'))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 COVERAGE_CACHE_BUCKET = "edx-tools-coverage-caches"
 COVERAGE_CACHE_BASEPATH = "test_root/who_tests_what"
@@ -97,6 +106,7 @@ def clean_mongo():
         port=MONGO_PORT_NUM,
         repo_root=Env.REPO_ROOT,
     ))
+<<<<<<< HEAD
 
 
 def check_firefox_version():
@@ -181,3 +191,5 @@ def upload_coverage_to_s3():
         COVERAGE_CACHE_BUCKET,
         replace=True,
     )
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

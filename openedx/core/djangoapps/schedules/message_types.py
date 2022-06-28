@@ -12,6 +12,10 @@ class ScheduleMessageType(BaseMessageType):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.log_level = logging.DEBUG if DEBUG_MESSAGE_WAFFLE_FLAG.is_enabled() else None
+<<<<<<< HEAD
+=======
+        self.options['override_frequency_capping'] = True
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class RecurringNudge(ScheduleMessageType):

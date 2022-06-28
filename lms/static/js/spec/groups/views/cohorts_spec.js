@@ -15,6 +15,7 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 dogLoversInitialCount = 456,
                 unknownUserMessage,
                 invalidEmailMessage, createMockCohort, createMockCohorts, createMockContentGroups,
+<<<<<<< HEAD
                 createMockCohortSettingsJson, createMockVerifiedTrackCohortsJson, flushVerifiedTrackCohortRequests,
                 createCohortsView, cohortsView, requests, respondToRefresh, verifyMessage, verifyNoMessage,
                 verifyDetailedMessage, verifyHeader, verifyVerifiedTrackMessage, verifyVerifiedTrackUIUpdates,
@@ -22,6 +23,15 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 saveFormAndExpectErrors, createMockCohortSettings, MOCK_COHORTED_USER_PARTITION_ID,
                 MOCK_UPLOAD_COHORTS_CSV_URL, MOCK_STUDIO_ADVANCED_SETTINGS_URL, MOCK_STUDIO_GROUP_CONFIGURATIONS_URL,
                 MOCK_VERIFIED_TRACK_COHORTING_URL, MOCK_MANUAL_ASSIGNMENT, MOCK_RANDOM_ASSIGNMENT;
+=======
+                createMockCohortSettingsJson,
+                createCohortsView, cohortsView, requests, respondToRefresh, verifyMessage, verifyNoMessage,
+                verifyDetailedMessage, verifyHeader,
+                expectCohortAddRequest, getAddModal, selectContentGroup, clearContentGroup,
+                saveFormAndExpectErrors, createMockCohortSettings, MOCK_COHORTED_USER_PARTITION_ID,
+                MOCK_UPLOAD_COHORTS_CSV_URL, MOCK_STUDIO_ADVANCED_SETTINGS_URL, MOCK_STUDIO_GROUP_CONFIGURATIONS_URL,
+                MOCK_MANUAL_ASSIGNMENT, MOCK_RANDOM_ASSIGNMENT;
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             MOCK_MANUAL_ASSIGNMENT = 'manual';
             MOCK_RANDOM_ASSIGNMENT = 'random';
@@ -29,7 +39,10 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
             MOCK_UPLOAD_COHORTS_CSV_URL = 'http://upload-csv-file-url/';
             MOCK_STUDIO_ADVANCED_SETTINGS_URL = 'http://studio/settings/advanced';
             MOCK_STUDIO_GROUP_CONFIGURATIONS_URL = 'http://studio/group_configurations';
+<<<<<<< HEAD
             MOCK_VERIFIED_TRACK_COHORTING_URL = 'http://courses/foo/verified_track_content/settings';
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             createMockCohort = function(name, id, userCount, groupId, userPartitionId, assignmentType) {
                 return {
@@ -75,6 +88,7 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 );
             };
 
+<<<<<<< HEAD
             createMockVerifiedTrackCohortsJson = function(enabled) {
                 if (enabled) {
                     return {
@@ -86,6 +100,8 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 }
             };
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             createCohortsView = function(test, options) {
                 var cohortsJson, cohorts, contentGroups, cohortSettings;
                 options = options || {};
@@ -105,7 +121,10 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                         uploadCohortsCsvUrl: MOCK_UPLOAD_COHORTS_CSV_URL,
                         studioAdvancedSettingsUrl: MOCK_STUDIO_ADVANCED_SETTINGS_URL,
                         studioGroupConfigurationsUrl: MOCK_STUDIO_GROUP_CONFIGURATIONS_URL,
+<<<<<<< HEAD
                         verifiedTrackCohortingUrl: MOCK_VERIFIED_TRACK_COHORTING_URL
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     }
                 });
 
@@ -114,6 +133,7 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                     cohortsView.$('.cohort-select').val(options.selectCohort.toString()).change();
                 }
 
+<<<<<<< HEAD
                 flushVerifiedTrackCohortRequests(options.enableVerifiedTrackCohorting);
             };
 
@@ -128,6 +148,8 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                         );
                     }
                 }
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             };
 
             respondToRefresh = function(catCount, dogCount) {
@@ -181,6 +203,7 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 expect(cohortsView.$('.message').length).toBe(0);
             };
 
+<<<<<<< HEAD
             verifyVerifiedTrackMessage = function(type, expectedText) {
                 if (type) {
                     expect($('.message').length).toBe(1);
@@ -201,6 +224,8 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 }
             };
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             verifyDetailedMessage = function(expectedTitle, expectedMessageType, expectedDetails, expectedAction) {
                 var numDetails = cohortsView.$('.summary-items').children().length;
                 verifyMessage(expectedTitle, expectedMessageType, expectedAction, true);
@@ -341,6 +366,7 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 });
             });
 
+<<<<<<< HEAD
             describe('Verified Track Cohorting Settings View', function() {
                 it('displays no message if the feature is disabled', function() {
                     createCohortsView(this);
@@ -388,6 +414,8 @@ define(['backbone', 'jquery', 'edx-ui-toolkit/js/utils/spec-helpers/ajax-helpers
                 });
             });
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             describe('Course Cohort Settings', function() {
                 it('can enable and disable cohorting', function() {
                     createCohortsView(this, {cohortSettings: createMockCohortSettings(false)});

@@ -20,13 +20,23 @@ import os.path
 from uuid import uuid4
 
 from boto.exception import BotoServerError
+<<<<<<< HEAD
+=======
+from django.apps import apps
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.conf import settings
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from django.core.files.base import ContentFile
 from django.db import models, transaction
 
 from django.utils.translation import gettext as _
+<<<<<<< HEAD
 from opaque_keys.edx.django.models import CourseKeyField
+=======
+from model_utils.models import TimeStampedModel
+from opaque_keys.edx.django.models import CourseKeyField
+from simple_history.models import HistoricalRecords
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from openedx.core.storage import get_storage
 
@@ -35,6 +45,10 @@ logger = logging.getLogger(__name__)
 # define custom states used by InstructorTask
 QUEUING = 'QUEUING'
 PROGRESS = 'PROGRESS'
+<<<<<<< HEAD
+=======
+SCHEDULED = 'SCHEDULED'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 TASK_INPUT_LENGTH = 10000
 
 
@@ -187,6 +201,29 @@ class InstructorTask(models.Model):
         return json.dumps({'message': 'Task revoked before running'})
 
 
+<<<<<<< HEAD
+=======
+class InstructorTaskSchedule(TimeStampedModel):
+    """
+    A database model to store information about _when_ to execute a scheduled background task.
+
+    The primary use case is to allow instructors to schedule their email messages (authored with the bulk course email
+    tool) to be sent at a later date and time.
+
+    .. no_pii:
+    """
+    class Meta:
+        app_label = "instructor_task"
+
+    task = models.OneToOneField(InstructorTask, on_delete=models.DO_NOTHING)
+    task_args = models.TextField(null=False, blank=False)
+    task_due = models.DateTimeField(null=False)
+
+    if 'instructor_task' in apps.app_configs:
+        history = HistoricalRecords()
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class ReportStore:
     """
     Simple abstraction layer that can fetch and store CSV files for reports

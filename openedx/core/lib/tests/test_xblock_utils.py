@@ -12,24 +12,37 @@ from django.test.client import RequestFactory
 from opaque_keys.edx.asides import AsideUsageKeyV1, AsideUsageKeyV2
 from web_fragments.fragment import Fragment
 from xblock.core import XBlockAside
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from xmodule.modulestore.tests.test_asides import AsideTestType
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from openedx.core.lib.url_utils import quote_slashes
 from openedx.core.lib.xblock_builtin import get_css_dependencies, get_js_dependencies
 from openedx.core.lib.xblock_utils import (
     get_aside_from_xblock,
     is_xblock_aside,
+<<<<<<< HEAD
     replace_course_urls,
     replace_jump_to_id_urls,
     replace_static_urls,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     request_token,
     sanitize_html_id,
     wrap_fragment,
     wrap_xblock
 )
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.modulestore.tests.test_asides import AsideTestType
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -119,6 +132,7 @@ class TestXblockUtils(SharedModuleStoreTestCase):
         assert test_wrap_output.resources[0].data == 'body {background-color:red;}'
         assert test_wrap_output.resources[1].data == 'alert("Hi!");'
 
+<<<<<<< HEAD
     @ddt.data('course_mongo', 'course_split')
     def test_replace_jump_to_id_urls(self, course_id):
         """
@@ -177,6 +191,8 @@ class TestXblockUtils(SharedModuleStoreTestCase):
         assert isinstance(test_replace, Fragment)
         assert test_replace.content == anchor_tag
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_sanitize_html_id(self):
         """
         Verify that colons and dashes are replaced.
@@ -231,6 +247,10 @@ class TestXblockUtils(SharedModuleStoreTestCase):
 
 class TestXBlockAside(SharedModuleStoreTestCase):
     """Test the xblock aside function."""
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def setUpClass(cls):

@@ -21,7 +21,11 @@ from common.djangoapps.edxmako.shortcuts import marketing_link
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.user_api import accounts
 from openedx.core.djangoapps.user_api.helpers import FormDescription
+<<<<<<< HEAD
 from openedx.core.djangoapps.user_authn.utils import is_registration_api_v1 as is_api_v1
+=======
+from openedx.core.djangoapps.user_authn.utils import check_pwned_password, is_registration_api_v1 as is_api_v1
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.features.enterprise_support.api import enterprise_customer_for_request
 from common.djangoapps.student.models import (
@@ -238,6 +242,19 @@ class AccountCreationForm(forms.Form):
             email = self.cleaned_data.get('email')
             temp_user = User(username=username, email=email) if username else None
             validate_password(password, temp_user)
+<<<<<<< HEAD
+=======
+
+            if settings.ENABLE_AUTHN_REGISTER_HIBP_POLICY:
+                # Checks the Pwned Databases for password vulnerability.
+                pwned_response = check_pwned_password(password)
+
+                if (
+                    pwned_response.get('vulnerability', 'no') == 'yes' and
+                    pwned_response.get('frequency', 0) >= settings.HIBP_REGISTRATION_PASSWORD_FREQUENCY_THRESHOLD
+                ):
+                    raise ValidationError(accounts.AUTHN_PASSWORD_COMPROMISED_MSG)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return password
 
     def clean_email(self):
@@ -324,6 +341,10 @@ class RegistrationFormFactory:
         "terms_of_service",
         "profession",
         "specialty",
+<<<<<<< HEAD
+=======
+        "marketing_emails_opt_in",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ]
 
     def _is_field_visible(self, field_name):
@@ -340,6 +361,12 @@ class RegistrationFormFactory:
 
     def __init__(self):
 
+<<<<<<< HEAD
+=======
+        if settings.ENABLE_COPPA_COMPLIANCE and 'year_of_birth' in self.EXTRA_FIELDS:
+            self.EXTRA_FIELDS.remove('year_of_birth')
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Backwards compatibility: Honor code is required by default, unless
         # explicitly set to "optional" in Django settings.
         self._extra_fields_setting = copy.deepcopy(configuration_helpers.get_value('REGISTRATION_EXTRA_FIELDS'))
@@ -347,6 +374,12 @@ class RegistrationFormFactory:
             self._extra_fields_setting = copy.deepcopy(settings.REGISTRATION_EXTRA_FIELDS)
         self._extra_fields_setting["honor_code"] = self._extra_fields_setting.get("honor_code", "required")
 
+<<<<<<< HEAD
+=======
+        if settings.MARKETING_EMAILS_OPT_IN:
+            self._extra_fields_setting['marketing_emails_opt_in'] = 'optional'
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Check that the setting is configured correctly
         for field_name in self.EXTRA_FIELDS:
             if self._extra_fields_setting.get(field_name, "hidden") not in ["required", "optional", "hidden"]:
@@ -427,7 +460,11 @@ class RegistrationFormFactory:
                             FormDescription.FIELD_TYPE_MAP.get(field.__class__))
                         if not field_type:
                             raise ImproperlyConfigured(
+<<<<<<< HEAD
                                 u"Field type '{}' not recognized for registration extension field '{}'.".format(
+=======
+                                "Field type '{}' not recognized for registration extension field '{}'.".format(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                                     field_type,
                                     field_name
                                 )
@@ -597,7 +634,14 @@ class RegistrationFormFactory:
 
         # The labels are marked for translation in UserProfile model definition.
         # pylint: disable=translation-of-non-string
+<<<<<<< HEAD
         options = [(name, _(label)) for name, label in UserProfile.LEVEL_OF_EDUCATION_CHOICES]
+=======
+
+        options = [(name, _(label)) for name, label in UserProfile.LEVEL_OF_EDUCATION_CHOICES]
+        if settings.ENABLE_COPPA_COMPLIANCE:
+            options = filter(lambda op: op[0] != 'el', options)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         form_desc.add_field(
             "level_of_education",
             label=education_level_label,
@@ -654,6 +698,30 @@ class RegistrationFormFactory:
             required=required
         )
 
+<<<<<<< HEAD
+=======
+    def _add_marketing_emails_opt_in_field(self, form_desc, required=False):
+        """Add a marketing email checkbox to form description.
+        Arguments:
+            form_desc: A form description
+        Keyword Arguments:
+            required (bool): Whether this field is required; defaults to False
+        """
+        opt_in_label = _(
+            'I agree that {platform_name} may send me marketing messages.').format(
+                platform_name=configuration_helpers.get_value('PLATFORM_NAME', settings.PLATFORM_NAME),
+        )
+
+        form_desc.add_field(
+            'marketing_emails_opt_in',
+            label=opt_in_label,
+            field_type="checkbox",
+            exposed=True,
+            default=True,  # the checkbox will automatically be checked; meaning user has opted in
+            required=required,
+        )
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _add_field_with_configurable_select_options(self, field_name, field_label, form_desc, required=False):
         """Add a field to a form description.
             If select options are given for this field, it will be a select type

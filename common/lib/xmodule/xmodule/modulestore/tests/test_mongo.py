@@ -35,7 +35,10 @@ from xmodule.modulestore.inheritance import InheritanceMixin
 from xmodule.modulestore.mongo import MongoKeyValueStore
 from xmodule.modulestore.mongo.base import as_draft
 from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+<<<<<<< HEAD
 from xmodule.modulestore.tests.utils import mock_tab_from_json
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.xml_exporter import export_course_to_xml
 from xmodule.modulestore.xml_importer import LocationMixin, import_course_from_xml, perform_xlint
 from xmodule.tests import DATA_DIR
@@ -131,6 +134,7 @@ class TestMongoModuleStoreBase(TestCase):
 
         )
 
+<<<<<<< HEAD
         with patch('xmodule.tabs.CourseTab.from_json', side_effect=mock_tab_from_json):
             import_course_from_xml(
                 draft_store,
@@ -162,6 +166,48 @@ class TestMongoModuleStoreBase(TestCase):
                 verbose=True,
                 target_id=CourseKey.from_string('guestx/foo/bar')
             )
+=======
+        import_course_from_xml(
+            draft_store,
+            999,
+            DATA_DIR,
+            cls.courses,
+            static_content_store=content_store
+        )
+
+        # also test a course with no importing of static content
+        import_course_from_xml(
+            draft_store,
+            999,
+            DATA_DIR,
+            ['test_import_course'],
+            static_content_store=content_store,
+            do_import_static=False,
+            verbose=True
+        )
+
+        # also import a course under a different course_id (especially ORG)
+        import_course_from_xml(
+            draft_store,
+            999,
+            DATA_DIR,
+            ['test_import_course'],
+            static_content_store=content_store,
+            do_import_static=False,
+            verbose=True,
+            target_id=CourseKey.from_string('guestx/foo/bar')
+        )
+
+        # Import a course for `test_reference_converters` since it manipulates the saved course
+        # which can cause any other test using the same course to have a flakey error
+        import_course_from_xml(
+            draft_store,
+            999,
+            DATA_DIR,
+            ['test_import_course_2'],
+            static_content_store=content_store
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         return content_store, draft_store
 
@@ -206,12 +252,20 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
         )
         assert store.get_modulestore_type('') == ModuleStoreEnum.Type.mongo
 
+<<<<<<< HEAD
     @patch('xmodule.tabs.CourseTab.from_json', side_effect=mock_tab_from_json)
     def test_get_courses(self, _from_json):
         '''Make sure the course objects loaded properly'''
         courses = self.draft_store.get_courses()
 
         assert len(courses) == 6
+=======
+    def test_get_courses(self):
+        '''Make sure the course objects loaded properly'''
+        courses = self.draft_store.get_courses()
+
+        assert len(courses) == 7
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_ids = [course.id for course in courses]
 
         for course_key in [
@@ -224,6 +278,10 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
                 ['edX', 'test_unicode', '2012_Fall'],
                 ['edX', 'toy', '2012_Fall'],
                 ['guestx', 'foo', 'bar'],
+<<<<<<< HEAD
+=======
+                ['edX', 'test_import', '2014_Fall'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             ]
         ]:
             assert course_key in course_ids
@@ -236,8 +294,12 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
             assert not self.draft_store.has_course(mix_cased)
             assert self.draft_store.has_course(mix_cased, ignore_case=True)
 
+<<<<<<< HEAD
     @patch('xmodule.tabs.CourseTab.from_json', side_effect=mock_tab_from_json)
     def test_get_org_courses(self, _from_json):
+=======
+    def test_get_org_courses(self):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Make sure that we can query for a filtered list of courses for a given ORG
         """
@@ -255,7 +317,11 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
             assert course_key in course_ids
 
         courses = self.draft_store.get_courses(org='edX')
+<<<<<<< HEAD
         assert len(courses) == 5
+=======
+        assert len(courses) == 6
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_ids = [course.id for course in courses]
 
         for course_key in [
@@ -266,6 +332,10 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
                 ['edX', 'test_import_course', '2012_Fall'],
                 ['edX', 'test_unicode', '2012_Fall'],
                 ['edX', 'toy', '2012_Fall'],
+<<<<<<< HEAD
+=======
+                ['edX', 'test_import', '2014_Fall'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             ]
         ]:
             assert course_key in course_ids
@@ -431,8 +501,12 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
                 {'displayname': 'hello'}
             )
 
+<<<<<<< HEAD
     @patch('xmodule.tabs.CourseTab.from_json', side_effect=mock_tab_from_json)
     def test_get_courses_for_wiki(self, _from_json):
+=======
+    def test_get_courses_for_wiki(self):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Test the get_courses_for_wiki method
         """
@@ -473,7 +547,11 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
         """
         Test that references types get deserialized correctly
         """
+<<<<<<< HEAD
         course_key = CourseKey.from_string('edX/toy/2012_Fall')
+=======
+        course_key = CourseKey.from_string('edX/test_import/2014_Fall')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         def setup_test():
             course = self.draft_store.get_course(course_key)
@@ -548,8 +626,12 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
         check_mongo_fields()
 
     @patch('xmodule.video_module.video_module.edxval_api', None)
+<<<<<<< HEAD
     @patch('xmodule.tabs.CourseTab.from_json', side_effect=mock_tab_from_json)
     def test_export_course_image(self, _from_json):
+=======
+    def test_export_course_image(self):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Test to make sure that we have a course image in the contentstore,
         then export it to ensure it gets copied to both file locations.
@@ -567,8 +649,12 @@ class TestMongoModuleStore(TestMongoModuleStoreBase):
         assert path(root_dir / 'test_export/static/images_course_image.jpg').isfile()
 
     @patch('xmodule.video_module.video_module.edxval_api', None)
+<<<<<<< HEAD
     @patch('xmodule.tabs.CourseTab.from_json', side_effect=mock_tab_from_json)
     def test_export_course_image_nondefault(self, _from_json):
+=======
+    def test_export_course_image_nondefault(self):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Make sure that if a non-default image path is specified that we
         don't export it to the static default location

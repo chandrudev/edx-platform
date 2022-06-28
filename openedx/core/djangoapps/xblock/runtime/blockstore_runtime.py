@@ -33,11 +33,22 @@ class BlockstoreXBlockRuntime(XBlockRuntime):
     def parse_xml_file(self, fileobj, id_generator=None):
         raise NotImplementedError("Use parse_olx_file() instead")
 
+<<<<<<< HEAD
     def get_block(self, usage_id, for_parent=None):
         """
         Create an XBlock instance in this runtime.
 
         The `usage_id` is used to find the XBlock class and data.
+=======
+    def get_block(self, usage_id, for_parent=None, block_type_overrides=None):  # pylint: disable=arguments-differ
+        """
+        Create an XBlock instance in this runtime.
+
+        Args:
+            usage_key(OpaqueKey): identifier used to find the XBlock class and data.
+            block_type_overrides(dict): optional dict of block types to override in returned block metadata:
+                {'from_block_type': 'to_block_type'}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         def_id = self.id_reader.get_definition_id(usage_id)
         if def_id is None:
@@ -46,6 +57,11 @@ class BlockstoreXBlockRuntime(XBlockRuntime):
             raise TypeError("This runtime can only load blocks stored in Blockstore bundles.")
         try:
             block_type = self.id_reader.get_block_type(def_id)
+<<<<<<< HEAD
+=======
+            if block_type_overrides and block_type in block_type_overrides:
+                block_type = block_type_overrides[block_type]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         except NoSuchDefinition:
             raise NoSuchUsage(repr(usage_id))  # lint-amnesty, pylint: disable=raise-missing-from
         keys = ScopeIds(self.user_id, block_type, def_id, usage_id)

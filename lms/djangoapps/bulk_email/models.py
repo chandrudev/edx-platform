@@ -4,11 +4,22 @@ Models for bulk email
 
 
 import logging
+<<<<<<< HEAD
 
 import markupsafe
 from config_models.models import ConfigurationModel
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from django.db import models
+=======
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+import markupsafe
+from config_models.models import ConfigurationModel
+from django.contrib.auth import get_user_model
+from django.db import models
+from django.conf import settings
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from opaque_keys.edx.django.models import CourseKeyField
 
@@ -23,6 +34,10 @@ from openedx.core.djangoapps.enrollments.errors import CourseModeNotFoundError
 from openedx.core.lib.html_to_text import html_to_text
 from openedx.core.lib.mail_utils import wrap_message
 
+<<<<<<< HEAD
+=======
+User = get_user_model()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 log = logging.getLogger(__name__)
 
 
@@ -117,6 +132,16 @@ class Target(models.Model):
             courseenrollment__is_active=True
         )
         enrollment_qset = User.objects.filter(enrollment_query)
+<<<<<<< HEAD
+=======
+
+        # filter out learners from the message who are no longer active in the course-run based on last login
+        last_login_eligibility_period = settings.BULK_COURSE_EMAIL_LAST_LOGIN_ELIGIBILITY_PERIOD
+        if last_login_eligibility_period and isinstance(last_login_eligibility_period, int):
+            cutoff = datetime.now() - relativedelta(months=last_login_eligibility_period)
+            enrollment_qset = enrollment_qset.exclude(last_login__lte=cutoff)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if self.target_type == SEND_TO_MYSELF:
             if user_id is None:
                 raise ValueError("Must define self user to send email to self.")
@@ -259,10 +284,17 @@ class CourseEmail(Email):
         """
         Create an instance of CourseEmail.
         """
+<<<<<<< HEAD
+=======
+        # deferred import to prevent a circular import issue
+        from lms.djangoapps.bulk_email.api import determine_targets_for_course_email
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # automatically generate the stripped version of the text from the HTML markup:
         if text_message is None:
             text_message = html_to_text(html_message)
 
+<<<<<<< HEAD
         new_targets = []
         for target in targets:
             # split target, to handle cohort:cohort_name and track:mode_slug
@@ -289,6 +321,11 @@ class CourseEmail(Email):
             new_targets.append(new_target)
 
         # create the task, then save it immediately:
+=======
+        new_targets = determine_targets_for_course_email(course_id, subject, targets)
+
+        # create the course email instance, then save it immediately:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_email = cls(
             course_id=course_id,
             sender=sender,
@@ -460,6 +497,31 @@ class CourseAuthorization(models.Model):
         return f"Course '{str(self.course_id)}': Instructor Email {not_en}Enabled"
 
 
+<<<<<<< HEAD
+=======
+class DisabledCourse(models.Model):
+    """
+    Disable the bulk email feature for specific courses.
+
+    .. no_pii:
+    """
+    class Meta:
+        app_label = "bulk_email"
+
+    course_id = CourseKeyField(max_length=255, db_index=True, unique=True)
+
+    @classmethod
+    def instructor_email_disabled_for_course(cls, course_id):
+        """
+        Returns whether or not email is disabled for the given course id.
+        """
+        try:
+            return cls.objects.filter(course_id=course_id).exists()
+        except cls.DoesNotExist:
+            return False
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class BulkEmailFlag(ConfigurationModel):
     """
     Enables site-wide configuration for the bulk_email feature.

@@ -10,7 +10,12 @@ from django.test.utils import override_settings
 from django.utils.timezone import now
 from edx_django_utils.cache import TieredCache
 from opaque_keys.edx.keys import CourseKey
+<<<<<<< HEAD
 from slumber.exceptions import HttpClientError, HttpServerError
+=======
+# from slumber.exceptions import HttpClientError, HttpServerError
+from requests.exceptions import HTTPError
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from testfixtures import LogCapture
 
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
@@ -27,8 +32,13 @@ from openedx.features.enterprise_support.tests.factories import (
     EnterpriseCustomerUserFactory
 )
 from openedx.features.enterprise_support.utils import get_data_consent_share_cache_key
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
@@ -152,27 +162,51 @@ class EnterpriseSupportSignals(SharedModuleStoreTestCase):
         api_called,
         mock_is_order_voucher_refundable
     ):
+<<<<<<< HEAD
         """Test refund_order_voucher signal"""
         mock_is_order_voucher_refundable.return_value = order_voucher_refundable
         enrollment = self._create_enrollment_to_refund(no_of_days_placed, enterprise_enrollment_exists)
         with patch('openedx.features.enterprise_support.signals.ecommerce_api_client') as mock_ecommerce_api_client:
+=======
+        """
+        Test refund_order_voucher signal
+        """
+        mock_is_order_voucher_refundable.return_value = order_voucher_refundable
+        enrollment = self._create_enrollment_to_refund(no_of_days_placed, enterprise_enrollment_exists)
+        with patch('openedx.features.enterprise_support.signals.get_ecommerce_api_client') as mock_ecommerce_api_client:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             enrollment.update_enrollment(is_active=False, skip_refund=skip_refund)
             assert mock_ecommerce_api_client.called == api_called
 
     @patch('common.djangoapps.student.models.CourseEnrollment.is_order_voucher_refundable')
     @ddt.data(
+<<<<<<< HEAD
         (HttpClientError, 'INFO'),
         (HttpServerError, 'ERROR'),
+=======
+        (HTTPError, 'INFO'),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         (Exception, 'ERROR'),
     )
     @ddt.unpack
     def test_refund_order_voucher_with_client_errors(self, mock_error, log_level, mock_is_order_voucher_refundable):
+<<<<<<< HEAD
         """Test refund_order_voucher signal client_error"""
         mock_is_order_voucher_refundable.return_value = True
         enrollment = self._create_enrollment_to_refund()
         with patch('openedx.features.enterprise_support.signals.ecommerce_api_client') as mock_ecommerce_api_client:
             client_instance = mock_ecommerce_api_client.return_value
             client_instance.enterprise.coupons.create_refunded_voucher.post.side_effect = mock_error()
+=======
+        """
+        Test refund_order_voucher signal client_error.
+        """
+        mock_is_order_voucher_refundable.return_value = True
+        enrollment = self._create_enrollment_to_refund()
+        with patch('openedx.features.enterprise_support.signals.get_ecommerce_api_client') as mock_ecommerce_api_client:
+            client_instance = mock_ecommerce_api_client.return_value
+            client_instance.post.side_effect = mock_error()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             with LogCapture(LOGGER_NAME) as logger:
                 enrollment.update_enrollment(is_active=False)
                 assert mock_ecommerce_api_client.called is True

@@ -26,7 +26,11 @@
     "chapter/Overview": {
         "display_name": "Overview"
     },
+<<<<<<< HEAD
     "videosequence/Toy_Videos": {
+=======
+    "sequential/Toy_Videos": {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "display_name": "Toy Videos",
         "format": "Lecture Sequence"
     },

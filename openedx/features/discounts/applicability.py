@@ -15,7 +15,11 @@ import pytz
 from crum import get_current_request, impersonate
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlag, LegacyWaffleFlagNamespace
+=======
+from edx_toggles.toggles import WaffleFlag
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.entitlements.models import CourseEntitlement
@@ -36,12 +40,17 @@ from common.djangoapps.track import segment
 # .. toggle_creation_date: 2019-4-16
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: REVEM-282
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date.
 DISCOUNT_APPLICABILITY_FLAG = LegacyWaffleFlag(
     waffle_namespace=LegacyWaffleFlagNamespace(name='discounts'),
     flag_name='enable_discounting',
     module_name=__name__,
 )
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date.
+DISCOUNT_APPLICABILITY_FLAG = WaffleFlag('discounts.enable_discounting', __name__)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 DISCOUNT_APPLICABILITY_HOLDBACK = 'first_purchase_discount_holdback'
 REV1008_EXPERIMENT_ID = 16
@@ -92,7 +101,11 @@ def can_show_streak_discount_coupon(user, course):
     """
 
     # Feature needs to be enabled
+<<<<<<< HEAD
     if not COURSEWARE_MFE_MILESTONES_STREAK_DISCOUNT.is_enabled():
+=======
+    if not COURSEWARE_MFE_MILESTONES_STREAK_DISCOUNT.is_enabled(course.id):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return False
 
     # Course end date needs to be in the future

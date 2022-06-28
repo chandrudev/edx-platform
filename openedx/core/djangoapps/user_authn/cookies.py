@@ -68,7 +68,11 @@ def are_logged_in_cookies_set(request):
 
 def delete_logged_in_cookies(response):
     """
+<<<<<<< HEAD
     Delete cookies indicating that the user is logged in.
+=======
+    Delete cookies indicating that the user is logged in (except for session cookie.)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     Arguments:
         response (HttpResponse): The response sent to the client.
     Returns:
@@ -268,6 +272,10 @@ def _get_user_info_cookie_data(request, user):
     user_info = {
         'version': settings.EDXMKTG_USER_INFO_COOKIE_VERSION,
         'username': user.username,
+<<<<<<< HEAD
+=======
+        'email': user.email,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         'header_urls': header_urls,
         'user_image_urls': image_urls,
     }

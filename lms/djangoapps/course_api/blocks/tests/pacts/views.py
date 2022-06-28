@@ -7,7 +7,11 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from opaque_keys.edx.keys import CourseKey
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreIsolationMixin
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreIsolationMixin
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.tests.factories import CourseFactory
 
 from common.djangoapps.student.models import CourseEnrollment
@@ -16,9 +20,12 @@ from common.djangoapps.student.tests.factories import CourseEnrollmentFactory
 
 class ProviderState(ModuleStoreIsolationMixin):
     """ Provider State Setup """
+<<<<<<< HEAD
 
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def clean_db(self, user, course_key):
         """ Delete objects from SQL DB and clean mongodb instance """
 

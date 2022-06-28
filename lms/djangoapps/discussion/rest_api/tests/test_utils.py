@@ -5,12 +5,21 @@ Tests for Discussion REST API utils.
 from datetime import datetime, timedelta
 
 from pytz import UTC
+<<<<<<< HEAD
 
 from common.djangoapps.student.tests.factories import UserFactory, CourseEnrollmentFactory
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from lms.djangoapps.discussion.django_comment_client.tests.factories import RoleFactory
 from lms.djangoapps.discussion.rest_api.utils import discussion_open_for_user
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
+
+from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+from lms.djangoapps.discussion.django_comment_client.tests.factories import RoleFactory
+from lms.djangoapps.discussion.rest_api.utils import discussion_open_for_user
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class DiscussionAPIUtilsTestCase(ModuleStoreTestCase):

@@ -11,13 +11,21 @@ from uuid import uuid4
 import pytz
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.http import Http404, HttpResponse
+=======
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.template import RequestContext
 from django.utils import translation
 from django.utils.encoding import smart_str
 from eventtracking import tracker
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
+<<<<<<< HEAD
+=======
+from openedx_filters.learning.filters import CertificateRenderStarted
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from organizations import api as organizations_api
 from edx_django_utils.plugins import pluggable_override
 
@@ -55,7 +63,11 @@ from openedx.core.djangoapps.lang_pref.api import get_closest_released_language
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.lib.courses import course_image_url
 from openedx.core.lib.courses import get_course_by_id
+<<<<<<< HEAD
 from xmodule.data import CertificatesDisplayBehaviors
+=======
+from xmodule.data import CertificatesDisplayBehaviors  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 _ = translation.gettext
@@ -64,7 +76,11 @@ _ = translation.gettext
 INVALID_CERTIFICATE_TEMPLATE_PATH = 'certificates/invalid.html'
 
 
+<<<<<<< HEAD
 def get_certificate_description(mode, certificate_type, platform_name):
+=======
+def get_certificate_description(mode, certificate_type, platform_name, course_key):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     :return certificate_type_description on the basis of current mode
     """
@@ -82,10 +98,20 @@ def get_certificate_description(mode, certificate_type, platform_name):
         certificate_type_description = _("A {cert_type} certificate signifies that a "
                                          "learner has agreed to abide by the honor code established by "
                                          "{platform_name} and has completed all of the required tasks for this course "
+<<<<<<< HEAD
                                          "under its guidelines. A {cert_type} certificate also indicates that the "
                                          "identity of the learner has been checked and "
                                          "is valid.").format(cert_type=certificate_type,
                                                              platform_name=platform_name)
+=======
+                                         "under its guidelines. ").format(cert_type=certificate_type,
+                                                                          platform_name=platform_name)
+        if settings.FEATURES.get('ENABLE_CERTIFICATES_IDV_REQUIREMENT'):
+            certificate_type_description += _("A {cert_type} certificate also indicates that the "
+                                              "identity of the learner has been checked and "
+                                              "is valid.").format(cert_type=certificate_type)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     elif mode == 'xseries':
         # Translators:  This text describes the 'XSeries' course certificate type.  An XSeries is a collection of
         # courses related to each other in a meaningful way, such as a specific topic or theme, or even an organization
@@ -146,7 +172,13 @@ def _update_certificate_context(context, course, course_overview, user_certifica
         platform_name=platform_name,
         certificate_type=context.get("certificate_type"))
 
+<<<<<<< HEAD
     certificate_type_description = get_certificate_description(user_certificate.mode, certificate_type, platform_name)
+=======
+    certificate_type_description = get_certificate_description(
+        user_certificate.mode, certificate_type, platform_name, course.location.course_key
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if certificate_type_description:
         context['certificate_type_description'] = certificate_type_description
 
@@ -247,6 +279,10 @@ def _update_course_context(request, context, course, platform_name):
     context['accomplishment_copy_course_name'] = accomplishment_copy_course_name
     course_number = course.display_coursenumber if course.display_coursenumber else course.number
     context['course_number'] = course_number
+<<<<<<< HEAD
+=======
+    context['idv_enabled_for_certificates'] = settings.FEATURES.get('ENABLE_CERTIFICATES_IDV_REQUIREMENT')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if context['organization_long_name']:
         # Translators:  This text represents the description of course
         context['accomplishment_copy_course_description'] = _('a course of study offered by {partner_short_name}, '
@@ -505,7 +541,11 @@ def render_cert_by_uuid(request, certificate_uuid):
     test_func=lambda request: request.GET.get('preview', None)
 )
 @pluggable_override('OVERRIDE_RENDER_CERTIFICATE_VIEW')
+<<<<<<< HEAD
 def render_html_view(request, course_id, certificate=None):
+=======
+def render_html_view(request, course_id, certificate=None):  # pylint: disable=too-many-statements
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     This public view generates an HTML representation of the specified user and course
     If a certificate is not available, we display a "Sorry!" screen instead
@@ -636,8 +676,35 @@ def render_html_view(request, course_id, certificate=None):
         # Track certificate view events
         _track_certificate_events(request, course, user, user_certificate)
 
+<<<<<<< HEAD
         # Render the certificate
         return _render_valid_certificate(request, context, custom_template)
+=======
+        try:
+            # .. filter_implemented_name: CertificateRenderStarted
+            # .. filter_type: org.openedx.learning.certificate.render.started.v1
+            context, custom_template = CertificateRenderStarted.run_filter(
+                context=context,
+                custom_template=custom_template,
+            )
+        except CertificateRenderStarted.RenderAlternativeInvalidCertificate as exc:
+            response = _render_invalid_certificate(
+                request,
+                course_id,
+                platform_name,
+                configuration,
+                cert_path=exc.template_name or INVALID_CERTIFICATE_TEMPLATE_PATH,
+            )
+        except CertificateRenderStarted.RedirectToPage as exc:
+            response = HttpResponseRedirect(exc.redirect_to)
+        except CertificateRenderStarted.RenderCustomResponse as exc:
+            response = exc.response
+        else:
+            response = _render_valid_certificate(request, context, custom_template)
+
+        # Render the certificate
+        return response
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def _get_catalog_data_for_course(course_key):

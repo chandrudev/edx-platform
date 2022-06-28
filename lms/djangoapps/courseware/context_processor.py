@@ -5,11 +5,23 @@ This is meant to simplify the process of sending user preferences (espec. time_z
 to the templates without having to append every view file.
 
 """
+<<<<<<< HEAD
 from django.utils.translation import get_language
 from pytz import timezone
 
 from edx_django_utils.cache import TieredCache
 from lms.djangoapps.courseware.models import LastSeenCoursewareTimezone
+=======
+import string
+
+from django.utils.translation import get_language
+from pytz import timezone
+from pytz.exceptions import UnknownTimeZoneError
+
+from edx_django_utils.cache import TieredCache
+from lms.djangoapps.courseware.models import LastSeenCoursewareTimezone
+from openedx.core.djangoapps.site_configuration.helpers import get_value
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.user_api.errors import UserAPIInternalError, UserNotFound
 from openedx.core.djangoapps.user_api.preferences.api import get_user_preference, get_user_preferences
 from openedx.core.lib.cache_utils import get_cache
@@ -26,6 +38,11 @@ def user_timezone_locale_prefs(request):
     """
     Checks if request has an authenticated user.
     If so, sends set (or none if unset) time_zone and language prefs.
+<<<<<<< HEAD
+=======
+    If site-wide language is set, that language is used over the language set
+    in user preferences.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     This interacts with the DateUtils to either display preferred or attempt to determine
     system/browser set time_zones and languages
@@ -47,6 +64,12 @@ def user_timezone_locale_prefs(request):
                     key: user_preferences.get(pref_name, None)
                     for key, pref_name in RETRIEVABLE_PREFERENCES.items()
                 }
+<<<<<<< HEAD
+=======
+        site_wide_language = get_value('LANGUAGE_CODE', None)
+        if site_wide_language:
+            user_prefs['user_language'] = site_wide_language
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         cached_value.update(user_prefs)
     return cached_value
@@ -75,11 +98,27 @@ def get_user_timezone_or_last_seen_timezone_or_utc(user):
     Helper method for returning a reasonable timezone for a user.
     This method returns the timezone in the user's account if that is set.
     If that is not set, it returns a recent timezone that we have recorded from a user's visit to the courseware.
+<<<<<<< HEAD
     If that is not set, it returns UTC.
+=======
+    If that is not set or the timezone is unknown, it returns UTC.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     user_timezone = (
         get_user_preference(user, 'time_zone') or
         get_last_seen_courseware_timezone(user) or
         'UTC'
     )
+<<<<<<< HEAD
     return timezone(user_timezone)
+=======
+    # We have seen non-printable characters (i.e. \x00) showing up in the
+    # user_timezone (I believe via the get_last_seen_courseware_timezone method).
+    # This sanitizes the user_timezone before passing it in.
+    user_timezone = filter(lambda l: l in string.printable, user_timezone)
+    user_timezone = ''.join(user_timezone)
+    try:
+        return timezone(user_timezone)
+    except UnknownTimeZoneError as err:
+        return timezone('UTC')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

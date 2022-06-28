@@ -19,7 +19,11 @@ from web_fragments.fragment import Fragment
 from lms.djangoapps.courseware.courses import get_course_with_access
 from openedx.core.djangoapps.plugin_api.views import EdxFragmentView
 from openedx.core.djangoapps.user_api.models import UserPreference
+<<<<<<< HEAD
 from openedx.features.course_experience import default_course_url_name
+=======
+from openedx.features.course_experience import default_course_url
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.util.views import ensure_valid_course_key
 
 
@@ -41,8 +45,12 @@ class CourseBookmarksView(View):
         """
         course_key = CourseKey.from_string(course_id)
         course = get_course_with_access(request.user, 'load', course_key, check_if_enrolled=True)
+<<<<<<< HEAD
         course_url_name = default_course_url_name(course.id)
         course_url = reverse(course_url_name, kwargs={'course_id': str(course.id)})
+=======
+        course_url = default_course_url(course.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Render the bookmarks list as a fragment
         bookmarks_fragment = CourseBookmarksFragmentView().render_to_fragment(request, course_id=course_id)

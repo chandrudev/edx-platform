@@ -4,6 +4,10 @@ import logging
 from functools import partial
 
 from django.conf import settings
+<<<<<<< HEAD
+=======
+from django.core.cache import cache
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseBadRequest
 from django.urls import reverse
@@ -15,6 +19,7 @@ from xblock.django.request import django_to_webob_request, webob_to_django_respo
 from xblock.exceptions import NoSuchHandlerError
 from xblock.runtime import KvsFieldData
 
+<<<<<<< HEAD
 from cms.djangoapps.xblock_config.models import StudioConfig
 from cms.lib.xblock.field_data import CmsFieldData
 from common.djangoapps import static_replace
@@ -30,6 +35,8 @@ from openedx.core.lib.xblock_utils import (
     wrap_xblock_aside,
     xblock_local_resource_url
 )
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.contentstore.django import contentstore
 from xmodule.error_module import ErrorBlock
 from xmodule.exceptions import NotFoundError, ProcessingError
@@ -37,6 +44,7 @@ from xmodule.modulestore.django import ModuleI18nService, modulestore
 from xmodule.partitions.partitions_service import PartitionService
 from xmodule.services import SettingsService, TeamsConfigurationService
 from xmodule.studio_editable import has_author_view
+<<<<<<< HEAD
 from xmodule.util.sandboxing import can_execute_unsafe_code, get_python_lib_zip
 from xmodule.util.xmodule_django import add_webpack_to_fragment
 from xmodule.x_module import AUTHOR_VIEW, PREVIEW_VIEWS, STUDENT_VIEW, ModuleSystem, XModule, XModuleDescriptor
@@ -44,6 +52,33 @@ from xmodule.x_module import AUTHOR_VIEW, PREVIEW_VIEWS, STUDENT_VIEW, ModuleSys
 from ..utils import get_visibility_partition_info
 from .access import get_user_role
 from .helpers import render_from_lms
+=======
+from xmodule.util.sandboxing import SandboxService
+from xmodule.util.xmodule_django import add_webpack_to_fragment
+from xmodule.x_module import AUTHOR_VIEW, PREVIEW_VIEWS, STUDENT_VIEW, ModuleSystem
+from cms.djangoapps.xblock_config.models import StudioConfig
+from cms.djangoapps.contentstore.toggles import individualize_anonymous_user_id
+from cms.lib.xblock.field_data import CmsFieldData
+from common.djangoapps.static_replace.services import ReplaceURLService
+from common.djangoapps.static_replace.wrapper import replace_urls_wrapper
+from common.djangoapps.student.models import anonymous_id_for_user
+from common.djangoapps.edxmako.shortcuts import render_to_string
+from common.djangoapps.edxmako.services import MakoService
+from common.djangoapps.xblock_django.user_service import DjangoXBlockUserService
+from lms.djangoapps.lms_xblock.field_data import LmsFieldData
+from openedx.core.lib.license import wrap_with_license
+from openedx.core.lib.cache_utils import CacheService
+from openedx.core.lib.xblock_utils import (
+    request_token,
+    wrap_fragment,
+    wrap_xblock,
+    wrap_xblock_aside,
+    xblock_local_resource_url
+)
+
+from ..utils import get_visibility_partition_info
+from .access import get_user_role
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .session_kv_store import SessionKeyValueStore
 
 __all__ = ['preview_handler']
@@ -160,6 +195,11 @@ def _preview_module_system(request, descriptor, field_data):
     course_id = descriptor.location.course_key
     display_name_only = (descriptor.category == 'static_tab')
 
+<<<<<<< HEAD
+=======
+    replace_url_service = ReplaceURLService(course_id=course_id)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     wrappers = [
         # This wrapper wraps the module in the template specified above
         partial(
@@ -172,7 +212,11 @@ def _preview_module_system(request, descriptor, field_data):
 
         # This wrapper replaces urls in the output that start with /static
         # with the correct course-specific url for the static content
+<<<<<<< HEAD
         partial(replace_static_urls, None, course_id=course_id),
+=======
+        partial(replace_urls_wrapper, replace_url_service=replace_url_service, static_replace_only=True),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         _studio_wrap_xblock,
     ]
 
@@ -185,14 +229,33 @@ def _preview_module_system(request, descriptor, field_data):
         )
     ]
 
+<<<<<<< HEAD
     if settings.FEATURES.get("LICENSING", False):
         # stick the license wrapper in front
         wrappers.insert(0, wrap_with_license)
+=======
+    mako_service = MakoService(namespace_prefix='lms.')
+    if settings.FEATURES.get("LICENSING", False):
+        # stick the license wrapper in front
+        wrappers.insert(0, partial(wrap_with_license, mako_service=mako_service))
+
+    preview_anonymous_user_id = 'student'
+    if individualize_anonymous_user_id(course_id):
+        # There are blocks (capa, html, and video) where we do not want to scope
+        # the anonymous_user_id to specific courses. These are captured in the
+        # block attribute 'requires_per_student_anonymous_id'. Please note,
+        # the course_id field in AnynomousUserID model is blank if value is None.
+        if getattr(descriptor, 'requires_per_student_anonymous_id', False):
+            preview_anonymous_user_id = anonymous_id_for_user(request.user, None)
+        else:
+            preview_anonymous_user_id = anonymous_id_for_user(request.user, course_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     return PreviewModuleSystem(
         static_url=settings.STATIC_URL,
         # TODO (cpennington): Do we want to track how instructors are using the preview problems?
         track_function=lambda event_type, event: None,
+<<<<<<< HEAD
         filestore=descriptor.runtime.resources_fs,
         get_module=partial(_load_preview_module, request),
         render_template=render_from_lms,
@@ -204,21 +267,45 @@ def _preview_module_system(request, descriptor, field_data):
         mixins=settings.XBLOCK_MIXINS,
         course_id=course_id,
         anonymous_student_id='student',
+=======
+        get_module=partial(_load_preview_module, request),
+        debug=True,
+        mixins=settings.XBLOCK_MIXINS,
+        course_id=course_id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Set up functions to modify the fragment produced by student_view
         wrappers=wrappers,
         wrappers_asides=wrappers_asides,
         error_descriptor_class=ErrorBlock,
+<<<<<<< HEAD
         get_user_role=lambda: get_user_role(request.user, course_id),
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Get the raw DescriptorSystem, not the CombinedSystem
         descriptor_runtime=descriptor._runtime,  # pylint: disable=protected-access
         services={
             "field-data": field_data,
             "i18n": ModuleI18nService,
+<<<<<<< HEAD
             "settings": SettingsService(),
             "user": DjangoXBlockUserService(request.user),
             "partitions": StudioPartitionService(course_id=course_id),
             "teams_configuration": TeamsConfigurationService(),
+=======
+            'mako': mako_service,
+            "settings": SettingsService(),
+            "user": DjangoXBlockUserService(
+                request.user,
+                user_role=get_user_role(request.user, course_id),
+                anonymous_user_id=preview_anonymous_user_id,
+            ),
+            "partitions": StudioPartitionService(course_id=course_id),
+            "teams_configuration": TeamsConfigurationService(),
+            "sandbox": SandboxService(contentstore=contentstore, course_id=course_id),
+            "cache": CacheService(cache),
+            'replace_urls': replace_url_service
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         },
     )
 
@@ -302,11 +389,14 @@ def _studio_wrap_xblock(xblock, view, frag, context, display_name_only=False):
             'language': getattr(course, 'language', None)
         }
 
+<<<<<<< HEAD
         if isinstance(xblock, (XModule, XModuleDescriptor)):
             # Add the webpackified asset tags
             class_name = getattr(xblock.__class__, 'unmixed_class', xblock.__class__).__name__
             add_webpack_to_fragment(frag, class_name)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         add_webpack_to_fragment(frag, "js/factories/xblock_validation")
 
         html = render_to_string('studio_xblock_wrapper.html', template_context)

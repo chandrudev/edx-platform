@@ -1,8 +1,11 @@
 """
 This file contains Django middleware related to the site_configuration app.
 """
+<<<<<<< HEAD
 
 import django
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 
@@ -45,10 +48,15 @@ class SessionCookieDomainOverrideMiddleware(MiddlewareMixin):
                     'domain': domain,
                     'secure': secure,
                     'httponly': httponly,
+<<<<<<< HEAD
                 }
                 # samesite flag was added in django 2.1, so only pass it in for django 2.1 or higher
                 if django.VERSION >= (2, 1):
                     kwargs['samesite'] = samesite
+=======
+                    'samesite': samesite
+                }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                 # then call down into the normal Django set_cookie method
                 return response.set_cookie_wrapped_func(key, value, **kwargs)

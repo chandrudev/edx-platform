@@ -9,7 +9,11 @@ from urllib.parse import parse_qsl, quote_plus, urlencode, urlparse, urlunparse
 
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import AssetKey, CourseKey
+<<<<<<< HEAD
 from opaque_keys.edx.locator import AssetLocator
+=======
+from opaque_keys.edx.locator import AssetLocator, LibraryLocatorV2
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from PIL import Image
 
 from xmodule.assetstore.assetmgr import AssetManager
@@ -123,7 +127,11 @@ class StaticContent:  # lint-amnesty, pylint: disable=missing-class-docstring
 
     @staticmethod
     def get_base_url_path_for_course_assets(course_key):  # lint-amnesty, pylint: disable=missing-function-docstring
+<<<<<<< HEAD
         if course_key is None:
+=======
+        if (course_key is None) or isinstance(course_key, LibraryLocatorV2):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return None
 
         assert isinstance(course_key, CourseKey)

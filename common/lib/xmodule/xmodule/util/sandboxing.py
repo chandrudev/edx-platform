@@ -41,3 +41,32 @@ def get_python_lib_zip(contentstore, course_id):
         return zip_lib.data
     else:
         return None
+<<<<<<< HEAD
+=======
+
+
+class SandboxService:
+    """
+    A service which provides utilities for executing sandboxed Python code, for example, inside custom Python questions.
+
+    Args:
+        contentstore(function): function which creates an instance of xmodule.content.ContentStore
+        course_id(string or CourseLocator): identifier for the course
+    """
+    def __init__(self, contentstore, course_id, **kwargs):
+        super().__init__(**kwargs)
+        self.contentstore = contentstore
+        self.course_id = course_id
+
+    def can_execute_unsafe_code(self):
+        """
+        Returns a boolean, true if the course can run outside the sandbox.
+        """
+        return can_execute_unsafe_code(self.course_id)
+
+    def get_python_lib_zip(self):
+        """
+        Return the bytes of the course code library file, if it exists.
+        """
+        return get_python_lib_zip(self.contentstore, self.course_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -29,11 +29,37 @@ from openedx.core.djangolib.markup import HTML, Text
                   <th scope="row">${_("Executive Education")}</th><td>${modes['executive-education']}</td>
               </tr>
             %endif
+<<<<<<< HEAD
+=======
+            %if modes["unpaid-executive-education"] > 0:
+              <tr>
+                  <th scope="row">${_("Unpaid Executive Education")}</th><td>${modes['unpaid-executive-education']}</td>
+              </tr>
+            %endif
+            %if modes["paid-executive-education"] > 0:
+              <tr>
+                  <th scope="row">${_("Paid Executive Education")}</th><td>${modes['paid-executive-education']}</td>
+              </tr>
+            %endif
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             %if modes['masters'] > 0:
                 <tr>
                     <th scope="row">${_("Master's")}</th><td>${modes['masters']}</td>
                 </tr>
             %endif
+<<<<<<< HEAD
+=======
+            %if modes["unpaid-bootcamp"] > 0:
+              <tr>
+                  <th scope="row">${_("Unpaid Bootcamp")}</th><td>${modes['unpaid-bootcamp']}</td>
+              </tr>
+            %endif
+            %if modes["paid-bootcamp"] > 0:
+              <tr>
+                  <th scope="row">${_("Paid Bootcamp")}</th><td>${modes['paid-bootcamp']}</td>
+              </tr>
+            %endif
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             <tr style="color:green;border-top:1px solid #000">
                 <th scope="row" style="padding-top:10px;">
                     <strong>${_("Total")}</strong>

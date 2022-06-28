@@ -19,6 +19,14 @@ from django.utils.translation import gettext as _
 from edx_django_utils.cache import RequestCache
 from opaque_keys.edx.keys import CourseKey
 from pytz import UTC
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, SampleCourseFactory
+from xmodule.x_module import XModuleMixin
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from capa.tests.response_xml_factory import StringResponseXMLFactory
 from common.djangoapps.edxmako.shortcuts import render_to_response
@@ -42,6 +50,7 @@ from openedx.core.djangoapps.content.course_overviews.models import CourseOvervi
 from openedx.core.djangoapps.django_comment_common.models import FORUM_ROLE_ADMINISTRATOR
 from openedx.core.djangoapps.django_comment_common.utils import are_permissions_roles_seeded
 from openedx.core.lib.courses import get_course_by_id
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import (
@@ -51,6 +60,8 @@ from xmodule.modulestore.tests.django_utils import (
 )
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, SampleCourseFactory
 from xmodule.x_module import XModuleMixin
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def intercept_renderer(path, context):
@@ -128,8 +139,11 @@ class TestAdminAccessCoachDashboard(CcxTestCase, LoginEnrollmentTestCase):
     """
     Tests for Custom Courses views.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         super().setUp()
         self.make_coach()
@@ -605,7 +619,11 @@ class TestCoachDashboard(CcxTestCase, LoginEnrollmentTestCase):
         enrollment = CourseEnrollmentFactory(course_id=self.course.id)
         student = enrollment.user
         outbox = self.get_outbox()
+<<<<<<< HEAD
         assert outbox == []
+=======
+        assert not outbox
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         url = reverse(
             view_name,
@@ -687,7 +705,11 @@ class TestCoachDashboard(CcxTestCase, LoginEnrollmentTestCase):
         enrollment = CourseEnrollmentFactory(course_id=course_key)
         student = enrollment.user
         outbox = self.get_outbox()
+<<<<<<< HEAD
         assert outbox == []
+=======
+        assert not outbox
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         url = reverse(
             view_name,
@@ -729,7 +751,11 @@ class TestCoachDashboard(CcxTestCase, LoginEnrollmentTestCase):
         ccx = self.make_ccx()
         course_key = CCXLocator.from_course_locator(self.course.id, ccx.id)
         outbox = self.get_outbox()
+<<<<<<< HEAD
         assert outbox == []
+=======
+        assert not outbox
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         url = reverse(
             view_name,
@@ -777,7 +803,11 @@ class TestCoachDashboard(CcxTestCase, LoginEnrollmentTestCase):
         course_key = CCXLocator.from_course_locator(course.id, ccx.id)
         outbox = self.get_outbox()
         CourseEnrollmentAllowed(course_id=course_key, email=identifier)
+<<<<<<< HEAD
         assert outbox == []
+=======
+        assert not outbox
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         url = reverse(
             view_name,
@@ -948,8 +978,11 @@ class TestCCXGrades(FieldOverrideTestMixin, SharedModuleStoreTestCase, LoginEnro
     """
     Tests for Custom Courses views.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -1201,12 +1234,19 @@ class TestStudentViewsWithCCX(ModuleStoreTestCase):
         """
         super().setUp()
 
+<<<<<<< HEAD
         # Create a Draft Mongo and a Split Mongo course and enroll a student user in them.
         self.student_password = "foobar"
         self.student = UserFactory.create(username="test", password=self.student_password, is_staff=False)
         self.draft_course = SampleCourseFactory.create(default_store=ModuleStoreEnum.Type.mongo)
         self.split_course = SampleCourseFactory.create(default_store=ModuleStoreEnum.Type.split)
         CourseEnrollment.enroll(self.student, self.draft_course.id)
+=======
+        # Create a Split Mongo course and enroll a student user in it.
+        self.student_password = "foobar"
+        self.student = UserFactory.create(username="test", password=self.student_password, is_staff=False)
+        self.split_course = SampleCourseFactory.create(default_store=ModuleStoreEnum.Type.split)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         CourseEnrollment.enroll(self.student, self.split_course.id)
 
         # Create a CCX coach.
@@ -1229,5 +1269,10 @@ class TestStudentViewsWithCCX(ModuleStoreTestCase):
 
     def test_load_courseware(self):
         self.client.login(username=self.student.username, password=self.student_password)
+<<<<<<< HEAD
         response = self.client.get(reverse('courseware', kwargs={'course_id': str(self.ccx_course_key)}))
+=======
+        sequence_key = self.ccx_course_key.make_usage_key('sequential', 'sequential_x1')
+        response = self.client.get(reverse('render_xblock', args=[str(sequence_key)]))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200

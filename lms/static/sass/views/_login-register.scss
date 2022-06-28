@@ -320,6 +320,15 @@ ul.fa-ul{
       width: calc(50% - 10px);
     }
 
+<<<<<<< HEAD
+=======
+    &.checkbox-marketing_emails_opt_in {
+      .label-text {
+        font-size: small !important;
+      }
+    }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     .label-text-small {
       font-size: small;
     }
@@ -508,6 +517,17 @@ ul.fa-ul{
     /** FROM _accounts.scss - end **/
   }
 
+<<<<<<< HEAD
+=======
+
+  .optional-fields {
+      &.full-length-fields {
+          .select-gender {
+              width: 100%;
+          }
+      }
+  }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   .input-block {
     width: 100%;
     border-color: $gray;

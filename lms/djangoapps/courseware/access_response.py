@@ -8,7 +8,11 @@ from django.utils.translation import gettext as _
 from xmodule.course_metadata_utils import DEFAULT_START_DATE
 
 
+<<<<<<< HEAD
 class AccessResponse:  # pylint: disable=eq-without-hash
+=======
+class AccessResponse:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """Class that represents a response from a has_access permission check."""
     def __init__(self, has_access, error_code=None, developer_message=None, user_message=None,
                  additional_context_user_message=None, user_fragment=None):
@@ -238,6 +242,7 @@ class AuthenticationRequiredAccessError(AccessError):
         super().__init__(error_code, developer_message, user_message)
 
 
+<<<<<<< HEAD
 class CoursewareMicrofrontendDisabledAccessError(AccessError):
     """
     Access denied because the courseware micro-frontend is disabled for this user.
@@ -246,4 +251,16 @@ class CoursewareMicrofrontendDisabledAccessError(AccessError):
         error_code = 'microfrontend_disabled'
         developer_message = 'Micro-frontend is disabled for this user'
         user_message = _('Please view your course in the existing experience')
+=======
+class OldMongoAccessError(AccessError):
+    """
+    Access denied because the course is in Old Mongo and we no longer support them. See DEPR-58.
+    """
+    def __init__(self, courselike):
+        error_code = 'old_mongo'
+        developer_message = 'Access to Old Mongo courses is unsupported'
+        user_message = _('{course_name} is no longer available.').format(
+            course_name=courselike.display_name_with_default,
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         super().__init__(error_code, developer_message, user_message)

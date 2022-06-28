@@ -4,7 +4,10 @@ from lms.djangoapps.grades.config.waffle import (
     ENFORCE_FREEZE_GRADE_AFTER_COURSE_END,
     REJECTED_EXAM_OVERRIDES_GRADE,
     WRITABLE_GRADEBOOK,
+<<<<<<< HEAD
     waffle_flags,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 
@@ -12,6 +15,7 @@ def create_flag(apps, schema_editor):
     Flag = apps.get_model('waffle', 'Flag')
     # Replacement for flag_undefined_default=True on flag definition
     Flag.objects.get_or_create(
+<<<<<<< HEAD
         name=waffle_flags()[REJECTED_EXAM_OVERRIDES_GRADE].name, defaults={'everyone': True}
     )
     Flag.objects.get_or_create(
@@ -19,6 +23,15 @@ def create_flag(apps, schema_editor):
     )
     Flag.objects.get_or_create(
         name=waffle_flags()[WRITABLE_GRADEBOOK].name, defaults={'everyone': True}
+=======
+        name=REJECTED_EXAM_OVERRIDES_GRADE.name, defaults={'everyone': True}
+    )
+    Flag.objects.get_or_create(
+        name=ENFORCE_FREEZE_GRADE_AFTER_COURSE_END.name, defaults={'everyone': True}
+    )
+    Flag.objects.get_or_create(
+        name=WRITABLE_GRADEBOOK.name, defaults={'everyone': True}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
 
 

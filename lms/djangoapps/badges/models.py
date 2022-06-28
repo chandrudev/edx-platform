@@ -20,7 +20,11 @@ from opaque_keys.edx.keys import CourseKey
 
 from lms.djangoapps.badges.utils import deserialize_count_specs
 from openedx.core.djangolib.markup import HTML, Text
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def validate_badge_image(image):

@@ -39,6 +39,7 @@ from common.djangoapps.student import auth
 from common.djangoapps.student.roles import CourseInstructorRole, CourseStaffRole
 from common.djangoapps.util import milestones_helpers
 from openedx.core.lib.extract_tar import safetar_extractall
+<<<<<<< HEAD
 from xmodule.contentstore.django import contentstore
 from xmodule.modulestore import LIBRARY_ROOT, ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
@@ -47,6 +48,16 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, Libr
 from xmodule.modulestore.tests.utils import SPLIT_MODULESTORE_SETUP, TEST_DATA_DIR, MongoContentstoreBuilder
 from xmodule.modulestore.xml_exporter import export_course_to_xml, export_library_to_xml
 from xmodule.modulestore.xml_importer import (
+=======
+from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import LIBRARY_ROOT, ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import DuplicateCourseError, InvalidProctoringProvider  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, LibraryFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.utils import SPLIT_MODULESTORE_SETUP, TEST_DATA_DIR, MongoContentstoreBuilder  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.xml_exporter import export_course_to_xml, export_library_to_xml  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.xml_importer import (  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     CourseImportManager,
     ErrorReadingFileException,
     import_course_from_xml,
@@ -675,6 +686,20 @@ class ImportTestCase(CourseTestCase):
         status_response = self.get_import_status(self.course.id, self.good_tar)
         self.assertImportStatusResponse(status_response, self.UpdatingError, import_error.UNKNOWN_ERROR_IN_IMPORT)
 
+<<<<<<< HEAD
+=======
+    def test_import_status_response_is_not_cached(self):
+        """To test import_status endpoint response is not cached"""
+        resp = self.client.get(
+            reverse_course_url(
+                'import_status_handler',
+                self.course.id,
+                kwargs={'filename': os.path.split(self.good_tar)[1]}
+            )
+        )
+        self.assertEqual(resp.headers['Cache-Control'], 'no-cache, no-store, must-revalidate')
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 @override_settings(CONTENTSTORE=TEST_DATA_CONTENTSTORE)
 @ddt.ddt
@@ -850,6 +875,7 @@ class ExportTestCase(CourseTestCase):
         root_dir = path(tempfile.mkdtemp())
         try:
             export_library_to_xml(self.store, contentstore(), lib_key, root_dir, name)
+<<<<<<< HEAD
             lib_xml = lxml.etree.XML(open(root_dir / name / LIBRARY_ROOT).read())
             self.assertEqual(lib_xml.get('org'), lib_key.org)
             self.assertEqual(lib_xml.get('library'), lib_key.library)
@@ -859,6 +885,19 @@ class ExportTestCase(CourseTestCase):
             video_xml = lxml.etree.XML(open(root_dir / name / 'video' / video_block.url_name + '.xml').read())
             self.assertEqual(video_xml.tag, 'video')
             self.assertEqual(video_xml.get('youtube_id_1_0'), youtube_id)
+=======
+            with open(root_dir / name / LIBRARY_ROOT) as xml_root:
+                lib_xml = lxml.etree.XML(xml_root.read())
+                self.assertEqual(lib_xml.get('org'), lib_key.org)
+                self.assertEqual(lib_xml.get('library'), lib_key.library)
+                block = lib_xml.find('video')
+                self.assertIsNotNone(block)
+                self.assertEqual(block.get('url_name'), video_block.url_name)
+            with open(root_dir / name / 'video' / video_block.url_name + '.xml') as xml_block:
+                video_xml = lxml.etree.XML(xml_block.read())
+                self.assertEqual(video_xml.tag, 'video')
+                self.assertEqual(video_xml.get('youtube_id_1_0'), youtube_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         finally:
             shutil.rmtree(root_dir / name)
 

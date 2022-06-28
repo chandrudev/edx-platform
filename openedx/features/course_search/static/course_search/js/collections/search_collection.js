@@ -55,7 +55,11 @@
                         self.trigger('search');
                     },
                     error: function(self, response) {
+<<<<<<< HEAD
                         self.errorMessage = self.extractErrorMessage(response);
+=======
+                        self.errorMessage = self.extractErrorMessage(response); // eslint-disable-line no-param-reassign
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         self.trigger('error');
                     }
                 });
@@ -78,7 +82,11 @@
                         self.trigger('next');
                     },
                     error: function(self, response) {
+<<<<<<< HEAD
                         self.errorMessage = self.extractErrorMessage(response);
+=======
+                        self.errorMessage = self.extractErrorMessage(response); // eslint-disable-line no-param-reassign
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         self.trigger('error');
                     },
                     add: true,

@@ -13,10 +13,17 @@ import ddt
 import httpretty
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
+<<<<<<< HEAD
 from django.test import TestCase
 from django.test.utils import override_settings
 from opaque_keys.edx.keys import CourseKey
 from requests import Timeout
+=======
+from django.test.utils import override_settings
+from opaque_keys.edx.keys import CourseKey
+from requests import Timeout
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.signals import REFUND_ORDER
@@ -34,7 +41,11 @@ ZENDESK_API_KEY = 'abc123'
 
 @ddt.ddt
 @override_settings(ZENDESK_URL=ZENDESK_URL, ZENDESK_USER=ZENDESK_USER, ZENDESK_API_KEY=ZENDESK_API_KEY)
+<<<<<<< HEAD
 class TestRefundSignal(TestCase):
+=======
+class TestRefundSignal(ModuleStoreTestCase):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Exercises logic triggered by the REFUND_ORDER signal.
     """

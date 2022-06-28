@@ -154,6 +154,7 @@ class CountMongoCallsCourseTraversal(TestCase):
         (MIXED_OLD_MONGO_MODULESTORE_BUILDER, 0, True, False, 359),
         # The line below shows the way this traversal *should* be done
         # (if you'll eventually access all the fields and load all the definitions anyway).
+<<<<<<< HEAD
         (MIXED_SPLIT_MODULESTORE_BUILDER, None, False, True, 3),
         (MIXED_SPLIT_MODULESTORE_BUILDER, None, True, True, 38),
         (MIXED_SPLIT_MODULESTORE_BUILDER, 0, False, True, 38),
@@ -162,6 +163,16 @@ class CountMongoCallsCourseTraversal(TestCase):
         (MIXED_SPLIT_MODULESTORE_BUILDER, None, True, False, 3),
         (MIXED_SPLIT_MODULESTORE_BUILDER, 0, False, False, 3),
         (MIXED_SPLIT_MODULESTORE_BUILDER, 0, True, False, 3)
+=======
+        (MIXED_SPLIT_MODULESTORE_BUILDER, None, False, True, 2),
+        (MIXED_SPLIT_MODULESTORE_BUILDER, None, True, True, 37),
+        (MIXED_SPLIT_MODULESTORE_BUILDER, 0, False, True, 37),
+        (MIXED_SPLIT_MODULESTORE_BUILDER, 0, True, True, 37),
+        (MIXED_SPLIT_MODULESTORE_BUILDER, None, False, False, 2),
+        (MIXED_SPLIT_MODULESTORE_BUILDER, None, True, False, 2),
+        (MIXED_SPLIT_MODULESTORE_BUILDER, 0, False, False, 2),
+        (MIXED_SPLIT_MODULESTORE_BUILDER, 0, True, False, 2),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_number_mongo_calls(self, store_builder, depth, lazy, access_all_block_fields, num_mongo_calls):
@@ -178,7 +189,11 @@ class CountMongoCallsCourseTraversal(TestCase):
 
     @ddt.data(
         (MIXED_OLD_MONGO_MODULESTORE_BUILDER, 176),
+<<<<<<< HEAD
         (MIXED_SPLIT_MODULESTORE_BUILDER, 4),
+=======
+        (MIXED_SPLIT_MODULESTORE_BUILDER, 3),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_lazy_when_course_previously_cached(self, store_builder, num_mongo_calls):

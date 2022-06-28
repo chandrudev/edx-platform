@@ -6,7 +6,11 @@ Video block URL Transformer
 from django.conf import settings
 
 from openedx.core.djangoapps.content.block_structure.transformer import BlockStructureTransformer
+<<<<<<< HEAD
 from xmodule.video_module.video_utils import rewrite_video_url
+=======
+from xmodule.video_module.video_utils import rewrite_video_url  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .student_view import StudentViewTransformer
 

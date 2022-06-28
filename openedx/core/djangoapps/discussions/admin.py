@@ -7,7 +7,11 @@ from simple_history.admin import SimpleHistoryAdmin
 
 from openedx.core.djangoapps.config_model_utils.admin import StackedConfigModelAdmin
 
+<<<<<<< HEAD
 from .models import DiscussionsConfiguration, ProgramDiscussionsConfiguration
+=======
+from .models import DiscussionsConfiguration
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .models import ProviderFilter
 
 
@@ -27,6 +31,7 @@ class DiscussionsConfigurationAdmin(SimpleHistoryAdmin):
     )
 
 
+<<<<<<< HEAD
 class ProgramDiscussionsConfigurationAdmin(SimpleHistoryAdmin):
     """
     Customize the admin interface for the program discussions configuration
@@ -43,6 +48,8 @@ class ProgramDiscussionsConfigurationAdmin(SimpleHistoryAdmin):
     )
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class AllowListFilter(SimpleListFilter):
     """
     Customize the admin interface for the AllowList
@@ -102,7 +109,11 @@ class ProviderFilterAdmin(StackedConfigModelAdmin):
         DenyListFilter,
     )
 
+<<<<<<< HEAD
 
 admin.site.register(DiscussionsConfiguration, DiscussionsConfigurationAdmin)
 admin.site.register(ProgramDiscussionsConfiguration, ProgramDiscussionsConfigurationAdmin)
+=======
+admin.site.register(DiscussionsConfiguration, DiscussionsConfigurationAdmin)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 admin.site.register(ProviderFilter, ProviderFilterAdmin)

@@ -166,7 +166,12 @@ class ConditionalBlockBasicTest(unittest.TestCase):
         # because get_test_system returns the repr of the context dict passed to render_template,
         # we reverse it here
         html = modules['cond_module'].render(STUDENT_VIEW).content
+<<<<<<< HEAD
         expected = modules['cond_module'].xmodule_runtime.render_template('conditional_ajax.html', {
+=======
+        mako_service = modules['cond_module'].xmodule_runtime.service(modules['cond_module'], 'mako')
+        expected = mako_service.render_template('conditional_ajax.html', {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'ajax_url': modules['cond_module'].ajax_url,
             'element_id': 'i4x-edX-conditional_test-conditional-SampleConditional',
             'depends': 'i4x-edX-conditional_test-problem-SampleProblem',
@@ -178,7 +183,10 @@ class ConditionalBlockBasicTest(unittest.TestCase):
         modules['cond_module'].save()
         modules['source_module'].is_attempted = "false"
         ajax = json.loads(modules['cond_module'].handle_ajax('', ''))
+<<<<<<< HEAD
         print("ajax: ", ajax)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         fragments = ajax['fragments']
         assert not any(('This is a secret' in item['content']) for item in fragments)
 
@@ -186,7 +194,10 @@ class ConditionalBlockBasicTest(unittest.TestCase):
         modules['source_module'].is_attempted = "true"
         ajax = json.loads(modules['cond_module'].handle_ajax('', ''))
         modules['cond_module'].save()
+<<<<<<< HEAD
         print("post-attempt ajax: ", ajax)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         fragments = ajax['fragments']
         assert any(('This is a secret' in item['content']) for item in fragments)
 
@@ -220,6 +231,7 @@ class ConditionalBlockXmlTest(unittest.TestCase):
     Make sure ConditionalBlock works, by loading data in from an XML-defined course.
     """
 
+<<<<<<< HEAD
     @staticmethod
     def get_system(load_error_modules=True):
         '''Get a dummy system'''
@@ -238,11 +250,25 @@ class ConditionalBlockXmlTest(unittest.TestCase):
         self.modulestore = modulestore  # lint-amnesty, pylint: disable=attribute-defined-outside-init
         assert len(courses) == 1
         return courses[0]
+=======
+    def setUp(self):
+        super().setUp()
+        self.test_system = get_test_system()
+        self.modulestore = XMLModuleStore(DATA_DIR, source_dirs=['conditional_and_poll'])
+        courses = self.modulestore.get_courses()
+        assert len(courses) == 1
+        self.course = courses[0]
+
+    def get_module_for_location(self, location):
+        descriptor = self.modulestore.get_item(location, depth=None)
+        return self.test_system.get_module(descriptor)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @patch('xmodule.x_module.descriptor_global_local_resource_url')
     @patch.dict(settings.FEATURES, {'ENABLE_EDXNOTES': False})
     def test_conditional_module(self, _):
         """Make sure that conditional module works"""
+<<<<<<< HEAD
 
         print("Starting import")
         course = self.get_course('conditional_and_poll')
@@ -259,11 +285,14 @@ class ConditionalBlockXmlTest(unittest.TestCase):
             descriptor.xmodule_runtime.get_module = inner_get_module
             return descriptor
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # edx - HarvardX
         # cond_test - ER22x
         location = BlockUsageLocator(CourseLocator("HarvardX", "ER22x", "2013_Spring", deprecated=True),
                                      "conditional", "condone", deprecated=True)
 
+<<<<<<< HEAD
         def replace_urls(text, staticfiles_prefix=None, replace_prefix='/static/', course_namespace=None):  # lint-amnesty, pylint: disable=unused-argument
             return text
         self.test_system.replace_urls = replace_urls
@@ -278,6 +307,12 @@ class ConditionalBlockXmlTest(unittest.TestCase):
         print("html type: ", type(html))
         print("html: ", html)
         html_expect = module.xmodule_runtime.render_template(
+=======
+        module = self.get_module_for_location(location)
+        html = module.render(STUDENT_VIEW).content
+        mako_service = module.xmodule_runtime.service(module, 'mako')
+        html_expect = mako_service.render_template(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'conditional_ajax.html',
             {
                 # Test ajax url is just usage-id / handler_name
@@ -288,22 +323,31 @@ class ConditionalBlockXmlTest(unittest.TestCase):
         )
         assert html == html_expect
 
+<<<<<<< HEAD
         gdi = module.get_display_items()
         print("gdi=", gdi)
 
         ajax = json.loads(module.handle_ajax('', ''))
         module.save()
         print("ajax: ", ajax)
+=======
+        ajax = json.loads(module.handle_ajax('', ''))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         fragments = ajax['fragments']
         assert not any(('This is a secret' in item['content']) for item in fragments)
 
         # Now change state of the capa problem to make it completed
+<<<<<<< HEAD
         inner_module = inner_get_module(location.replace(category="problem", name='choiceprob'))
+=======
+        inner_module = self.get_module_for_location(location.replace(category="problem", name='choiceprob'))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         inner_module.attempts = 1
         # Save our modifications to the underlying KeyValueStore so they can be persisted
         inner_module.save()
 
         ajax = json.loads(module.handle_ajax('', ''))
+<<<<<<< HEAD
         module.save()
         print("post-attempt ajax: ", ajax)
         fragments = ajax['fragments']
@@ -311,6 +355,11 @@ class ConditionalBlockXmlTest(unittest.TestCase):
 
     maxDiff = None
 
+=======
+        fragments = ajax['fragments']
+        assert any(('This is a secret' in item['content']) for item in fragments)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_conditional_module_with_empty_sources_list(self):
         """
         If a ConditionalBlock is initialized with an empty sources_list, we assert that the sources_list is set

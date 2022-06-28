@@ -1,11 +1,20 @@
 <%page expression_filter="h"/>
 <%namespace name='static' file='static_content.html'/>
+<<<<<<< HEAD
 <%! from django.utils.translation import ugettext as _ %>
 
 <section class="courses-container">
   <section class="highlighted-courses">
 
     % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+=======
+<%! from django.utils.translation import gettext as _ %>
+
+<section class="courses-container">
+  <section class="highlighted-courses">
+    % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+    
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       <section class="courses">
         <ul class="courses-listing">
           ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
@@ -26,3 +35,10 @@
 
   </section>
 </section>
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

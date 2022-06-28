@@ -6,7 +6,11 @@
 <%namespace file='../main.html' import="login_query"/>
 <%!
 from django.urls import reverse
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 %>
 
@@ -26,6 +30,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
     help_link = doc_link
 %>
 
+<<<<<<< HEAD
 <div class="nav-links">
   <div class="main">
     % if show_dashboard_tabs:
@@ -62,3 +67,37 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
     <%include file="user_dropdown.html"/>
   </div>
 </div>
+=======
+<header style="display: flex; justify-content: space-between; padding: 8px 72px;">
+  <img src="https://launchpadedx.s3.us-west-1.amazonaws.com/logo.svg" width="160px"/>
+  <div style="display: flex; align-items:center; gap: 20px;">
+      <ul style="list-style: none; display: flex; gap: 40px">
+          <li style="color: #000; font-size: 20px; font-weight: 900">
+            % if show_explore_courses:
+            <a class="${'active ' if reverse('dashboard') == request.path else ''}tab-nav-link" href="${reverse('dashboard')}" style='color : #000000'
+            aria-current="${'page' if reverse('dashboard') == request.path else 'false'}">
+            ${_("Dashboard")}
+            </a>
+          % endif
+          </li>
+          <li style="color: #000; font-size: 20px; font-weight: 900">
+            <a class="coading-link" href="" style="color: #000"  target="_blank">${_("Coading Lab")}</a> 
+          </li>
+          <li style="color: #000; font-size: 20px; font-weight: 900">
+            % if enable_help_link:
+              <div class="mobile-nav-item hidden-mobile nav-item">
+                <a class="help-link discover-new-link" style="color: #000000" href="${help_link}" rel="noopener" target="_blank">${_("Learn")}</a>
+              </div>
+            % endif
+          </li>
+      </ul>
+      <ul style="list-style: none; padding: 0; display: flex; gap: 20px; align-items: center;">
+          <li style="display: flex; align-items: center;"><img src="https://launchpadedx.s3.us-west-1.amazonaws.com/icon_coin_back.svg" /> <span style="color: #FFC12D; font-size: 20px; font-weight: 600">3</span> </li>
+          <li style="display: flex; align-items: center;"><img src="https://launchpadedx.s3.us-west-1.amazonaws.com/icon.svg" /> <span style="color: #C88E57; margin-left: 6px; display: block; font-size: 20px; font-weight: 600">1</span> </li>
+          <%include file="user_dropdown.html"/>
+      </ul>
+  </div>
+</header>
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

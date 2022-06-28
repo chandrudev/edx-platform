@@ -364,7 +364,11 @@
 
             if ((direction === 'next') && (this.position >= this.contents.length)) {
                 targetUrl = this.nextUrl;
+<<<<<<< HEAD
             } else if ((direction === 'previous') && (this.position === 1)) {
+=======
+            } else if ((direction === 'previous')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 targetUrl = this.prevUrl;
             }
 
@@ -425,6 +429,11 @@
                     }
                 });
             }
+<<<<<<< HEAD
+=======
+            // Reload progress bar
+            this.$('#progress-frame').attr('src', this.$('#progress-frame').attr('src'));
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         };
 
         Sequence.prototype.mark_active = function(position) {

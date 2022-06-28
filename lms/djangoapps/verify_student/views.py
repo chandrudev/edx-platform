@@ -6,6 +6,10 @@ import decimal
 import json
 import logging
 import urllib
+<<<<<<< HEAD
+=======
+from urllib.parse import urljoin
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -21,12 +25,20 @@ from django.utils.translation import gettext_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic.base import View
+<<<<<<< HEAD
 from edx_name_affirmation.toggles import is_verified_name_enabled
 from edx_rest_api_client.exceptions import SlumberBaseException
 from ipware.ip import get_client_ip
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.response import Response
 from rest_framework.views import APIView
+=======
+from opaque_keys.edx.keys import CourseKey
+from requests.exceptions import RequestException
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.edxmako.shortcuts import render_to_response
@@ -41,6 +53,7 @@ from lms.djangoapps.verify_student.image import InvalidImageData, decode_image_d
 from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification, VerificationDeadline
 from lms.djangoapps.verify_student.tasks import send_verification_status_email
 from lms.djangoapps.verify_student.utils import can_verify_now
+<<<<<<< HEAD
 from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
 from openedx.core.djangoapps.embargo import api as embargo_api
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
@@ -49,6 +62,12 @@ from openedx.core.djangoapps.user_api.accounts.api import update_account_setting
 from openedx.core.djangoapps.user_api.errors import AccountValidationError, UserNotFound
 from openedx.core.lib.log_utils import audit_log
 from xmodule.modulestore.django import modulestore
+=======
+from openedx.core.djangoapps.commerce.utils import get_ecommerce_api_base_url, get_ecommerce_api_client
+from openedx.core.djangoapps.embargo import api as embargo_api
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.lib.log_utils import audit_log
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .services import IDVerificationService
 
@@ -239,12 +258,16 @@ class PayAndVerifyView(View):
 
         # Check whether the user has access to this course
         # based on country access rules.
+<<<<<<< HEAD
         redirect_url = embargo_api.redirect_if_blocked(
             course_key,
             user=request.user,
             ip_address=get_client_ip(request)[0],
             url=request.path
         )
+=======
+        redirect_url = embargo_api.redirect_if_blocked(request, course_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if redirect_url:
             return redirect(redirect_url)
 
@@ -396,7 +419,14 @@ class PayAndVerifyView(View):
         verification_good_until = self._verification_valid_until(request.user)
 
         # get available payment processors
+<<<<<<< HEAD
         processors = ecommerce_api_client(request.user).payment.processors.get()
+=======
+        api_url = urljoin(f"{get_ecommerce_api_base_url()}/", "payment/processors/")
+        response = get_ecommerce_api_client(request.user).get(api_url)
+        response.raise_for_status()
+        processors = response.json()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Render the top-level page
         context = {
@@ -716,6 +746,7 @@ class PayAndVerifyView(View):
 
 
 def checkout_with_ecommerce_service(user, course_key, course_mode, processor):
+<<<<<<< HEAD
     """ Create a new basket and trigger immediate checkout, using the E-Commerce API. """
     course_id = str(course_key)
     try:
@@ -730,6 +761,30 @@ def checkout_with_ecommerce_service(user, course_key, course_mode, processor):
         # Pass the payment parameters directly from the API response.
         return result.get('payment_data')
     except SlumberBaseException:
+=======
+    """
+    Create a new basket and trigger immediate checkout, using the E-Commerce API.
+    """
+    course_id = str(course_key)
+    try:
+        api_client = get_ecommerce_api_client(user)
+        api_url = urljoin(f"{get_ecommerce_api_base_url()}/", "baskets/")
+        # Make an API call to create the order and retrieve the results
+        response = api_client.post(
+            api_url,
+            json={
+                'products': [{'sku': course_mode.sku}],
+                'checkout': True,
+                'payment_processor_name': processor
+            }
+        )
+        response.raise_for_status()
+        result = response.json()
+
+        # Pass the payment parameters directly from the API response.
+        return result.get('payment_data')
+    except RequestException:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         params = {'username': user.username, 'mode': course_mode.slug, 'course_id': course_id}
         log.exception('Failed to create order for %(username)s %(mode)s mode of %(course_id)s', params)
         raise
@@ -832,9 +887,12 @@ class SubmitPhotosView(View):
             face_image (str): base64-encoded image data of the user's face.
             photo_id_image (str): base64-encoded image data of the user's photo ID.
             full_name (str): The user's full name, if the user is requesting a name change as well.
+<<<<<<< HEAD
             experiment_name (str): The name of an A/B experiment associated with this attempt
             portrait_photo_mode (str): The mode in which the portrait photo was taken
             id_photo_mode (str): The mode in which the id photo was taken
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         """
         # If the user already has an initial verification attempt, we can re-use the photo ID
@@ -850,12 +908,15 @@ class SubmitPhotosView(View):
         if "full_name" in params:
             full_name = params["full_name"]
 
+<<<<<<< HEAD
         # If necessary, update the user's full name
         if full_name is not None and not is_verified_name_enabled():
             response = self._update_full_name(request, full_name)
             if response is not None:
                 return response
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Retrieve the image data
         # Validation ensures that we'll have a face image, but we may not have
         # a photo ID image if this is a re-verification.
@@ -871,6 +932,7 @@ class SubmitPhotosView(View):
             return response
 
         # Submit the attempt
+<<<<<<< HEAD
         attempt = self._submit_attempt(request.user, face_image, photo_id_image, initial_verification, full_name)
 
         # Send event to segment for analyzing A/B testing data
@@ -887,6 +949,9 @@ class SubmitPhotosView(View):
                 "id_photo_mode": params.get("id_photo_mode")
             }
             self._fire_event(request.user, "edx.bi.experiment.verification.attempt.photo.mode", mode_data)
+=======
+        self._submit_attempt(request.user, face_image, photo_id_image, initial_verification, full_name)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self._fire_event(request.user, "edx.bi.verify.submitted", {"category": "verification"})
         self._send_confirmation_email(request.user)
@@ -911,9 +976,12 @@ class SubmitPhotosView(View):
                 "face_image",
                 "photo_id_image",
                 "full_name",
+<<<<<<< HEAD
                 "experiment_name",
                 "portrait_photo_mode",
                 "id_photo_mode"
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             ]
             if param_name in request.POST
         }
@@ -944,6 +1012,7 @@ class SubmitPhotosView(View):
 
         return params, None
 
+<<<<<<< HEAD
     def _update_full_name(self, request, full_name):
         """
         Update the user's full name.
@@ -974,6 +1043,8 @@ class SubmitPhotosView(View):
             )
             return HttpResponseBadRequest(msg)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _validate_and_decode_image_data(self, request, face_data, photo_id_data=None):
         """
         Validate and decode image data sent with the request.
@@ -1202,6 +1273,7 @@ def results_callback(request):  # lint-amnesty, pylint: disable=too-many-stateme
             f"Result {result} not understood. Known results: PASS, FAIL, SYSTEM FAIL"
         )
 
+<<<<<<< HEAD
     # Send event to segment for analyzing A/B testing data
     data = {
         "attempt_id": attempt.id,
@@ -1209,6 +1281,8 @@ def results_callback(request):  # lint-amnesty, pylint: disable=too-many-stateme
     }
     segment.track(attempt.user.id, "edx.bi.experiment.verification.attempt.result", data)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return HttpResponse("OK!")
 
 

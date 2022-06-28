@@ -1,6 +1,10 @@
 # #-#-#-#-#  djangojs-partial.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Turkish (Turkey) (http://www.transifex.com/open-edx/edx-platform/language/tr_TR/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
+=======
+# Copyright (C) 2022 EdX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -11,6 +15,10 @@
 # baris <brscvs@gmail.com>, 2013
 # Burak Özalp <realburq@gmail.com>, 2013
 # Burak Özalp <realburq@gmail.com>, 2013
+<<<<<<< HEAD
+=======
+# Dilek E, 2022
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Emrah Emirtekin <eemirtekin@gmail.com>, 2014-2015
 # emreusta <emreusta7@gmail.com>, 2014
 # Erdoğan Şahin, 2016
@@ -30,7 +38,11 @@
 # ElektrikAkar <volkan.kumtepeli@gmail.com>, 2014
 # #-#-#-#-#  djangojs-studio.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Turkish (Turkey) (http://www.transifex.com/open-edx/edx-platform/language/tr_TR/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
+=======
+# Copyright (C) 2022 EdX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -55,9 +67,15 @@
 # ElektrikAkar <volkan.kumtepeli@gmail.com>, 2014
 # #-#-#-#-#  djangojs-account-settings-view.po (0.1a)  #-#-#-#-#
 # edX community translations have been downloaded from Turkish (Turkey) (https://www.transifex.com/open-edx/teams/6205/tr_TR/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 # EdX Team <info@edx.org>, 2021.
+=======
+# Copyright (C) 2022 EdX
+# This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+# EdX Team <info@edx.org>, 2022.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #
 # Translators:
 # Pelin Çılgın <pelincilgin@hotmail.com>, 2019
@@ -66,7 +84,11 @@
 #
 # #-#-#-#-#  underscore.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Turkish (Turkey) (http://www.transifex.com/open-edx/edx-platform/language/tr_TR/)
+<<<<<<< HEAD
 # Copyright (C) 2021 edX
+=======
+# Copyright (C) 2022 edX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -85,7 +107,11 @@
 # sevde <savda95@hotmail.com>, 2015
 # #-#-#-#-#  underscore-studio.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Turkish (Turkey) (http://www.transifex.com/open-edx/edx-platform/language/tr_TR/)
+<<<<<<< HEAD
 # Copyright (C) 2021 edX
+=======
+# Copyright (C) 2022 edX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -107,9 +133,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2021-09-21 17:10+0000\n"
 "PO-Revision-Date: 2021-08-01 20:44+0000\n"
 "Last-Translator: edx_transifex_bot <i18n-working-group+edx-transifex-bot@edx.org>\n"
+=======
+"POT-Creation-Date: 2022-05-29 20:43+0000\n"
+"PO-Revision-Date: 2014-06-11 15:18+0000\n"
+"Last-Translator: Ali Işıngör <ali@artistanbul.io>, 2018,2020-2021\n"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/open-edx/edx-platform/language/tr_TR/)\n"
 "Language: tr_TR\n"
 "MIME-Version: 1.0\n"
@@ -3157,6 +3189,10 @@ msgid "Markdown Editing Help"
 msgstr "Markdown İşaretleme Dili Yardımı"
 
 #: lms/static/js/Markdown.Editor.js cms/templates/js/asset-library.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "URL"
 msgstr "URL"
 
@@ -3947,6 +3983,7 @@ msgstr "Topluluklar Etkin"
 msgid "Cohorts Disabled"
 msgstr "Topluluklar Devre Dışı"
 
+<<<<<<< HEAD
 #: lms/static/js/groups/views/verified_track_settings_notification.js
 msgid ""
 "This course uses automatic cohorting for verified track learners. You cannot"
@@ -3979,6 +4016,8 @@ msgstr ""
 "atamayı kullanır ancak topluluk özelliği devre dışı bırakılmış. Bu özelliğin"
 " çalışması için toplulukları etkinleştirmelisiniz."
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: lms/static/js/instructor_dashboard/certificates.js
 msgid "Allow students to generate certificates for this course?"
 msgstr "Öğrencilerin bu ders için sertifika oluşturmasına izin ver?"
@@ -4853,7 +4892,11 @@ msgstr "{user} için problem puanı başarıyla geçersiz kılındı"
 
 #: lms/static/js/staff_debug_actions.js
 msgid "Could not override problem score for {user}."
+<<<<<<< HEAD
 msgstr ""
+=======
+msgstr "{user} kullanıcısının problem puanı geçersizleştirilemedi."
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/student_account/components/PasswordResetConfirmation.jsx
 msgid "Enter and confirm your new password."
@@ -4907,9 +4950,14 @@ msgstr ""
 "kaldırın{htmlEnd}."
 
 #: lms/static/js/student_account/components/StudentAccountDeletion.jsx
+<<<<<<< HEAD
 msgid "Before proceeding, please {htmlStart}activate your account{htmlEnd}."
 msgstr ""
 "İlerlemeden önce, lütfen {htmlStart}hesabınızı etkinleştirin{htmlEnd}."
+=======
+msgid "Before proceeding, please {htmlStart}{emailMsg}{htmlEnd}."
+msgstr ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: lms/static/js/student_account/components/StudentAccountDeletion.jsx
 msgid ""
@@ -5654,6 +5702,7 @@ msgstr "Toplam Skor"
 msgid "Bookmark this page"
 msgstr "Bu sayfaya yer imi koy"
 
+<<<<<<< HEAD
 #: openedx/features/course_experience/static/course_experience/js/CourseGoals.js
 msgid "Thank you for setting your course goal to {goal}!"
 msgstr "Ders hedefinizi {goal} olarak belirlediğiniz için teşekkür ederiz!"
@@ -5686,6 +5735,8 @@ msgstr "Daha Fazla Göster"
 msgid "Show Less"
 msgstr "Daha Az Göster"
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: openedx/features/course_search/static/course_search/js/views/search_results_view.js
 msgid "{total_results} result found for \"{search_term}\""
 msgid_plural "{total_results} results found for \"{search_term}\""
@@ -7338,6 +7389,14 @@ msgstr "Eylemler"
 msgid "Unscheduled"
 msgstr "Planlanmamış"
 
+<<<<<<< HEAD
+=======
+#: cms/templates/js/discussion-editor.underscore
+#: common/static/common/templates/discussion/templates.underscore
+msgid "Discussion"
+msgstr "Forum"
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/paging-header.underscore
 #: common/static/common/templates/components/paging-footer.underscore
 #: common/static/common/templates/discussion/templates.underscore
@@ -7574,10 +7633,13 @@ msgid "follow this post"
 msgstr "bu iletiyi takip et"
 
 #: common/static/common/templates/discussion/templates.underscore
+<<<<<<< HEAD
 msgid "post anonymously"
 msgstr "isimsiz olarak ileti yolla"
 
 #: common/static/common/templates/discussion/templates.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "post anonymously to classmates"
 msgstr "sınıf arkadaşlarına anonim olarak ileti gönder"
 
@@ -7644,10 +7706,13 @@ msgid "Question"
 msgstr "Soru"
 
 #: common/static/common/templates/discussion/templates.underscore
+<<<<<<< HEAD
 msgid "Discussion"
 msgstr "Forum"
 
 #: common/static/common/templates/discussion/templates.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Endorse"
 msgstr "Destekle"
 
@@ -8038,6 +8103,17 @@ msgid "This catalog's courses:"
 msgstr "Bu katalogdaki dersler:"
 
 #: lms/templates/ccx/schedule.underscore
+<<<<<<< HEAD
+=======
+msgid "Expand All"
+msgstr "Tümünü Aç"
+
+#: lms/templates/ccx/schedule.underscore
+msgid "Collapse All"
+msgstr "Tümünü Kapa"
+
+#: lms/templates/ccx/schedule.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Start Date"
 msgstr "Başlama Tarihi"
 
@@ -8122,6 +8198,17 @@ msgstr ""
 "Problemlerden kredi almak için, \"Sınavımı Bitir\"i seçmeden önce her "
 "problem için \"Gönder\"e tıklamalısınız."
 
+<<<<<<< HEAD
+=======
+#: lms/templates/courseware/proctored-exam-status.underscore
+msgid "Show More"
+msgstr "Daha Fazla Göster"
+
+#: lms/templates/courseware/proctored-exam-status.underscore
+msgid "Show Less"
+msgstr "Daha Az Göster"
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: lms/templates/discovery/course_card.underscore
 msgid "LEARN MORE"
 msgstr "AYRINTILI BİLGİ"
@@ -8765,6 +8852,7 @@ msgstr "Program Yolculuğunuz"
 
 #: lms/templates/learner_dashboard/program_details_tab_view.underscore
 #: lms/templates/learner_dashboard/program_details_view.underscore
+<<<<<<< HEAD
 msgid ""
 "To complete the program, you must earn a verified certificate for each "
 "course."
@@ -8774,6 +8862,8 @@ msgstr ""
 
 #: lms/templates/learner_dashboard/program_details_tab_view.underscore
 #: lms/templates/learner_dashboard/program_details_view.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Upgrade All Remaining Courses ("
 msgstr "Kalan Tüm Dersleri Yükselt ("
 
@@ -10219,11 +10309,19 @@ msgstr "Test Sürüşü Sınavı"
 
 #: cms/templates/js/course-outline.underscore
 msgid "Practice proctored Exam"
+<<<<<<< HEAD
 msgstr "Gözetmenli Sınavı Uygula"
 
 #: cms/templates/js/course-outline.underscore
 msgid "Proctored Exam"
 msgstr "Gözetmenli Sınav"
+=======
+msgstr "Gözetimli Sınav Alıştırması"
+
+#: cms/templates/js/course-outline.underscore
+msgid "Proctored Exam"
+msgstr "Gözetimli Sınav"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/course-outline.underscore
 msgid "Timed Exam"
@@ -10241,7 +10339,11 @@ msgstr "Görünen Ad"
 
 #: cms/templates/js/course-outline.underscore
 msgid "Proctoring Settings"
+<<<<<<< HEAD
 msgstr "Gözetmen Ayarları"
+=======
+msgstr "Gözetim Ayarları"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/course-outline.underscore
 msgid "Configure"
@@ -10466,6 +10568,13 @@ msgstr "Tarih"
 msgid "Post"
 msgstr "Gönderi"
 
+<<<<<<< HEAD
+=======
+#: cms/templates/js/discussion-editor.underscore
+msgid "Enable discussion"
+msgstr ""
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/due-date-editor.underscore
 msgid "Due Date:"
 msgstr "Bitiş Tarihi:"
@@ -10693,6 +10802,10 @@ msgstr "Yeni %(item_type)s"
 #: cms/templates/js/metadata-list-entry.underscore
 #: cms/templates/js/metadata-number-entry.underscore
 #: cms/templates/js/metadata-option-entry.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/metadata-string-entry.underscore
 msgid "Clear"
 msgstr "Temizle"
@@ -10702,6 +10815,10 @@ msgstr "Temizle"
 #: cms/templates/js/metadata-list-entry.underscore
 #: cms/templates/js/metadata-number-entry.underscore
 #: cms/templates/js/metadata-option-entry.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/metadata-string-entry.underscore
 msgid "Clear Value"
 msgstr "Değeri Temizle"
@@ -10947,6 +11064,7 @@ msgstr "Değerlendirme sonuçlarını altbölümün son tarihi geçince göster"
 #: cms/templates/js/show-correctness-editor.underscore
 msgid ""
 "Learners do not see whether their answers to assessments were correct or "
+<<<<<<< HEAD
 "incorrect, nor the score received, until after the course end date has "
 "passed."
 msgstr ""
@@ -10964,6 +11082,8 @@ msgstr ""
 #: cms/templates/js/show-correctness-editor.underscore
 msgid ""
 "Learners do not see whether their answers to assessments were correct or "
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "incorrect, nor the score received, until after the due date for the "
 "subsection has passed."
 msgstr ""
@@ -11118,6 +11238,7 @@ msgstr "Sınav Türleri"
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
+<<<<<<< HEAD
 "This subsection was released to learners as a special exam, but was reverted"
 " back to a basic exam. You may not configure it as a special exam now. "
 "Contact edX Support for assistance."
@@ -11137,6 +11258,20 @@ msgstr ""
 "dönüştüremezsiniz. \"None\" ayarını seçerek bu alt bölümü basit sınav haline"
 " geri döndürebilirsiniz, ancak ileride bunu özel bir sınav olarak "
 "yapılandıramazsınız. "
+=======
+"This subsection was released to learners as a proctored exam, but was "
+"reverted back to a basic or timed exam. You may not configure it as a "
+"proctored exam now. Contact edX Support for assistance."
+msgstr ""
+
+#: cms/templates/js/timed-examination-preference-editor.underscore
+msgid ""
+"This proctored exam has been released to learners. You may not convert it to"
+" another type of special exam. You may revert this subsection back to being "
+"a basic exam by selecting 'None', or a timed exam, but you will NOT be able "
+"to configure it as a proctored exam in the future."
+msgstr ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid "Timed"
@@ -11156,16 +11291,26 @@ msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid "Proctored"
+<<<<<<< HEAD
 msgstr "Gözetmenli"
+=======
+msgstr "Gözetimli"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
 "Proctored exams are timed and they record video of each learner taking the "
 "exam. The videos are then reviewed to ensure that learners follow all "
+<<<<<<< HEAD
 "examination rules."
 msgstr ""
 "Gözetmenli sınavlar zaman sınırlıdır ve sınav süresince öğrencileri videoya "
 "kaydeder. Bu videolar öğrencilerin sınav kurallarına uymalarını belgeler."
+=======
+"examination rules. Please note that setting this exam as proctored will "
+"change the visibility settings to \"Hide content after due date.\""
+msgstr ""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid "Onboarding"
@@ -11178,21 +11323,35 @@ msgid ""
 "profile step prior to taking a proctored exam. Profile reviews take 2+ "
 "business days."
 msgstr ""
+<<<<<<< HEAD
 "Öğrencileri gözetmenli sınavlarla tanıştırmak, kimliklerini doğrulamak ve "
 "bir oryantasyon profili oluşturmak için Oryantasyon'u kullanın. Öğrenciler, "
 "gözetmenli bir sınava girmeden önce, ilk oryantasyon profili adımını "
+=======
+"Öğrencileri gözetimli sınavlarla tanıştırmak, kimliklerini doğrulamak ve bir"
+" oryantasyon profili oluşturmak için Oryantasyon'u kullanın. Öğrenciler, "
+"gözetimli bir sınava girmeden önce, ilk oryantasyon profili adımını "
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "tamamlamalıdır. Profil incelemeleri 2+ iş günü sürer. "
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid "Practice Proctored"
+<<<<<<< HEAD
 msgstr "Gözetmenli Uygula"
+=======
+msgstr "Gözetimli Alıştırma"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
 "Use a practice proctored exam to introduce learners to the proctoring tools "
 "and processes. Results of a practice exam do not affect a learner's grade."
 msgstr ""
+<<<<<<< HEAD
 "Öğrencilere gözetmenlik araçlarını ve işleyişini tanıtmak için gözetmenli "
+=======
+"Öğrencilere gözetim araçlarını ve işleyişini tanıtmak için gözetimli "
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "alıştırma sınavını kullanın. Alıştırma sınavının sonuçları öğrencinin notuna"
 " etki etmez."
 
@@ -11222,6 +11381,7 @@ msgid ""
 "before the learners start the exam, along with the {linkStart}general "
 "proctored exam rules{linkEnd}."
 msgstr ""
+<<<<<<< HEAD
 "Tüm kural ya da kural istisnalarını detaylandır ki, gözetmen inceleme kurulu"
 " videolara göz atarken şüphe bırakmayacak şekilde uygulayabilsin. Örneğin, "
 "hesap makinesine izin verildiğini belirtebilirsiniz. Belirlenen bu kurallar "
@@ -11231,6 +11391,17 @@ msgstr ""
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid "General Proctored Exam Rules"
 msgstr "Genel Gözetmenli Sınav Kuralları"
+=======
+"Tüm kural ya da kural istisnalarını detaylandır ki, gözetim inceleme kurulu "
+"videolara göz atarken şüphe bırakmayacak şekilde uygulayabilsin. Örneğin, "
+"hesap makinesine izin verildiğini belirtebilirsiniz. Belirlenen bu kurallar "
+"{linkStart}genel gözetimli sınav kuralları{linkEnd} ile birlikte öğrencilere"
+" sınav başlamadan önce görünür olacak."
+
+#: cms/templates/js/timed-examination-preference-editor.underscore
+msgid "General Proctored Exam Rules"
+msgstr "Genel Gözetimli Sınav Kuralları"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
@@ -11239,8 +11410,13 @@ msgid ""
 "calculators are allowed. These specified rules are visible to learners "
 "before the learners start the exam."
 msgstr ""
+<<<<<<< HEAD
 "Tüm kural ya da kural istisnalarını detaylandır ki, gözetmen inceleme kurulu"
 " videolara göz atarken şüphe bırakmayacak şekilde uygulayabilsin. Örneğin, "
+=======
+"Tüm kural ya da kural istisnalarını detaylandır ki, gözetim inceleme kurulu "
+"videolara göz atarken şüphe bırakmayacak şekilde uygulayabilsin. Örneğin, "
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "hesap makinesine izin verildiğini belirtebilirsiniz. Belirlenen kurallar "
 "öğrencilere sınav başlamadan önce görünür olacak."
 

@@ -27,6 +27,11 @@ from .common import *
 
 # import settings from LMS for consistent behavior with CMS
 from lms.envs.test import (  # pylint: disable=wrong-import-order
+<<<<<<< HEAD
+=======
+    BLOCKSTORE_USE_BLOCKSTORE_APP_API,
+    BLOCKSTORE_API_URL,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     COMPREHENSIVE_THEME_DIRS,  # unimport:skip
     DEFAULT_FILE_STORAGE,
     ECOMMERCE_API_URL,
@@ -40,7 +45,12 @@ from lms.envs.test import (  # pylint: disable=wrong-import-order
     REGISTRATION_EXTRA_FIELDS,
     GRADES_DOWNLOAD,
     SITE_NAME,
+<<<<<<< HEAD
     WIKI_ENABLED
+=======
+    WIKI_ENABLED,
+    XBLOCK_RUNTIME_V2_EPHEMERAL_DATA_CACHE,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 
@@ -138,6 +148,10 @@ LMS_ROOT_URL = f"http://{LMS_BASE}"
 FEATURES['PREVIEW_LMS_BASE'] = "preview.localhost"
 
 COURSE_AUTHORING_MICROFRONTEND_URL = "http://course-authoring-mfe"
+<<<<<<< HEAD
+=======
+DISCUSSIONS_MICROFRONTEND_URL = "http://discussions-mfe"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 CACHES = {
     # This is the cache used for most things. Askbot will not work without a
@@ -174,6 +188,15 @@ CACHES = {
     'course_structure_cache': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
     },
+<<<<<<< HEAD
+=======
+    'blockstore': {
+        'KEY_PREFIX': 'blockstore',
+        'KEY_FUNCTION': 'common.djangoapps.util.memcache.safe_key',
+        'LOCATION': 'edx_loc_mem_cache',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 }
 
 ############################### BLOCKSTORE #####################################
@@ -181,6 +204,16 @@ CACHES = {
 RUN_BLOCKSTORE_TESTS = os.environ.get('EDXAPP_RUN_BLOCKSTORE_TESTS', 'no').lower() in ('true', 'yes', '1')
 BLOCKSTORE_API_URL = os.environ.get('EDXAPP_BLOCKSTORE_API_URL', "http://edx.devstack.blockstore-test:18251/api/v1/")
 BLOCKSTORE_API_AUTH_TOKEN = os.environ.get('EDXAPP_BLOCKSTORE_API_AUTH_TOKEN', 'edxapp-test-key')
+<<<<<<< HEAD
+=======
+BUNDLE_ASSET_STORAGE_SETTINGS = dict(
+    STORAGE_CLASS='django.core.files.storage.FileSystemStorage',
+    STORAGE_KWARGS=dict(
+        location=MEDIA_ROOT,
+        base_url=MEDIA_URL,
+    ),
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 ################################# CELERY ######################################
 
@@ -276,7 +309,14 @@ FEATURES['ENABLE_TEAMS'] = True
 SECRET_KEY = '85920908f28904ed733fe576320db18cabd7b6cd'
 
 ######### custom courses #########
+<<<<<<< HEAD
 INSTALLED_APPS.append('openedx.core.djangoapps.ccxcon.apps.CCXConnectorConfig')
+=======
+INSTALLED_APPS += [
+    'openedx.core.djangoapps.ccxcon.apps.CCXConnectorConfig',
+    'common.djangoapps.third_party_auth.apps.ThirdPartyAuthConfig',
+]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 FEATURES['CUSTOM_COURSES_EDX'] = True
 
 ########################## VIDEO IMAGE STORAGE ############################
@@ -331,6 +371,10 @@ LOGISTRATION_API_RATELIMIT = '5/m'
 
 REGISTRATION_VALIDATION_RATELIMIT = '5/minute'
 REGISTRATION_RATELIMIT = '5/minute'
+<<<<<<< HEAD
+=======
+OPTIONAL_FIELD_API_RATELIMIT = '5/m'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 RESET_PASSWORD_TOKEN_VALIDATE_API_RATELIMIT = '2/m'
 RESET_PASSWORD_API_RATELIMIT = '2/m'

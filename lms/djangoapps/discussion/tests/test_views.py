@@ -1,8 +1,12 @@
 """
 Tests the forum notification views.
 """
+<<<<<<< HEAD
 
 
+=======
+import itertools
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import json
 import logging
 from datetime import datetime
@@ -16,11 +20,31 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import translation
 from edx_django_utils.cache import RequestCache
+<<<<<<< HEAD
+=======
+from edx_toggles.toggles.testutils import override_waffle_flag
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.tests.django_utils import (
+    TEST_DATA_MONGO_AMNESTY_MODULESTORE,
+    ModuleStoreTestCase,
+    SharedModuleStoreTestCase
+)
+from xmodule.modulestore.tests.factories import (
+    CourseFactory,
+    ItemFactory,
+    check_mongo_calls
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 from common.djangoapps.student.roles import CourseStaffRole, UserBasedRole
+<<<<<<< HEAD
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+=======
+from common.djangoapps.student.tests.factories import AdminFactory, CourseEnrollmentFactory, UserFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.util.testing import EventTestMixin, UrlResetMixin
 from lms.djangoapps.courseware.exceptions import CourseAccessRedirect
 from lms.djangoapps.discussion import views
@@ -39,6 +63,10 @@ from lms.djangoapps.discussion.django_comment_client.tests.utils import (
     topic_name_to_id
 )
 from lms.djangoapps.discussion.django_comment_client.utils import strip_none
+<<<<<<< HEAD
+=======
+from lms.djangoapps.discussion.toggles import ENABLE_DISCUSSIONS_MFE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.discussion.views import _get_discussion_default_topic_id, course_discussions_settings_handler
 from lms.djangoapps.teams.tests.factories import CourseTeamFactory, CourseTeamMembershipFactory
 from openedx.core.djangoapps.course_groups.models import CourseUserGroup
@@ -56,6 +84,7 @@ from openedx.core.djangoapps.waffle_utils.testutils import WAFFLE_TABLES
 from openedx.core.lib.teams_config import TeamsConfig
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.enterprise_support.tests.mixins.enterprise import EnterpriseTestConsentRequired
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import (
@@ -68,6 +97,12 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, chec
 log = logging.getLogger(__name__)
 
 QUERY_COUNT_TABLE_BLACKLIST = WAFFLE_TABLES
+=======
+
+log = logging.getLogger(__name__)
+
+QUERY_COUNT_TABLE_IGNORELIST = WAFFLE_TABLES
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ViewsExceptionTestCase(UrlResetMixin, ModuleStoreTestCase):  # lint-amnesty, pylint: disable=missing-class-docstring
@@ -149,6 +184,11 @@ def make_mock_thread_data(  # lint-amnesty, pylint: disable=missing-function-doc
         group_name=None,
         commentable_id=None,
         is_commentable_divided=None,
+<<<<<<< HEAD
+=======
+        anonymous=False,
+        anonymous_to_peers=False,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ):
     data_commentable_id = (
         commentable_id or course.discussion_topics.get('General', {}).get('id') or "dummy_commentable_id"
@@ -163,6 +203,11 @@ def make_mock_thread_data(  # lint-amnesty, pylint: disable=missing-function-doc
         "resp_skip": 25,
         "resp_limit": 5,
         "group_id": group_id,
+<<<<<<< HEAD
+=======
+        "anonymous": anonymous,
+        "anonymous_to_peers": anonymous_to_peers,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "context": (
             ThreadContext.COURSE if get_team(data_commentable_id) is None else ThreadContext.STANDALONE
         )
@@ -214,7 +259,13 @@ def make_mock_perform_request_impl(  # lint-amnesty, pylint: disable=missing-fun
         group_id=None,
         commentable_id=None,
         num_thread_responses=1,
+<<<<<<< HEAD
         thread_list=None
+=======
+        thread_list=None,
+        anonymous=False,
+        anonymous_to_peers=False,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ):
     def mock_perform_request_impl(*args, **kwargs):
         url = args[1]
@@ -231,7 +282,13 @@ def make_mock_perform_request_impl(  # lint-amnesty, pylint: disable=missing-fun
                 thread_id=thread_id,
                 num_children=num_thread_responses,
                 group_id=group_id,
+<<<<<<< HEAD
                 commentable_id=commentable_id
+=======
+                commentable_id=commentable_id,
+                anonymous=anonymous,
+                anonymous_to_peers=anonymous_to_peers,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
         elif "/users/" in url:
             res = {
@@ -260,6 +317,11 @@ def make_mock_request_impl(  # lint-amnesty, pylint: disable=missing-function-do
         commentable_id=None,
         num_thread_responses=1,
         thread_list=None,
+<<<<<<< HEAD
+=======
+        anonymous=False,
+        anonymous_to_peers=False,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ):
     impl = make_mock_perform_request_impl(
         course,
@@ -268,7 +330,13 @@ def make_mock_request_impl(  # lint-amnesty, pylint: disable=missing-function-do
         group_id=group_id,
         commentable_id=commentable_id,
         num_thread_responses=num_thread_responses,
+<<<<<<< HEAD
         thread_list=thread_list
+=======
+        thread_list=thread_list,
+        anonymous=anonymous,
+        anonymous_to_peers=anonymous_to_peers,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
 
     def mock_request_impl(*args, **kwargs):
@@ -280,7 +348,11 @@ def make_mock_request_impl(  # lint-amnesty, pylint: disable=missing-function-do
     return mock_request_impl
 
 
+<<<<<<< HEAD
 class StringEndsWithMatcher:  # lint-amnesty, pylint: disable=missing-class-docstring,eq-without-hash
+=======
+class StringEndsWithMatcher:  # lint-amnesty, pylint: disable=missing-class-docstring
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def __init__(self, suffix):
         self.suffix = suffix
 
@@ -288,7 +360,11 @@ class StringEndsWithMatcher:  # lint-amnesty, pylint: disable=missing-class-docs
         return other.endswith(self.suffix)
 
 
+<<<<<<< HEAD
 class PartialDictMatcher:  # lint-amnesty, pylint: disable=missing-class-docstring,eq-without-hash
+=======
+class PartialDictMatcher:  # lint-amnesty, pylint: disable=missing-class-docstring
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def __init__(self, expected_values):
         self.expected_values = expected_values
 
@@ -401,6 +477,34 @@ class SingleThreadTestCase(ForumsEnableMixin, ModuleStoreTestCase):  # lint-amne
         )
         assert response.status_code == 405
 
+<<<<<<< HEAD
+=======
+    def test_post_anonymous_to_ta(self, mock_request):
+        text = "dummy content"
+        thread_id = "test_thread_id"
+        mock_request.side_effect = make_mock_request_impl(course=self.course, text=text, thread_id=thread_id,
+                                                          anonymous_to_peers=True)
+
+        request = RequestFactory().get(
+            "dummy_url",
+            HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+        )
+        request.user = self.student
+        request.user.is_community_ta = True
+        response = views.single_thread(
+            request,
+            str(self.course.id),
+            "dummy_discussion_id",
+            "test_thread_id"
+        )
+
+        assert response.status_code == 200
+        response_data = json.loads(response.content.decode('utf-8'))
+        # user is community ta, so response must not have username and user_id fields
+        assert response_data['content'].get('username') is None
+        assert response_data['content'].get('user_id') is None
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_not_found(self, mock_request):
         request = RequestFactory().get("dummy_url")
         request.user = self.student
@@ -445,7 +549,11 @@ class SingleThreadTestCase(ForumsEnableMixin, ModuleStoreTestCase):  # lint-amne
             assert 'This is a private discussion. You do not have permissions to view this discussion' in html
 
 
+<<<<<<< HEAD
 class AllowPlusOrMinusOneInt(int):  # pylint: disable=eq-without-hash
+=======
+class AllowPlusOrMinusOneInt(int):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     A workaround for the fact that assertNumQueries doesn't let you
     specify a range or any tolerance. An 'int' that is 'equal to' its value,
@@ -471,6 +579,7 @@ class SingleThreadQueryCountTestCase(ForumsEnableMixin, ModuleStoreTestCase):
     Ensures the number of modulestore queries and number of sql queries are
     independent of the number of responses retrieved for a given discussion thread.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_MONGO_MODULESTORE
 
     @ddt.data(
@@ -492,11 +601,25 @@ class SingleThreadQueryCountTestCase(ForumsEnableMixin, ModuleStoreTestCase):
         # split mongo: 3 queries, regardless of thread response size.
         (ModuleStoreEnum.Type.split, True, 1, 3, 3, 21, 8),
         (ModuleStoreEnum.Type.split, True, 50, 3, 3, 21, 8),
+=======
+    @ddt.data(
+        # split mongo: 3 queries, regardless of thread response size.
+        (False, 1, 2, 2, 21, 8),
+        (False, 50, 2, 2, 21, 8),
+
+        # Enabling Enterprise integration should have no effect on the number of mongo queries made.
+        # split mongo: 3 queries, regardless of thread response size.
+        (True, 1, 2, 2, 21, 8),
+        (True, 50, 2, 2, 21, 8),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_number_of_mongo_queries(
             self,
+<<<<<<< HEAD
             default_store,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             enterprise_enabled,
             num_thread_responses,
             num_uncached_mongo_calls,
@@ -506,7 +629,11 @@ class SingleThreadQueryCountTestCase(ForumsEnableMixin, ModuleStoreTestCase):
             mock_request
     ):
         ContentTypeGatingConfig.objects.create(enabled=True, enabled_as_of=datetime(2018, 1, 1))
+<<<<<<< HEAD
         with modulestore().default_store(default_store):
+=======
+        with modulestore().default_store(ModuleStoreEnum.Type.split):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             course = CourseFactory.create(discussion_topics={'dummy discussion': {'id': 'dummy_discussion_id'}})
 
         student = UserFactory.create()
@@ -545,7 +672,11 @@ class SingleThreadQueryCountTestCase(ForumsEnableMixin, ModuleStoreTestCase):
             [num_cached_mongo_calls, AllowPlusOrMinusOneInt(num_cached_sql_queries)],
         ]
         for expected_mongo_calls, expected_sql_queries in cached_calls:
+<<<<<<< HEAD
             with self.assertNumQueries(expected_sql_queries, table_blacklist=QUERY_COUNT_TABLE_BLACKLIST):
+=======
+            with self.assertNumQueries(expected_sql_queries, table_ignorelist=QUERY_COUNT_TABLE_IGNORELIST):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 with check_mongo_calls(expected_mongo_calls):
                     call_single_thread()
 
@@ -1439,6 +1570,14 @@ class UserProfileTestCase(ForumsEnableMixin, UrlResetMixin, ModuleStoreTestCase)
     def test_html(self, mock_request):
         self.check_html(mock_request)
 
+<<<<<<< HEAD
+=======
+    @override_settings(DISCUSSIONS_MICROFRONTEND_URL="http://test.url")
+    @override_waffle_flag(ENABLE_DISCUSSIONS_MFE, True)
+    def test_html_with_mfe_enabled(self, mock_request):
+        self.check_html(mock_request)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_ajax(self, mock_request):
         self.check_ajax(mock_request)
 
@@ -1898,6 +2037,10 @@ class CourseDiscussionTopicsTestCase(DividedDiscussionsTestCase):
     """
     Tests the `divide_discussion_topics` view.
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_non_staff(self):
         """
@@ -1953,6 +2096,10 @@ class CourseDiscussionsHandlerTestCase(DividedDiscussionsTestCase):
     """
     Tests the course_discussion_settings_handler
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def get_expected_response(self):
         """
@@ -2225,3 +2372,71 @@ class ThreadViewedEventTestCase(EventTestMixin, ForumsEnableMixin, UrlResetMixin
         _, event = self.get_latest_call_args()
         event_items = list(event.items())
         assert ((kv_pair in event_items) for kv_pair in expected_event_items)
+<<<<<<< HEAD
+=======
+
+
+@ddt.ddt
+@patch(
+    'openedx.core.djangoapps.django_comment_common.comment_client.utils.perform_request',
+    Mock(
+        return_value={
+            "default_sort_key": "date",
+            "upvoted_ids": [],
+            "downvoted_ids": [],
+            "subscribed_thread_ids": [],
+        }
+    )
+)
+class ForumMFETestCase(ForumsEnableMixin, SharedModuleStoreTestCase):
+    """
+    Tests that the MFE upgrade banner and MFE is shown in the correct situation with the correct UI
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.course = CourseFactory.create()
+        self.user = UserFactory.create()
+        self.staff_user = AdminFactory.create()
+        CourseEnrollmentFactory.create(user=self.user, course_id=self.course.id)
+
+    @ddt.data(*itertools.product(("http://test.url", None), (True, False), (True, True)))
+    @ddt.unpack
+    def test_staff_user(self, mfe_url, toggle_enabled, is_staff):
+        """
+        Verify that the banner is shown with the correct links if the user is staff and the
+        mfe url is configured.
+        """
+        with override_settings(DISCUSSIONS_MICROFRONTEND_URL=mfe_url):
+            with override_waffle_flag(ENABLE_DISCUSSIONS_MFE, toggle_enabled):
+                username = self.staff_user.username if is_staff else self.user.username
+                self.client.login(username=username, password='test')
+                response = self.client.get(reverse("forum_form_discussion", args=[self.course.id]))
+                content = response.content.decode('utf8')
+        if mfe_url and toggle_enabled:
+            assert "You are viewing an educator only preview of the new discussions experience!" in content
+            assert "legacy experience" in content
+            assert "new experience" not in content
+        else:
+            assert "You are viewing an educator only preview of the new discussions experience!" not in content
+
+    @override_settings(DISCUSSIONS_MICROFRONTEND_URL="http://test.url")
+    @ddt.data(*itertools.product((True, False), ("legacy", "new", None)))
+    @ddt.unpack
+    def test_correct_experience_is_shown(self, toggle_enabled, experience):
+        """
+        Verify that the correct experience is shown based on the MFE toggle flag and the query param.
+        """
+        with override_waffle_flag(ENABLE_DISCUSSIONS_MFE, toggle_enabled):
+            self.client.login(username=self.staff_user.username, password='test')
+            url = reverse("forum_form_discussion", args=[self.course.id])
+            experience_in_url = ""
+            if experience is not None:
+                experience_in_url = f"discussions_experience={experience}"
+            response = self.client.get(f"{url}?{experience_in_url}")
+            content = response.content.decode('utf8')
+        if toggle_enabled and experience != "legacy":
+            assert "discussions-mfe-tab-embed" in content
+        else:
+            assert "discussions-mfe-tab-embed" not in content
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

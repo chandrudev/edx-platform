@@ -9,6 +9,12 @@ import ddt
 from django.conf import settings
 from django.urls import reverse
 from django.utils.timezone import now
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.models import CourseEnrollment, FBEEnrollmentExclusion
@@ -35,9 +41,12 @@ from openedx.features.content_type_gating.helpers import CONTENT_GATING_PARTITIO
 from openedx.features.course_duration_limits.access import get_user_course_expiration_date
 from openedx.features.course_duration_limits.models import CourseDurationLimitConfig
 from openedx.features.course_experience.tests.views.helpers import add_course_mode
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 # pylint: disable=no-member
@@ -49,6 +58,24 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
         self.course = CourseFactory(
             start=now() - timedelta(weeks=10),
         )
+<<<<<<< HEAD
+=======
+        self.chapter = ItemFactory.create(
+            category='chapter',
+            parent_location=self.course.location,
+            display_name='Test Chapter'
+        )
+        self.sequential = ItemFactory.create(
+            category='sequential',
+            parent_location=self.chapter.location,
+            display_name='Test Sequential'
+        )
+        ItemFactory.create(
+            category='vertical',
+            parent_location=self.sequential.location,
+            display_name='Test Vertical'
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.user = UserFactory()
         self.THREE_YEARS_AGO = now() - timedelta(days=(365 * 3))
 
@@ -60,6 +87,14 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
         CourseEnrollment.unenroll(self.user, self.course.id)
         super().tearDown()  # lint-amnesty, pylint: disable=super-with-arguments
 
+<<<<<<< HEAD
+=======
+    def get_courseware(self):
+        """Returns a response from a GET on a courseware section"""
+        courseware_url = reverse('render_xblock', args=[str(self.sequential.location)])
+        return self.client.get(courseware_url, follow=True)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_enrollment_mode(self):
         """Tests that verified enrollments do not have an expiration"""
         CourseEnrollment.enroll(self.user, self.course.id, CourseMode.VERIFIED)
@@ -157,7 +192,11 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
         result = get_user_course_expiration_date(
             self.user,
             CourseOverview.get_from_id(future_course.id),
+<<<<<<< HEAD
         )
+=======
+        ).replace(microsecond=0)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         content_availability_date = start_date.replace(microsecond=0)
         assert result == (content_availability_date + access_duration)
 
@@ -233,8 +272,12 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
 
         self.update_masquerade(**masquerade_config)
 
+<<<<<<< HEAD
         course_home_url = reverse('openedx.course_experience.course_home', args=[str(self.course.id)])
         response = self.client.get(course_home_url, follow=True)
+=======
+        response = self.get_courseware()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
         self.assertCountEqual(response.redirect_chain, [])
         banner_text = 'You lose all access to this course, including your progress,'
@@ -270,8 +313,12 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
 
         self.update_masquerade(username='audit')
 
+<<<<<<< HEAD
         course_home_url = reverse('openedx.course_experience.course_home', args=[str(self.course.id)])
         response = self.client.get(course_home_url, follow=True)
+=======
+        response = self.get_courseware()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
         self.assertCountEqual(response.redirect_chain, [])
         banner_text = 'You lose all access to this course, including your progress,'
@@ -306,8 +353,12 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
 
         self.update_masquerade(username='audit')
 
+<<<<<<< HEAD
         course_home_url = reverse('openedx.course_experience.course_home', args=[str(self.course.id)])
         response = self.client.get(course_home_url, follow=True)
+=======
+        response = self.get_courseware()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
         self.assertCountEqual(response.redirect_chain, [])
         banner_text = 'This learner does not have access to this course. Their access expired on'
@@ -357,8 +408,12 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
 
         self.update_masquerade(username=expired_staff.username)
 
+<<<<<<< HEAD
         course_home_url = reverse('openedx.course_experience.course_home', args=[str(self.course.id)])
         response = self.client.get(course_home_url, follow=True)
+=======
+        response = self.get_courseware()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
         self.assertCountEqual(response.redirect_chain, [])
         banner_text = 'This learner does not have access to this course. Their access expired on'
@@ -406,8 +461,12 @@ class CourseExpirationTestCase(ModuleStoreTestCase, MasqueradeMixin):
 
         self.update_masquerade(username=expired_staff.username)
 
+<<<<<<< HEAD
         course_home_url = reverse('openedx.course_experience.course_home', args=[str(self.course.id)])
         response = self.client.get(course_home_url, follow=True)
+=======
+        response = self.get_courseware()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
         self.assertCountEqual(response.redirect_chain, [])
         banner_text = 'This learner does not have access to this course. Their access expired on'

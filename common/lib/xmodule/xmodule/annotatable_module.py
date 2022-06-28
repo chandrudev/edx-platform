@@ -6,6 +6,10 @@ import textwrap
 from lxml import etree
 from pkg_resources import resource_string
 from web_fragments.fragment import Fragment
+<<<<<<< HEAD
+=======
+from xblock.core import XBlock
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xblock.fields import Scope, String
 
 from openedx.core.djangolib.markup import HTML, Text
@@ -18,7 +22,10 @@ from xmodule.x_module import (
     ResourceTemplates,
     shim_xmodule_js,
     XModuleMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
 )
 
@@ -29,11 +36,18 @@ log = logging.getLogger(__name__)
 _ = lambda text: text
 
 
+<<<<<<< HEAD
+=======
+@XBlock.needs('mako')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class AnnotatableBlock(
     RawMixin,
     XmlMixin,
     EditingMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -201,7 +215,11 @@ class AnnotatableBlock(
             'content_html': self._render_content()
         }
 
+<<<<<<< HEAD
         return self.system.render_template('annotatable.html', context)
+=======
+        return self.runtime.service(self, 'mako').render_template('annotatable.html', context)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def student_view(self, context):  # lint-amnesty, pylint: disable=unused-argument
         """
@@ -219,7 +237,11 @@ class AnnotatableBlock(
         Return the studio view.
         """
         fragment = Fragment(
+<<<<<<< HEAD
             self.system.render_template(self.mako_template, self.get_context())
+=======
+            self.runtime.service(self, 'mako').render_template(self.mako_template, self.get_context())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         add_webpack_to_fragment(fragment, 'AnnotatableBlockStudio')
         shim_xmodule_js(fragment, self.studio_js_module_name)

@@ -24,8 +24,13 @@ from openedx.features.course_experience import (
 )
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import CourseBetaTesterRole
+<<<<<<< HEAD
 from xmodule.util.xmodule_django import get_current_request_hostname
 from xmodule.course_module import COURSE_VISIBILITY_PUBLIC
+=======
+from xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.course_module import COURSE_VISIBILITY_PUBLIC  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 DEBUG_ACCESS = False
 log = getLogger(__name__)
@@ -87,7 +92,13 @@ def check_start_date(user, days_early_for_beta, start, course_key, display_error
         if now is None:
             now = datetime.now(UTC)
         effective_start = adjust_start_date(user, days_early_for_beta, start, course_key)
+<<<<<<< HEAD
         if now > effective_start:
+=======
+
+        should_grant_access = now > effective_start
+        if should_grant_access:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return ACCESS_GRANTED
 
         return StartDateError(start, display_error_to_user=display_error_to_user)

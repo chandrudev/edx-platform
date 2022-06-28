@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "%(cohort_name)s (%(user_count)s)": "%(cohort_name)s (%(user_count)s)",
     "%(field)s can only contain up to %(count)d characters.": "%(field)s gali tur\u0117ti iki %(count)d simboli\u0173.",
     "%(field)s must have at least %(count)d characters.": "%(field)s turi tur\u0117ti bent %(count)d simbolius/-i\u0173.",
@@ -696,24 +712,41 @@
     "{email} is already on the {container} team. Recheck the email address if you want to add a new member.": "{email} jau yra kurso {container} komandoje. Jeigu norite prid\u0117ti nauj\u0105 nar\u012f, patikrinkite el. pa\u0161to adres\u0105.",
     "\u2026": "\u2026"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -723,16 +756,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -758,14 +801,20 @@
       "%d.%m.%Y %H:%M:%S",
       "%d.%m.%Y %H:%M:%S.%f",
       "%d.%m.%Y %H:%M",
+<<<<<<< HEAD
       "%d.%m.%Y",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       "%d.%m.%y %H:%M:%S",
       "%d.%m.%y %H:%M:%S.%f",
       "%d.%m.%y %H:%M",
       "%d.%m.%y %H.%M.%S",
       "%d.%m.%y %H.%M.%S.%f",
       "%d.%m.%y %H.%M",
+<<<<<<< HEAD
       "%d.%m.%y",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       "%Y-%m-%d"
     ],
     "DATE_FORMAT": "Y \\m. E j \\d.",
@@ -794,8 +843,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -814,6 +868,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

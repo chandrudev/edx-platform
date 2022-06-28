@@ -27,7 +27,11 @@ class ProgramDetailsView extends Backbone.View {
 
   initialize(options) {
     this.options = options;
+<<<<<<< HEAD
     if (this.options.programDiscussionEnabled) {
+=======
+    if (this.options.programTabViewEnabled) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       this.tpl = HtmlUtils.template(tabPageTpl);
     } else {
       this.tpl = HtmlUtils.template(pageTpl);
@@ -79,10 +83,19 @@ class ProgramDetailsView extends Backbone.View {
       remainingCount,
       completedCount,
       completeProgramURL: buyButtonUrl,
+<<<<<<< HEAD
       programDiscussionEnabled: this.options.programDiscussionEnabled,
       industryPathways: this.options.industryPathways,
       creditPathways: this.options.creditPathways,
       discussionFragment: this.options.discussionFragment,
+=======
+      programTabViewEnabled: this.options.programTabViewEnabled,
+      industryPathways: this.options.industryPathways,
+      creditPathways: this.options.creditPathways,
+      discussionFragment: this.options.discussionFragment,
+      live_fragment: this.options.live_fragment,
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     };
     data = $.extend(data, this.programModel.toJSON());
     HtmlUtils.setHtml(this.$el, this.tpl(data));
@@ -132,8 +145,20 @@ class ProgramDetailsView extends Backbone.View {
       programRecordUrl: this.options.urls.program_record_url,
       industryPathways: this.options.industryPathways,
       creditPathways: this.options.creditPathways,
+<<<<<<< HEAD
       programDiscussionEnabled: this.options.programDiscussionEnabled,
     });
+=======
+      programTabViewEnabled: this.options.programTabViewEnabled,
+    });
+    let hasIframe = false;
+    $('#live-tab').click(() => {
+      if (!hasIframe) {
+        $('#live').html(HtmlUtils.HTML(this.options.live_fragment.iframe).toString());
+        hasIframe = true;
+      }
+    }).bind(this);
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   }
 
   trackPurchase() {

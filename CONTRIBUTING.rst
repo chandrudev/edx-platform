@@ -114,7 +114,11 @@ it.
 .. _Individual Contributor Agreement: https://openedx.org/cla
 
 If you will be contributing code on behalf of your employer or another
+<<<<<<< HEAD
 institution you are affiliated with, please reach out by email to openedx@edx.org
+=======
+institution you are affiliated with, please reach out by email to oscm@tcril.org
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 to request the Entity Contributor Agreement.
 
 Once we have received and processed your agreement, we will reach out to you by

@@ -7,7 +7,11 @@ from xmodule.course_module import CourseBlock
 from xmodule.html_module import HtmlBlock
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.exceptions import DuplicateCourseError
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.seq_module import SequenceBlock
 
@@ -16,8 +20,11 @@ class TemplateTests(ModuleStoreTestCase):
     """
     Test finding and using the templates (boilerplates) for xblocks.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_get_templates(self):
         found = templates.all_templates()
         self.assertIsNotNone(found.get('course'))

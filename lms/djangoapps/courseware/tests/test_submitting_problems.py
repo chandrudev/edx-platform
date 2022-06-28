@@ -7,10 +7,19 @@ Integration tests for submitting problem responses and getting grades.
 
 import json
 import os
+<<<<<<< HEAD
 from textwrap import dedent
 
 from unittest.mock import patch
 import ddt
+=======
+from datetime import datetime
+from textwrap import dedent
+from unittest.mock import patch
+
+import ddt
+import pytz
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.conf import settings
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from django.db import connections
@@ -26,6 +35,10 @@ from capa.tests.response_xml_factory import (
     OptionResponseXMLFactory,
     SchematicResponseXMLFactory
 )
+<<<<<<< HEAD
+=======
+from capa.xqueue_interface import XQueueInterface
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.course_modes.models import CourseMode
 from lms.djangoapps.courseware.models import BaseStudentModuleHistory, StudentModule
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
@@ -35,9 +48,15 @@ from openedx.core.djangoapps.credit.models import CreditCourse, CreditProvider
 from openedx.core.djangoapps.user_api.tests.factories import UserCourseTagFactory
 from openedx.core.lib.url_utils import quote_slashes
 from common.djangoapps.student.models import CourseEnrollment, anonymous_id_for_user
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.partitions.partitions import Group, UserPartition
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import Group, UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ProblemSubmissionTestMixin(TestCase):
@@ -207,7 +226,15 @@ class TestSubmittingProblems(ModuleStoreTestCase, LoginEnrollmentTestCase, Probl
                 parent_location=self.chapter.location,
                 display_name=name,
                 category='sequential',
+<<<<<<< HEAD
                 metadata={'graded': True, 'format': section_format, 'due': '2013-05-20T23:30'}
+=======
+                metadata={
+                    'graded': True,
+                    'format': section_format,
+                    'due': datetime(2013, 5, 20, 23, 30, tzinfo=pytz.utc),
+                },
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
         elif reset:
             section = ItemFactory.create(
@@ -275,7 +302,11 @@ class TestSubmittingProblems(ModuleStoreTestCase, LoginEnrollmentTestCase, Probl
         Returns list of scores: [<points on hw_1>, <points on hw_2>, ..., <points on hw_n>]
         """
         return [
+<<<<<<< HEAD
             s.graded_total.earned for s in self.get_course_grade().graded_subsections_by_format['Homework'].values()
+=======
+            s.graded_total.earned for s in self.get_course_grade().graded_subsections_by_format()['Homework'].values()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         ]
 
     def hw_grade(self, hw_url_name):
@@ -776,7 +807,12 @@ class ProblemWithUploadedFilesTest(TestSubmittingProblems):
         # re-fetch the course from the database so the object is up to date
         self.refresh_course()
 
+<<<<<<< HEAD
     def test_three_files(self):
+=======
+    @patch.object(XQueueInterface, '_http_post')
+    def test_three_files(self, mock_xqueue_post):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Open the test files, and arrange to close them later.
         filenames = "prog1.py prog2.py prog3.py"
         fileobjs = [
@@ -787,20 +823,33 @@ class ProblemWithUploadedFilesTest(TestSubmittingProblems):
             self.addCleanup(fileobj.close)
 
         self.problem_setup("the_problem", filenames)
+<<<<<<< HEAD
         with patch('lms.djangoapps.courseware.module_render.XQUEUE_INTERFACE.session') as mock_session:
             resp = self.submit_question_answer("the_problem", {'2_1': fileobjs})
+=======
+        mock_xqueue_post.return_value = (0, "ok")
+        resp = self.submit_question_answer("the_problem", {'2_1': fileobjs})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         assert resp.status_code == 200
         json_resp = json.loads(resp.content.decode('utf-8'))
         assert json_resp['success'] == 'incorrect'
 
         # See how post got called.
+<<<<<<< HEAD
         name, args, kwargs = mock_session.mock_calls[0]
         assert name == 'post'
         assert len(args) == 1
         assert args[0].endswith('/submit/')
         self.assertCountEqual(list(kwargs.keys()), ["files", "data", "timeout"])
         self.assertCountEqual(list(kwargs['files'].keys()), filenames.split())
+=======
+        assert mock_xqueue_post.call_count == 1
+        args, kwargs = mock_xqueue_post.call_args
+        assert len(args) == 2
+        assert args[0].endswith('/submit/')
+        self.assertEqual(list(kwargs['files'].keys()), filenames.split())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestPythonGradedResponse(TestSubmittingProblems):

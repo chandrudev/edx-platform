@@ -11,7 +11,11 @@ from openedx.core.djangoapps.content.block_structure.transformer import (
     BlockStructureTransformer,
     FilteringTransformerMixin
 )
+<<<<<<< HEAD
 from xmodule.course_metadata_utils import DEFAULT_START_DATE
+=======
+from xmodule.course_metadata_utils import DEFAULT_START_DATE  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .utils import collect_merged_date_field
 

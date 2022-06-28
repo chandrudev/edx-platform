@@ -11,6 +11,7 @@ python scripts/xdist/pytest_worker_manager.py -a up -n ${XDIST_NUM_WORKERS} \
 -iam ${XDIST_WORKER_IAM_PROFILE_ARN}
 
 # Install the correct version of Django depending on which tox environment (if any) is in use
+<<<<<<< HEAD
 if [[ -z ${TOXENV+x} ]] || [[ ${TOXENV} == 'null' ]]; then
     DJANGO_REQUIREMENT="requirements/edx/django.txt"
 elif [[ ${TOXENV} == *'django30'* ]]; then
@@ -19,6 +20,10 @@ elif [[ ${TOXENV} == *'django31'* ]]; then
     DJANGO_REQUIREMENT="requirements/edx/django31.txt"
 elif [[ ${TOXENV} == *'django32'* ]]; then
     DJANGO_REQUIREMENT="requirements/edx/django32.txt"
+=======
+if [[ -z ${TOXENV+x} ]] || [[ ${TOXENV} == 'null' ]] || [[ ${TOXENV} == *'django32'* ]]; then
+    DJANGO_REQUIREMENT="requirements/edx/django.txt"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 fi
 
 ip_list=$(<pytest_worker_ips.txt)

@@ -1,11 +1,19 @@
 <%page expression_filter="h" />
+<<<<<<< HEAD
 <%! from django.utils.translation import ugettext as _ %>
+=======
+<%! from django.utils.translation import gettext as _ %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 <h1>${_("Student Enrollment Form")} </h1>
 
 <p> ${_("Course: ") % course}
 
+<<<<<<< HEAD
 <form method="POST"> 
+=======
+<form method="POST">
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 <input type="hidden" name="csrfmiddlewaretoken" value="${ csrf_token }">
 <h2> ${_("Add new students")} </h2>
 <textarea name="new_students">

@@ -2,6 +2,7 @@
 
 
 import unittest
+<<<<<<< HEAD
 from unittest.mock import Mock
 
 from xblock.field_data import DictFieldData
@@ -11,6 +12,11 @@ from xmodule.progress import Progress
 
 from . import get_test_system
 
+=======
+
+from xmodule.progress import Progress
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class ProgressTest(unittest.TestCase):
     ''' Test that basic Progress objects work.  A Progress represents a
@@ -113,6 +119,7 @@ class ProgressTest(unittest.TestCase):
         # Check != while we're at it
         assert prg1 != prg2
         assert prg1 == prg3
+<<<<<<< HEAD
 
 
 class ModuleProgressTest(unittest.TestCase):
@@ -124,3 +131,5 @@ class ModuleProgressTest(unittest.TestCase):
         xmod = x_module.XModule(Mock(), get_test_system(), DictFieldData({'location': 'a://b/c/d/e'}), Mock())
         prg = xmod.get_progress()  # lint-amnesty, pylint: disable=assignment-from-none
         assert prg is None
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

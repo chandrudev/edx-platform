@@ -9,18 +9,32 @@ from unittest import mock
 import pytest
 from django.contrib.auth.models import AnonymousUser
 from django.http import Http404
+<<<<<<< HEAD
 from django.test import override_settings
+=======
+from django.test import TestCase, override_settings
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.request import Request
 from rest_framework.test import APIRequestFactory
 
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+<<<<<<< HEAD
 from xmodule.modulestore.exceptions import ItemNotFoundError
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import ItemFactory, check_mongo_calls
 
 from ..api import UNKNOWN_BLOCK_DISPLAY_NAME, course_detail, get_due_dates, list_courses, get_course_members
+=======
+from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import ItemFactory, check_mongo_calls  # lint-amnesty, pylint: disable=wrong-import-order
+
+from ..api import (
+    UNKNOWN_BLOCK_DISPLAY_NAME, course_detail, get_due_dates, list_courses, get_course_members, get_course_run_url,
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..exceptions import OverEnrollmentLimitException
 from .mixins import CourseApiFactoryMixin
 
@@ -36,7 +50,11 @@ class CourseApiTestMixin(CourseApiFactoryMixin):
         cls.request_factory = APIRequestFactory()
         CourseOverview.get_all_courses()  # seed the CourseOverview table
 
+<<<<<<< HEAD
     def verify_course(self, course, course_id='edX/toy/2012_Fall'):
+=======
+    def verify_course(self, course, course_id='course-v1:edX+toy+2012_Fall'):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Ensure that the returned course is the course we just created
         """
@@ -88,7 +106,11 @@ class TestGetCourseDetail(CourseDetailTestMixin, SharedModuleStoreTestCase):
 
     def test_hidden_course_for_staff(self):
         course = self._make_api_call(self.staff_user, self.staff_user, self.hidden_course.id)
+<<<<<<< HEAD
         self.verify_course(course, course_id='edX/hidden/2012_Fall')
+=======
+        self.verify_course(course, course_id='course-v1:edX+hidden+2012_Fall')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_hidden_course_for_staff_as_honor(self):
         with pytest.raises(Http404):
@@ -426,3 +448,16 @@ class TestGetCourseMembers(CourseApiTestMixin, SharedModuleStoreTestCase):
         """
         with self.assertRaises(OverEnrollmentLimitException):
             get_course_members(self.course.id)
+<<<<<<< HEAD
+=======
+
+
+class TestGetCourseRunUrl(TestCase):
+    """
+    Tests of get_course_run_url.
+    """
+    def test_simple_lookup(self):
+        request = Request(APIRequestFactory().get('/'))
+        url = get_course_run_url(request, 'course-v1:org+course+run')
+        assert url == 'http://learning-mfe/course/course-v1:org+course+run/home'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

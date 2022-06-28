@@ -17,6 +17,10 @@ from path import Path as path
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import Boolean, List, Scope, String
+<<<<<<< HEAD
+=======
+from common.djangoapps.xblock_django.constants import ATTR_KEY_ANONYMOUS_USER_ID
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.contentstore.content import StaticContent
 from xmodule.editing_module import EditingMixin
 from xmodule.edxnotes_utils import edxnotes
@@ -29,7 +33,10 @@ from xmodule.x_module import (
     ResourceTemplates,
     shim_xmodule_js,
     XModuleMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
 )
 from xmodule.xml_module import XmlMixin, name_to_pathname
@@ -42,9 +49,17 @@ _ = lambda text: text
 
 
 @XBlock.needs("i18n")
+<<<<<<< HEAD
 class HtmlBlockMixin(  # lint-amnesty, pylint: disable=abstract-method
     XmlMixin, EditingMixin,
     XModuleDescriptorToXBlockMixin, XModuleToXBlockMixin, HTMLSnippet, ResourceTemplates, XModuleMixin,
+=======
+@XBlock.needs("mako")
+@XBlock.needs("user")
+class HtmlBlockMixin(  # lint-amnesty, pylint: disable=abstract-method
+    XmlMixin, EditingMixin,
+    XModuleToXBlockMixin, HTMLSnippet, ResourceTemplates, XModuleMixin,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ):
     """
     The HTML XBlock mixin.
@@ -117,8 +132,14 @@ class HtmlBlockMixin(  # lint-amnesty, pylint: disable=abstract-method
         """ Returns html required for rendering the block. """
         if self.data:
             data = self.data
+<<<<<<< HEAD
             if getattr(self.runtime, 'anonymous_student_id', None):
                 data = data.replace("%%USER_ID%%", self.runtime.anonymous_student_id)
+=======
+            user_id = self.runtime.service(self, 'user').get_current_user().opt_attrs.get(ATTR_KEY_ANONYMOUS_USER_ID)
+            if user_id:
+                data = data.replace("%%USER_ID%%", user_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             data = data.replace("%%COURSE_ID%%", str(self.scope_ids.usage_id.context_key))
             return data
         return self.data
@@ -128,7 +149,11 @@ class HtmlBlockMixin(  # lint-amnesty, pylint: disable=abstract-method
         Return the studio view.
         """
         fragment = Fragment(
+<<<<<<< HEAD
             self.system.render_template(self.mako_template, self.get_context())
+=======
+            self.runtime.service(self, 'mako').render_template(self.mako_template, self.get_context())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         add_webpack_to_fragment(fragment, 'HtmlBlockStudio')
         shim_xmodule_js(fragment, 'HTMLEditingDescriptor')
@@ -453,6 +478,10 @@ class CourseInfoFields:
 
 
 @XBlock.tag("detached")
+<<<<<<< HEAD
+=======
+@XBlock.needs('replace_urls')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CourseInfoBlock(CourseInfoFields, HtmlBlockMixin):  # lint-amnesty, pylint: disable=abstract-method
     """
     These pieces of course content are treated as HtmlBlock but we need to overload where the templates are located
@@ -481,7 +510,14 @@ class CourseInfoBlock(CourseInfoFields, HtmlBlockMixin):  # lint-amnesty, pylint
                 'visible_updates': course_updates[:3],
                 'hidden_updates': course_updates[3:],
             }
+<<<<<<< HEAD
             return self.system.render_template(f"{self.TEMPLATE_DIR}/course_updates.html", context)
+=======
+            return self.runtime.service(self, 'mako').render_template(
+                f"{self.TEMPLATE_DIR}/course_updates.html",
+                context,
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def order_updates(self, updates):  # lint-amnesty, pylint: disable=bad-classmethod-argument

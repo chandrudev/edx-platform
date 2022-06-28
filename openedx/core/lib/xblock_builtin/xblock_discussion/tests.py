@@ -14,7 +14,11 @@ from xblock.fields import NO_CACHE_VALUE, UNIQUE_ID, ScopeIds
 from xblock.runtime import Runtime
 
 from openedx.core.lib.xblock_builtin.xblock_discussion.xblock_discussion import DiscussionXBlock
+<<<<<<< HEAD
 from safe_lxml import etree
+=======
+from openedx.core.lib.safe_lxml import etree
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def attribute_pair_repr(self):
@@ -29,9 +33,15 @@ AttributePair = namedtuple("AttributePair", ["name", "value"])
 AttributePair.__repr__ = attribute_pair_repr
 
 
+<<<<<<< HEAD
 ID_ATTR_NAMES = ("discussion_id", "id",)
 CATEGORY_ATTR_NAMES = ("discussion_category",)
 TARGET_ATTR_NAMES = ("discussion_target", "for", )
+=======
+ID_ATTR_NAMES = ("discussion_id",)
+CATEGORY_ATTR_NAMES = ("discussion_category",)
+TARGET_ATTR_NAMES = ("discussion_target",)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def _random_string():

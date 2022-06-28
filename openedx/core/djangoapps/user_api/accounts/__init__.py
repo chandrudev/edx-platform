@@ -61,7 +61,18 @@ EMAIL_CONFLICT_MSG = _(
     "It looks like {email_address} belongs to an existing account. "
     "Try again with a different email address."
 )
+<<<<<<< HEAD
 AUTHN_EMAIL_CONFLICT_MSG = _("It looks like this email address is already registered")
+=======
+AUTHN_EMAIL_CONFLICT_MSG = _(  # pylint: disable=translation-of-non-string
+    f'This email is already associated with an existing or previous {settings.PLATFORM_NAME} account')
+RETIRED_EMAIL_MSG = _(
+    "This email is associated to a retired account."
+)
+AUTHN_PASSWORD_COMPROMISED_MSG = _(
+    "The password you entered is on a list of known compromised passwords. Please choose a different one."
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 USERNAME_CONFLICT_MSG = _(
     "It looks like {username} belongs to an existing account. "
     "Try again with a different username."
@@ -88,13 +99,37 @@ PASSWORD_BAD_TYPE_MSG = "Password must be a string."
 # Translators: These messages are shown to users who do not enter information
 # into the required field or enter it incorrectly.
 REQUIRED_FIELD_NAME_MSG = _("Enter your full name.")
+<<<<<<< HEAD
+=======
+REQUIRED_FIELD_FIRST_NAME_MSG = _("Enter your first name.")
+REQUIRED_FIELD_LAST_NAME_MSG = _("Enter your last name.")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 REQUIRED_FIELD_CONFIRM_EMAIL_MSG = _("The email addresses do not match.")
 REQUIRED_FIELD_COUNTRY_MSG = _("Select your country or region of residence.")
 REQUIRED_FIELD_PROFESSION_SELECT_MSG = _("Select your profession.")
 REQUIRED_FIELD_SPECIALTY_SELECT_MSG = _("Select your specialty.")
 REQUIRED_FIELD_PROFESSION_TEXT_MSG = _("Enter your profession.")
 REQUIRED_FIELD_SPECIALTY_TEXT_MSG = _("Enter your specialty.")
+<<<<<<< HEAD
 REQUIRED_FIELD_CITY_MSG = _("Enter your city.")
 REQUIRED_FIELD_GOALS_MSG = _("Tell us your goals.")
 REQUIRED_FIELD_LEVEL_OF_EDUCATION_MSG = _("Select the highest level of education you have completed.")
 REQUIRED_FIELD_MAILING_ADDRESS_MSG = _("Enter your mailing address.")
+=======
+REQUIRED_FIELD_STATE_MSG = _("Enter your state.")
+REQUIRED_FIELD_CITY_MSG = _("Enter your city.")
+REQUIRED_FIELD_GOALS_MSG = _("Tell us your goals.")
+REQUIRED_FIELD_LEVEL_OF_EDUCATION_MSG = _("Select the highest level of education you have completed.")
+REQUIRED_FIELD_YEAR_OF_BIRTH_MSG = _("Select your year of birth")
+REQUIRED_FIELD_GENDER_MSG = _("Select your gender")
+REQUIRED_FIELD_MAILING_ADDRESS_MSG = _("Enter your mailing address.")
+
+# HIBP Strings
+AUTHN_LOGIN_BLOCK_HIBP_POLICY_MSG = _(
+    'Our system detected that your password is vulnerable. Change your password so that your account stays secure.'
+)
+AUTHN_LOGIN_NUDGE_HIBP_POLICY_MSG = _(
+    'Our system detected that your password is vulnerable. '
+    'We recommend you change it so that your account stays secure.'
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

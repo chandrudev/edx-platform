@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: CI
+=======
+name: Quality checks
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 on:
   pull_request:
@@ -15,15 +19,24 @@ jobs:
       matrix:
         os: [ ubuntu-20.04 ]
         python-version: [ 3.8 ]
+<<<<<<< HEAD
         node-version: [ 12 ]
 
+=======
+        node-version: [ 16 ]
+        
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     steps:
 
     - uses: actions/checkout@v2
       with:
         fetch-depth: 2
 
+<<<<<<< HEAD
     - name: Fetch master for comparison
+=======
+    - name: Fetch base branch for comparison
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       run: git fetch --depth=1 origin ${{ github.base_ref }}
 
     - name: Install Required System Packages
@@ -39,6 +52,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+<<<<<<< HEAD
+=======
+    - name: Setup npm
+      run: npm i -g npm@8.5.x
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     - name: Get pip cache dir
       id: pip-cache-dir
       run: |
@@ -70,6 +89,10 @@ jobs:
         ./scripts/all-tests.sh
 
     - name: Save Job Artifacts
+<<<<<<< HEAD
+=======
+      if: always()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       uses: actions/upload-artifact@v2
       with:
         name: Build-Artifacts

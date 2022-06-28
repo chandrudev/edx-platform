@@ -563,7 +563,12 @@
                             if ((stringValue.indexOf('{{') !== -1) && (stringValue.indexOf('}}') !== -1)) {
                                 stringValue = stringValue.replace(/{{[\s\S]*?}}/g, '').trim();
                             }
+<<<<<<< HEAD
                             if (stringValue.match(/[a-z]/i)) {
+=======
+                            // allow for "e" for scientific notation, otherwise, exclude letters
+                            if (stringValue.match(/[a-df-z]/i)) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                                 return false;
                             }
                             return !isNaN(parseFloat(stringValue));

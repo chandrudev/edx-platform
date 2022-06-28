@@ -2,10 +2,16 @@
 Helper code for working with Blockstore bundles that contain OLX
 """
 
+<<<<<<< HEAD
 import dateutil.parser
 import logging  # lint-amnesty, pylint: disable=wrong-import-order
 
 from functools import lru_cache
+=======
+import logging  # lint-amnesty, pylint: disable=wrong-import-order
+
+from functools import lru_cache  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys.edx.locator import BundleDefinitionLocator, LibraryUsageLocatorV2
 from xblock.core import XBlock
 from xblock.plugin import PluginMissingError
@@ -179,7 +185,11 @@ class LibraryBundle:
         Get the set of usage keys in this bundle that have no parent.
         """
         own_usage_keys = self.get_all_usages()
+<<<<<<< HEAD
         usage_keys_with_parents = self.get_bundle_includes().keys()  # lint-amnesty, pylint: disable=dict-keys-not-iterating
+=======
+        usage_keys_with_parents = self.get_bundle_includes().keys()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return [usage_key for usage_key in own_usage_keys if usage_key not in usage_keys_with_parents]
 
     def get_bundle_includes(self):
@@ -347,12 +357,25 @@ class LibraryBundle:
             problem/quiz1/definition.xml
             problem/quiz1/static/image1.png
         Then this will return
+<<<<<<< HEAD
             [BundleFile(path="image1.png", size, url, hash_digest)]
+=======
+            [BundleFileData(path="image1.png", size, url, hash_digest)]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         path_prefix = self.get_static_prefix_for_definition(definition_key)
         path_prefix_len = len(path_prefix)
         return [
+<<<<<<< HEAD
             blockstore_api.BundleFile(path=f.path[path_prefix_len:], size=f.size, url=f.url, hash_digest=f.hash_digest)
+=======
+            blockstore_api.BundleFileData(
+                path=f.path[path_prefix_len:],
+                size=f.size,
+                url=f.url,
+                hash_digest=f.hash_digest,
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             for f in get_bundle_files_cached(self.bundle_uuid, draft_name=self.draft_name)
             if f.path.startswith(path_prefix)
         ]
@@ -369,8 +392,12 @@ class LibraryBundle:
         version = get_bundle_version_number(self.bundle_uuid)
         if version == 0:
             return None
+<<<<<<< HEAD
         created_at_str = blockstore_api.get_bundle_version(self.bundle_uuid, version)['snapshot']['created_at']
         last_published_time = dateutil.parser.parse(created_at_str)
+=======
+        last_published_time = blockstore_api.get_bundle_version(self.bundle_uuid, version).created_at
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.cache.set(cache_key, last_published_time)
         return last_published_time
 

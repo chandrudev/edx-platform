@@ -10,8 +10,11 @@ import datetime
 import crum
 from babel.dates import format_timedelta
 from django.conf import settings
+<<<<<<< HEAD
 from django.urls import reverse
 from django.utils.formats import date_format
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.utils.functional import cached_property
 from django.utils.translation import get_language, to_locale
 from django.utils.translation import gettext as _
@@ -19,14 +22,24 @@ from django.utils.translation import gettext_lazy
 from lazy import lazy
 from pytz import utc
 
+<<<<<<< HEAD
 from common.djangoapps.course_modes.models import CourseMode, get_cosmetic_verified_display_price
+=======
+from common.djangoapps.course_modes.models import CourseMode
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.certificates.api import get_active_web_certificate, can_show_certificate_available_date_field
 from lms.djangoapps.courseware.utils import verified_upgrade_deadline_link, can_show_verified_upgrade
 from lms.djangoapps.verify_student.models import VerificationDeadline
 from lms.djangoapps.verify_student.services import IDVerificationService
+<<<<<<< HEAD
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.features.course_duration_limits.access import get_user_course_expiration_date
 from openedx.features.course_experience import RELATIVE_DATES_FLAG, UPGRADE_DEADLINE_MESSAGE, CourseHomeMessages
+=======
+from openedx.core.djangolib.markup import HTML
+from openedx.features.course_duration_limits.access import get_user_course_expiration_date
+from openedx.features.course_experience import RELATIVE_DATES_FLAG
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.student.models import CourseEnrollment
 
 from .context_processor import user_timezone_locale_prefs
@@ -79,12 +92,15 @@ class DateSummary:
         """Extra detail to display as a tooltip."""
         return None
 
+<<<<<<< HEAD
     def register_alerts(self, request, course):
         """
         Registers any relevant course alerts given the current request.
         """
         pass  # lint-amnesty, pylint: disable=unnecessary-pass
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @property
     def date(self):
         """This summary's date."""
@@ -280,6 +296,7 @@ class CourseStartDate(DateSummary):
             return gettext_lazy('Enrollment Date')
         return gettext_lazy('Course starts')
 
+<<<<<<< HEAD
     def register_alerts(self, request, course):
         """
         Registers an alert if the course has not started yet.
@@ -309,6 +326,8 @@ class CourseStartDate(DateSummary):
                     )
                 )
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class CourseEndDate(DateSummary):
     """
@@ -361,6 +380,7 @@ class CourseEndDate(DateSummary):
     def date_type(self):
         return 'course-end-date'
 
+<<<<<<< HEAD
     def register_alerts(self, request, course):
         """
         Registers an alert if the end date is approaching.
@@ -389,6 +409,8 @@ class CourseEndDate(DateSummary):
                     )
                 )
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class CourseAssignmentDate(DateSummary):
     """
@@ -512,6 +534,7 @@ class CertificateAvailableDate(DateSummary):
             ) if mode.slug != CourseMode.AUDIT
         )
 
+<<<<<<< HEAD
     def register_alerts(self, request, course):
         """
         Registers an alert close to the certificate delivery date.
@@ -537,6 +560,8 @@ class CertificateAvailableDate(DateSummary):
                 title=Text(_('We are working on generating course certificates.'))
             )
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class VerifiedUpgradeDeadlineDate(DateSummary):
     """
@@ -608,6 +633,7 @@ class VerifiedUpgradeDeadlineDate(DateSummary):
         # according to their locale.
         return _('by {date}')
 
+<<<<<<< HEAD
     def register_alerts(self, request, course):
         """
         Registers an alert if the verification deadline is approaching.
@@ -646,6 +672,8 @@ class VerifiedUpgradeDeadlineDate(DateSummary):
                 title=Text(upgrade_message)
             )
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class VerificationDeadlineDate(DateSummary):
     """
@@ -719,7 +747,12 @@ class VerificationDeadlineDate(DateSummary):
         return (
             is_active and
             mode == 'verified' and
+<<<<<<< HEAD
             self.verification_status in ('expired', 'none', 'must_reverify')
+=======
+            self.verification_status in ('expired', 'none', 'must_reverify') and
+            not settings.FEATURES.get('ENABLE_INTEGRITY_SIGNATURE')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
     @lazy

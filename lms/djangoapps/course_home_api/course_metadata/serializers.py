@@ -33,7 +33,10 @@ class CourseHomeMetadataSerializer(VerifiedModeSerializer):
     """
     Serializer for the Course Home Course Metadata
     """
+<<<<<<< HEAD
     can_load_courseware = serializers.BooleanField()
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     celebrations = serializers.DictField()
     course_access = serializers.DictField()
     course_id = serializers.CharField()
@@ -48,3 +51,7 @@ class CourseHomeMetadataSerializer(VerifiedModeSerializer):
     title = serializers.CharField()
     username = serializers.CharField()
     user_timezone = serializers.CharField()
+<<<<<<< HEAD
+=======
+    can_view_certificate = serializers.BooleanField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -2,13 +2,21 @@
 
 from datetime import datetime
 from pytz import UTC
+<<<<<<< HEAD
 from unittest import mock
+=======
+from unittest import mock  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 import ddt
 from django.core.management import call_command
 from django.test import TestCase
 from edx_toggles.toggles.testutils import override_waffle_flag
 from freezegun import freeze_time
+<<<<<<< HEAD
+=======
+from waffle import get_waffle_flag_model  # pylint: disable=invalid-django-waffle-import
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory
@@ -16,10 +24,17 @@ from lms.djangoapps.course_goals.models import CourseGoalReminderStatus
 from lms.djangoapps.course_goals.tests.factories import (
     CourseGoalFactory, CourseGoalReminderStatusFactory, UserActivityFactory,
 )
+<<<<<<< HEAD
 from lms.djangoapps.course_goals.toggles import COURSE_GOALS_NUMBER_OF_DAYS_GOALS
 from lms.djangoapps.certificates.data import CertificateStatuses
 from lms.djangoapps.certificates.tests.factories import GeneratedCertificateFactory
 from openedx.core.djangolib.testing.utils import skip_unless_lms
+=======
+from lms.djangoapps.certificates.data import CertificateStatuses
+from lms.djangoapps.certificates.tests.factories import GeneratedCertificateFactory
+from openedx.core.djangolib.testing.utils import skip_unless_lms
+from openedx.features.course_experience import ENABLE_COURSE_GOALS
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Some constants just for clarity of tests (assuming week starts on a Monday, as March 2021 used below does)
 MONDAY = 0
@@ -33,7 +48,11 @@ SUNDAY = 6
 
 @ddt.ddt
 @skip_unless_lms
+<<<<<<< HEAD
 @override_waffle_flag(COURSE_GOALS_NUMBER_OF_DAYS_GOALS, active=True)
+=======
+@override_waffle_flag(ENABLE_COURSE_GOALS, active=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class TestGoalReminderEmailCommand(TestCase):
     """
     Test goal_reminder_email management command.
@@ -116,9 +135,24 @@ class TestGoalReminderEmailCommand(TestCase):
 
     def test_feature_disabled(self):
         self.make_valid_goal()
+<<<<<<< HEAD
         with override_waffle_flag(COURSE_GOALS_NUMBER_OF_DAYS_GOALS, active=False):
             self.call_command(expect_sent=False)
 
+=======
+        with override_waffle_flag(ENABLE_COURSE_GOALS, active=False):
+            self.call_command(expect_sent=False)
+
+    def test_feature_enabled_for_user(self):
+        goal = self.make_valid_goal()
+        with override_waffle_flag(ENABLE_COURSE_GOALS, active=None):
+            # We want to ensure that when we set up a fake request
+            # it works correctly if the flag is only enabled for specific users
+            flag = get_waffle_flag_model().get(ENABLE_COURSE_GOALS.name)
+            flag.users.add(goal.user)
+            self.call_command(expect_sent=True)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_never_enrolled(self):
         self.make_valid_goal()
         CourseEnrollment.objects.all().delete()

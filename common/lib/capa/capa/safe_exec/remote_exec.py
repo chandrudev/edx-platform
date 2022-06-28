@@ -8,13 +8,20 @@ import logging
 
 from codejail.safe_exec import SafeExecException
 from django.conf import settings
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edx_toggles.toggles import SettingToggle
 from importlib import import_module
 from requests.exceptions import RequestException, HTTPError
 from simplejson import JSONDecodeError
 
 from .exceptions import CodejailServiceParseError, CodejailServiceStatusError, CodejailServiceUnavailable
+<<<<<<< HEAD
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 

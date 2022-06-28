@@ -1,7 +1,11 @@
 <%page expression_filter="h"/>
 <%
 from django.conf import settings
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from cms.djangoapps.contentstore.utils import ancestor_has_staff_lock, get_visibility_partition_info
 from openedx.core.djangolib.markup import HTML, Text
 from lms.lib.utils import is_unit

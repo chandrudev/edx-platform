@@ -1,14 +1,21 @@
 """
 Django admin configuration pages for the user_api app
 """
+<<<<<<< HEAD
 
 
 from django.conf.urls import url
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.contrib import admin, messages
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.template.response import TemplateResponse
+<<<<<<< HEAD
 from django.urls import reverse
+=======
+from django.urls import path, reverse
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
@@ -89,11 +96,17 @@ class UserRetirementStatusAdmin(admin.ModelAdmin):
         """
         urls = super().get_urls()
         custom_urls = [
+<<<<<<< HEAD
             url(
                 r'^(?P<retirement_id>.+)/cancel_retirement/$',
                 self.admin_site.admin_view(self.cancel_retirement),
                 name='cancel-retirement',
             ),
+=======
+            path('<path:retirement_id>/cancel_retirement/', self.admin_site.admin_view(self.cancel_retirement),
+                 name='cancel-retirement',
+                 ),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         ]
         return custom_urls + urls
 

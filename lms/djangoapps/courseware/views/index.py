@@ -6,8 +6,13 @@ View for Courseware Index
 
 
 import logging
+<<<<<<< HEAD
 
 import urllib
+=======
+import urllib
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.db import transaction
@@ -21,6 +26,7 @@ from django.views.decorators.cache import cache_control
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.generic import View
 from edx_django_utils.monitoring import set_custom_attributes_for_course_key
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleSwitchNamespace
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
@@ -30,6 +36,21 @@ from common.djangoapps.edxmako.shortcuts import render_to_response, render_to_st
 from lms.djangoapps.courseware.exceptions import CourseAccessRedirect, Redirect
 from lms.djangoapps.experiments.utils import get_experiment_user_metadata_context
 from lms.djangoapps.gating.api import get_entrance_exam_score_ratio, get_entrance_exam_usage_key
+=======
+from opaque_keys import InvalidKeyError
+from opaque_keys.edx.keys import CourseKey, UsageKey
+from web_fragments.fragment import Fragment
+from xmodule.course_module import COURSE_VISIBILITY_PUBLIC
+from xmodule.modulestore.django import modulestore
+from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
+
+from common.djangoapps.edxmako.shortcuts import render_to_response, render_to_string
+from common.djangoapps.student.models import CourseEnrollment
+from common.djangoapps.util.views import ensure_valid_course_key
+from lms.djangoapps.courseware.exceptions import CourseAccessRedirect, Redirect
+from lms.djangoapps.experiments.utils import get_experiment_user_metadata_context
+from lms.djangoapps.gating.api import get_entrance_exam_score, get_entrance_exam_usage_key
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.grades.api import CourseGradeFactory
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.crawlers.models import CrawlersConfig
@@ -40,6 +61,7 @@ from openedx.core.djangolib.markup import HTML, Text
 from openedx.features.course_experience import (
     COURSE_ENABLE_UNENROLLED_ACCESS_FLAG,
     DISABLE_COURSE_OUTLINE_PAGE_FLAG,
+<<<<<<< HEAD
     default_course_url_name
 )
 from openedx.features.course_experience.views.course_sock import CourseSockFragmentView
@@ -50,6 +72,13 @@ from common.djangoapps.util.views import ensure_valid_course_key
 from xmodule.course_module import COURSE_VISIBILITY_PUBLIC
 from xmodule.modulestore.django import modulestore
 from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
+=======
+    default_course_url
+)
+from openedx.features.course_experience.url_helpers import make_learning_mfe_courseware_url
+from openedx.features.course_experience.views.course_sock import CourseSockFragmentView
+from openedx.features.enterprise_support.api import data_sharing_consent_required
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..access import has_access
 from ..access_utils import check_public_access
@@ -64,10 +93,14 @@ from ..masquerade import check_content_start_date_for_masquerade_user, setup_mas
 from ..model_data import FieldDataCache
 from ..module_render import get_module_for_descriptor, toc_for_course
 from ..permissions import MASQUERADE_AS_STUDENT
+<<<<<<< HEAD
 from ..toggles import (
     courseware_legacy_is_visible,
     courseware_mfe_is_advertised
 )
+=======
+from ..toggles import ENABLE_OPTIMIZELY_IN_COURSEWARE, courseware_mfe_is_active
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .views import CourseTabView
 
 log = logging.getLogger("edx.courseware.views.index")
@@ -172,6 +205,7 @@ class CoursewareIndex(View):
 
     def _redirect_to_learning_mfe(self):
         """
+<<<<<<< HEAD
         Can the user access this sequence in Legacy courseware? If not, redirect to MFE.
 
         We specifically allow users to stay in the Legacy frontend for special
@@ -189,6 +223,13 @@ class CoursewareIndex(View):
             return
         # REDIRECT otherwise.
         raise Redirect(self.microfrontend_url)
+=======
+        Can the user access this sequence in the courseware MFE? If so, redirect to MFE.
+        """
+        # If the MFE is active, prefer that
+        if courseware_mfe_is_active():
+            raise Redirect(self.microfrontend_url)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @property
     def microfrontend_url(self):
@@ -207,7 +248,12 @@ class CoursewareIndex(View):
         url = make_learning_mfe_courseware_url(
             self.course_key,
             self.section.location if self.section else None,
+<<<<<<< HEAD
             unit_key
+=======
+            unit_key,
+            params=self.request.GET,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         return url
 
@@ -416,8 +462,12 @@ class CoursewareIndex(View):
         Also returns the table of contents for the courseware.
         """
 
+<<<<<<< HEAD
         course_url_name = default_course_url_name(self.course.id)
         course_url = reverse(course_url_name, kwargs={'course_id': str(self.course.id)})
+=======
+        course_url = default_course_url(self.course.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         show_search = (
             settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH') or
             (settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH_FOR_COURSE_STAFF') and self.is_staff)
@@ -440,7 +490,11 @@ class CoursewareIndex(View):
             'xqa_server': settings.FEATURES.get('XQA_SERVER', "http://your_xqa_server.com"),
             'bookmarks_api_url': reverse('bookmarks'),
             'language_preference': self._get_language_preference(),
+<<<<<<< HEAD
             'disable_optimizely': not LegacyWaffleSwitchNamespace('RET').is_enabled('enable_optimizely_in_courseware'),
+=======
+            'disable_optimizely': not ENABLE_OPTIMIZELY_IN_COURSEWARE.is_enabled(),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'section_title': None,
             'sequence_title': None,
             'disable_accordion': not DISABLE_COURSE_OUTLINE_PAGE_FLAG.is_enabled(self.course.id),
@@ -497,6 +551,7 @@ class CoursewareIndex(View):
             if self.section.position and self.section.has_children:
                 self._add_sequence_title_to_context(courseware_context)
 
+<<<<<<< HEAD
         # Courseware MFE link
         if courseware_mfe_is_advertised(
                 is_global_staff=request.user.is_staff,
@@ -507,6 +562,8 @@ class CoursewareIndex(View):
         else:
             courseware_context['microfrontend_link'] = None
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return courseware_context
 
     def _add_sequence_title_to_context(self, courseware_context):
@@ -530,7 +587,11 @@ class CoursewareIndex(View):
         """
         if course_has_entrance_exam(self.course) and getattr(self.chapter, 'is_entrance_exam', False):
             courseware_context['entrance_exam_passed'] = user_has_passed_entrance_exam(self.effective_user, self.course)
+<<<<<<< HEAD
             courseware_context['entrance_exam_current_score'] = get_entrance_exam_score_ratio(
+=======
+            courseware_context['entrance_exam_current_score'] = get_entrance_exam_score(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 CourseGradeFactory().read(self.effective_user, self.course),
                 get_entrance_exam_usage_key(self.course),
             )

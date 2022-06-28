@@ -643,9 +643,13 @@ class MatlabTest(unittest.TestCase):
     def test_plot_data(self):
         data = {'submission': 'x = 1234;'}
         response = self.the_input.handle_ajax("plot", data)
+<<<<<<< HEAD
 
         test_capa_system().xqueue['interface'].send_to_queue.assert_called_with(header=ANY, body=ANY)
 
+=======
+        self.the_input.capa_system.xqueue.interface.send_to_queue.assert_called_with(header=ANY, body=ANY)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response['success']
         assert self.the_input.input_state['queuekey'] is not None
         assert self.the_input.input_state['queuestate'] == 'queued'
@@ -653,7 +657,11 @@ class MatlabTest(unittest.TestCase):
     def test_plot_data_failure(self):
         data = {'submission': 'x = 1234;'}
         error_message = 'Error message!'
+<<<<<<< HEAD
         test_capa_system().xqueue['interface'].send_to_queue.return_value = (1, error_message)
+=======
+        self.the_input.capa_system.xqueue.interface.send_to_queue.return_value = (1, error_message)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         response = self.the_input.handle_ajax("plot", data)
         assert not response['success']
         assert response['message'] == error_message
@@ -740,7 +748,11 @@ class MatlabTest(unittest.TestCase):
         data = {'submission': 'x = 1234;'}
         response = the_input.handle_ajax("plot", data)  # lint-amnesty, pylint: disable=unused-variable
 
+<<<<<<< HEAD
         body = system.xqueue['interface'].send_to_queue.call_args[1]['body']
+=======
+        body = system.xqueue.interface.send_to_queue.call_args[1]['body']
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         payload = json.loads(body)
         assert 'test_api_key' == payload['token']
         assert '2' == payload['endpoint_version']

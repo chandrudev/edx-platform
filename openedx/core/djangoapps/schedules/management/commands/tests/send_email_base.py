@@ -220,7 +220,11 @@ class ScheduleSendEmailTestMixin(FilteredQueryCountMixin):  # lint-amnesty, pyli
                         )
                         is_first_match = False
 
+<<<<<<< HEAD
                 with self.assertNumQueries(expected_queries, table_blacklist=WAFFLE_TABLES):
+=======
+                with self.assertNumQueries(expected_queries, table_ignorelist=WAFFLE_TABLES):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     self.task().apply(kwargs=dict(
                         site_id=self.site_config.site.id, target_day_str=target_day_str, day_offset=offset, bin_num=b,
                     ))
@@ -377,7 +381,11 @@ class ScheduleSendEmailTestMixin(FilteredQueryCountMixin):  # lint-amnesty, pyli
         # one query for course modes for the first schedule if we aren't checking the deadline for each course
         additional_course_queries = (num_courses * 2) - 1 if self.queries_deadline_for_each_course else 1
         expected_query_count = NUM_QUERIES_FIRST_MATCH + additional_course_queries
+<<<<<<< HEAD
         with self.assertNumQueries(expected_query_count, table_blacklist=WAFFLE_TABLES):
+=======
+        with self.assertNumQueries(expected_query_count, table_ignorelist=WAFFLE_TABLES):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             with patch.object(self.task, 'async_send_task') as mock_schedule_send:
                 self.task().apply(kwargs=dict(
                     site_id=self.site_config.site.id, target_day_str=serialize(target_day), day_offset=offset,
@@ -431,7 +439,11 @@ class ScheduleSendEmailTestMixin(FilteredQueryCountMixin):  # lint-amnesty, pyli
                 else:
                     num_expected_queries += 1
 
+<<<<<<< HEAD
                 with self.assertNumQueries(num_expected_queries, table_blacklist=WAFFLE_TABLES):
+=======
+                with self.assertNumQueries(num_expected_queries, table_ignorelist=WAFFLE_TABLES):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     self.task().apply(kwargs=dict(
                         site_id=self.site_config.site.id, target_day_str=serialize(target_day), day_offset=offset,
                         bin_num=self._calculate_bin_for_user(user),

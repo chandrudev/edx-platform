@@ -2,7 +2,11 @@
 Test the user course tag API.
 """
 
+<<<<<<< HEAD
 
+=======
+from django.contrib.auth.models import AnonymousUser
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.test import TestCase
 from opaque_keys.edx.locator import CourseLocator
 
@@ -21,6 +25,13 @@ class TestCourseTagAPI(TestCase):
         self.course_id = CourseLocator('test_org', 'test_course_number', 'test_run')
         self.test_key = 'test_key'
 
+<<<<<<< HEAD
+=======
+    def test_get_course_tag_for_anonymous_user(self):
+        tag = course_tag_api.get_course_tag(AnonymousUser(), self.course_id, self.test_key)
+        assert tag is None
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_get_set_course_tag(self):
         # get a tag that doesn't exist
         tag = course_tag_api.get_course_tag(self.user, self.course_id, self.test_key)

@@ -95,6 +95,7 @@ class CourseSerializer(serializers.Serializer):  # pylint: disable=abstract-meth
     Compare this with CourseDetailSerializer.
     """
 
+<<<<<<< HEAD
     blocks_url = serializers.SerializerMethodField()
     effort = serializers.CharField()
     end = serializers.DateTimeField()
@@ -113,6 +114,26 @@ class CourseSerializer(serializers.Serializer):  # pylint: disable=abstract-meth
     mobile_available = serializers.BooleanField()
     hidden = serializers.SerializerMethodField()
     invitation_only = serializers.BooleanField()
+=======
+    # blocks_url = serializers.SerializerMethodField()
+    # effort = serializers.CharField()
+    end = serializers.DateTimeField()
+    # enrollment_start = serializers.DateTimeField()
+    # enrollment_end = serializers.DateTimeField()
+    id = serializers.CharField()  # pylint: disable=invalid-name
+    # media = _CourseApiMediaCollectionSerializer(source='*')
+    name = serializers.CharField(source='display_name_with_default_escaped')
+    number = serializers.CharField(source='display_number_with_default')
+    org = serializers.CharField(source='display_org_with_default')
+    # short_description = serializers.CharField()
+    start = serializers.DateTimeField()
+    start_display = serializers.CharField()
+    start_type = serializers.CharField()
+    # pacing = serializers.CharField()
+    # mobile_available = serializers.BooleanField()
+    # hidden = serializers.SerializerMethodField()
+    # invitation_only = serializers.BooleanField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # 'course_id' is a deprecated field, please use 'id' instead.
     course_id = serializers.CharField(source='id', read_only=True)
@@ -123,6 +144,7 @@ class CourseSerializer(serializers.Serializer):  # pylint: disable=abstract-meth
         Represents whether course is hidden in LMS
         """
         catalog_visibility = course_overview.catalog_visibility
+<<<<<<< HEAD
         return catalog_visibility in ['about', 'none']
 
     def get_blocks_url(self, course_overview):
@@ -134,6 +156,19 @@ class CourseSerializer(serializers.Serializer):  # pylint: disable=abstract-meth
             urllib.parse.urlencode({'course_id': course_overview.id}),
         ])
         return self.context['request'].build_absolute_uri(base_url)
+=======
+        return catalog_visibility in ['about', 'none'] or course_overview.id.deprecated  # Old Mongo should be hidden
+
+    # def get_blocks_url(self, course_overview):
+    #     """
+    #     Get the representation for SerializerMethodField `blocks_url`
+    #     """
+    #     base_url = '?'.join([
+    #         reverse('blocks_in_course'),
+    #         urllib.parse.urlencode({'course_id': course_overview.id}),
+    #     ])
+    #     return self.context['request'].build_absolute_uri(base_url)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class CourseDetailSerializer(CourseSerializer):  # pylint: disable=abstract-method

@@ -20,7 +20,11 @@ from django.utils.translation import gettext_lazy
 from path import Path as path
 
 from openedx.core.release import RELEASE_LINE
+<<<<<<< HEAD
 from xmodule.modulestore.modulestore_settings import update_module_store_settings
+=======
+from xmodule.modulestore.modulestore_settings import update_module_store_settings  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 CONFIG_ROOT = path(__file__).abspath().dirname()
 TEST_ROOT = CONFIG_ROOT.dirname().dirname() / "test_root"

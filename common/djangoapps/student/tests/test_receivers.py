@@ -1,6 +1,10 @@
 """ Tests for student signal receivers. """
 
+<<<<<<< HEAD
 from edx_name_affirmation.signals import VERIFIED_NAME_APPROVED
+=======
+from unittest import skipUnless
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edx_toggles.toggles.testutils import override_waffle_flag
 from lms.djangoapps.courseware.toggles import COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES
 from common.djangoapps.student.models import (
@@ -13,7 +17,17 @@ from common.djangoapps.student.tests.factories import (
     UserFactory,
     UserProfileFactory
 )
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+=======
+from openedx.features.name_affirmation_api.utils import is_name_affirmation_installed
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+
+name_affirmation_installed = is_name_affirmation_installed()
+if name_affirmation_installed:
+    # pylint: disable=import-error
+    from edx_name_affirmation.signals import VERIFIED_NAME_APPROVED
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ReceiversTest(SharedModuleStoreTestCase):
@@ -28,7 +42,13 @@ class ReceiversTest(SharedModuleStoreTestCase):
         # Test initial creation upon an enrollment being made
         enrollment = CourseEnrollmentFactory()
         assert CourseEnrollmentCelebration.objects.count() == 1
+<<<<<<< HEAD
         celebration = CourseEnrollmentCelebration.objects.get(enrollment=enrollment, celebrate_first_section=True)
+=======
+        celebration = CourseEnrollmentCelebration.objects.get(
+            enrollment=enrollment, celebrate_first_section=True, celebrate_weekly_goal=True
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Test nothing changes if we update that enrollment
         celebration.celebrate_first_section = False
@@ -36,13 +56,23 @@ class ReceiversTest(SharedModuleStoreTestCase):
         enrollment.mode = 'test-mode'
         enrollment.save()
         assert CourseEnrollmentCelebration.objects.count() == 1
+<<<<<<< HEAD
         CourseEnrollmentCelebration.objects.get(enrollment=enrollment, celebrate_first_section=False)
+=======
+        CourseEnrollmentCelebration.objects.get(
+            enrollment=enrollment, celebrate_first_section=False, celebrate_weekly_goal=True
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_celebration_gated_by_waffle(self):
         """ Test we don't make a celebration if the MFE redirect waffle flag is off """
         CourseEnrollmentFactory()
         assert CourseEnrollmentCelebration.objects.count() == 0
 
+<<<<<<< HEAD
+=======
+    @skipUnless(name_affirmation_installed, "Requires Name Affirmation")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_listen_for_verified_name_approved(self):
         """
         Test that profile name is updated when a pending name change is approved

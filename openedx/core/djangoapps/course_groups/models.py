@@ -13,15 +13,35 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 from opaque_keys.edx.django.models import CourseKeyField
+<<<<<<< HEAD
 
 from openedx.core.djangolib.model_mixins import DeletableByUserValue
 
 from openedx_events.learning.data import CohortData, CourseData, UserData, UserPersonalData
 from openedx_events.learning.signals import COHORT_MEMBERSHIP_CHANGED
+=======
+from openedx_filters.learning.filters import CohortChangeRequested
+
+from openedx.core.djangolib.model_mixins import DeletableByUserValue
+
+from openedx_events.learning.data import CohortData, CourseData, UserData, UserPersonalData  # lint-amnesty, pylint: disable=wrong-import-order
+from openedx_events.learning.signals import COHORT_MEMBERSHIP_CHANGED  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
 
+<<<<<<< HEAD
+=======
+class CohortMembershipException(Exception):
+    pass
+
+
+class CohortChangeNotAllowed(CohortMembershipException):
+    pass
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CourseUserGroup(models.Model):
     """
     This model represents groups of users in a course.  Groups may have different types,
@@ -122,6 +142,19 @@ class CohortMembership(models.Model):
                     cohort_name=cohort.name))
             else:
                 previous_cohort = membership.course_user_group
+<<<<<<< HEAD
+=======
+
+                try:
+                    # .. filter_implemented_name: CohortChangeRequested
+                    # .. filter_type: org.openedx.learning.cohort.change.requested.v1
+                    membership, cohort = CohortChangeRequested.run_filter(
+                        current_membership=membership, target_cohort=cohort,
+                    )
+                except CohortChangeRequested.PreventCohortChange as exc:
+                    raise CohortChangeNotAllowed(str(exc)) from exc
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 previous_cohort.users.remove(user)
 
                 membership.course_user_group = cohort

@@ -27,6 +27,10 @@ from lms.djangoapps.courseware.access_response import (
     AuthenticationRequiredAccessError,
     EnrollmentRequiredAccessError,
     MilestoneAccessError,
+<<<<<<< HEAD
+=======
+    OldMongoAccessError,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     StartDateError,
 )
 from lms.djangoapps.courseware.date_summary import (
@@ -62,9 +66,15 @@ from openedx.features.course_experience.utils import is_block_structure_complete
 from common.djangoapps.static_replace import replace_static_urls
 from lms.djangoapps.survey.utils import SurveyRequiredAccessError, check_survey_required_and_unanswered
 from common.djangoapps.util.date_utils import strftime_localized
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
 from xmodule.x_module import STUDENT_VIEW
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.x_module import STUDENT_VIEW  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
@@ -213,6 +223,18 @@ def check_course_access_with_redirect(course, user, action, check_if_enrolled=Fa
                 params=params.urlencode()
             ), access_response)
 
+<<<<<<< HEAD
+=======
+        # Redirect if trying to access an Old Mongo course
+        if isinstance(access_response, OldMongoAccessError):
+            params = QueryDict(mutable=True)
+            params['access_response_error'] = access_response.user_message
+            raise CourseAccessRedirect('{dashboard_url}?{params}'.format(
+                dashboard_url=reverse('dashboard'),
+                params=params.urlencode(),
+            ), access_response)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Redirect if the user must answer a survey before entering the course.
         if isinstance(access_response, MilestoneAccessError):
             raise CourseAccessRedirect('{dashboard_url}'.format(
@@ -464,7 +486,11 @@ def get_course_date_blocks(course, user, request=None, include_access=False,
     ]
     blocks.extend([cls(course, user) for cls in default_block_classes])
 
+<<<<<<< HEAD
     blocks = filter(lambda b: b.is_allowed and b.date and (include_past_dates or b.is_enabled), blocks)  # lint-amnesty, pylint: disable=filter-builtin-not-iterating
+=======
+    blocks = filter(lambda b: b.is_allowed and b.date and (include_past_dates or b.is_enabled), blocks)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return sorted(blocks, key=date_block_key_fn)
 
 
@@ -547,6 +573,10 @@ def get_course_assignments(course_key, user, include_access=False):  # lint-amne
     """
     if not user.id:
         return []
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     store = modulestore()
     course_usage_key = store.make_course_usage_key(course_key)
     block_data = get_course_blocks(user, course_usage_key, allow_start_dates_in_future=True, include_completion=True)
@@ -570,8 +600,15 @@ def get_course_assignments(course_key, user, include_access=False):  # lint-amne
                 assignment_released = not start or start < now
                 if assignment_released:
                     url = reverse('jump_to', args=[course_key, subsection_key])
+<<<<<<< HEAD
 
                 complete = is_block_structure_complete_for_assignments(block_data, subsection_key)
+=======
+                    complete = is_block_structure_complete_for_assignments(block_data, subsection_key)
+                else:
+                    complete = False
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 past_due = not complete and due < now
                 assignments.append(_Assignment(
                     subsection_key, title, url, due, contains_gated_content,
@@ -646,7 +683,10 @@ def get_course_assignments(course_key, user, include_access=False):  # lint-amne
                             _("Open Response Assessment due dates are set by your instructor and can't be shifted."),
                             first_component_block_id,
                         ))
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return assignments
 
 

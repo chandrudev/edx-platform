@@ -21,7 +21,11 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_noop
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlagNamespace, LegacyWaffleSwitchNamespace
+=======
+from edx_toggles.toggles import WaffleSwitch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edxval.api import (
     SortDirection,
     VideoSortField,
@@ -49,11 +53,18 @@ from openedx.core.djangoapps.video_config.models import VideoTranscriptEnabledFl
 from openedx.core.djangoapps.video_pipeline.config.waffle import (
     DEPRECATE_YOUTUBE,
     ENABLE_DEVSTACK_VIDEO_UPLOADS,
+<<<<<<< HEAD
     waffle_flags
 )
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
 from openedx.core.lib.api.view_utils import view_auth_classes
 from xmodule.video_module.transcripts_utils import Transcript
+=======
+)
+from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
+from openedx.core.lib.api.view_utils import view_auth_classes
+from xmodule.video_module.transcripts_utils import Transcript  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..models import VideoUploadConfig
 from ..utils import reverse_course_url
@@ -72,6 +83,7 @@ LOGGER = logging.getLogger(__name__)
 
 # Waffle switches namespace for videos
 WAFFLE_NAMESPACE = 'videos'
+<<<<<<< HEAD
 WAFFLE_SWITCHES = LegacyWaffleSwitchNamespace(name=WAFFLE_NAMESPACE)
 
 # Waffle switch for enabling/disabling video image upload feature
@@ -84,6 +96,19 @@ ENABLE_VIDEO_UPLOAD_PAGINATION = CourseWaffleFlag(  # lint-amnesty, pylint: disa
     waffle_namespace=WAFFLE_STUDIO_FLAG_NAMESPACE,
     flag_name='enable_video_upload_pagination',
     module_name=__name__,
+=======
+
+# Waffle switch for enabling/disabling video image upload feature
+VIDEO_IMAGE_UPLOAD_ENABLED = WaffleSwitch(  # lint-amnesty, pylint: disable=toggle-missing-annotation
+    f'{WAFFLE_NAMESPACE}.video_image_upload_enabled', __name__
+)
+
+# Waffle flag namespace for studio
+WAFFLE_STUDIO_FLAG_NAMESPACE = 'studio'
+
+ENABLE_VIDEO_UPLOAD_PAGINATION = CourseWaffleFlag(  # lint-amnesty, pylint: disable=toggle-missing-annotation
+    f'{WAFFLE_STUDIO_FLAG_NAMESPACE}.enable_video_upload_pagination', __name__
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 # Default expiration, in seconds, of one-time URLs used for uploading videos.
 KEY_EXPIRATION_IN_SECONDS = 86400
@@ -245,7 +270,11 @@ def video_images_handler(request, course_key_string, edx_video_id=None):
     """Function to handle image files"""
 
     # respond with a 404 if image upload is not enabled.
+<<<<<<< HEAD
     if not WAFFLE_SWITCHES.is_enabled(VIDEO_IMAGE_UPLOAD_ENABLED):
+=======
+    if not VIDEO_IMAGE_UPLOAD_ENABLED.is_enabled():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return HttpResponseNotFound()
 
     if 'file' not in request.FILES:
@@ -285,7 +314,11 @@ def validate_transcript_preferences(provider, cielo24_fidelity, cielo24_turnarou
 
     # validate transcription providers
     transcription_plans = get_3rd_party_transcription_plans()
+<<<<<<< HEAD
     if provider in list(transcription_plans.keys()):
+=======
+    if provider in list(transcription_plans.keys()):   # lint-amnesty, pylint: disable=consider-iterating-dictionary
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Further validations for providers
         if provider == TranscriptProvider.CIELO24:
@@ -634,7 +667,11 @@ def videos_index_html(course, pagination_conf=None):
         'video_supported_file_formats': list(VIDEO_SUPPORTED_FILE_FORMATS.keys()),
         'video_upload_max_file_size': VIDEO_UPLOAD_MAX_FILE_SIZE_GB,
         'video_image_settings': {
+<<<<<<< HEAD
             'video_image_upload_enabled': WAFFLE_SWITCHES.is_enabled(VIDEO_IMAGE_UPLOAD_ENABLED),
+=======
+            'video_image_upload_enabled': VIDEO_IMAGE_UPLOAD_ENABLED.is_enabled(),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'max_size': settings.VIDEO_IMAGE_SETTINGS['VIDEO_IMAGE_MAX_BYTES'],
             'min_size': settings.VIDEO_IMAGE_SETTINGS['VIDEO_IMAGE_MIN_BYTES'],
             'max_width': settings.VIDEO_IMAGE_MAX_WIDTH,
@@ -750,12 +787,19 @@ def videos_post(course, request):
             ('course_key', str(course.id)),
         ]
 
+<<<<<<< HEAD
         deprecate_youtube = waffle_flags()[DEPRECATE_YOUTUBE]
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_video_upload_token = course.video_upload_pipeline.get('course_video_upload_token')
 
         # Only include `course_video_upload_token` if youtube has not been deprecated
         # for this course.
+<<<<<<< HEAD
         if not deprecate_youtube.is_enabled(course.id) and course_video_upload_token:
+=======
+        if not DEPRECATE_YOUTUBE.is_enabled(course.id) and course_video_upload_token:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             metadata_list.append(('course_video_upload_token', course_video_upload_token))
 
         is_video_transcript_enabled = VideoTranscriptEnabledFlag.feature_enabled(course.id)
@@ -791,7 +835,11 @@ def storage_service_bucket():
     """
     Returns an S3 bucket for video upload.
     """
+<<<<<<< HEAD
     if waffle_flags()[ENABLE_DEVSTACK_VIDEO_UPLOADS].is_enabled():
+=======
+    if ENABLE_DEVSTACK_VIDEO_UPLOADS.is_enabled():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         params = {
             'aws_access_key_id': settings.AWS_ACCESS_KEY_ID,
             'aws_secret_access_key': settings.AWS_SECRET_ACCESS_KEY,

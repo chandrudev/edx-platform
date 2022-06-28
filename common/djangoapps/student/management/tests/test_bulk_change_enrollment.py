@@ -5,7 +5,10 @@ from unittest.mock import call, patch
 
 import ddt
 import pytest
+<<<<<<< HEAD
 import django
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.core.management import call_command
 from django.core.management.base import CommandError
 
@@ -13,8 +16,13 @@ from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 from common.djangoapps.student.models import EVENT_NAME_ENROLLMENT_MODE_CHANGED, CourseEnrollment
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -107,10 +115,14 @@ class BulkChangeEnrollmentTests(SharedModuleStoreTestCase):
                 commit=True,
             )
 
+<<<<<<< HEAD
         if django.VERSION < (3, 0):
             assert 'Error: one of the arguments -c/--course -o/--org is required' == str(err.value)
         else:
             assert 'Error: argument -o/--org: not allowed with argument -c/--course' == str(err.value)
+=======
+        assert 'Error: argument -o/--org: not allowed with argument -c/--course' == str(err.value)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @patch('common.djangoapps.student.models.tracker')
     def test_with_org_and_invalid_to_mode(self, mock_tracker):

@@ -2,12 +2,17 @@
 Toggles for courseware in-course experience.
 """
 
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlagNamespace, SettingToggle
 from opaque_keys.edx.keys import CourseKey
+=======
+from edx_toggles.toggles import SettingToggle, WaffleSwitch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
 
 # Namespace for courseware waffle flags.
+<<<<<<< HEAD
 WAFFLE_FLAG_NAMESPACE = LegacyWaffleFlagNamespace(name='courseware')
 
 
@@ -40,6 +45,11 @@ COURSEWARE_MICROFRONTEND_COURSE_TEAM_PREVIEW = CourseWaffleFlag(
     WAFFLE_FLAG_NAMESPACE, 'microfrontend_course_team_preview', __name__
 )
 
+=======
+WAFFLE_FLAG_NAMESPACE = 'courseware'
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Waffle flag to enable the course exit page in the learning MFE.
 #
 # .. toggle_name: courseware.microfrontend_course_exit_page
@@ -49,10 +59,17 @@ COURSEWARE_MICROFRONTEND_COURSE_TEAM_PREVIEW = CourseWaffleFlag(
 # .. toggle_use_cases: open_edx, temporary
 # .. toggle_creation_date: 2020-10-02
 # .. toggle_target_removal_date: None
+<<<<<<< HEAD
 # .. toggle_warnings: Also set settings.LEARNING_MICROFRONTEND_URL.
 # .. toggle_tickets: AA-188
 COURSEWARE_MICROFRONTEND_COURSE_EXIT_PAGE = CourseWaffleFlag(
     WAFFLE_FLAG_NAMESPACE, 'microfrontend_course_exit_page', __name__
+=======
+# .. toggle_warning: Also set settings.LEARNING_MICROFRONTEND_URL.
+# .. toggle_tickets: AA-188
+COURSEWARE_MICROFRONTEND_COURSE_EXIT_PAGE = CourseWaffleFlag(
+    f'{WAFFLE_FLAG_NAMESPACE}.microfrontend_course_exit_page', __name__
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 # .. toggle_name: courseware.mfe_progress_milestones
@@ -63,10 +80,17 @@ COURSEWARE_MICROFRONTEND_COURSE_EXIT_PAGE = CourseWaffleFlag(
 # .. toggle_use_cases: temporary, open_edx
 # .. toggle_creation_date: 2020-10-07
 # .. toggle_target_removal_date: none
+<<<<<<< HEAD
 # .. toggle_warnings: Also set settings.LEARNING_MICROFRONTEND_URL.
 # .. toggle_tickets: AA-371
 COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES = CourseWaffleFlag(
     WAFFLE_FLAG_NAMESPACE, 'mfe_progress_milestones', __name__
+=======
+# .. toggle_warning: Also set settings.LEARNING_MICROFRONTEND_URL.
+# .. toggle_tickets: AA-371
+COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES = CourseWaffleFlag(
+    f'{WAFFLE_FLAG_NAMESPACE}.mfe_progress_milestones', __name__
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 # .. toggle_name: courseware.mfe_progress_milestones_streak_celebration
@@ -78,25 +102,41 @@ COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES = CourseWaffleFlag(
 # .. toggle_use_cases: temporary, open_edx
 # .. toggle_creation_date: 2021-02-16
 # .. toggle_target_removal_date: None
+<<<<<<< HEAD
 # .. toggle_warnings: Also set settings.LEARNING_MICROFRONTEND_URL and
 #   COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES.
 # .. toggle_tickets: AA-304
 COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_STREAK_CELEBRATION = CourseWaffleFlag(
     WAFFLE_FLAG_NAMESPACE, 'mfe_progress_milestones_streak_celebration', __name__
+=======
+# .. toggle_warning: Also set settings.LEARNING_MICROFRONTEND_URL and
+#   COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES.
+# .. toggle_tickets: AA-304
+COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_STREAK_CELEBRATION = CourseWaffleFlag(
+    f'{WAFFLE_FLAG_NAMESPACE}.mfe_progress_milestones_streak_celebration', __name__
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 # .. toggle_name: courseware.mfe_progress_milestones_streak_discount_enabled
 # .. toggle_implementation: CourseWaffleFlag
 # .. toggle_default: False
 # .. toggle_description: This flag enables an engagement discount incentive message.
+<<<<<<< HEAD
 # .. toggle_warnings: This flag depends on the streak celebration feature being enabled
+=======
+# .. toggle_warning: This flag depends on the streak celebration feature being enabled
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # .. toggle_use_cases: opt_out, open_edx
 # .. toggle_creation_date: 2021-08-26
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: https://openedx.atlassian.net/browse/AA-950
 COURSEWARE_MFE_MILESTONES_STREAK_DISCOUNT = CourseWaffleFlag(
+<<<<<<< HEAD
     WAFFLE_FLAG_NAMESPACE, 'streak_discount_enabled',
     __name__,
+=======
+    f'{WAFFLE_FLAG_NAMESPACE}.streak_discount_enabled', __name__
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 
@@ -111,6 +151,7 @@ COURSEWARE_MFE_MILESTONES_STREAK_DISCOUNT = CourseWaffleFlag(
 # .. toggle_creation_date: 2021-02-09
 # .. toggle_target_removal_date: 2021-05-01
 COURSEWARE_OPTIMIZED_RENDER_XBLOCK = CourseWaffleFlag(
+<<<<<<< HEAD
     WAFFLE_FLAG_NAMESPACE, 'optimized_render_xblock', __name__
 )
 
@@ -238,6 +279,11 @@ def streak_celebration_is_active(course_key):
     )
 
 
+=======
+    f'{WAFFLE_FLAG_NAMESPACE}.optimized_render_xblock', __name__
+)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # .. toggle_name: COURSES_INVITE_ONLY
 # .. toggle_implementation: SettingToggle
 # .. toggle_type: feature_flag
@@ -249,5 +295,50 @@ def streak_celebration_is_active(course_key):
 # .. toggle_expiration_date: None
 # .. toggle_tickets: https://github.com/mitodl/edx-platform/issues/123
 # .. toggle_status: unsupported
+<<<<<<< HEAD
 def is_courses_default_invite_only_enabled():
     return SettingToggle("COURSES_INVITE_ONLY", default=False).is_enabled()
+=======
+COURSES_INVITE_ONLY = SettingToggle('COURSES_INVITE_ONLY', default=False)
+
+ENABLE_OPTIMIZELY_IN_COURSEWARE = WaffleSwitch(  # lint-amnesty, pylint: disable=toggle-missing-annotation
+    'RET.enable_optimizely_in_courseware', __name__
+)
+
+
+def courseware_mfe_is_active() -> bool:
+    """
+    Should we serve the Learning MFE as the canonical courseware experience?
+    """
+    from lms.djangoapps.courseware.access_utils import in_preview_mode  # avoid a circular import
+
+    # We only use legacy views for the Studio "preview mode" feature these days, while everyone else gets the MFE
+    return not in_preview_mode()
+
+
+def course_exit_page_is_active(course_key):
+    return (
+        courseware_mfe_is_active() and
+        COURSEWARE_MICROFRONTEND_COURSE_EXIT_PAGE.is_enabled(course_key)
+    )
+
+
+def courseware_mfe_progress_milestones_are_active(course_key):
+    return (
+        courseware_mfe_is_active() and
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES.is_enabled(course_key)
+    )
+
+
+def streak_celebration_is_active(course_key):
+    return (
+        courseware_mfe_progress_milestones_are_active(course_key) and
+        COURSEWARE_MICROFRONTEND_PROGRESS_MILESTONES_STREAK_CELEBRATION.is_enabled(course_key)
+    )
+
+
+def course_is_invitation_only(courselike) -> bool:
+    """Returns whether the course is invitation only or not."""
+    # We also mark Old Mongo courses (deprecated keys) as invitation only to cut off enrollment
+    return COURSES_INVITE_ONLY.is_enabled() or courselike.invitation_only or courselike.id.deprecated
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

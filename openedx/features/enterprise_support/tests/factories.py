@@ -42,6 +42,10 @@ class EnterpriseCustomerFactory(factory.django.DjangoModelFactory):
     site = factory.SubFactory(SiteFactory)
     enable_data_sharing_consent = True
     enforce_data_sharing_consent = EnterpriseCustomer.AT_ENROLLMENT
+<<<<<<< HEAD
+=======
+    enable_learner_portal = False
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class EnterpriseCustomerUserFactory(factory.django.DjangoModelFactory):

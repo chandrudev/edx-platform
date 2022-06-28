@@ -3,6 +3,7 @@
 
 
 from datetime import datetime, timedelta
+<<<<<<< HEAD
 
 import crum
 import ddt
@@ -18,6 +19,27 @@ from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 from lms.djangoapps.commerce.models import CommerceConfiguration
 from lms.djangoapps.course_home_api.toggles import COURSE_HOME_USE_LEGACY_FRONTEND
+=======
+from unittest.mock import patch
+
+import crum
+import ddt
+from django.conf import settings
+from django.test import RequestFactory
+from django.urls import reverse
+from edx_toggles.toggles.testutils import override_waffle_flag, override_waffle_switch
+from freezegun import freeze_time
+from pytz import utc
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+from common.djangoapps.course_modes.models import CourseMode
+from common.djangoapps.course_modes.tests.factories import CourseModeFactory
+from common.djangoapps.student.tests.factories import TEST_PASSWORD, CourseEnrollmentFactory, UserFactory
+from lms.djangoapps.certificates.config import AUTO_CERTIFICATE_GENERATION
+from lms.djangoapps.commerce.models import CommerceConfiguration
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.courses import get_course_date_blocks
 from lms.djangoapps.courseware.date_summary import (
     CertificateAvailableDate,
@@ -27,12 +49,20 @@ from lms.djangoapps.courseware.date_summary import (
     CourseStartDate,
     TodaysDate,
     VerificationDeadlineDate,
+<<<<<<< HEAD
     VerifiedUpgradeDeadlineDate
+=======
+    VerifiedUpgradeDeadlineDate,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from lms.djangoapps.courseware.models import (
     CourseDynamicUpgradeDeadlineConfiguration,
     DynamicUpgradeDeadlineConfiguration,
+<<<<<<< HEAD
     OrgDynamicUpgradeDeadlineConfiguration
+=======
+    OrgDynamicUpgradeDeadlineConfiguration,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from lms.djangoapps.verify_student.models import VerificationDeadline
 from lms.djangoapps.verify_student.services import IDVerificationService
@@ -40,6 +70,7 @@ from lms.djangoapps.verify_student.tests.factories import SoftwareSecurePhotoVer
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
 from openedx.core.djangoapps.self_paced.models import SelfPacedConfiguration
+<<<<<<< HEAD
 from openedx.core.djangoapps.user_api.preferences.api import set_user_preference
 from openedx.features.course_duration_limits.models import CourseDurationLimitConfig
 from openedx.features.course_experience import (
@@ -52,13 +83,20 @@ from common.djangoapps.student.tests.factories import TEST_PASSWORD, CourseEnrol
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from openedx.features.course_duration_limits.models import CourseDurationLimitConfig
+from openedx.features.course_experience import RELATIVE_DATES_FLAG
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
 class CourseDateSummaryTest(SharedModuleStoreTestCase):
     """Tests for course date summary blocks."""
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         super().setUp()
         SelfPacedConfiguration.objects.create(enable_course_home_improvements=True)
@@ -82,6 +120,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         response = self.client.get(url)
         self.assertNotContains(response, 'date-summary', status_code=302)
 
+<<<<<<< HEAD
     @override_waffle_flag(COURSE_HOME_USE_LEGACY_FRONTEND, active=True)
     def test_course_home_logged_out(self):
         course = create_course_run()
@@ -89,6 +128,8 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         response = self.client.get(url)
         assert 200 == response.status_code
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # Tests for which blocks are enabled
     def assert_block_types(self, course, user, expected_blocks):
         """Assert that the enabled block types for this course are as expected."""
@@ -241,7 +282,11 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         blocks = get_course_date_blocks(course, user, request, num_assignments=2)
         assert len(blocks) == len(expected_blocks)
         assert {type(b) for b in blocks} == set(expected_blocks)
+<<<<<<< HEAD
         assignment_blocks = filter(  # pylint: disable=filter-builtin-not-iterating
+=======
+        assignment_blocks = filter(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             lambda b: isinstance(b, CourseAssignmentDate), blocks
         )
         for assignment in assignment_blocks:
@@ -267,7 +312,11 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         blocks = get_course_date_blocks(course, user, request, include_past_dates=True)
         assert len(blocks) == len(expected_blocks)
         assert {type(b) for b in blocks} == set(expected_blocks)
+<<<<<<< HEAD
         assignment_blocks = filter(  # pylint: disable=filter-builtin-not-iterating
+=======
+        assignment_blocks = filter(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             lambda b: isinstance(b, CourseAssignmentDate), blocks
         )
         for assignment in assignment_blocks:
@@ -424,6 +473,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
             assert block.date == datetime.now(utc)
             assert block.title == 'current_datetime'
 
+<<<<<<< HEAD
     @ddt.data(
         'info',
         'openedx.course_experience.course_home',
@@ -471,6 +521,8 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
             for html in html_elements:
                 self.assertContains(response, html)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ## Tests Course Start Date
     def test_course_start_date(self):
         course = create_course_run()
@@ -478,6 +530,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         block = CourseStartDate(course, user)
         assert block.date == course.start
 
+<<<<<<< HEAD
     @ddt.data(
         'info',
         'openedx.course_experience.course_home',
@@ -518,6 +571,8 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
             for html in html_elements:
                 self.assertContains(response, html)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ## Tests Course End Date Block
     def test_course_end_date_for_certificate_eligible_mode(self):
         course = create_course_run(days_till_start=-1)
@@ -579,7 +634,11 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         assert block.link == f'{configuration.basket_checkout_page}?sku={sku}'
 
     ## CertificateAvailableDate
+<<<<<<< HEAD
     @waffle.testutils.override_switch('certificates.auto_certificate_generation', True)
+=======
+    @override_waffle_switch(AUTO_CERTIFICATE_GENERATION, True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_no_certificate_available_date(self):
         course = create_course_run(days_till_start=-1)
         user = create_user()
@@ -589,7 +648,11 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         assert not block.is_allowed
 
     ## CertificateAvailableDate
+<<<<<<< HEAD
     @waffle.testutils.override_switch('certificates.auto_certificate_generation', True)
+=======
+    @override_waffle_switch(AUTO_CERTIFICATE_GENERATION, True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_no_certificate_available_date_for_self_paced(self):
         course = create_self_paced_course_run()
         verified_user = create_user()
@@ -623,7 +686,11 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         assert not block.is_allowed
         assert block.date is not None
 
+<<<<<<< HEAD
     @waffle.testutils.override_switch('certificates.auto_certificate_generation', True)
+=======
+    @override_waffle_switch(AUTO_CERTIFICATE_GENERATION, True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_certificate_available_date_defined(self):
         course = create_course_run()
         audit_user = create_user()
@@ -657,6 +724,17 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
         block = VerificationDeadlineDate(course, user)
         assert not block.is_allowed
 
+<<<<<<< HEAD
+=======
+    @patch.dict(settings.FEATURES, {'ENABLE_INTEGRITY_SIGNATURE': True})
+    def test_verification_deadline_with_integrity_signature(self):
+        course = create_course_run(days_till_start=-1)
+        user = create_user()
+        CourseEnrollmentFactory(course_id=course.id, user=user, mode=CourseMode.VERIFIED)
+        block = VerificationDeadlineDate(course, user)
+        assert not block.is_allowed
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_verification_deadline_date_upcoming(self):
         with freeze_time('2015-01-02'):
             course = create_course_run(days_till_start=-1)
@@ -715,6 +793,7 @@ class CourseDateSummaryTest(SharedModuleStoreTestCase):
             block = VerificationDeadlineDate(course, user)
             assert block.relative_datestring == expected_date_string
 
+<<<<<<< HEAD
     @ddt.data(
         ('info', True),
         ('info', False),
@@ -877,6 +956,8 @@ class TestDateAlerts(SharedModuleStoreTestCase):
             else:
                 assert len(messages) == 0
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 @ddt.ddt
 class TestScheduleOverrides(SharedModuleStoreTestCase):

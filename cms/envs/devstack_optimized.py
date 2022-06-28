@@ -33,7 +33,11 @@ DEBUG = True
 REQUIRE_DEBUG = False
 
 # Fetch static files out of the pipeline's static root
+<<<<<<< HEAD
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+=======
+STATICFILES_STORAGE = 'pipeline.storage.PipelineManifestStorage'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 #  Serve static files at /static directly from the staticfiles directory under test root.
 # Note: optimized files for testing are generated with settings from test_static_optimized

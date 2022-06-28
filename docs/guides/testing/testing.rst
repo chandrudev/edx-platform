@@ -9,8 +9,12 @@ Testing
 Overview
 ========
 
+<<<<<<< HEAD
 We maintain three kinds of tests: unit tests, integration tests, and
 acceptance tests.
+=======
+We maintain two kinds of tests: unit tests and integration tests.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 Overall, you want to write the tests that **maximize coverage** while
 **minimizing maintenance**. In practice, this usually means investing
@@ -22,8 +26,13 @@ the code base.
 
    Test Pyramid
 
+<<<<<<< HEAD
 The pyramid above shows the relative number of unit tests, integration
 tests, and acceptance tests. Most of our tests are unit tests or
+=======
+The pyramid above shows the relative number of unit tests and integration
+tests. Most of our tests are unit tests or
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 integration tests.
 
 Test Types
@@ -67,6 +76,7 @@ Integration Tests
 
 .. _Django test client: https://docs.djangoproject.com/en/dev/topics/testing/overview/
 
+<<<<<<< HEAD
 
 UI Acceptance Tests
 ~~~~~~~~~~~~~~~~~~~
@@ -80,6 +90,8 @@ UI Acceptance Tests
 .. _Bok Choy: https://bok-choy.readthedocs.org/en/latest/tutorial.html
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 Test Locations
 --------------
 
@@ -94,6 +106,7 @@ Test Locations
    the test for ``src/views/module.js`` should be written in
    ``spec/views/module_spec.js``.
 
+<<<<<<< HEAD
 -  UI acceptance tests:
 
    -  Set up and helper methods, and stubs for external services:
@@ -102,6 +115,8 @@ Test Locations
    -  Bok Choy Accessibility Tests: located under ``common/test/acceptance/tests`` and tagged with ``@attr("a11y")``
    -  Bok Choy PageObjects: located under ``common/test/acceptance/pages``
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 Running Tests
 =============
 
@@ -109,8 +124,12 @@ You can run all of the unit-level tests using this command::
 
     paver test
 
+<<<<<<< HEAD
 This includes python, JavaScript, and documentation tests. It does not,
 however, run any acceptance tests.
+=======
+This includes python, JavaScript, and documentation tests.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 Note -
 `paver` is a scripting tool. To get information about various options, you can run the this command::
@@ -310,6 +329,7 @@ Note: the port is also output to the console that you ran the tests from if you 
 These paver commands call through to Karma. For more
 info, see `karma-runner.github.io <https://karma-runner.github.io/>`__.
 
+<<<<<<< HEAD
 Running Bok Choy Acceptance Tests
 ---------------------------------
 
@@ -530,6 +550,8 @@ Acceptance Test Techniques
    periods in the name. The name can contain spaces. E.g. "CMS.Sign Up"
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 Testing internationalization with dummy translations
 ----------------------------------------------------
 
@@ -645,7 +667,11 @@ Other Testing Tips
 Connecting to Browser
 ---------------------
 
+<<<<<<< HEAD
 If you want to see the browser being automated for JavaScript or bok-choy tests,
+=======
+If you want to see the browser being automated for JavaScript,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 you can connect to the container running it via VNC.
 
 +------------------------+----------------------+

@@ -30,7 +30,11 @@ from path import Path as path
 from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType
 from openedx.core.lib.derived import derive_settings
 from openedx.core.lib.logsettings import get_logger_config
+<<<<<<< HEAD
 from xmodule.modulestore.modulestore_settings import convert_module_store_setting_if_needed
+=======
+from xmodule.modulestore.modulestore_settings import convert_module_store_setting_if_needed  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .common import *
 
@@ -151,7 +155,11 @@ EMAIL_FILE_PATH = ENV_TOKENS.get('EMAIL_FILE_PATH', None)
 EMAIL_HOST = ENV_TOKENS.get('EMAIL_HOST', 'localhost')  # django default is localhost
 EMAIL_PORT = ENV_TOKENS.get('EMAIL_PORT', 25)  # django default is 25
 EMAIL_USE_TLS = ENV_TOKENS.get('EMAIL_USE_TLS', False)  # django default is False
+<<<<<<< HEAD
 SITE_NAME = ENV_TOKENS['SITE_NAME']
+=======
+SITE_NAME = ENV_TOKENS.get('SITE_NAME', SITE_NAME)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 SESSION_COOKIE_DOMAIN = ENV_TOKENS.get('SESSION_COOKIE_DOMAIN')
 SESSION_COOKIE_HTTPONLY = ENV_TOKENS.get('SESSION_COOKIE_HTTPONLY', True)
 
@@ -161,8 +169,12 @@ DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = ENV_TOKENS.get('DCS_SESSION_COOKIE_SAMES
 # As django-cookies-samesite package is set to be removed from base requirements when we upgrade to Django 3.2,
 # we should follow the settings name provided by Django.
 # https://docs.djangoproject.com/en/3.2/ref/settings/#session-cookie-samesite
+<<<<<<< HEAD
 if django.VERSION >= (3, 1):
     SESSION_COOKIE_SAMESITE = DCS_SESSION_COOKIE_SAMESITE
+=======
+SESSION_COOKIE_SAMESITE = DCS_SESSION_COOKIE_SAMESITE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 AWS_SES_REGION_NAME = ENV_TOKENS.get('AWS_SES_REGION_NAME', 'us-east-1')
 AWS_SES_REGION_ENDPOINT = ENV_TOKENS.get('AWS_SES_REGION_ENDPOINT', 'email.us-east-1.amazonaws.com')
@@ -207,7 +219,11 @@ if ENV_TOKENS.get('SESSION_COOKIE_NAME', None):
 # By default, it's set to the same thing as the SESSION_COOKIE_DOMAIN, but we want to make it overrideable.
 SHARED_COOKIE_DOMAIN = ENV_TOKENS.get('SHARED_COOKIE_DOMAIN', SESSION_COOKIE_DOMAIN)
 
+<<<<<<< HEAD
 CACHES = ENV_TOKENS['CACHES']
+=======
+CACHES = ENV_TOKENS.get('CACHES', CACHES)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Cache used for location mapping -- called many times with the same key/value
 # in a given request.
 if 'loc_cache' not in CACHES:
@@ -281,6 +297,16 @@ if ENV_TOKENS.get('COMPREHENSIVE_THEME_DIR', None):
 COMPREHENSIVE_THEME_LOCALE_PATHS = ENV_TOKENS.get('COMPREHENSIVE_THEME_LOCALE_PATHS', [])
 
 
+<<<<<<< HEAD
+=======
+# PREPEND_LOCALE_PATHS contain the paths to locale directories to load first e.g.
+# "PREPEND_LOCALE_PATHS" : [
+#        "/edx/my-locale"
+#    ],
+PREPEND_LOCALE_PATHS = ENV_TOKENS.get('PREPEND_LOCALE_PATHS', [])
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 MKTG_URL_LINK_MAP.update(ENV_TOKENS.get('MKTG_URL_LINK_MAP', {}))
 ENTERPRISE_MARKETING_FOOTER_QUERY_PARAMS = ENV_TOKENS.get(
     'ENTERPRISE_MARKETING_FOOTER_QUERY_PARAMS',
@@ -301,7 +327,12 @@ TIME_ZONE = ENV_TOKENS.get('CELERY_TIMEZONE', CELERY_TIMEZONE)
 # Translation overrides
 LANGUAGE_DICT = dict(LANGUAGES)
 
+<<<<<<< HEAD
 LANGUAGE_COOKIE_NAME = ENV_TOKENS.get('LANGUAGE_COOKIE', None) or ENV_TOKENS.get('LANGUAGE_COOKIE_NAME')
+=======
+LANGUAGE_COOKIE_NAME = ENV_TOKENS.get('LANGUAGE_COOKIE', None) or ENV_TOKENS.get(
+    'LANGUAGE_COOKIE_NAME', LANGUAGE_COOKIE_NAME)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Additional installed apps
 for app in ENV_TOKENS.get('ADDL_INSTALLED_APPS', []):
@@ -309,11 +340,19 @@ for app in ENV_TOKENS.get('ADDL_INSTALLED_APPS', []):
 
 
 local_loglevel = ENV_TOKENS.get('LOCAL_LOGLEVEL', 'INFO')
+<<<<<<< HEAD
 LOG_DIR = ENV_TOKENS['LOG_DIR']
 DATA_DIR = path(ENV_TOKENS.get('DATA_DIR', DATA_DIR))
 
 LOGGING = get_logger_config(LOG_DIR,
                             logging_env=ENV_TOKENS['LOGGING_ENV'],
+=======
+LOG_DIR = ENV_TOKENS.get('LOG_DIR', LOG_DIR)
+DATA_DIR = path(ENV_TOKENS.get('DATA_DIR', DATA_DIR))
+
+LOGGING = get_logger_config(LOG_DIR,
+                            logging_env=ENV_TOKENS.get('LOGGING_ENV', LOGGING_ENV),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                             local_loglevel=local_loglevel,
                             service_variant=SERVICE_VARIANT)
 
@@ -438,11 +477,19 @@ LMS_SEGMENT_KEY = AUTH_TOKENS.get('SEGMENT_KEY')
 
 SECRET_KEY = AUTH_TOKENS['SECRET_KEY']
 
+<<<<<<< HEAD
 AWS_ACCESS_KEY_ID = AUTH_TOKENS["AWS_ACCESS_KEY_ID"]
 if AWS_ACCESS_KEY_ID == "":
     AWS_ACCESS_KEY_ID = None
 
 AWS_SECRET_ACCESS_KEY = AUTH_TOKENS["AWS_SECRET_ACCESS_KEY"]
+=======
+AWS_ACCESS_KEY_ID = AUTH_TOKENS.get("AWS_ACCESS_KEY_ID", AWS_ACCESS_KEY_ID)
+if AWS_ACCESS_KEY_ID == "":
+    AWS_ACCESS_KEY_ID = None
+
+AWS_SECRET_ACCESS_KEY = AUTH_TOKENS.get("AWS_SECRET_ACCESS_KEY", AWS_SECRET_ACCESS_KEY)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 if AWS_SECRET_ACCESS_KEY == "":
     AWS_SECRET_ACCESS_KEY = None
 
@@ -462,7 +509,11 @@ else:
 
 # If there is a database called 'read_replica', you can use the use_read_replica_if_available
 # function in util/query.py, which is useful for very large database reads
+<<<<<<< HEAD
 DATABASES = AUTH_TOKENS['DATABASES']
+=======
+DATABASES = AUTH_TOKENS.get('DATABASES', DATABASES)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # The normal database user does not have enough permissions to run migrations.
 # Migrations are run with separate credentials, given as DB_MIGRATION_*
@@ -478,7 +529,11 @@ for name, database in DATABASES.items():
             'PORT': os.environ.get('DB_MIGRATION_PORT', database['PORT']),
         })
 
+<<<<<<< HEAD
 XQUEUE_INTERFACE = AUTH_TOKENS['XQUEUE_INTERFACE']
+=======
+XQUEUE_INTERFACE = AUTH_TOKENS.get('XQUEUE_INTERFACE', XQUEUE_INTERFACE)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Get the MODULESTORE from auth.json, but if it doesn't exist,
 # use the one from common.py
@@ -729,6 +784,18 @@ if FEATURES.get('ENABLE_COURSEWARE_SEARCH') or \
     SEARCH_ENGINE = "search.elastic.ElasticSearchEngine"
     SEARCH_FILTER_GENERATOR = ENV_TOKENS.get('SEARCH_FILTER_GENERATOR', SEARCH_FILTER_GENERATOR)
 
+<<<<<<< HEAD
+=======
+SEARCH_SKIP_INVITATION_ONLY_FILTERING = ENV_TOKENS.get(
+    'SEARCH_SKIP_INVITATION_ONLY_FILTERING',
+    SEARCH_SKIP_INVITATION_ONLY_FILTERING,
+)
+SEARCH_SKIP_SHOW_IN_CATALOG_FILTERING = ENV_TOKENS.get(
+    'SEARCH_SKIP_SHOW_IN_CATALOG_FILTERING',
+    SEARCH_SKIP_SHOW_IN_CATALOG_FILTERING,
+)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # TODO: Once we have successfully upgraded to ES7, switch this back to ELASTIC_SEARCH_CONFIG.
 ELASTIC_SEARCH_CONFIG = ENV_TOKENS.get('ELASTIC_SEARCH_CONFIG_ES7', [{}])
 
@@ -865,7 +932,11 @@ INTEGRATED_CHANNELS_API_CHUNK_TRANSMISSION_LIMIT = ENV_TOKENS.get(
 )
 
 ############## ENTERPRISE SERVICE API CLIENT CONFIGURATION ######################
+<<<<<<< HEAD
 # The LMS communicates with the Enterprise service via the EdxRestApiClient class
+=======
+# The LMS communicates with the Enterprise service via the requests.Session() client
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # The below environmental settings are utilized by the LMS when interacting with
 # the service, and override the default parameters which are defined in common.py
 
@@ -928,9 +999,12 @@ SYSTEM_TO_FEATURE_ROLE_MAPPING = ENV_TOKENS.get(
 ICP_LICENSE = ENV_TOKENS.get('ICP_LICENSE', None)
 ICP_LICENSE_INFO = ENV_TOKENS.get('ICP_LICENSE_INFO', {})
 
+<<<<<<< HEAD
 ############## Settings for CourseGraph ############################
 COURSEGRAPH_JOB_QUEUE = ENV_TOKENS.get('COURSEGRAPH_JOB_QUEUE', DEFAULT_PRIORITY_QUEUE)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # How long to cache OpenAPI schemas and UI, in seconds.
 OPENAPI_CACHE_TIMEOUT = ENV_TOKENS.get('OPENAPI_CACHE_TIMEOUT', 60 * 60)
 
@@ -957,6 +1031,13 @@ DASHBOARD_COURSE_LIMIT = ENV_TOKENS.get('DASHBOARD_COURSE_LIMIT', None)
 ######################## Setting for content libraries ########################
 MAX_BLOCKS_PER_CONTENT_LIBRARY = ENV_TOKENS.get('MAX_BLOCKS_PER_CONTENT_LIBRARY', MAX_BLOCKS_PER_CONTENT_LIBRARY)
 
+<<<<<<< HEAD
+=======
+########################## Derive Any Derived Settings  #######################
+
+derive_settings(__name__)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ############################### Plugin Settings ###############################
 
 # This is at the bottom because it is going to load more settings after base settings are loaded
@@ -964,10 +1045,13 @@ MAX_BLOCKS_PER_CONTENT_LIBRARY = ENV_TOKENS.get('MAX_BLOCKS_PER_CONTENT_LIBRARY'
 # Load production.py in plugins
 add_plugins(__name__, ProjectType.LMS, SettingsType.PRODUCTION)
 
+<<<<<<< HEAD
 ########################## Derive Any Derived Settings  #######################
 
 derive_settings(__name__)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ############## Settings for Completion API #########################
 
 # Once a user has watched this percentage of a video, mark it as complete:
@@ -1030,8 +1114,11 @@ EXPLICIT_QUEUES = {
         'queue': PROGRAM_CERTIFICATES_ROUTING_KEY},
     'openedx.core.djangoapps.programs.tasks.award_course_certificate': {
         'queue': PROGRAM_CERTIFICATES_ROUTING_KEY},
+<<<<<<< HEAD
     'openedx.core.djangoapps.coursegraph.dump_course_to_neo4j': {
         'queue': COURSEGRAPH_JOB_QUEUE},
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 }
 
 LOGO_IMAGE_EXTRA_TEXT = ENV_TOKENS.get('LOGO_IMAGE_EXTRA_TEXT', '')
@@ -1049,6 +1136,7 @@ COURSE_OLX_VALIDATION_IGNORE_LIST = ENV_TOKENS.get(
 ################# show account activate cta after register ########################
 SHOW_ACCOUNT_ACTIVATION_CTA = ENV_TOKENS.get('SHOW_ACCOUNT_ACTIVATION_CTA', SHOW_ACCOUNT_ACTIVATION_CTA)
 
+<<<<<<< HEAD
 ################# Settings for Chrome-specific origin trials ########
 # Token for "Disable Different Origin Subframe Dialog Suppression" Chrome Origin Trial, which must be origin-specific.
 CHROME_DISABLE_SUBFRAME_DIALOG_SUPPRESSION_TOKEN = ENV_TOKENS.get(
@@ -1057,3 +1145,16 @@ CHROME_DISABLE_SUBFRAME_DIALOG_SUPPRESSION_TOKEN = ENV_TOKENS.get(
 
 ############## DRF overrides ##############
 REST_FRAMEWORK.update(ENV_TOKENS.get('REST_FRAMEWORK', {}))
+=======
+################# Discussions micro frontend URL ########################
+DISCUSSIONS_MICROFRONTEND_URL = ENV_TOKENS.get('DISCUSSIONS_MICROFRONTEND_URL', DISCUSSIONS_MICROFRONTEND_URL)
+
+################### Discussions micro frontend Feedback URL###################
+DISCUSSIONS_MFE_FEEDBACK_URL = ENV_TOKENS.get('DISCUSSIONS_MFE_FEEDBACK_URL', DISCUSSIONS_MFE_FEEDBACK_URL)
+
+############## DRF overrides ##############
+REST_FRAMEWORK.update(ENV_TOKENS.get('REST_FRAMEWORK', {}))
+
+############################# CELERY ############################
+CELERY_IMPORTS.extend(ENV_TOKENS.get('CELERY_EXTRA_IMPORTS', []))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -88,19 +88,28 @@ class CourseInfoSerializer(serializers.Serializer):  # pylint: disable=abstract-
     enrollment = serializers.DictField()
     enrollment_start = serializers.DateTimeField()
     enrollment_end = serializers.DateTimeField()
+<<<<<<< HEAD
+=======
+    entrance_exam_data = serializers.DictField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     id = serializers.CharField()  # pylint: disable=invalid-name
     license = serializers.CharField()
     media = _CourseApiMediaCollectionSerializer(source='*')
     name = serializers.CharField(source='display_name_with_default_escaped')
+<<<<<<< HEAD
     number = serializers.CharField(source='display_number_with_default')
     offer = serializers.DictField()
     org = serializers.CharField(source='display_org_with_default')
+=======
+    offer = serializers.DictField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     related_programs = CourseProgramSerializer(many=True)
     short_description = serializers.CharField()
     start = serializers.DateTimeField()
     start_display = serializers.CharField()
     start_type = serializers.CharField()
     pacing = serializers.CharField()
+<<<<<<< HEAD
     tabs = serializers.ListField()
     user_timezone = serializers.CharField()
     verified_mode = serializers.DictField()
@@ -109,6 +118,11 @@ class CourseInfoSerializer(serializers.Serializer):  # pylint: disable=abstract-
     can_view_legacy_courseware = serializers.BooleanField()
     is_staff = serializers.BooleanField()
     course_access = serializers.DictField()
+=======
+    user_timezone = serializers.CharField()
+    show_calculator = serializers.BooleanField()
+    can_access_proctored_exams = serializers.BooleanField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     notes = serializers.DictField()
     marketing_url = serializers.CharField()
     celebrations = serializers.DictField()
@@ -118,6 +132,10 @@ class CourseInfoSerializer(serializers.Serializer):  # pylint: disable=abstract-
     verify_identity_url = AbsoluteURLField()
     verification_status = serializers.CharField()
     linkedin_add_to_profile_url = serializers.URLField()
+<<<<<<< HEAD
+=======
+    is_integrity_signature_enabled = serializers.BooleanField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     user_needs_integrity_signature = serializers.BooleanField()
 
     def __init__(self, *args, **kwargs):

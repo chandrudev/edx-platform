@@ -9,7 +9,11 @@ import ddt
 
 from xmodule.data import CertificatesDisplayBehaviors
 from xmodule.modulestore import ModuleStoreEnum
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls
 
 from ..models import CourseOverview
@@ -23,6 +27,10 @@ class CourseOverviewSignalsTestCase(ModuleStoreTestCase):
     """
     Tests for CourseOverview signals.
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ENABLED_SIGNALS = ['course_deleted', 'course_published']
     TODAY = datetime.datetime.utcnow()
     NEXT_WEEK = TODAY + datetime.timedelta(days=7)
@@ -83,6 +91,7 @@ class CourseOverviewSignalsTestCase(ModuleStoreTestCase):
         )
 
         # changing display name doesn't fire the signal
+<<<<<<< HEAD
         course.display_name = course.display_name + 'changed'
         self.store.update_item(course, ModuleStoreEnum.UserID.test)
         assert not mock_signal.called
@@ -91,6 +100,18 @@ class CourseOverviewSignalsTestCase(ModuleStoreTestCase):
         for change in changes:
             setattr(course, change.field_name, change.changed_value)
         self.store.update_item(course, ModuleStoreEnum.UserID.test)
+=======
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            course.display_name = course.display_name + 'changed'
+            self.store.update_item(course, ModuleStoreEnum.UserID.test)
+        assert not mock_signal.called
+
+        # changing the given field fires the signal
+        with self.captureOnCommitCallbacks(execute=True) as callbacks:
+            for change in changes:
+                setattr(course, change.field_name, change.changed_value)
+            self.store.update_item(course, ModuleStoreEnum.UserID.test)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert mock_signal.called
 
     @patch('openedx.core.djangoapps.content.course_overviews.signals.COURSE_START_DATE_CHANGED.send')

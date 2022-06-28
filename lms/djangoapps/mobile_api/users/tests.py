@@ -37,8 +37,13 @@ from lms.djangoapps.mobile_api.utils import API_V1, API_V05
 from openedx.core.lib.courses import course_image_url
 from openedx.features.course_duration_limits.models import CourseDurationLimitConfig
 from openedx.features.course_experience.tests.views.helpers import add_course_mode
+<<<<<<< HEAD
 from xmodule.course_module import DEFAULT_START_DATE
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from xmodule.course_module import DEFAULT_START_DATE  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .. import errors
 from .serializers import CourseEnrollmentSerializer, CourseEnrollmentSerializerv05
@@ -645,7 +650,11 @@ class TestCourseEnrollmentSerializer(MobileAPITestCase, MilestonesTestCaseMixin)
     def test_with_display_overrides(self, api_version):
         self.course.display_coursenumber = "overridden_number"
         self.course.display_organization = "overridden_org"
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.course = self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         serialized = self.get_serialized_data(api_version)
         assert serialized['course']['number'] == self.course.display_coursenumber

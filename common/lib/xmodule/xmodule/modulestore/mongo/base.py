@@ -242,10 +242,13 @@ class CachingDescriptorSystem(MakoDescriptorSystem, EditInfoRuntimeMixin):  # li
 
                 definition = json_data.get('definition', {})
                 metadata = json_data.get('metadata', {})
+<<<<<<< HEAD
                 for old_name, new_name in getattr(class_, 'metadata_translations', {}).items():
                     if old_name in metadata:
                         metadata[new_name] = metadata[old_name]
                         del metadata[old_name]
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                 children = [
                     self._convert_reference_to_key(childloc)
@@ -1291,7 +1294,11 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
         ])
         courses = self.collection.find(course_search_location, projection={'_id': True})
         try:
+<<<<<<< HEAD
             course = courses.next()  # lint-amnesty, pylint: disable=next-method-called
+=======
+            course = courses.next()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             raise DuplicateCourseError(course_id, course['_id'])
         except StopIteration:
             pass

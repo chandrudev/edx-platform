@@ -18,7 +18,10 @@ class XBlockCacheTaskTests(BookmarksTestsBase):
     """
     Test the XBlockCache model.
     """
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         super().setUp()
 
@@ -102,6 +105,7 @@ class XBlockCacheTaskTests(BookmarksTestsBase):
         }
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.mongo, 2, 2, 4),
         (ModuleStoreEnum.Type.mongo, 4, 2, 4),
         (ModuleStoreEnum.Type.mongo, 2, 3, 5),
@@ -117,6 +121,17 @@ class XBlockCacheTaskTests(BookmarksTestsBase):
     def test_calculate_course_xblocks_data_queries(self, store_type, children_per_block, depth, expected_mongo_calls):
 
         course = self.create_course_with_blocks(children_per_block, depth, store_type)
+=======
+        (2, 2, 2),
+        (4, 2, 2),
+        (2, 3, 2),
+        (2, 4, 2),
+    )
+    @ddt.unpack
+    def test_calculate_course_xblocks_data_queries(self, children_per_block, depth, expected_mongo_calls):
+
+        course = self.create_course_with_blocks(children_per_block, depth, ModuleStoreEnum.Type.split)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # clear cache to get consistent query counts
         self.clear_caches()
@@ -144,8 +159,13 @@ class XBlockCacheTaskTests(BookmarksTestsBase):
                     assert path_item['usage_key'] == expected_cache_data[usage_key][path_index][path_item_index]
 
     @ddt.data(
+<<<<<<< HEAD
         ('course', 36),
         ('other_course', 34)
+=======
+        ('course', 37),
+        ('other_course', 35)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )
     @ddt.unpack
     def test_update_xblocks_cache(self, course_attr, expected_sql_queries):
@@ -172,7 +192,11 @@ class XBlockCacheTaskTests(BookmarksTestsBase):
         Test that the xblocks data is persisted correctly with display_name=None.
         """
         block_with_display_name_none = ItemFactory.create(
+<<<<<<< HEAD
             parent_location=self.sequential_2.location,
+=======
+            parent=self.sequential_2,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             category='vertical', display_name=None
         )
 

@@ -29,7 +29,11 @@
 .simple-editor-cheatsheet {
   position: absolute;
   top: 41px;
+<<<<<<< HEAD
   left: 70%;
+=======
+  @include left(70%);
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   width: 0;
   border-left: 1px solid $gray-l2;
 

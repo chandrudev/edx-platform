@@ -10,7 +10,11 @@ from json.encoder import JSONEncoder
 from opaque_keys.edx.locations import Location
 
 from openedx.core.djangoapps.models.course_details import CourseDetails
+<<<<<<< HEAD
 from xmodule.fields import Date
+=======
+from xmodule.fields import Date  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .course_grading import CourseGradingModel
 

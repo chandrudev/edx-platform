@@ -39,3 +39,19 @@ def request_post_email(group, request) -> str:  # pylint: disable=unused-argumen
         email = str(uuid4())
 
     return email
+<<<<<<< HEAD
+=======
+
+
+def request_data_email(group, request) -> str:  # pylint: disable=unused-argument
+    """
+    Return the the email data param if it exists, otherwise return a
+    random id.
+    """
+
+    email = request.data.get('email')
+    if not email:
+        email = str(uuid4())
+
+    return email
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

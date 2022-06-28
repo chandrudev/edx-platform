@@ -8,8 +8,13 @@ from django.test.client import RequestFactory
 
 from lms.djangoapps.courseware.exceptions import Redirect
 from lms.djangoapps.courseware.middleware import RedirectMiddleware
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class CoursewareMiddlewareTestCase(SharedModuleStoreTestCase):

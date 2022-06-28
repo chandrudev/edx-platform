@@ -13,6 +13,10 @@ from fs.memoryfs import MemoryFS
 
 from openedx.core.djangoapps.xblock.apps import get_xblock_app_config
 
+<<<<<<< HEAD
+=======
+from common.djangoapps.static_replace.services import ReplaceURLService
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.edxmako.shortcuts import render_to_string
 from common.djangoapps.student.models import anonymous_id_for_user
 
@@ -136,6 +140,7 @@ class RuntimeShim:
     @property
     def filestore(self):
         """
+<<<<<<< HEAD
         Alternate name for 'resources_fs'. Not sure if either name is deprecated
         but we should deprecate one :)
         """
@@ -151,6 +156,16 @@ class RuntimeShim:
         # TODO: Refactor capa to access this directly, don't bother the runtime. Then remove it from here.
         return getattr(settings, 'NODE_PATH', None)  # Only defined in the LMS
 
+=======
+        Alternate name for 'resources_fs'.
+        """
+        warnings.warn(
+            'filestore is deprecated. Please use runtime.resources_fs instead.',
+            DeprecationWarning, stacklevel=3,
+        )
+        return self.resources_fs
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def render_template(self, template_name, dictionary, namespace='main'):
         """
         Render a mako template
@@ -178,6 +193,7 @@ class RuntimeShim:
 
     def replace_urls(self, html_str):
         """
+<<<<<<< HEAD
         Deprecated precursor to transform_static_paths_to_urls
 
         Given an HTML string, replace any static file paths like
@@ -207,15 +223,45 @@ class RuntimeShim:
         """
         # TODO: implement or deprecate.
         # See also the version in openedx/core/lib/xblock_utils/__init__.py
+=======
+        Deprecated in favor of the replace_urls service.
+        """
+        warnings.warn(
+            'replace_urls is deprecated. Please use ReplaceURLService instead.',
+            DeprecationWarning, stacklevel=3,
+        )
+        return ReplaceURLService(
+            xblock=self._active_block,
+            lookup_asset_url=self._lookup_asset_url
+        ).replace_urls(html_str)
+
+    def replace_course_urls(self, html_str):
+        """
+        Deprecated in favor of the replace_urls service.
+        """
+        warnings.warn(
+            'replace_course_urls is deprecated. Please use ReplaceURLService instead.',
+            DeprecationWarning, stacklevel=3,
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return html_str
 
     def replace_jump_to_id_urls(self, html_str):
         """
+<<<<<<< HEAD
         Replace /jump_to_id/ URLs in the HTML with expanded versions.
         See common/djangoapps/static_replace/__init__.py
         """
         # TODO: implement or deprecate.
         # See also the version in openedx/core/lib/xblock_utils/__init__.py
+=======
+        Deprecated in favor of the replace_urls service.
+        """
+        warnings.warn(
+            'replace_jump_to_id_urls is deprecated. Please use ReplaceURLService instead.',
+            DeprecationWarning, stacklevel=3,
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return html_str
 
     @property
@@ -231,7 +277,11 @@ class RuntimeShim:
         # XBlock repo at xblock.reference.plugins.FSService and is available in
         # the old runtime as the 'fs' service.
         warnings.warn(
+<<<<<<< HEAD
             "Use of legacy runtime.resources_fs or .filestore won't be able to find resources.",
+=======
+            "Use of legacy runtime.resources_fs won't be able to find resources.",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             stacklevel=3,
         )
         fake_fs = MemoryFS()

@@ -15,7 +15,11 @@
                 return new EventsPlugin(state, i18n, options);
             }
 
+<<<<<<< HEAD
             _.bindAll(this, 'onReady', 'onPlay', 'onPause', 'onEnded', 'onSeek',
+=======
+            _.bindAll(this, 'onReady', 'onPlay', 'onPause', 'onComplete', 'onEnded', 'onSeek',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'onSpeedChange', 'onAutoAdvanceChange', 'onShowLanguageMenu', 'onHideLanguageMenu',
             'onSkip', 'onShowTranscript', 'onHideTranscript', 'onShowCaptions', 'onHideCaptions',
             'destroy');
@@ -41,6 +45,10 @@
                     ready: this.onReady,
                     play: this.onPlay,
                     pause: this.onPause,
+<<<<<<< HEAD
+=======
+                    complete: this.onComplete,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     'ended stop': this.onEnded,
                     seek: this.onSeek,
                     skip: this.onSkip,
@@ -78,6 +86,13 @@
                 this.emitPlayVideoEvent = true;
             },
 
+<<<<<<< HEAD
+=======
+            onComplete: function() {
+                this.log('complete_video', {currentTime: this.getCurrentTime()});
+            },
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             onEnded: function() {
                 this.log('stop_video', {currentTime: this.getCurrentTime()});
                 this.emitPlayVideoEvent = true;

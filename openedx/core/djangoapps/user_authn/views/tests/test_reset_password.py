@@ -9,7 +9,10 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch
 import ddt
+<<<<<<< HEAD
 import django
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.conf import settings
 from django.contrib.auth.hashers import UNUSABLE_PASSWORD_PREFIX, make_password
 from django.contrib.auth.models import AnonymousUser, User  # lint-amnesty, pylint: disable=imported-auth-user
@@ -23,7 +26,10 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils.http import int_to_base36
+<<<<<<< HEAD
 from edx_toggles.toggles.testutils import override_waffle_flag
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from freezegun import freeze_time
 from oauth2_provider import models as dot_models
 from pytz import UTC
@@ -36,8 +42,12 @@ from openedx.core.djangoapps.user_api.tests.test_views import UserAPITestCase
 from openedx.core.djangoapps.user_api.accounts import EMAIL_MAX_LENGTH, EMAIL_MIN_LENGTH
 from openedx.core.djangoapps.user_authn.views.password_reset import (
     SETTING_CHANGE_INITIATED, password_reset, LogistrationPasswordResetView,
+<<<<<<< HEAD
     PasswordResetConfirmWrapper)
 from openedx.core.djangoapps.user_authn.toggles import REDIRECT_TO_AUTHN_MICROFRONTEND
+=======
+    PasswordResetConfirmWrapper, password_change_request_handler)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase
 from common.djangoapps.student.tests.factories import TEST_PASSWORD, UserFactory
 from common.djangoapps.student.tests.test_configuration_overrides import fake_get_value
@@ -183,6 +193,58 @@ class ResetPasswordTests(EventTestMixin, CacheIsolationTestCase):
 
         cache.clear()
 
+<<<<<<< HEAD
+=======
+    @patch("openedx.core.djangoapps.user_authn.views.password_reset.request_password_change", Mock(return_value=None))
+    def test_password_change_non_staff_user(self):
+        """
+        Test that password reset endpoint does not allow more than 1 call for non staff users.
+        """
+        cache.clear()
+        password_reset_req = self.request_factory.post(
+            '/account/password/',
+            {'email': self.user.email, 'email_from_support_tools': self.user.email},
+        )
+
+        password_reset_req.user = self.user
+        password_reset_req.is_secure = Mock(return_value=True)
+        good_resp = password_change_request_handler(password_reset_req)
+        assert good_resp.status_code == 200
+
+        bad_resp = password_change_request_handler(password_reset_req)
+        assert bad_resp.status_code == 403
+        assert bad_resp.content == b'Your previous request is in progress, please try again in a few moments.'
+
+        cache.clear()
+
+    @patch("openedx.core.djangoapps.user_authn.views.password_reset.request_password_change", Mock(return_value=None))
+    def test_password_change_staff_user(self):
+        """
+        Test that password reset endpoint allow multiple requests for staff users.
+        """
+        cache.clear()
+        password_reset_req = self.request_factory.post(
+            '/account/password/',
+            {'email': self.user.email, 'email_from_support_tools': self.user.email},
+        )
+        self.user.is_staff = True
+        password_reset_req.user = self.user
+        password_reset_req.is_secure = Mock(return_value=True)
+        good_resp = password_change_request_handler(password_reset_req)
+        assert good_resp.status_code == 200
+
+        good_resp = password_change_request_handler(password_reset_req)
+        assert good_resp.status_code == 200
+
+        good_resp = password_change_request_handler(password_reset_req)
+        assert good_resp.status_code == 200
+
+        good_resp = password_change_request_handler(password_reset_req)
+        assert good_resp.status_code == 200
+
+        cache.clear()
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def assert_email_sent_successfully(self, expected):
         """
         Verify that the password confirm email has been sent to the user.
@@ -256,7 +318,11 @@ class ResetPasswordTests(EventTestMixin, CacheIsolationTestCase):
 
     @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', "Test only valid in LMS")
     @ddt.data(('plain_text', "You're receiving this e-mail because you requested a password reset"),
+<<<<<<< HEAD
               ('html', "You&#39;re receiving this e-mail because you requested a password reset"))
+=======
+              ('html', "You&#x27;re receiving this e-mail because you requested a password reset"))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @ddt.unpack
     def test_reset_password_email(self, body_type, expected_output):
         """Tests contents of reset password email, and that user is not active"""
@@ -284,9 +350,12 @@ class ResetPasswordTests(EventTestMixin, CacheIsolationTestCase):
 
         body = bodies[body_type]
 
+<<<<<<< HEAD
         if django.VERSION >= (3, 0) and body_type == 'html':
             expected_output = "You&#x27;re receiving this e-mail because you requested a password reset"
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert 'Password reset' in sent_message.subject
         assert expected_output in body
         assert sent_message.from_email == from_email
@@ -329,7 +398,10 @@ class ResetPasswordTests(EventTestMixin, CacheIsolationTestCase):
         )
 
     @override_settings(FEATURES=ENABLE_AUTHN_MICROFRONTEND)
+<<<<<<< HEAD
     @override_waffle_flag(REDIRECT_TO_AUTHN_MICROFRONTEND, active=True)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', "Test only valid in LMS")
     @ddt.data(('Crazy Awesome Site', 'Crazy Awesome Site'), ('edX', 'edX'))
     @ddt.unpack

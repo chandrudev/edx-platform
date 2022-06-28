@@ -7,6 +7,7 @@ to determine whether those processors even need to be run to filter the results.
 """
 from opaque_keys.edx.keys import CourseKey
 
+<<<<<<< HEAD
 from common.djangoapps.student.roles import (
     GlobalStaff,
     CourseInstructorRole,
@@ -24,6 +25,11 @@ def can_call_public_api(course_key: CourseKey) -> bool:
     """
     return USE_FOR_OUTLINES.is_enabled(course_key)
 
+=======
+from lms.djangoapps.courseware.access import has_access
+from openedx.core import types
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 def can_see_all_content(requesting_user: types.User, course_key: CourseKey) -> bool:
     """
@@ -31,6 +37,7 @@ def can_see_all_content(requesting_user: types.User, course_key: CourseKey) -> b
 
     There's no need to run processors to restrict results for these users.
     """
+<<<<<<< HEAD
     return (
         GlobalStaff().has_user(requesting_user) or
         CourseStaffRole(course_key).has_user(requesting_user) or
@@ -48,3 +55,7 @@ def can_see_content_as_other_users(requesting_user: types.User, course_key: Cour
     the future (e.g. CourseDataResearcher).
     """
     return can_see_all_content(requesting_user, course_key)
+=======
+    # has_access handles all possible staff cases, including checking for masquerading
+    return has_access(requesting_user, 'staff', course_key).has_access
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

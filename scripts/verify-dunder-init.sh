@@ -38,7 +38,11 @@ exclude+='|^common/test/data/?.*$'
 #  * common/lib/xmodule -> EXCLUDE from check.
 #  * common/lib/xmodule/xmodule/modulestore -> INCLUDE in check.
 exclude+='|^common/lib$'
+<<<<<<< HEAD
 exclude+='|^common/lib/(capa|safe_lxml|sandbox-packages|symmath|xmodule)$'
+=======
+exclude+='|^common/lib/(capa|xmodule)$'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Docs, scripts.
 exclude+='|^docs/.*$'

@@ -11,8 +11,13 @@ from wiki.models import URLPath
 from common.djangoapps.student.tests.factories import InstructorFactory
 from lms.djangoapps.course_wiki.views import get_or_create_root
 from openedx.core.djangoapps.theming.tests.test_util import with_comprehensive_theme
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestComprehensiveTheming(ModuleStoreTestCase):

@@ -15,6 +15,12 @@ from lms.djangoapps.certificates.generation import generate_course_certificate
 
 log = getLogger(__name__)
 User = get_user_model()
+<<<<<<< HEAD
+=======
+
+# Certificate generation is delayed in case the caller is still completing their changes
+# (for example a certificate regeneration reacting to a post save rather than post commit signal)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 CERTIFICATE_DELAY_SECONDS = 2
 
 

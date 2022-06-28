@@ -18,6 +18,11 @@ from opaque_keys.edx.locator import BlockUsageLocator
 from pytz import UTC
 from rest_framework import status
 from rest_framework.test import APITestCase
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.roles import (
@@ -32,7 +37,11 @@ from common.djangoapps.student.tests.factories import InstructorFactory
 from common.djangoapps.student.tests.factories import StaffFactory
 from lms.djangoapps.certificates.data import CertificateStatuses
 from lms.djangoapps.certificates.models import GeneratedCertificate
+<<<<<<< HEAD
 from lms.djangoapps.grades.config.waffle import BULK_MANAGEMENT, WRITABLE_GRADEBOOK, waffle_flags
+=======
+from lms.djangoapps.grades.config.waffle import BULK_MANAGEMENT, WRITABLE_GRADEBOOK
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.grades.constants import GradeOverrideFeatureEnum
 from lms.djangoapps.grades.course_data import CourseData
 from lms.djangoapps.grades.course_grade import CourseGrade
@@ -48,8 +57,11 @@ from lms.djangoapps.grades.rest_api.v1.views import CourseEnrollmentPagination
 from lms.djangoapps.grades.subsection_grade import ReadSubsectionGrade
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
 from openedx.core.djangoapps.course_groups.tests.helpers import CohortFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 # pylint: disable=unused-variable
@@ -58,7 +70,10 @@ class CourseGradingViewTest(SharedModuleStoreTestCase, APITestCase):
     Test course grading view via a RESTful API
     """
     view_name = 'grades_api:v1:course_gradebook_grading_info'
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def setUpClass(cls):
@@ -142,7 +157,11 @@ class CourseGradingViewTest(SharedModuleStoreTestCase, APITestCase):
         return reverse(
             self.view_name,
             kwargs={
+<<<<<<< HEAD
                 'course_id': course_id
+=======
+                'course_id': course_id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             }
         )
 
@@ -271,7 +290,11 @@ class CourseGradingViewTest(SharedModuleStoreTestCase, APITestCase):
         assert resp.status_code == status.HTTP_200_OK
         assert resp.data['can_see_bulk_management'] is True
 
+<<<<<<< HEAD
     @override_waffle_flag(waffle_flags()[BULK_MANAGEMENT], active=True)
+=======
+    @override_waffle_flag(BULK_MANAGEMENT, active=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_can_see_bulk_management_force_enabled(self):
         # Given a course without (or with) a master's track where bulk management is enabled with the config flag
         # When getting course grading view
@@ -291,7 +314,11 @@ class GradebookViewTestBase(GradeViewTestMixin, APITestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.namespaced_url = 'grades_api:v1:course_gradebook'
+<<<<<<< HEAD
         cls.waffle_flag = waffle_flags()[WRITABLE_GRADEBOOK]
+=======
+        cls.waffle_flag = WRITABLE_GRADEBOOK
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         cls.course = CourseFactory.create(display_name='test-course', run='run-1')
         cls.course_key = cls.course.id
@@ -1849,7 +1876,11 @@ class SubsectionGradeViewTest(GradebookViewTestBase):
         }
         cls.grade = PersistentSubsectionGrade.update_or_create_grade(**cls.params)
 
+<<<<<<< HEAD
     def get_url(self, subsection_id=None, user_id=None):  # pylint: disable=arguments-differ
+=======
+    def get_url(self, subsection_id=None, user_id=None, history_record_limit=5):  # pylint: disable=arguments-differ
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Helper function to create the course gradebook API url.
         """
@@ -1859,7 +1890,11 @@ class SubsectionGradeViewTest(GradebookViewTestBase):
                 'subsection_id': subsection_id or self.subsection_id,
             }
         )
+<<<<<<< HEAD
         return f"{base_url}?user_id={user_id or self.user_id}"
+=======
+        return f"{base_url}?user_id={user_id or self.user_id}&history_record_limit={history_record_limit}"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @patch('lms.djangoapps.grades.subsection_grade_factory.SubsectionGradeFactory.create')
     @ddt.data(
@@ -1997,6 +2032,35 @@ class SubsectionGradeViewTest(GradebookViewTestBase):
 
         assert expected_data == resp.data
 
+<<<<<<< HEAD
+=======
+    @freeze_time('2019-01-01')
+    def test_with_override_with_long_history(self):
+        """
+        Test that history is truncated to 5 most recent entries
+        """
+        self.login_staff()
+
+        for i in range(6):
+            override = PersistentSubsectionGradeOverride.update_or_create_override(
+                requesting_user=self.global_staff,
+                subsection_grade_model=self.grade,
+                earned_all_override=i,
+                earned_graded_override=i,
+                feature=GradeOverrideFeatureEnum.gradebook,
+            )
+
+        resp = self.client.get(
+            self.get_url(
+                subsection_id=self.usage_key,
+                history_record_limit=5,
+            )
+        )
+
+        assert len(resp.data['history']) == 5
+        assert resp.data['history'][0]['earned_all_override'] != 0.0
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @ddt.data(
         'login_staff',
         'login_course_admin',

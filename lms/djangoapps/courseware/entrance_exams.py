@@ -9,7 +9,11 @@ from lms.djangoapps.courseware.access import has_access
 from common.djangoapps.student.models import EntranceExamConfiguration
 from common.djangoapps.util.milestones_helpers import get_required_content
 from openedx.core.toggles import ENTRANCE_EXAMS
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def course_has_entrance_exam(course):

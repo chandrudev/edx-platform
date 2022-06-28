@@ -5,6 +5,7 @@ Utility methods for Enterprise
 
 import json
 
+<<<<<<< HEAD
 from crum import get_current_request
 from django.conf import settings
 from django.contrib.auth import get_backends, login
@@ -15,6 +16,17 @@ from django.urls import NoReverseMatch, reverse
 from django.utils.translation import gettext as _
 from edx_django_utils.cache import TieredCache, get_cache_key
 from edx_toggles.toggles import LegacyWaffleFlag
+=======
+from completion.exceptions import UnavailableCompletionData
+from completion.utilities import get_key_to_last_completed_block
+from crum import get_current_request
+from django.conf import settings
+from django.core.cache import cache
+from django.urls import NoReverseMatch, reverse
+from django.utils.translation import gettext as _
+from edx_django_utils.cache import TieredCache, get_cache_key
+from edx_toggles.toggles import WaffleFlag
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from enterprise.api.v1.serializers import EnterpriseCustomerBrandingConfigurationSerializer
 from enterprise.models import EnterpriseCustomer, EnterpriseCustomerUser
 from social_django.models import UserSocialAuth
@@ -25,9 +37,14 @@ from lms.djangoapps.branding.api import get_privacy_url
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.user_authn.cookies import standard_cookie_settings
 from openedx.core.djangolib.markup import HTML, Text
+<<<<<<< HEAD
 from openedx.features.course_experience.utils import get_course_outline_block_tree, get_resume_block
 
 ENTERPRISE_HEADER_LINKS = LegacyWaffleFlag('enterprise', 'enterprise_header_links', __name__)  # lint-amnesty, pylint: disable=toggle-missing-annotation
+=======
+
+ENTERPRISE_HEADER_LINKS = WaffleFlag('enterprise.enterprise_header_links', __name__)  # lint-amnesty, pylint: disable=toggle-missing-annotation
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def get_data_consent_share_cache_key(user_id, course_id, enterprise_customer_uuid=None):
@@ -420,6 +437,15 @@ def is_enterprise_learner(user):
     Returns:
         (bool): True if given user is an enterprise learner.
     """
+<<<<<<< HEAD
+=======
+    # Prevent a circular import.
+    from openedx.features.enterprise_support.api import enterprise_enabled
+
+    if not enterprise_enabled():
+        return False
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     try:
         user_id = int(user)
     except TypeError:
@@ -432,6 +458,10 @@ def is_enterprise_learner(user):
         # Cache the enterprise user for one hour.
         cache.set(cached_is_enterprise_key, True, 3600)
         return True
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     return False
 
 
@@ -464,6 +494,7 @@ def fetch_enterprise_customer_by_id(enterprise_uuid):
     return EnterpriseCustomer.objects.get(uuid=enterprise_uuid)
 
 
+<<<<<<< HEAD
 def _create_placeholder_request(user):
     """
     Helper method to create a placeholder request.
@@ -487,6 +518,8 @@ def _create_placeholder_request(user):
     return request
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def is_course_accessed(user, course_id):
     """
     Check if the learner accessed the course.
@@ -498,7 +531,15 @@ def is_course_accessed(user, course_id):
     Returns:
         (bool): True if course has been accessed by the enterprise learner.
     """
+<<<<<<< HEAD
     request = _create_placeholder_request(user)
     course_outline_root_block = get_course_outline_block_tree(request, course_id, user)
     resume_block = get_resume_block(course_outline_root_block) if course_outline_root_block else None
     return bool(resume_block)
+=======
+    try:
+        get_key_to_last_completed_block(user, course_id)
+        return True
+    except UnavailableCompletionData:
+        return False
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

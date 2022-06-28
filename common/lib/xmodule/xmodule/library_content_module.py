@@ -8,8 +8,16 @@ import logging
 import random
 from copy import copy
 from gettext import ngettext
+<<<<<<< HEAD
 
 import bleach
+=======
+from rest_framework import status
+
+import bleach
+from django.conf import settings
+from django.utils.functional import classproperty
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lazy import lazy
 from lxml import etree
 from lxml.etree import XMLSyntaxError
@@ -19,7 +27,11 @@ from web_fragments.fragment import Fragment
 from webob import Response
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
+<<<<<<< HEAD
 from xblock.fields import Integer, List, Scope, String
+=======
+from xblock.fields import Integer, List, Scope, String, Boolean
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from capa.responsetypes import registry
 from xmodule.mako_module import MakoTemplateBlockBase
@@ -33,7 +45,10 @@ from xmodule.x_module import (
     shim_xmodule_js,
     STUDENT_VIEW,
     XModuleMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
 )
 
@@ -69,10 +84,17 @@ def _get_capa_types():
 @XBlock.wants('library_tools')  # Only needed in studio
 @XBlock.wants('studio_user_permissions')  # Only available in studio
 @XBlock.wants('user')
+<<<<<<< HEAD
 class LibraryContentBlock(
     MakoTemplateBlockBase,
     XmlMixin,
     XModuleDescriptorToXBlockMixin,
+=======
+@XBlock.needs('mako')
+class LibraryContentBlock(
+    MakoTemplateBlockBase,
+    XmlMixin,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -115,7 +137,22 @@ class LibraryContentBlock(
 
     show_in_read_only_mode = True
 
+<<<<<<< HEAD
     completion_mode = XBlockCompletionMode.AGGREGATOR
+=======
+    # noinspection PyMethodParameters
+    @classproperty
+    def completion_mode(cls):  # pylint: disable=no-self-argument
+        """
+        Allow overriding the completion mode with a feature flag.
+
+        This is a property, so it can be dynamically overridden in tests, as it is not evaluated at runtime.
+        """
+        if settings.FEATURES.get('MARK_LIBRARY_CONTENT_BLOCK_COMPLETE_ON_VIEW', False):
+            return XBlockCompletionMode.COMPLETABLE
+
+        return XBlockCompletionMode.AGGREGATOR
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     display_name = String(
         display_name=_("Display Name"),
@@ -164,6 +201,17 @@ class LibraryContentBlock(
         default=[],
         scope=Scope.user_state,
     )
+<<<<<<< HEAD
+=======
+    # This cannot be called `show_reset_button`, because children blocks inherit this as a default value.
+    allow_resetting_children = Boolean(
+        display_name=_("Show Reset Button"),
+        help=_("Determines whether a 'Reset Problems' button is shown, so users may reset their answers and reshuffle "
+               "selected items."),
+        scope=Scope.settings,
+        default=False
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @property
     def source_library_key(self):
@@ -334,6 +382,30 @@ class LibraryContentBlock(
 
         return self.selected
 
+<<<<<<< HEAD
+=======
+    @XBlock.handler
+    def reset_selected_children(self, _, __):
+        """
+        Resets the XBlock's state for a user.
+
+        This resets the state of all `selected` children and then clears the `selected` field
+        so that the new blocks are randomly chosen for this user.
+        """
+        if not self.allow_resetting_children:
+            return Response('"Resetting selected children" is not allowed for this XBlock',
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        for block_type, block_id in self.selected_children():
+            block = self.runtime.get_block(self.location.course_key.make_usage_key(block_type, block_id))
+            if hasattr(block, 'reset_problem'):
+                block.reset_problem(None)
+                block.save()
+
+        self.selected = []
+        return Response(json.dumps(self.student_view({}).content))
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _get_selected_child_blocks(self):
         """
         Generator returning XBlock instances of the children selected for the
@@ -365,13 +437,25 @@ class LibraryContentBlock(
                     'content': rendered_child.content,
                 })
 
+<<<<<<< HEAD
         fragment.add_content(self.system.render_template('vert_module.html', {
+=======
+        fragment.add_content(self.runtime.service(self, 'mako').render_template('vert_module.html', {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'items': contents,
             'xblock_context': context,
             'show_bookmark_button': False,
             'watched_completable_blocks': set(),
             'completion_delay_ms': None,
+<<<<<<< HEAD
         }))
+=======
+            'reset_button': self.allow_resetting_children,
+        }))
+
+        fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/library_content_reset.js'))
+        fragment.initialize_js('LibraryContentReset')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return fragment
 
     def author_view(self, context):
@@ -387,10 +471,18 @@ class LibraryContentBlock(
         if is_root:
             # User has clicked the "View" link. Show a preview of all possible children:
             if self.children:  # pylint: disable=no-member
+<<<<<<< HEAD
                 fragment.add_content(self.system.render_template("library-block-author-preview-header.html", {
                     'max_count': self.max_count,
                     'display_name': self.display_name or self.url_name,
                 }))
+=======
+                fragment.add_content(self.runtime.service(self, 'mako').render_template(
+                    "library-block-author-preview-header.html", {
+                        'max_count': self.max_count,
+                        'display_name': self.display_name or self.url_name,
+                    }))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 context['can_edit_visibility'] = False
                 context['can_move'] = False
                 self.render_children(context, fragment, can_reorder=False, can_add=False)
@@ -407,7 +499,11 @@ class LibraryContentBlock(
         Return the studio view.
         """
         fragment = Fragment(
+<<<<<<< HEAD
             self.system.render_template(self.mako_template, self.get_context())
+=======
+            self.runtime.service(self, 'mako').render_template(self.mako_template, self.get_context())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         add_webpack_to_fragment(fragment, 'LibraryContentBlockStudio')
         shim_xmodule_js(fragment, self.studio_js_module_name)

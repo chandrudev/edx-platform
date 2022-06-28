@@ -18,7 +18,11 @@ from lms.djangoapps.support.decorators import require_support_permission
 from openedx.core.djangoapps.user_api.accounts.serializers import AccountUserSerializer
 from openedx.core.djangolib.oauth2_retirement_utils import retire_dot_oauth2_models
 
+<<<<<<< HEAD
 from edx_django_utils.user import generate_password
+=======
+from edx_django_utils.user import generate_password  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ManageUserSupportView(View):

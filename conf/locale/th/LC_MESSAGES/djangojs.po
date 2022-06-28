@@ -1,6 +1,10 @@
 # #-#-#-#-#  djangojs-partial.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Thai (http://www.transifex.com/open-edx/edx-platform/language/th/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
+=======
+# Copyright (C) 2022 EdX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -14,12 +18,21 @@
 # peemmaruj <peemmaruj@gmail.com>, 2014
 # Phondanai Khanti <phondanai@gmail.com>, 2015
 # Pornchai TummarATTAnanonT <yantaku@gmail.com>, 2015-2016
+<<<<<<< HEAD
+=======
+# Prakai Nadee <prakai.na@gmail.com>, 2022
+# Prakai Nadee <prakai.na@gmail.com>, 2021
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Sitdhibong Laokok <sitdhibong@gmail.com>, 2015
 # Sorathan Chaturapruek <tummykung@gmail.com>, 2013,2015
 # Sorathan Chaturapruek <tummykung@gmail.com>, 2013
 # #-#-#-#-#  djangojs-studio.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Thai (http://www.transifex.com/open-edx/edx-platform/language/th/).
+<<<<<<< HEAD
 # Copyright (C) 2021 EdX
+=======
+# Copyright (C) 2022 EdX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -28,12 +41,22 @@
 # Jirayu Chamamahattana <mman2x@gmail.com>, 2015
 # J.14 <jithinchman@gmail.com>, 2014
 # Noppachai Eiamwasant <noporo@hotmail.com>, 2015
+<<<<<<< HEAD
 # Sitdhibong Laokok <sitdhibong@gmail.com>, 2015
 # #-#-#-#-#  djangojs-account-settings-view.po (0.1a)  #-#-#-#-#
 # edX community translations have been downloaded from Thai (https://www.transifex.com/open-edx/teams/6205/th/).
 # Copyright (C) 2021 EdX
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 # EdX Team <info@edx.org>, 2021.
+=======
+# Prakai Nadee <prakai.na@gmail.com>, 2021
+# Sitdhibong Laokok <sitdhibong@gmail.com>, 2015
+# #-#-#-#-#  djangojs-account-settings-view.po (0.1a)  #-#-#-#-#
+# edX community translations have been downloaded from Thai (https://www.transifex.com/open-edx/teams/6205/th/).
+# Copyright (C) 2022 EdX
+# This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+# EdX Team <info@edx.org>, 2022.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #
 # Translators:
 # Noppachai Eiamwasant <noporo@hotmail.com>, 2019
@@ -41,7 +64,11 @@
 #
 # #-#-#-#-#  underscore.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Thai (http://www.transifex.com/open-edx/edx-platform/language/th/)
+<<<<<<< HEAD
 # Copyright (C) 2021 edX
+=======
+# Copyright (C) 2022 edX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -55,7 +82,11 @@
 # Theeranuch Sirikojakorn <totallyp3@gmail.com>, 2015
 # #-#-#-#-#  underscore-studio.po (edx-platform)  #-#-#-#-#
 # edX community translations have been downloaded from Thai (http://www.transifex.com/open-edx/edx-platform/language/th/)
+<<<<<<< HEAD
 # Copyright (C) 2021 edX
+=======
+# Copyright (C) 2022 edX
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
 #
 # Translators:
@@ -70,9 +101,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-platform\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2021-09-21 17:10+0000\n"
 "PO-Revision-Date: 2021-08-01 20:44+0000\n"
 "Last-Translator: edx_transifex_bot <i18n-working-group+edx-transifex-bot@edx.org>\n"
+=======
+"POT-Creation-Date: 2022-05-29 20:43+0000\n"
+"PO-Revision-Date: 2014-06-11 15:18+0000\n"
+"Last-Translator: edx demo <edx.one2clouds@gmail.com>, 2019\n"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "Language-Team: Thai (http://www.transifex.com/open-edx/edx-platform/language/th/)\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
@@ -2941,6 +2978,10 @@ msgid "Markdown Editing Help"
 msgstr "ลดความช่วยเหลือในการแก้ไข"
 
 #: lms/static/js/Markdown.Editor.js cms/templates/js/asset-library.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "URL"
 msgstr ""
 
@@ -3668,6 +3709,7 @@ msgstr "เปิดการทำงานกลุ่ม"
 msgid "Cohorts Disabled"
 msgstr "ยกเลิกการทำงานกลุ่ม"
 
+<<<<<<< HEAD
 #: lms/static/js/groups/views/verified_track_settings_notification.js
 msgid ""
 "This course uses automatic cohorting for verified track learners. You cannot"
@@ -3689,6 +3731,8 @@ msgid ""
 " cohorts are disabled. You must enable cohorts for the feature to work."
 msgstr ""
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: lms/static/js/instructor_dashboard/certificates.js
 msgid "Allow students to generate certificates for this course?"
 msgstr "อนุญาตให้นักเรียนสามารถสร้างใบรับรองสำหรับหลักสูตรนี้ ?"
@@ -4555,7 +4599,11 @@ msgid ""
 msgstr ""
 
 #: lms/static/js/student_account/components/StudentAccountDeletion.jsx
+<<<<<<< HEAD
 msgid "Before proceeding, please {htmlStart}activate your account{htmlEnd}."
+=======
+msgid "Before proceeding, please {htmlStart}{emailMsg}{htmlEnd}."
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgstr ""
 
 #: lms/static/js/student_account/components/StudentAccountDeletion.jsx
@@ -5208,6 +5256,7 @@ msgstr ""
 msgid "Bookmark this page"
 msgstr ""
 
+<<<<<<< HEAD
 #: openedx/features/course_experience/static/course_experience/js/CourseGoals.js
 msgid "Thank you for setting your course goal to {goal}!"
 msgstr ""
@@ -5238,6 +5287,8 @@ msgstr ""
 msgid "Show Less"
 msgstr ""
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: openedx/features/course_search/static/course_search/js/views/search_results_view.js
 msgid "{total_results} result found for \"{search_term}\""
 msgid_plural "{total_results} results found for \"{search_term}\""
@@ -6787,6 +6838,14 @@ msgstr "การกระทำ"
 msgid "Unscheduled"
 msgstr ""
 
+<<<<<<< HEAD
+=======
+#: cms/templates/js/discussion-editor.underscore
+#: common/static/common/templates/discussion/templates.underscore
+msgid "Discussion"
+msgstr ""
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/paging-header.underscore
 #: common/static/common/templates/components/paging-footer.underscore
 #: common/static/common/templates/discussion/templates.underscore
@@ -7017,10 +7076,13 @@ msgid "follow this post"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+<<<<<<< HEAD
 msgid "post anonymously"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "post anonymously to classmates"
 msgstr ""
 
@@ -7085,10 +7147,13 @@ msgid "Question"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+<<<<<<< HEAD
 msgid "Discussion"
 msgstr ""
 
 #: common/static/common/templates/discussion/templates.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Endorse"
 msgstr ""
 
@@ -7473,6 +7538,17 @@ msgid "This catalog's courses:"
 msgstr ""
 
 #: lms/templates/ccx/schedule.underscore
+<<<<<<< HEAD
+=======
+msgid "Expand All"
+msgstr "แสดงทั้งหมด"
+
+#: lms/templates/ccx/schedule.underscore
+msgid "Collapse All"
+msgstr "ซ่อนทั้งหมด"
+
+#: lms/templates/ccx/schedule.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Start Date"
 msgstr "วันที่เริ่ม"
 
@@ -7555,6 +7631,17 @@ msgid ""
 "before you select \"End My Exam\"."
 msgstr ""
 
+<<<<<<< HEAD
+=======
+#: lms/templates/courseware/proctored-exam-status.underscore
+msgid "Show More"
+msgstr ""
+
+#: lms/templates/courseware/proctored-exam-status.underscore
+msgid "Show Less"
+msgstr ""
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: lms/templates/discovery/course_card.underscore
 msgid "LEARN MORE"
 msgstr "เรียนรู้เพิ่มเติม"
@@ -8167,6 +8254,7 @@ msgstr ""
 
 #: lms/templates/learner_dashboard/program_details_tab_view.underscore
 #: lms/templates/learner_dashboard/program_details_view.underscore
+<<<<<<< HEAD
 msgid ""
 "To complete the program, you must earn a verified certificate for each "
 "course."
@@ -8174,6 +8262,8 @@ msgstr ""
 
 #: lms/templates/learner_dashboard/program_details_tab_view.underscore
 #: lms/templates/learner_dashboard/program_details_view.underscore
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgid "Upgrade All Remaining Courses ("
 msgstr ""
 
@@ -9746,6 +9836,13 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
+<<<<<<< HEAD
+=======
+#: cms/templates/js/discussion-editor.underscore
+msgid "Enable discussion"
+msgstr ""
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/due-date-editor.underscore
 msgid "Due Date:"
 msgstr ""
@@ -9962,6 +10059,10 @@ msgstr ""
 #: cms/templates/js/metadata-list-entry.underscore
 #: cms/templates/js/metadata-number-entry.underscore
 #: cms/templates/js/metadata-option-entry.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/metadata-string-entry.underscore
 msgid "Clear"
 msgstr ""
@@ -9971,6 +10072,10 @@ msgstr ""
 #: cms/templates/js/metadata-list-entry.underscore
 #: cms/templates/js/metadata-number-entry.underscore
 #: cms/templates/js/metadata-option-entry.underscore
+<<<<<<< HEAD
+=======
+#: cms/templates/js/metadata-option-public-access.underscore
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #: cms/templates/js/metadata-string-entry.underscore
 msgid "Clear Value"
 msgstr ""
@@ -10205,6 +10310,7 @@ msgstr ""
 #: cms/templates/js/show-correctness-editor.underscore
 msgid ""
 "Learners do not see whether their answers to assessments were correct or "
+<<<<<<< HEAD
 "incorrect, nor the score received, until after the course end date has "
 "passed."
 msgstr ""
@@ -10218,6 +10324,8 @@ msgstr ""
 #: cms/templates/js/show-correctness-editor.underscore
 msgid ""
 "Learners do not see whether their answers to assessments were correct or "
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 "incorrect, nor the score received, until after the due date for the "
 "subsection has passed."
 msgstr ""
@@ -10359,17 +10467,30 @@ msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
+<<<<<<< HEAD
 "This subsection was released to learners as a special exam, but was reverted"
 " back to a basic exam. You may not configure it as a special exam now. "
 "Contact edX Support for assistance."
+=======
+"This subsection was released to learners as a proctored exam, but was "
+"reverted back to a basic or timed exam. You may not configure it as a "
+"proctored exam now. Contact edX Support for assistance."
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
 msgid ""
+<<<<<<< HEAD
 "This special exam has been released to learners. You may not convert it to "
 "another type of special exam. You may revert this subsection back to being a"
 " basic exam by selecting 'None', but you will NOT be able to configure it as"
 " a special exam in the future."
+=======
+"This proctored exam has been released to learners. You may not convert it to"
+" another type of special exam. You may revert this subsection back to being "
+"a basic exam by selecting 'None', or a timed exam, but you will NOT be able "
+"to configure it as a proctored exam in the future."
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore
@@ -10392,7 +10513,12 @@ msgstr ""
 msgid ""
 "Proctored exams are timed and they record video of each learner taking the "
 "exam. The videos are then reviewed to ensure that learners follow all "
+<<<<<<< HEAD
 "examination rules."
+=======
+"examination rules. Please note that setting this exam as proctored will "
+"change the visibility settings to \"Hide content after due date.\""
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 msgstr ""
 
 #: cms/templates/js/timed-examination-preference-editor.underscore

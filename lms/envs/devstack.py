@@ -19,7 +19,10 @@ from .production import *  # pylint: disable=wildcard-import, unused-wildcard-im
 
 # Don't use S3 in devstack, fall back to filesystem
 del DEFAULT_FILE_STORAGE
+<<<<<<< HEAD
 MEDIA_ROOT = "/edx/var/edxapp/uploads"
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ORA2_FILEUPLOAD_BACKEND = 'django'
 
 
@@ -277,6 +280,10 @@ LOGIN_REDIRECT_WHITELIST.extend([
     'localhost:2001',  # frontend-app-course-authoring
     'localhost:3001',  # frontend-app-library-authoring
     'localhost:18400',  # frontend-app-publisher
+<<<<<<< HEAD
+=======
+    'localhost:1993',  # frontend-app-ora-grading
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ENTERPRISE_LEARNER_PORTAL_NETLOC,  # frontend-app-learner-portal-enterprise
     ENTERPRISE_ADMIN_PORTAL_NETLOC,  # frontend-app-admin-portal
 ])
@@ -335,9 +342,22 @@ EDXNOTES_CLIENT_NAME = 'edx_notes_api-backend-service'
 ############## Settings for Microfrontends  #########################
 LEARNING_MICROFRONTEND_URL = 'http://localhost:2000'
 ACCOUNT_MICROFRONTEND_URL = 'http://localhost:1997'
+<<<<<<< HEAD
 AUTHN_MICROFRONTEND_URL = 'http://localhost:1999'
 AUTHN_MICROFRONTEND_DOMAIN = 'localhost:1999'
 
+=======
+COMMUNICATIONS_MICROFRONTEND_URL = 'http://localhost:1984'
+AUTHN_MICROFRONTEND_URL = 'http://localhost:1999'
+AUTHN_MICROFRONTEND_DOMAIN = 'localhost:1999'
+
+################### FRONTEND APPLICATION DISCUSSIONS ###################
+DISCUSSIONS_MICROFRONTEND_URL = 'http://localhost:2002'
+
+################### FRONTEND APPLICATION DISCUSSIONS FEEDBACK URL###################
+DISCUSSIONS_MFE_FEEDBACK_URL = None
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ############## Docker based devstack settings #######################
 
 FEATURES.update({
@@ -383,6 +403,11 @@ MKTG_URLS = {
 
 ENTERPRISE_MARKETING_FOOTER_QUERY_PARAMS = {}
 
+<<<<<<< HEAD
+=======
+ENTERPRISE_BACKEND_SERVICE_EDX_OAUTH2_PROVIDER_URL = "http://edx.devstack.lms:18000/oauth2"
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 CREDENTIALS_SERVICE_USERNAME = 'credentials_worker'
 
 COURSE_CATALOG_URL_ROOT = 'http://edx.devstack.discovery:18381'
@@ -404,11 +429,14 @@ if FEATURES.get('ENABLE_ENTERPRISE_INTEGRATION'):
 DCS_SESSION_COOKIE_SAMESITE = 'Lax'
 DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 
+<<<<<<< HEAD
 #####################################################################
 # See if the developer has any local overrides.
 if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
     from .private import *  # pylint: disable=import-error,wildcard-import
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ########################## THEMING  #######################
 # If you want to enable theming in devstack, uncomment this section and add any relevant
 # theme directories to COMPREHENSIVE_THEME_DIRS
@@ -446,3 +474,12 @@ WEBPACK_LOADER['DEFAULT']['TIMEOUT'] = 5
 #################### Network configuration ####################
 # Devstack is directly exposed to the caller
 CLOSEST_CLIENT_IP_FROM_HEADERS = []
+<<<<<<< HEAD
+=======
+
+################# New settings must go ABOVE this line #################
+########################################################################
+# See if the developer has any local overrides.
+if os.path.isfile(join(dirname(abspath(__file__)), 'private.py')):
+    from .private import *  # pylint: disable=import-error,wildcard-import
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

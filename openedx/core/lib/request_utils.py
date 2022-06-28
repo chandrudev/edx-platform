@@ -7,10 +7,15 @@ from urllib.parse import urlparse
 import crum
 from django.conf import settings
 from django.test.client import RequestFactory
+<<<<<<< HEAD
 from django.utils.deprecation import MiddlewareMixin
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import set_custom_attribute
 from edx_toggles.toggles import WaffleFlag
+=======
+from edx_django_utils.cache import RequestCache
+from edx_django_utils.monitoring import set_custom_attribute
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.views import exception_handler
@@ -18,6 +23,7 @@ from rest_framework.views import exception_handler
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 
 # accommodates course api urls, excluding any course api routes that do not fall under v*/courses, such as v1/blocks.
+<<<<<<< HEAD
 COURSE_REGEX = re.compile(fr'^(.*?/courses/)(?!v[0-9]+/[^/]+){settings.COURSE_ID_PATTERN}')
 
 # .. toggle_name: request_utils.capture_cookie_sizes
@@ -32,6 +38,10 @@ COURSE_REGEX = re.compile(fr'^(.*?/courses/)(?!v[0-9]+/[^/]+){settings.COURSE_ID
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2019-02-22
 CAPTURE_COOKIE_SIZES = WaffleFlag('request_utils.capture_cookie_sizes', __name__)
+=======
+COURSE_REGEX = re.compile(fr'^(.*?/course(s)?/)(?!v[0-9]+/[^/]+){settings.COURSE_ID_PATTERN}')
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 log = logging.getLogger(__name__)
 
 
@@ -103,6 +113,7 @@ def course_id_from_url(url):
         return None
 
 
+<<<<<<< HEAD
 class CookieMonitoringMiddleware(MiddlewareMixin):
     """
     Middleware for monitoring the size and growth of all our cookies, to see if
@@ -249,6 +260,8 @@ class CookieMonitoringMiddleware(MiddlewareMixin):
             log.debug('%s = %d', name, size)
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def expected_error_exception_handler(exc, context):
     """
     Replacement for DRF's default exception handler to enable observing expected errors.
@@ -334,7 +347,11 @@ class ExpectedErrorMiddleware:
 # .. toggle_implementation: DjangoSetting
 # .. toggle_default: False
 # .. toggle_description: If True, the stacktrace will be included with the logging message.
+<<<<<<< HEAD
 # .. toggle_warnings: Requires ``LOG_ERROR`` to be set to True, otherwise this value will be ignored.
+=======
+# .. toggle_warning: Requires ``LOG_ERROR`` to be set to True, otherwise this value will be ignored.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # .. toggle_use_cases: opt_in
 # .. toggle_creation_date: 2021-03-11
 

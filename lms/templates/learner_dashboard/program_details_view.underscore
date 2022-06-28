@@ -1,7 +1,12 @@
 <header class="js-program-header program-header full-width-banner"></header>
 <!-- TODO: consider if article is the most appropriate element here -->
 
+<<<<<<< HEAD
 <article class="program-details-content">
+=======
+<div class="col-md-12 d-md-flex">
+<article class="program-details-content col-md-8">
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     <div class="program-heading">
             <% if (completedCount === totalCount) { %>
                 <h3 class="program-heading-title"><%- gettext('Congratulations!') %></h3>
@@ -16,10 +21,16 @@
                 <div class="program-heading-message">
                     <div>
                         <%- interpolate(gettext(
+<<<<<<< HEAD
                         'Track and plan your progress through the %(count)s courses in this program.'),
                         { count: totalCount }, true) %>
                     </div>
                     <div><%- gettext('To complete the program, you must earn a verified certificate for each course.') %></div>
+=======
+                        'Track and plan your progress through the %(count)s courses in this program. To complete the program, you must earn a verified certificate for each course.'),
+                        { count: totalCount }, true) %>
+                    </div>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 </div>
             <% } %>
             <% if (is_learner_eligible_for_one_click_purchase && (typeof is_mobile_only === 'undefined' || is_mobile_only === false)) { %>
@@ -76,5 +87,10 @@
         </div>
     </div>
 </article>
+<<<<<<< HEAD
 <aside class="js-program-sidebar program-sidebar"></aside>
 
+=======
+<aside class="js-program-sidebar program-sidebar col-md-4"></aside>
+</div>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

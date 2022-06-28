@@ -7,6 +7,7 @@ import ddt
 from completion.models import BlockCompletion
 from completion.services import CompletionService
 from completion.test_utils import CompletionWaffleTestMixin
+<<<<<<< HEAD
 from opaque_keys.edx.keys import CourseKey
 
 from openedx.core.djangolib.testing.utils import skip_unless_lms
@@ -15,6 +16,18 @@ from xmodule.library_tools import LibraryToolsService
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase, TEST_DATA_SPLIT_MODULESTORE
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, LibraryFactory
 from xmodule.tests import get_test_system
+=======
+from django.conf import settings
+from django.test import override_settings
+from opaque_keys.edx.keys import CourseKey
+from xmodule.library_tools import LibraryToolsService
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, LibraryFactory
+from xmodule.tests import get_test_system
+
+from openedx.core.djangolib.testing.utils import skip_unless_lms
+from common.djangoapps.student.tests.factories import UserFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -23,8 +36,11 @@ class CompletionServiceTestCase(CompletionWaffleTestMixin, SharedModuleStoreTest
     """
     Test the data returned by the CompletionService.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -183,6 +199,22 @@ class CompletionServiceTestCase(CompletionWaffleTestMixin, SharedModuleStoreTest
         assert self.completion_service.can_mark_block_complete_on_view(self.html) is True
         assert self.completion_service.can_mark_block_complete_on_view(self.problem) is False
 
+<<<<<<< HEAD
+=======
+    @override_settings(FEATURES={**settings.FEATURES, 'MARK_LIBRARY_CONTENT_BLOCK_COMPLETE_ON_VIEW': True})
+    def test_can_mark_library_content_complete_on_view(self):
+        library = LibraryFactory.create(modulestore=self.store)
+        lib_vertical = ItemFactory.create(parent=self.sequence, category='vertical', publish_item=False)
+        library_content_block = ItemFactory.create(
+            parent=lib_vertical,
+            category='library_content',
+            max_count=1,
+            source_library_id=str(library.location.library_key),
+            user_id=self.user.id,
+        )
+        self.assertTrue(self.completion_service.can_mark_block_complete_on_view(library_content_block))
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_vertical_completion_with_library_content(self):
         library = LibraryFactory.create(modulestore=self.store)
         ItemFactory.create(parent=library, category='problem', publish_item=False, user_id=self.user.id)
@@ -204,6 +236,12 @@ class CompletionServiceTestCase(CompletionWaffleTestMixin, SharedModuleStoreTest
             source_library_id=str(library.location.library_key),
             user_id=self.user.id,
         )
+<<<<<<< HEAD
+=======
+        # Library Content Block needs its children to be completed.
+        self.assertFalse(self.completion_service.can_mark_block_complete_on_view(library_content_block))
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         library_content_block.refresh_children()
         lib_vertical = self.store.get_item(lib_vertical.location)
         self._bind_course_module(lib_vertical)

@@ -11,6 +11,11 @@ from ddt import data, ddt, unpack
 from django.conf import settings
 from milestones import api as milestones_api
 from milestones.tests.utils import MilestonesTestCaseMixin
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.gating import api as lms_gating_api
@@ -20,8 +25,11 @@ from lms.djangoapps.grades.tests.base import GradeTestBase
 from lms.djangoapps.grades.tests.utils import mock_get_score
 from openedx.core.lib.gating import api as gating_api
 from openedx.core.lib.gating.exceptions import GatingValidationError
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt
@@ -29,9 +37,12 @@ class TestGatingApi(ModuleStoreTestCase, MilestonesTestCaseMixin):
     """
     Tests for the gating API
     """
+<<<<<<< HEAD
 
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         """
         Initial data setup
@@ -354,6 +365,11 @@ class TestGatingGradesIntegration(GradeTestBase):
     """
     Tests the integration between the gating API and our Persistent Grades framework.
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', 'Test only valid in lms')
     def test_get_subsection_grade_percentage(self):
         user = self.request.user

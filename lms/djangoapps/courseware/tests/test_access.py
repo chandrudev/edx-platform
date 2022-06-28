@@ -23,6 +23,10 @@ import lms.djangoapps.courseware.access as access
 import lms.djangoapps.courseware.access_response as access_response
 from lms.djangoapps.courseware.masquerade import CourseMasquerade
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase, masquerade_as_group_member
+<<<<<<< HEAD
+=======
+from lms.djangoapps.courseware.toggles import course_is_invitation_only
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.ccx.models import CustomCourseForEdX
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.waffle_utils.testutils import WAFFLE_TABLES
@@ -41,11 +45,16 @@ from common.djangoapps.student.tests.factories import InstructorFactory
 from common.djangoapps.student.tests.factories import StaffFactory
 from common.djangoapps.student.tests.factories import UserFactory
 from common.djangoapps.util.milestones_helpers import fulfill_course_milestone, set_prerequisite_courses
+<<<<<<< HEAD
 from xmodule.course_module import (
+=======
+from xmodule.course_module import (  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     CATALOG_VISIBILITY_ABOUT,
     CATALOG_VISIBILITY_CATALOG_AND_ABOUT,
     CATALOG_VISIBILITY_NONE
 )
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import (
@@ -57,6 +66,18 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.partitions.partitions import MINIMUM_STATIC_PARTITION_ID, Group, UserPartition
 
 QUERY_COUNT_TABLE_BLACKLIST = WAFFLE_TABLES
+=======
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import (  # lint-amnesty, pylint: disable=wrong-import-order
+    ModuleStoreTestCase,
+    SharedModuleStoreTestCase
+)
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import MINIMUM_STATIC_PARTITION_ID, Group, UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
+
+QUERY_COUNT_TABLE_IGNORELIST = WAFFLE_TABLES
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # pylint: disable=protected-access
 
@@ -65,8 +86,11 @@ class CoachAccessTestCaseCCX(SharedModuleStoreTestCase, LoginEnrollmentTestCase)
     """
     Test if user is coach on ccx.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         """
@@ -164,7 +188,10 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase, MilestonesTes
     """
     TOMORROW = 'tomorrow'
     YESTERDAY = 'yesterday'
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     DATES = {
         TOMORROW: datetime.datetime.now(pytz.utc) + datetime.timedelta(days=1),
         YESTERDAY: datetime.datetime.now(pytz.utc) - datetime.timedelta(days=1),
@@ -532,12 +559,30 @@ class AccessTestCase(LoginEnrollmentTestCase, ModuleStoreTestCase, MilestonesTes
         course = self._mock_course_with_invitation(invitation=False)
         self.assertFalse(access._has_access_course(user, 'enroll', course))
 
+<<<<<<< HEAD
     def _mock_course_with_invitation(self, invitation):
+=======
+    @ddt.data(True, False)
+    def test_old_mongo_is_invite_only(self, old_mongo):
+        """
+        Ensure that Old Mongo courses are marked as invite only and don't allow enrollment
+        """
+        user = UserFactory.create()
+        course = self._mock_course_with_invitation(invitation=False, deprecated=old_mongo)
+        self.assertEqual(course_is_invitation_only(course), old_mongo)
+        self.assertEqual(access._has_access_course(user, 'enroll', course).has_access, not old_mongo)
+
+    def _mock_course_with_invitation(self, invitation, deprecated=False):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         yesterday = datetime.datetime.now(pytz.utc) - datetime.timedelta(days=1)
         tomorrow = datetime.datetime.now(pytz.utc) + datetime.timedelta(days=1)
         return Mock(
             enrollment_start=yesterday, enrollment_end=tomorrow,
+<<<<<<< HEAD
             id=CourseLocator('edX', 'test', '2012_Fall'), enrollment_domain='',
+=======
+            id=CourseLocator('edX', 'test', '2012_Fall', deprecated=deprecated), enrollment_domain='',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             invitation_only=invitation
         )
 
@@ -842,5 +887,9 @@ class CourseOverviewAccessTestCase(ModuleStoreTestCase):
                 num_queries = 0
 
         course_overview = CourseOverview.get_from_id(course.id)
+<<<<<<< HEAD
         with self.assertNumQueries(num_queries, table_blacklist=QUERY_COUNT_TABLE_BLACKLIST):
+=======
+        with self.assertNumQueries(num_queries, table_ignorelist=QUERY_COUNT_TABLE_IGNORELIST):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             bool(access.has_access(user, action, course_overview, course_key=course.id))

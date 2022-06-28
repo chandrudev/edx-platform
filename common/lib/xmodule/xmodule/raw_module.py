@@ -24,6 +24,7 @@ class RawMixin:
 
     @classmethod
     def definition_from_xml(cls, xml_object, system):  # lint-amnesty, pylint: disable=missing-function-docstring, unused-argument
+<<<<<<< HEAD
         try:
             data = etree.tostring(xml_object, pretty_print=True, encoding='unicode')
             pre_tag_data = []
@@ -39,6 +40,9 @@ class RawMixin:
             return {'data': data}, []
         except etree.XMLSyntaxError:
             return {'data': etree.tostring(xml_object, pretty_print=True, encoding='unicode')}, []
+=======
+        return {'data': etree.tostring(xml_object, pretty_print=True, encoding='unicode')}, []
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def definition_to_xml(self, resource_fs):  # lint-amnesty, pylint: disable=unused-argument
         """

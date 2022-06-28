@@ -75,6 +75,14 @@ class UnenrollView extends Backbone.View {
         this.switchToSlideOne();
         this.$('.reasons_survey:first .submit_reasons').click(this.switchToSlideTwo.bind(this));
       }
+<<<<<<< HEAD
+=======
+    } else if (xhr.status === 400) {
+      $('#unenroll_error').text(
+        xhr.responseText,
+      ).stop()
+       .css('display', 'block');
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     } else if (xhr.status === 403) {
       location.href = `${this.urls.signInUser}?course_id=${
         encodeURIComponent($('#unenroll_course_id').val())}&enrollment_action=unenroll`;

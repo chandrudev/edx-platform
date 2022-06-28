@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=(n != 1);
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n != 1);
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "\n                    Make sure you are on a computer with a webcam, and that you have valid photo identification\n                    such as a driver's license or passport, before you continue.\n                ": "\n                    Assegureu-vos que sou en una computadora amb una c\u00e0mera web i que tingueu una identificaci\u00f3 amb foto v\u00e0lida\n                    com ara una llic\u00e8ncia de conduir o un passaport, abans de continuar.\n                ",
     "\n                    Your verification attempt failed. Please read our guidelines to make\n                    sure you understand the requirements for successfully completing verification,\n                    then try again.\n                ": "\n                    Ha fallat l'intent de verificaci\u00f3. Llegiu les nostres directrius per\n                    assegurar-vos d'entendre els requisits per completar la verificaci\u00f3 amb \u00e8xit,\n                    torneu-ho a provar.\n                ",
     "\n                    Your verification has expired. You must successfully complete a new identity verification\n                    before you can start the proctored exam.\n                ": "\n                    La teva verificaci\u00f3 ha caducat. Heu de completar amb \u00e8xit una nova verificaci\u00f3 d'identitat\n                    abans de poder iniciar l'examen supervisat.\n                ",
@@ -469,7 +485,10 @@
     "ID": "Identificador",
     "ID-Verification is not required for this Professional Education course.": "La verificaci\u00f3 d'identificaci\u00f3 no \u00e9s necess\u00e0ria per a aquest curs d'Educaci\u00f3 Professional.",
     "Identity Verification In Progress": "Verificaci\u00f3 d'identitat en curs",
+<<<<<<< HEAD
     "If the course does not have an end date, learners always see their scores when they submit answers to assessments.": "Si el curs no t\u00e9 data de finalitzaci\u00f3, els estudiants sempre veuen les puntuacions quan envien respostes a les avaluacions.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "If the subsection does not have a due date, learners always see their scores when they submit answers to assessments.": "Si la subsecci\u00f3 no t\u00e9 data de venciment, els estudiants sempre veuen les puntuacions quan envien respostes a les avaluacions.",
     "If the unit was previously published and released to learners, any changes you made to the unit when it was hidden will now be visible to learners.": "Si la unitat es va publicar i es va publicar pr\u00e8viament als estudiants, els canvis que h\u00e0giu fet a la unitat quan estigu\u00e9s oculta ara seran visibles per als estudiants.",
     "If you do not yet have an account, use the button below to register.": "Si encara no teniu un compte, utilitzeu el bot\u00f3 seg\u00fcent per registrar-se.",
@@ -519,7 +538,10 @@
     "Learners are added to this cohort automatically.": "Els aprenents s'afegeixen a aquesta cohort autom\u00e0ticament.",
     "Learners are added to this cohort only when you provide their email addresses or usernames on this page.": "Els aprenents nom\u00e9s s'afegiran a aquesta cohort nom\u00e9s quan proporcioneu les adreces de correu electr\u00f2nic o els noms d'usuari d'aquesta p\u00e0gina.",
     "Learners do not see the subsection in the course outline. The subsection is not included in grade calculations.": "Els aprenents no veuen la subsecci\u00f3 al contorn del curs. La subsecci\u00f3 no s'inclou en els c\u00e0lculs de qualificaci\u00f3.",
+<<<<<<< HEAD
     "Learners do not see whether their answers to assessments were correct or incorrect, nor the score received, until after the course end date has passed.": "Els aprenents no veuen si les seves respostes a les avaluacions eren correctes o incorrectes, ni la puntuaci\u00f3 rebuda, fins que hagi passat la data de finalitzaci\u00f3 del curs.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "Learners do not see whether their answers to assessments were correct or incorrect, nor the score received, until after the due date for the subsection has passed.": "Els aprenents no veuen si les seves respostes a les avaluacions eren correctes o incorrectes, ni la puntuaci\u00f3 rebuda, fins que ha passat la data de venciment de la subsecci\u00f3.",
     "Learners never see whether their answers to assessments are correct or incorrect, nor the score received.": "Els estudiants mai veuen si les seves respostes a les avaluacions s\u00f3n correctes o incorrectes, ni la puntuaci\u00f3 rebuda.",
     "Learners see the published subsection and can access its content.": "Els aprenents veuen la subsecci\u00f3 publicada i poden accedir al seu contingut.",
@@ -693,7 +715,10 @@
     "Proctored Exam": "Ex\u00e0men supervisat",
     "Proctored Option Available": "Opci\u00f3 Supervisat disponible",
     "Proctored Option No Longer Available": "L'opci\u00f3 Supervisat ja no est\u00e0 disponible",
+<<<<<<< HEAD
     "Proctored exams are timed and they record video of each learner taking the exam. The videos are then reviewed to ensure that learners follow all examination rules.": "Els ex\u00e0mens supervisats s\u00f3n cronometrats i graven el v\u00eddeo de cada alumne que pren l'examen. Els v\u00eddeos es revisen per garantir que els alumnes segueixin totes les regles d'examen.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "Product Name": "nom del producte",
     "Professional Certificate for {courseName}": "Certificat professional per {courseName}",
     "Program Record": "Registre del programa",
@@ -961,7 +986,10 @@
     "Titles more than 100 characters may prevent students from printing their certificate on a single page.": "Els t\u00edtols de m\u00e9s de 100 car\u00e0cters poden evitar que els estudiants imprimeixin el certificat en una \u00fanica p\u00e0gina.",
     "To access the course, select a session.": "Per accedir al curs, seleccioneu una sessi\u00f3.",
     "To be sure all students can access the video, we recommend providing both an .mp4 and a .webm version of your video. Click below to add a URL for another version. These URLs cannot be YouTube URLs. The first listed video that's compatible with the student's computer will play.": "Per assegurar-vos que tots els estudiants poden accedir al v\u00eddeo, us recomanem que proporcioneu una versi\u00f3 .mp4 i una versi\u00f3 de .webm del vostre v\u00eddeo. Feu clic a sota per afegir un URL a una altra versi\u00f3. Aquestes URL no poden ser URL de YouTube. Es reproduir\u00e0 el primer v\u00eddeo que sigui compatible amb l'ordinador de l'alumne.",
+<<<<<<< HEAD
     "To complete the program, you must earn a verified certificate for each course.": "Per completar el programa, heu de guanyar un certificat verificat per a cada curs.",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "To continue learning with this account, sign in below.": "Per continuar aprenent amb aquest compte, inicieu la sessi\u00f3 a continuaci\u00f3.",
     "To invalidate a certificate for a particular learner, add the username or email address below.": "Per invalidar un certificat per a un alumne en particular, afegiu el nom d'usuari o l'adre\u00e7a de correu electr\u00f2nic a continuaci\u00f3.",
     "To pass this exam, you must complete the problems in the time allowed.": "Per aprovar aquest examen, heu de completar els problemes en el temps perm\u00e8s.",
@@ -1220,24 +1248,41 @@
     "{transcriptClientTitle}_{transcriptLanguageCode}.{fileExtension}": "{transcriptClientTitle} _ {transcriptLanguageCode}. {fileExtension}",
     "\u2026": "..."
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -1247,16 +1292,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -1279,6 +1334,7 @@
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
+<<<<<<< HEAD
       "%Y-%m-%d",
       "%m/%d/%Y %H:%M:%S",
       "%m/%d/%Y %H:%M:%S.%f",
@@ -1288,6 +1344,14 @@
       "%m/%d/%y %H:%M:%S.%f",
       "%m/%d/%y %H:%M",
       "%m/%d/%y"
+=======
+      "%m/%d/%Y %H:%M:%S",
+      "%m/%d/%Y %H:%M:%S.%f",
+      "%m/%d/%Y %H:%M",
+      "%m/%d/%y %H:%M:%S",
+      "%m/%d/%y %H:%M:%S.%f",
+      "%m/%d/%y %H:%M"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ],
     "DATE_FORMAT": "N j, Y",
     "DATE_INPUT_FORMATS": [
@@ -1320,8 +1384,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -1340,6 +1409,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

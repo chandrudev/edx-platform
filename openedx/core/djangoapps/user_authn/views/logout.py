@@ -82,7 +82,11 @@ class LogoutView(TemplateView):
         # Clear the cookie used by the edx.org marketing site
         delete_logged_in_cookies(response)
 
+<<<<<<< HEAD
         mark_user_change_as_expected(response, None)
+=======
+        mark_user_change_as_expected(None)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return response
 
     def _build_logout_url(self, url):

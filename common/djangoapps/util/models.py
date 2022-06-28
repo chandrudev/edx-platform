@@ -35,7 +35,11 @@ def decompress_string(value):
     """
 
     try:
+<<<<<<< HEAD
         val = value.encode('utf').decode('base64')  # lint-amnesty, pylint: disable=invalid-str-codec
+=======
+        val = value.encode('utf').decode('base64')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         zbuf = BytesIO(val)
         zfile = gzip.GzipFile(fileobj=zbuf)
         ret = zfile.read()
@@ -60,7 +64,11 @@ class CompressedTextField(CreatorMixin, models.TextField):
             if isinstance(value, str):
                 value = value.encode('utf8')
             value = compress_string(value)
+<<<<<<< HEAD
             value = value.encode('base64').decode('utf8')  # lint-amnesty, pylint: disable=invalid-str-codec
+=======
+            value = value.encode('base64').decode('utf8')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return value
 
     def to_python(self, value):

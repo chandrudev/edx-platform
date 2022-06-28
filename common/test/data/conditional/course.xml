@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 <course name="Conditional Course" org="edX" course="cond_test" graceperiod="1 day 5 hours 59 minutes 59 seconds"
         slug="2012_Fall" start="2012-07-17T12:00">
     <chapter name="Problems with Condition">
+=======
+<course display_name="Conditional Course" org="edX" course="cond_test" graceperiod="1 day 5 hours 59 minutes 59 seconds"
+        url_name="2012_Fall" start="2012-07-17T12:00">
+    <chapter display_name="Problems with Condition">
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         <!-- In order for the conditional to reference modules via "show",
              they must be defined elsewhere in the course. Therefore, add them to a
              non-released sequential. -->

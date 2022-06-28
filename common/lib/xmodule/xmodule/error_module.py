@@ -11,6 +11,10 @@ import sys
 
 from lxml import etree
 from web_fragments.fragment import Fragment
+<<<<<<< HEAD
+=======
+from xblock.core import XBlock
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xblock.field_data import DictFieldData
 from xblock.fields import Scope, ScopeIds, String
 
@@ -20,7 +24,10 @@ from xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     XModuleMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
 )
 
@@ -43,9 +50,15 @@ class ErrorFields:
     display_name = String(scope=Scope.settings)
 
 
+<<<<<<< HEAD
 class ErrorBlock(
     ErrorFields,
     XModuleDescriptorToXBlockMixin,
+=======
+@XBlock.needs('mako')
+class ErrorBlock(
+    ErrorFields,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -62,7 +75,11 @@ class ErrorBlock(
         """
         Return a fragment that contains the html for the student view.
         """
+<<<<<<< HEAD
         fragment = Fragment(self.system.render_template('module-error.html', {
+=======
+        fragment = Fragment(self.runtime.service(self, 'mako').render_template('module-error.html', {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'staff_access': True,
             'data': self.contents,
             'error': self.error_msg,
@@ -179,6 +196,19 @@ class ErrorBlock(
 
         return cls._construct(system, xml_data, error_msg, location=id_generator.create_definition('error'))
 
+<<<<<<< HEAD
+=======
+    @classmethod
+    def parse_xml(cls, node, runtime, keys, id_generator):  # lint-amnesty, pylint: disable=unused-argument
+        """
+        Interpret the parsed XML in `node`, creating an XModuleDescriptor.
+        """
+        # It'd be great to not reserialize and deserialize the xml
+        xml = etree.tostring(node).decode('utf-8')
+        block = cls.from_xml(xml, runtime, id_generator)
+        return block
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def export_to_xml(self, resource_fs):
         '''
         If the definition data is invalid xml, export it wrapped in an "error"
@@ -199,6 +229,28 @@ class ErrorBlock(
             err_node.text = self.error_msg
             return etree.tostring(root, encoding='unicode')
 
+<<<<<<< HEAD
+=======
+    def add_xml_to_node(self, node):
+        """
+        Export this :class:`XModuleDescriptor` as XML, by setting attributes on the provided
+        `node`.
+        """
+        xml_string = self.export_to_xml(self.runtime.export_fs)
+        exported_node = etree.fromstring(xml_string)
+        node.tag = exported_node.tag
+        node.text = exported_node.text
+        node.tail = exported_node.tail
+
+        for key, value in exported_node.items():
+            if key == 'url_name' and value == 'course' and key in node.attrib:
+                # if url_name is set in ExportManager then do not override it here.
+                continue
+            node.set(key, value)
+
+        node.extend(list(exported_node))
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class NonStaffErrorBlock(ErrorBlock):  # pylint: disable=abstract-method
     """
@@ -209,7 +261,11 @@ class NonStaffErrorBlock(ErrorBlock):  # pylint: disable=abstract-method
         """
         Return a fragment that contains the html for the student view.
         """
+<<<<<<< HEAD
         fragment = Fragment(self.system.render_template('module-error.html', {
+=======
+        fragment = Fragment(self.runtime.service(self, 'mako').render_template('module-error.html', {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'staff_access': False,
             'data': '',
             'error': '',

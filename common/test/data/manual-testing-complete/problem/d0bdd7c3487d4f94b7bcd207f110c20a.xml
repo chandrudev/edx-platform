@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <problem attempts="10" weight="null" max_attempts="null" markdown="null">
+=======
+<problem weight="null" max_attempts="10" markdown="null">
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   <script type="loncapa/python">
 
 def two_d_grader(expect,ans):

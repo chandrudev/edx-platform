@@ -171,6 +171,10 @@ class CreditCourseViewSetTests(AuthMixin, UserMixin, TestCase):
 
     def test_oauth(self):
         """ Verify the endpoint supports OAuth, and only allows authorization for staff users. """
+<<<<<<< HEAD
+=======
+        client = Client()  # avoid mixing cookies
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         user = UserFactory(is_staff=False)
         oauth_client = ApplicationFactory.create()
         access_token = AccessTokenFactory.create(user=user, application=oauth_client).token
@@ -179,13 +183,21 @@ class CreditCourseViewSetTests(AuthMixin, UserMixin, TestCase):
         }
 
         # Non-staff users should not have access to the API
+<<<<<<< HEAD
         response = self.client.get(self.path, **headers)
+=======
+        response = client.get(self.path, **headers)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 403
 
         # Staff users should have access to the API
         user.is_staff = True
         user.save()
+<<<<<<< HEAD
         response = self.client.get(self.path, **headers)
+=======
+        response = client.get(self.path, **headers)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response.status_code == 200
 
     def assert_course_created(self, course_id, response):

@@ -7,7 +7,10 @@ from xblock.core import XBlock
 from xmodule.raw_module import RawMixin
 from xmodule.xml_module import XmlMixin
 from xmodule.x_module import (
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleMixin,
     XModuleToXBlockMixin,
 )
@@ -17,7 +20,10 @@ from xmodule.x_module import (
 class HiddenDescriptor(
     RawMixin,
     XmlMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     XModuleMixin,
 ):

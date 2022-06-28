@@ -5,16 +5,28 @@ Declaration of CourseOverview model
 
 import json
 import logging
+<<<<<<< HEAD
+=======
+#from msilib.schema import SelfReg
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from urllib.parse import urlparse, urlunparse
 
 from ccx_keys.locator import CCXLocator
 from config_models.models import ConfigurationModel
+<<<<<<< HEAD
 from django.conf import settings
 from django.db import models, transaction
 from django.db.models import Q
 from django.db.models.fields import (
     BooleanField, DateTimeField, DecimalField, FloatField, IntegerField, TextField
 )
+=======
+from collections import  namedtuple
+
+from django.conf import settings
+from django.db import models, transaction
+from django.db.models import Q
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.db.models.signals import post_save, post_delete
 from django.db.utils import IntegrityError
 from django.template import defaultfilters
@@ -24,17 +36,29 @@ from model_utils.models import TimeStampedModel
 from opaque_keys.edx.django.models import CourseKeyField, UsageKeyField
 from simple_history.models import HistoricalRecords
 
+<<<<<<< HEAD
+=======
+from django.contrib.auth.models import User
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.discussion import django_comment_client
 from openedx.core.djangoapps.catalog.models import CatalogIntegration
 from openedx.core.djangoapps.lang_pref.api import get_closest_released_language
 from openedx.core.djangoapps.models.course_details import CourseDetails
 from openedx.core.lib.cache_utils import request_cached, RequestCache
 from common.djangoapps.static_replace.models import AssetBaseUrlConfig
+<<<<<<< HEAD
 from xmodule import block_metadata_utils, course_metadata_utils
 from xmodule.course_module import DEFAULT_START_DATE, CourseBlock
 from xmodule.error_module import ErrorBlock
 from xmodule.modulestore.django import modulestore
 from xmodule.tabs import CourseTab
+=======
+from xmodule import block_metadata_utils, course_metadata_utils  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.course_module import DEFAULT_START_DATE, CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.tabs import CourseTab  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 
@@ -43,6 +67,12 @@ class CourseOverviewCaseMismatchException(Exception):
     pass
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CourseOverview(TimeStampedModel):
     """
     Model for storing and caching basic information about a course.
@@ -65,14 +95,23 @@ class CourseOverview(TimeStampedModel):
         app_label = 'course_overviews'
 
     # IMPORTANT: Bump this whenever you modify this model and/or add a migration.
+<<<<<<< HEAD
     VERSION = 16
 
     # Cache entry versioning.
     version = IntegerField()
+=======
+    VERSION = 17
+
+    # Cache entry versioning.
+    version = models.IntegerField()
+    
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # Course identification
     id = CourseKeyField(db_index=True, primary_key=True, max_length=255)
     _location = UsageKeyField(max_length=255)
+<<<<<<< HEAD
     org = TextField(max_length=255, default='outdated_entry')
     display_name = TextField(null=True)
     display_number_with_default = TextField()
@@ -80,10 +119,20 @@ class CourseOverview(TimeStampedModel):
 
     start = DateTimeField(null=True)
     end = DateTimeField(null=True)
+=======
+    org = models.TextField(max_length=255, default='outdated_entry')
+    display_name = models.TextField(null=True)
+    display_number_with_default = models.TextField()
+    display_org_with_default = models.TextField()
+
+    start = models.DateTimeField(null=True)
+    end = models.DateTimeField(null=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     # These are deprecated and unused, but cannot be dropped via simple migration due to the size of the downstream
     # history table. See DENG-19 for details.
     # Please use start and end above for these values.
+<<<<<<< HEAD
     start_date = DateTimeField(null=True)
     end_date = DateTimeField(null=True)
 
@@ -141,6 +190,70 @@ class CourseOverview(TimeStampedModel):
     allow_proctoring_opt_out = BooleanField(default=False)
 
     language = TextField(null=True)
+=======
+    start_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True)
+
+    advertised_start = models.TextField(null=True)
+    announcement = models.DateTimeField(null=True)
+
+    # URLs
+    # Not allowing null per django convention; not sure why many TextFields in this model do allow null
+    banner_image_url = models.TextField()
+    course_image_url = models.TextField()
+    social_sharing_url = models.TextField(null=True)
+    end_of_course_survey_url = models.TextField(null=True)
+
+    # Certification data
+    certificates_display_behavior = models.TextField(null=True)
+    certificates_show_before_end = models.BooleanField(default=False)
+    cert_html_view_enabled = models.BooleanField(default=False)
+    has_any_active_web_certificate = models.BooleanField(default=False)
+    cert_name_short = models.TextField()
+    cert_name_long = models.TextField()
+    certificate_available_date = models.DateTimeField(default=None, null=True)
+
+    # Grading
+    lowest_passing_grade = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    # Access parameters
+    days_early_for_beta = models.FloatField(null=True)
+    mobile_available = models.BooleanField(default=False)
+    visible_to_staff_only = models.BooleanField(default=False)
+    _pre_requisite_courses_json = models.TextField()  # JSON representation of list of CourseKey strings
+
+    # Enrollment details
+    enrollment_start = models.DateTimeField(null=True)
+    enrollment_end = models.DateTimeField(null=True)
+    enrollment_domain = models.TextField(null=True)
+    invitation_only = models.BooleanField(default=False)
+    max_student_enrollments_allowed = models.IntegerField(null=True)
+
+    # Catalog information
+    catalog_visibility = models.TextField(null=True)
+    short_description = models.TextField(null=True)
+    course_video_url = models.TextField(null=True)
+    effort = models.TextField(null=True)
+    self_paced = models.BooleanField(default=False)
+    marketing_url = models.TextField(null=True)
+    eligible_for_financial_aid = models.BooleanField(default=True)
+
+    # Course highlight info, used to guide course update emails
+    has_highlights = models.BooleanField(null=True, default=None)  # if None, you have to look up the answer yourself
+
+    # Proctoring
+    enable_proctored_exams = models.BooleanField(default=False)
+    proctoring_provider = models.TextField(null=True)
+    proctoring_escalation_email = models.TextField(null=True)
+    allow_proctoring_opt_out = models.BooleanField(default=False)
+
+    # Entrance Exam information
+    entrance_exam_enabled = models.BooleanField(default=False)
+    entrance_exam_id = models.CharField(max_length=255, blank=True)
+    entrance_exam_minimum_score_pct = models.FloatField(default=0.65)
+
+    language = models.TextField(null=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     history = HistoricalRecords()
 
@@ -252,6 +365,19 @@ class CourseOverview(TimeStampedModel):
         course_overview.proctoring_escalation_email = course.proctoring_escalation_email
         course_overview.allow_proctoring_opt_out = course.allow_proctoring_opt_out
 
+<<<<<<< HEAD
+=======
+        course_overview.entrance_exam_enabled = course.entrance_exam_enabled
+        # entrance_exam_id defaults to None in the course object, but '' is more reasonable for a string field
+        course_overview.entrance_exam_id = course.entrance_exam_id or ''
+        # Despite it being a float, the course object defaults to an int. So we will detect that case and update
+        # it to be a float like everything else.
+        if isinstance(course.entrance_exam_minimum_score_pct, int):
+            course_overview.entrance_exam_minimum_score_pct = course.entrance_exam_minimum_score_pct / 100
+        else:
+            course_overview.entrance_exam_minimum_score_pct = course.entrance_exam_minimum_score_pct
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if not CatalogIntegration.is_enabled():
             course_overview.language = course.language
 
@@ -908,6 +1034,111 @@ class CourseOverviewTab(models.Model):
         return self.tab_id
 
 
+<<<<<<< HEAD
+=======
+
+# live_class = namedtuple('live_class',
+#                   [
+#                       'start_time',
+#                       'end_time',
+#                       'is_recurrence_meeting',
+#                       'room_key',
+#                       'room_name',
+#                       'topic_name',
+#                       'start_date',
+#                       'end_date',
+#                       'client_token',
+#                       'meeting_link',
+#                       'created_date',
+#                       'created_by',
+#                       'meeting_notes',
+#                   ])
+
+
+class LiveClasses(models.Model):
+
+    start_time = models.TimeField(null=True)
+    end_time = models.TimeField(null=True)
+    room_key = models.CharField(max_length=60, null=True)
+    room_name = models.CharField(max_length=60, null=True)
+    topic_name = models.CharField(max_length=60, null=True)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    client_token = models.CharField(max_length=60, null=True)
+    meeting_link = models.CharField(max_length=60, null=True)
+    created_date = models.DateTimeField(null=True)
+    created_by = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE ,null=True )
+    is_recurrence_meeting =  models.BooleanField(max_length=60, null=False)
+    meeting_notes = models.CharField(max_length=60, null=True)
+    course = models.ForeignKey(CourseOverview, db_index=True, on_delete=models.CASCADE ,null=True )
+
+
+#     user = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
+
+            
+    
+
+
+    
+    # @classmethod
+    # def live_class_for_user(
+    #     cls, user_id=None,  username=None,
+    # ):
+
+    #     if user_id is None and username is None:
+    #         raise ValueError("One of user_id or user must not be None.")
+
+    #     if username is not None and not isinstance(username, User):
+    #         # CourseBlocks don't have the data needed to pull related modes,
+    #         # so we'll fall back on course_id-based lookup instead
+    #         user_id = user_id
+    #         username = None
+
+    #     if username is not None:
+    #         found_user_live_class = username.live_classes.all()
+    #     else:
+    #         found_user_live_class = cls.objects.filter(user_id=user_id)
+
+
+    #     live_classes = ([live_class.to_tuple() for live_class in found_user_live_class])
+
+    #     return live_classes
+
+
+
+    # def to_tuple(self):
+    #     """
+    #     Takes a mode model and turns it into a model named tuple.
+
+    #     Returns:
+    #         A 'Mode' namedtuple with all the same attributes as the model.
+
+    #     """
+    #     return live_class(
+
+    #         self.start_time ,
+    #         self.end_time,
+    #         self.is_recurrence_meeting,
+    #         self.room_key,
+    #         self.room_name,
+    #         self.topic_name,
+    #         self.start_date,
+    #         self.end_date,
+    #         self.client_token,
+    #         self.meeting_link,
+    #         self.created_date,
+    #         self.created_by,
+    #         self.meeting_notes,
+           
+    #     )
+
+
+
+    
+
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CourseOverviewImageSet(TimeStampedModel):
     """
     Model for Course overview images. Each column is an image type/size.
@@ -1117,4 +1348,8 @@ def _invalidate_overview_cache(**kwargs):  # pylint: disable=unused-argument
 post_save.connect(_invalidate_overview_cache, sender=CourseOverview)
 post_save.connect(_invalidate_overview_cache, sender=CourseOverviewImageConfig)
 post_delete.connect(_invalidate_overview_cache, sender=CourseOverview)
+<<<<<<< HEAD
 post_delete.connect(_invalidate_overview_cache, sender=CourseOverviewImageConfig)
+=======
+post_delete.connect(_invalidate_overview_cache, sender=CourseOverviewImageConfig)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

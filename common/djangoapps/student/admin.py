@@ -46,7 +46,11 @@ from common.djangoapps.student.models import (
     UserTestGroup
 )
 from common.djangoapps.student.roles import REGISTERED_ACCESS_ROLES
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 User = get_user_model()  # pylint:disable=invalid-name
 
@@ -54,7 +58,11 @@ User = get_user_model()  # pylint:disable=invalid-name
 # .. toggle_implementation: WaffleSwitch
 # .. toggle_default: False
 # .. toggle_description: This toggle will enable the rendering of the admin view of the CourseEnrollment model.
+<<<<<<< HEAD
 # .. toggle_warnings: Enabling this toggle may cause performance problems. The CourseEnrollment admin view
+=======
+# .. toggle_warning: Enabling this toggle may cause performance problems. The CourseEnrollment admin view
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #     makes DB queries that could cause site outages for a large enough Open edX installation.
 # .. toggle_use_cases: opt_in, open_edx
 # .. toggle_creation_date: 2018-08-01
@@ -524,7 +532,11 @@ class AllowedAuthUserAdmin(admin.ModelAdmin):
 class CourseEnrollmentCelebrationAdmin(DisableEnrollmentAdminMixin, admin.ModelAdmin):
     """Admin interface for the CourseEnrollmentCelebration model. """
     raw_id_fields = ('enrollment',)
+<<<<<<< HEAD
     list_display = ('id', 'course', 'user', 'celebrate_first_section')
+=======
+    list_display = ('id', 'course', 'user', 'celebrate_first_section', 'celebrate_weekly_goal',)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     search_fields = ('enrollment__course__id', 'enrollment__user__username')
 
     class Meta:

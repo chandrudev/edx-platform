@@ -7,6 +7,12 @@ from unittest import mock
 from django.conf import settings
 from opaque_keys.edx.keys import CourseKey
 from pytest import mark
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
@@ -16,9 +22,12 @@ from openedx.core.djangoapps.catalog.tests.factories import (
 )
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 from openedx.features.enterprise_support.tests.factories import EnterpriseCustomerUserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase, TEST_DATA_SPLIT_MODULESTORE
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 if settings.ROOT_URLCONF == 'lms.urls':
     from openedx.core.djangoapps.demographics.api.status import show_user_demographics, show_call_to_action_for_user
@@ -33,8 +42,11 @@ class TestShowDemographics(SharedModuleStoreTestCase):
     """
     Tests for whether the demographics collection fields should be shown
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

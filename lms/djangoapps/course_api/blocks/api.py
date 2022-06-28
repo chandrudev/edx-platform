@@ -7,6 +7,10 @@ import lms.djangoapps.course_blocks.api as course_blocks_api
 from lms.djangoapps.course_blocks.transformers.access_denied_filter import AccessDeniedMessageFilterTransformer
 from lms.djangoapps.course_blocks.transformers.hidden_content import HiddenContentTransformer
 from openedx.core.djangoapps.content.block_structure.transformers import BlockStructureTransformers
+<<<<<<< HEAD
+=======
+from openedx.core.djangoapps.discussions.transformers import DiscussionsTopicLinkTransformer
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.features.effort_estimation.api import EffortEstimationTransformer
 
 from .serializers import BlockDictSerializer, BlockSerializer
@@ -75,6 +79,13 @@ def get_blocks(
     include_gated_sections = 'show_gated_sections' in requested_fields
     include_has_scheduled_content = 'has_scheduled_content' in requested_fields
     include_special_exams = 'special_exam_info' in requested_fields
+<<<<<<< HEAD
+=======
+    include_discussions_context = (
+        DiscussionsTopicLinkTransformer.EMBED_URL in requested_fields or
+        DiscussionsTopicLinkTransformer.EXTERNAL_ID in requested_fields
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     if user is not None:
         transformers += course_blocks_api.get_course_block_access_transformers(user)
@@ -99,13 +110,23 @@ def get_blocks(
     if include_effort_estimation:
         transformers += [EffortEstimationTransformer()]
 
+<<<<<<< HEAD
+=======
+    if include_discussions_context:
+        transformers += [DiscussionsTopicLinkTransformer()]
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     transformers += [
         BlocksAPITransformer(
             block_counts,
             student_view_data,
             depth,
             nav_depth
+<<<<<<< HEAD
         )
+=======
+        ),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ]
 
     # transform

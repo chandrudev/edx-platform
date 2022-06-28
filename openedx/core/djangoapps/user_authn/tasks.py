@@ -2,9 +2,13 @@
 This file contains celery tasks for sending email
 """
 
+<<<<<<< HEAD
 import hashlib
 import logging
 import math
+=======
+import logging
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from celery import shared_task
 from celery.exceptions import MaxRetriesExceededError
@@ -15,16 +19,24 @@ from edx_ace import ace
 from edx_ace.errors import RecoverableChannelDeliveryError
 from edx_ace.message import Message
 from edx_django_utils.monitoring import set_code_owner_attribute
+<<<<<<< HEAD
 from rest_framework.status import HTTP_408_REQUEST_TIMEOUT
 
 from common.djangoapps.track import segment
 from openedx.core.djangoapps.password_policy.hibp import PwnedPasswordsAPI
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+=======
+
+from common.djangoapps.track import segment
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangoapps.user_authn.utils import check_pwned_password
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.lib.celery.task_utils import emulate_http_request
 
 log = logging.getLogger('edx.celery.task')
 
 
+<<<<<<< HEAD
 def get_pwned_properties(pwned_response, password):
     """
     Derive different pwned parameters for analytics
@@ -55,12 +67,31 @@ def check_pwned_password_and_send_track_event(user_id, password, internal_user=F
             properties = get_pwned_properties(pwned_response, password)
             properties['internal_user'] = internal_user
             segment.track(user_id, 'edx.bi.user.pwned.password.status', properties)
+=======
+@shared_task
+@set_code_owner_attribute
+def check_pwned_password_and_send_track_event(user_id, password, internal_user=False, is_new_user=False):
+    """
+    Check the Pwned Databases and send its event to Segment.
+    """
+    try:
+        pwned_properties = check_pwned_password(password)
+        if pwned_properties:
+            pwned_properties['internal_user'] = internal_user
+            pwned_properties['new_user'] = is_new_user
+            segment.track(user_id, 'edx.bi.user.pwned.password.status', pwned_properties)
+        return pwned_properties
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     except Exception:  # pylint: disable=W0703
         log.exception(
             'Unable to get response from pwned password api for user_id: "%s"',
             user_id,
         )
+<<<<<<< HEAD
         return None  # lint-amnesty, pylint: disable=raise-missing-from
+=======
+        return {}  # lint-amnesty, pylint: disable=raise-missing-from
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @shared_task(bind=True)

@@ -12,14 +12,23 @@ import pytz
 from freezegun import freeze_time
 from opaque_keys.edx.keys import UsageKey
 from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
+<<<<<<< HEAD
 
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 from common.djangoapps.student.tests.factories import AdminFactory, UserFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
 
+<<<<<<< HEAD
+=======
+from openedx.core.djangolib.testing.utils import skip_unless_lms
+from common.djangoapps.student.tests.factories import AdminFactory, UserFactory
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .. import DEFAULT_FIELDS, OPTIONAL_FIELDS, PathItem
 from ..models import Bookmark, XBlockCache, parse_path_data
 from .factories import BookmarkFactory
@@ -36,7 +45,11 @@ class BookmarksTestsBase(ModuleStoreTestCase):
     Test the Bookmark model.
     """
     ALL_FIELDS = DEFAULT_FIELDS + OPTIONAL_FIELDS
+<<<<<<< HEAD
     STORE_TYPE = ModuleStoreEnum.Type.mongo
+=======
+    STORE_TYPE = ModuleStoreEnum.Type.split
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     TEST_PASSWORD = 'test'
 
     ENABLED_CACHES = ['default', 'mongo_metadata_inheritance', 'loc_cache']
@@ -49,7 +62,11 @@ class BookmarksTestsBase(ModuleStoreTestCase):
         self.other_user = UserFactory.create(password=self.TEST_PASSWORD)
         self.setup_data(self.STORE_TYPE)
 
+<<<<<<< HEAD
     def setup_data(self, store_type=ModuleStoreEnum.Type.mongo):
+=======
+    def setup_data(self, store_type=ModuleStoreEnum.Type.split):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """ Create courses and add some test blocks. """
 
         with self.store.default_store(store_type):
@@ -57,6 +74,7 @@ class BookmarksTestsBase(ModuleStoreTestCase):
             self.course = CourseFactory.create(display_name='An Introduction to API Testing')
             self.course_id = str(self.course.id)
 
+<<<<<<< HEAD
             with self.store.bulk_operations(self.course.id):
 
                 self.chapter_1 = ItemFactory.create(
@@ -86,6 +104,35 @@ class BookmarksTestsBase(ModuleStoreTestCase):
                 self.html_1 = ItemFactory.create(
                     parent_location=self.vertical_2.location, category='html', display_name='Details 1'
                 )
+=======
+            self.chapter_1 = ItemFactory.create(
+                parent=self.course, category='chapter', display_name='Week 1'
+            )
+            self.chapter_2 = ItemFactory.create(
+                parent=self.course, category='chapter', display_name='Week 2'
+            )
+
+            self.sequential_1 = ItemFactory.create(
+                parent=self.chapter_1, category='sequential', display_name='Lesson 1'
+            )
+            self.sequential_2 = ItemFactory.create(
+                parent=self.chapter_1, category='sequential', display_name='Lesson 2'
+            )
+
+            self.vertical_1 = ItemFactory.create(
+                parent=self.sequential_1, category='vertical', display_name='Subsection 1'
+            )
+            self.vertical_2 = ItemFactory.create(
+                parent=self.sequential_2, category='vertical', display_name='Subsection 2'
+            )
+            self.vertical_3 = ItemFactory.create(
+                parent=self.sequential_2, category='vertical', display_name='Subsection 3'
+            )
+
+            self.html_1 = ItemFactory.create(
+                parent=self.vertical_2, category='html', display_name='Details 1'
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self.path = [
             PathItem(self.chapter_1.location, self.chapter_1.display_name),
@@ -134,6 +181,7 @@ class BookmarksTestsBase(ModuleStoreTestCase):
         with self.store.bulk_operations(self.other_course.id):
 
             self.other_chapter_1 = ItemFactory.create(
+<<<<<<< HEAD
                 parent_location=self.other_course.location, category='chapter', display_name='Other Week 1'
             )
             self.other_sequential_1 = ItemFactory.create(
@@ -147,11 +195,31 @@ class BookmarksTestsBase(ModuleStoreTestCase):
             )
             self.other_vertical_2 = ItemFactory.create(
                 parent_location=self.other_sequential_1.location, category='vertical', display_name='Other Subsection 2'
+=======
+                parent=self.other_course, category='chapter', display_name='Other Week 1'
+            )
+            self.other_sequential_1 = ItemFactory.create(
+                parent=self.other_chapter_1, category='sequential', display_name='Other Lesson 1'
+            )
+            self.other_sequential_2 = ItemFactory.create(
+                parent=self.other_chapter_1, category='sequential', display_name='Other Lesson 2'
+            )
+            self.other_vertical_1 = ItemFactory.create(
+                parent=self.other_sequential_1, category='vertical', display_name='Other Subsection 1'
+            )
+            self.other_vertical_2 = ItemFactory.create(
+                parent=self.other_sequential_1, category='vertical', display_name='Other Subsection 2'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             )
 
             # self.other_vertical_1 has two parents
             self.other_sequential_2.children.append(self.other_vertical_1.location)
+<<<<<<< HEAD
             modulestore().update_item(self.other_sequential_2, self.admin.id)
+=======
+            with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, self.course.id):
+                self.store.update_item(self.other_sequential_2, self.admin.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self.other_bookmark_1 = BookmarkFactory.create(
             user=self.user,
@@ -163,7 +231,11 @@ class BookmarksTestsBase(ModuleStoreTestCase):
             }),
         )
 
+<<<<<<< HEAD
     def create_course_with_blocks(self, children_per_block=1, depth=1, store_type=ModuleStoreEnum.Type.mongo):
+=======
+    def create_course_with_blocks(self, children_per_block=1, depth=1, store_type=ModuleStoreEnum.Type.split):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Create a course and add blocks.
         """
@@ -172,6 +244,7 @@ class BookmarksTestsBase(ModuleStoreTestCase):
             course = CourseFactory.create()
             display_name = 0
 
+<<<<<<< HEAD
             with self.store.bulk_operations(course.id):
                 blocks_at_next_level = [course]
 
@@ -189,6 +262,25 @@ class BookmarksTestsBase(ModuleStoreTestCase):
         return course
 
     def create_course_with_bookmarks_count(self, count, store_type=ModuleStoreEnum.Type.mongo):
+=======
+            blocks_at_next_level = [course]
+
+            for __ in range(depth):
+                blocks_at_current_level = blocks_at_next_level
+                blocks_at_next_level = []
+
+                for block in blocks_at_current_level:
+                    for __ in range(children_per_block):
+                        blocks_at_next_level += [ItemFactory.create(
+                            parent_location=block.location, display_name=str(display_name)
+                        )]
+                        display_name += 1
+
+        with self.store.branch_setting(ModuleStoreEnum.Branch.draft_preferred, course.id):
+            return self.store.get_course(course.id, depth=None)
+
+    def create_course_with_bookmarks_count(self, count, store_type=ModuleStoreEnum.Type.split):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Create a course, add some content and add bookmarks.
         """
@@ -196,10 +288,16 @@ class BookmarksTestsBase(ModuleStoreTestCase):
 
             course = CourseFactory.create()
 
+<<<<<<< HEAD
             with self.store.bulk_operations(course.id):
                 blocks = [ItemFactory.create(
                     parent_location=course.location, category='chapter', display_name=str(index)
                 ) for index in range(count)]
+=======
+            blocks = [ItemFactory.create(
+                parent=course, category='chapter', display_name=str(index)
+            ) for index in range(count)]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             bookmarks = [BookmarkFactory.create(
                 user=self.user,
@@ -254,7 +352,11 @@ class BookmarkModelTests(BookmarksTestsBase):
         super().setUp()
 
         self.vertical_4 = ItemFactory.create(
+<<<<<<< HEAD
             parent_location=self.sequential_2.location,
+=======
+            parent=self.sequential_2,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             category='vertical',
             display_name=None
         )
@@ -271,6 +373,7 @@ class BookmarkModelTests(BookmarksTestsBase):
         }
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.mongo, 'course', [], 3),
         (ModuleStoreEnum.Type.mongo, 'chapter_1', [], 3),
         (ModuleStoreEnum.Type.mongo, 'sequential_1', ['chapter_1'], 4),
@@ -284,13 +387,27 @@ class BookmarkModelTests(BookmarksTestsBase):
     )
     @ddt.unpack
     def test_path_and_queries_on_create(self, store_type, block_to_bookmark, ancestors_attrs, expected_mongo_calls):
+=======
+        ('course', [], 2),
+        ('chapter_1', [], 1),
+        ('sequential_1', ['chapter_1'], 1),
+        ('vertical_1', ['chapter_1', 'sequential_1'], 1),
+        ('html_1', ['chapter_1', 'sequential_2', 'vertical_2'], 1),
+    )
+    @ddt.unpack
+    def test_path_and_queries_on_create(self, block_to_bookmark, ancestors_attrs, expected_mongo_calls):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         In case of mongo, 1 query is used to fetch the block, and 2
         by path_to_location(), and then 1 query per parent in path
         is needed to fetch the parent blocks.
         """
 
+<<<<<<< HEAD
         self.setup_data(store_type)
+=======
+        self.setup_data()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         user = UserFactory.create()
 
         expected_path = [PathItem(
@@ -352,7 +469,11 @@ class BookmarkModelTests(BookmarksTestsBase):
         mock_get_path.return_value = block_path
 
         html = ItemFactory.create(
+<<<<<<< HEAD
             parent_location=self.other_chapter_1.location, category='html', display_name='Other Lesson 1'
+=======
+            parent=self.other_chapter_1, category='html', display_name='Other Lesson 1'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
         bookmark_data = self.get_bookmark_data(html)
@@ -368,6 +489,7 @@ class BookmarkModelTests(BookmarksTestsBase):
         assert mock_get_path.call_count == get_path_call_count
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.mongo, 2, 2, 2),
         (ModuleStoreEnum.Type.mongo, 4, 2, 2),
         (ModuleStoreEnum.Type.mongo, 6, 2, 2),
@@ -384,15 +506,32 @@ class BookmarkModelTests(BookmarksTestsBase):
     )
     @ddt.unpack
     def test_get_path_queries(self, store_type, children_per_block, depth, expected_mongo_calls):
+=======
+        (2, 2, 1),
+        (4, 2, 1),
+        (2, 3, 1),
+        # (4, 3, 1),
+        (2, 4, 1),
+    )
+    @ddt.unpack
+    def test_get_path_queries(self, children_per_block, depth, expected_mongo_calls):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         In case of mongo, 2 queries are used by path_to_location(), and then
         1 query per parent in path is needed to fetch the parent blocks.
         """
 
+<<<<<<< HEAD
         course = self.create_course_with_blocks(children_per_block, depth, store_type)
 
         # Find a leaf block.
         block = modulestore().get_course(course.id, depth=None)
+=======
+        course = self.create_course_with_blocks(children_per_block, depth)
+
+        # Find a leaf block.
+        block = course
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         for __ in range(depth - 1):
             children = block.get_children()
             block = children[-1]
@@ -406,9 +545,15 @@ class BookmarkModelTests(BookmarksTestsBase):
         user = UserFactory.create()
 
         # Block does not exist
+<<<<<<< HEAD
         usage_key = UsageKey.from_string('i4x://edX/apis/html/interactive')
         usage_key.replace(course_key=self.course.id)
         assert Bookmark.get_path(usage_key) == []
+=======
+        key = self.course.id
+        usage_key = UsageKey.from_string(f'block-v1:{key.org}+{key.course}+{key.run}+type@vertical+block@interactive')
+        assert not Bookmark.get_path(usage_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Block is an orphan
         self.other_sequential_1.children = []

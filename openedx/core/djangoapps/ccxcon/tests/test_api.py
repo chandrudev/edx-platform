@@ -8,12 +8,21 @@ from urllib import parse
 import pytest
 import pytz
 from opaque_keys.edx.keys import CourseKey
+<<<<<<< HEAD
 
 from openedx.core.djangoapps.ccxcon import api as ccxconapi
 from common.djangoapps.student.tests.factories import AdminFactory
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+from openedx.core.djangoapps.ccxcon import api as ccxconapi
+from common.djangoapps.student.tests.factories import AdminFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .factories import CcxConFactory
 
@@ -36,8 +45,11 @@ class APIsTestCase(SharedModuleStoreTestCase):
     """
     Unit tests for the API module functions
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

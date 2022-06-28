@@ -3,7 +3,11 @@ Provides Python APIs exposed from Bulk Email models.
 """
 
 
+<<<<<<< HEAD
 from lms.djangoapps.bulk_email.models import BulkEmailFlag, CourseAuthorization, Optout
+=======
+from lms.djangoapps.bulk_email.models import BulkEmailFlag, CourseAuthorization, DisabledCourse, Optout
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def is_user_opted_out_for_course(user, course_id):
@@ -48,3 +52,18 @@ def is_bulk_email_enabled_for_course(course_id):
         associated with the course_id; False otherwise
     """
     return CourseAuthorization.instructor_email_enabled(course_id)
+<<<<<<< HEAD
+=======
+
+
+def is_bulk_email_disabled_for_course(course_id):
+    """
+    Arguments:
+        course_id: the course id of the course
+
+    Returns:
+        bool: True if the Bulk Email feature is disabled for the course
+        associated with the course_id; False otherwise
+    """
+    return DisabledCourse.instructor_email_disabled_for_course(course_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

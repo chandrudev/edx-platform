@@ -13,7 +13,10 @@ LMS and Studio.
     common/djangoapps/edxmako/modules
     common/djangoapps/enrollment/modules
     common/djangoapps/entitlements/modules
+<<<<<<< HEAD
     common/djangoapps/microsite_configuration/modules
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     common/djangoapps/pipeline_mako/modules
     common/djangoapps/static_replace/modules
     common/djangoapps/status/modules

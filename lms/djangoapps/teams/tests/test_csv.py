@@ -8,8 +8,13 @@ from lms.djangoapps.teams import csv
 from lms.djangoapps.teams.models import CourseTeam, CourseTeamMembership
 from lms.djangoapps.teams.tests.factories import CourseTeamFactory
 from openedx.core.lib.teams_config import TeamsConfig
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def csv_import(course, csv_dict_rows):
@@ -38,7 +43,11 @@ def csv_import(course, csv_dict_rows):
 def csv_export(course):
     """
     Call csv.load_team_membership_csv for the given course, and return the result.
+<<<<<<< HEAD
     The result is returned in the form of a dictionary keyed by the 'user' identifiers for each row,
+=======
+    The result is returned in the form of a dictionary keyed by the 'username' identifiers for each row,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     mapping to the full parsed dictionary for that row of the csv.
 
     Returns: DictReader for the returned csv file
@@ -50,16 +59,29 @@ def csv_export(course):
 
 
 def _user_keyed_dict(reader):
+<<<<<<< HEAD
     """ create a dict of the rows of the csv, keyed by the "user" value """
     return {row['user']: row for row in reader}
 
 
 def _csv_dict_row(user, mode, **kwargs):
+=======
+    """ create a dict of the rows of the csv, keyed by the "username" value """
+    return {row['username']: row for row in reader}
+
+
+def _csv_dict_row(username, external_user_id, mode, **kwargs):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Convenience method to create dicts to pass to csv_import
     """
     csv_dict_row = dict(kwargs)
+<<<<<<< HEAD
     csv_dict_row['user'] = user
+=======
+    csv_dict_row['username'] = username
+    csv_dict_row['external_user_id'] = external_user_id
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     csv_dict_row['mode'] = mode
     return csv_dict_row
 
@@ -125,28 +147,48 @@ class TeamMembershipCsvTests(SharedModuleStoreTestCase):
     def test_get_headers(self):
         # pylint: disable=protected-access
         headers = csv._get_team_membership_csv_headers(self.course)
+<<<<<<< HEAD
         assert headers == ['user', 'mode', 'teamset_1', 'teamset_2', 'teamset_3', 'teamset_4']
+=======
+        assert headers == ['username', 'external_user_id', 'mode', 'teamset_1', 'teamset_2', 'teamset_3', 'teamset_4']
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_get_headers_no_teamsets(self):
         # pylint: disable=protected-access
         headers = csv._get_team_membership_csv_headers(self.course_no_teamsets)
+<<<<<<< HEAD
         assert headers == ['user', 'mode']
+=======
+        assert headers == ['username', 'external_user_id', 'mode']
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_lookup_team_membership_data(self):
         with self.assertNumQueries(3):
             # pylint: disable=protected-access
             data = csv._lookup_team_membership_data(self.course)
         assert len(data) == 5
+<<<<<<< HEAD
         self.assert_teamset_membership(data[0], 'user1', 'audit', 'team_1_1', 'team_2_2', 'team_3_1')
         self.assert_teamset_membership(data[1], 'user2', 'verified', 'team_1_1', 'team_2_2', 'team_3_1')
         self.assert_teamset_membership(data[2], 'user3', 'honors', None, 'team_2_1', 'team_3_1')
         self.assert_teamset_membership(data[3], 'user4', 'masters', None, None, 'team_3_2')
         self.assert_teamset_membership(data[4], 'user5', 'masters', None, None, None)
+=======
+        self.assert_teamset_membership(data[0], 'user1', None, 'audit', 'team_1_1', 'team_2_2', 'team_3_1')
+        self.assert_teamset_membership(data[1], 'user2', None, 'verified', 'team_1_1', 'team_2_2', 'team_3_1')
+        self.assert_teamset_membership(data[2], 'user3', None, 'honors', None, 'team_2_1', 'team_3_1')
+        self.assert_teamset_membership(data[3], 'user4', None, 'masters', None, None, 'team_3_2')
+        self.assert_teamset_membership(data[4], 'user5', None, 'masters', None, None, None)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def assert_teamset_membership(
         self,
         user_row,
         expected_username,
+<<<<<<< HEAD
+=======
+        expected_external_user_id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         expected_mode,
         expected_teamset_1_team,
         expected_teamset_2_team,
@@ -158,17 +200,38 @@ class TeamMembershipCsvTests(SharedModuleStoreTestCase):
             -mode
             -team name for teamset_(123)
         """
+<<<<<<< HEAD
         assert user_row['user'] == expected_username
+=======
+        assert user_row['username'] == expected_username
+        assert user_row['external_user_id'] == expected_external_user_id
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert user_row['mode'] == expected_mode
         assert user_row.get('teamset_1') == expected_teamset_1_team
         assert user_row.get('teamset_2') == expected_teamset_2_team
         assert user_row.get('teamset_3') == expected_teamset_3_team
 
     def test_load_team_membership_csv(self):
+<<<<<<< HEAD
         expected_csv_headers = ['user', 'mode', 'teamset_1', 'teamset_2', 'teamset_3', 'teamset_4']
         expected_data = {}
         expected_data['user1'] = _csv_dict_row(
             'user1',
+=======
+        expected_csv_headers = [
+            'username',
+            'external_user_id',
+            'mode',
+            'teamset_1',
+            'teamset_2',
+            'teamset_3',
+            'teamset_4'
+        ]
+        expected_data = {}
+        expected_data['user1'] = _csv_dict_row(
+            'user1',
+            '',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'audit',
             teamset_1='team_1_1',
             teamset_2='team_2_2',
@@ -176,19 +239,34 @@ class TeamMembershipCsvTests(SharedModuleStoreTestCase):
         )
         expected_data['user2'] = _csv_dict_row(
             'user2',
+<<<<<<< HEAD
+=======
+            '',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'verified',
             teamset_1='team_1_1',
             teamset_2='team_2_2',
             teamset_3='team_3_1',
         )
+<<<<<<< HEAD
         expected_data['user3'] = _csv_dict_row('user3', 'honors', teamset_2='team_2_1', teamset_3='team_3_1')
         expected_data['user4'] = _csv_dict_row('user4', 'masters', teamset_3='team_3_2')
         expected_data['user5'] = _csv_dict_row('user5', 'masters')
+=======
+        expected_data['user3'] = _csv_dict_row('user3', '', 'honors', teamset_2='team_2_1', teamset_3='team_3_1')
+        expected_data['user4'] = _csv_dict_row('user4', '', 'masters', teamset_3='team_3_2')
+        expected_data['user5'] = _csv_dict_row('user5', '', 'masters')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self._add_blanks_to_expected_data(expected_data, expected_csv_headers)
 
         reader = csv_export(self.course)
         assert expected_csv_headers == reader.fieldnames
+<<<<<<< HEAD
         self.assertDictEqual(expected_data, _user_keyed_dict(reader))
+=======
+        actual_data = _user_keyed_dict(reader)
+        self.assertDictEqual(expected_data, actual_data)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def _add_blanks_to_expected_data(self, expected_data, headers):
         """ Helper method to fill in the "blanks" in test data """
@@ -249,6 +327,7 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
 
     def test_load_course_teams(self):
         """
+<<<<<<< HEAD
         Lodaing course teams shold get the users by team with only 2 queries
         1 for teams, 1 for user count
         """
@@ -256,6 +335,13 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         team2 = CourseTeamFactory.create(course_id=self.course.id)  # lint-amnesty, pylint: disable=unused-variable
         team3 = CourseTeamFactory.create(course_id=self.course.id)  # lint-amnesty, pylint: disable=unused-variable
         team4 = CourseTeamFactory.create(course_id=self.course.id)  # lint-amnesty, pylint: disable=unused-variable
+=======
+        Loading course teams should get the users by team with only 2 queries
+        1 for teams, 1 for user count
+        """
+        for _ in range(4):
+            CourseTeamFactory.create(course_id=self.course.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         with self.assertNumQueries(2):
             self.import_manager.load_course_teams()
@@ -267,7 +353,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         row = {
             'mode': 'masters',
             'teamset_1': 'new_protected_team',
+<<<<<<< HEAD
             'user': masters_learner
+=======
+            'user_model': masters_learner
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         }
 
         self.import_manager.add_user_to_team(row)
@@ -282,7 +372,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         row = {
             'mode': 'audit',
             'teamset_1': 'new_unprotected_team',
+<<<<<<< HEAD
             'user': audit_learner
+=======
+            'user_model': audit_learner
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         }
 
         self.import_manager.add_user_to_team(row)
@@ -313,7 +407,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         row = {
             'mode': 'audit',
             'teamset_1': None,
+<<<<<<< HEAD
             'user': audit_learner
+=======
+            'user_model': audit_learner
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         }
         self.import_manager.remove_user_from_team_for_reassignment(row)
 
@@ -331,7 +429,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         team_2 = CourseTeamFactory(course_id=self.course.id, name='test_team_2', topic_id='teamset_1')
         team_1.add_user(audit_learner)
 
+<<<<<<< HEAD
         csv_row = _csv_dict_row(audit_learner, 'audit', teamset_1=team_2.name)
+=======
+        csv_row = _csv_dict_row(audit_learner, '', 'audit', teamset_1=team_2.name)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         csv_import(self.course, [csv_row])
 
         assert not CourseTeamMembership.is_user_on_team(audit_learner, team_1)
@@ -361,7 +463,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
 
         # ... and I try to add members in excess of capacity
         csv_data = self._csv_reader_from_array([
+<<<<<<< HEAD
             ['user', 'mode', 'teamset_1'],
+=======
+            ['username', 'mode', 'teamset_1'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             ['max_size_0', 'audit', ''],
             ['max_size_2', 'audit', 'team_1'],
             ['max_size_3', 'audit', 'team_1'],
@@ -390,7 +496,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
 
         # When I try to remove them from the team
         csv_data = self._csv_reader_from_array([
+<<<<<<< HEAD
             ['user', 'mode', 'teamset_1'],
+=======
+            ['username', 'mode', 'teamset_1'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             [user.username, mode, ''],
         ])
         result = self.import_manager.set_team_memberships(csv_data)  # lint-amnesty, pylint: disable=unused-variable
@@ -410,12 +520,20 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         # When a team is already at/near capaciy
         for i in range(3):
             user = users[i]
+<<<<<<< HEAD
             row = {'user': user, 'teamset_1': 'team_1', 'mode': 'audit'}
+=======
+            row = {'user_model': user, 'teamset_1': 'team_1', 'mode': 'audit'}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             self.import_manager.add_user_to_team(row)
 
         # ... and I try to switch membership (add/remove)
         csv_data = self._csv_reader_from_array([
+<<<<<<< HEAD
             ['user', 'mode', 'teamset_1'],
+=======
+            ['username', 'mode', 'teamset_1'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             ['learner_4', 'audit', 'team_1'],
             ['learner_0', 'audit', 'team_2'],
         ])
@@ -443,7 +561,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         # When I add them to a team that does not exist
         assert CourseTeam.objects.all().count() == 0
         csv_data = self._csv_reader_from_array([
+<<<<<<< HEAD
             ['user', 'mode', 'teamset_1'],
+=======
+            ['username', 'mode', 'teamset_1'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             [user.username, mode, 'new_exciting_team'],
         ])
         result = self.import_manager.set_team_memberships(csv_data)  # lint-amnesty, pylint: disable=unused-variable
@@ -465,7 +587,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         # When I attempt to add them to the same team
         assert CourseTeam.objects.all().count() == 0
         csv_data = self._csv_reader_from_array([
+<<<<<<< HEAD
             ['user', 'mode', 'teamset_1'],
+=======
+            ['username', 'mode', 'teamset_1'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             [verified_learner.username, 'verified', 'new_exciting_team'],
             [masters_learner.username, 'masters', 'new_exciting_team']
         ])
@@ -487,7 +613,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         # When I attempt to add a student of an incompatible enrollment mode
         masters_learner = self._create_and_enroll_test_user('masters_learner', mode='masters')
         csv_data = self._csv_reader_from_array([
+<<<<<<< HEAD
             ['user', 'mode', 'teamset_1'],
+=======
+            ['username', 'mode', 'teamset_1'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             [masters_learner.username, 'masters', 'unprotected_team']
         ])
         result = self.import_manager.set_team_memberships(csv_data)
@@ -513,7 +643,11 @@ class TeamMembershipImportManagerTests(TeamMembershipEventTestMixin, SharedModul
         # When I attempt to add a student of an incompatible enrollment mode
         verified_learner = self._create_and_enroll_test_user('verified_learner', mode='verified')
         csv_data = self._csv_reader_from_array([
+<<<<<<< HEAD
             ['user', 'mode', 'teamset_1'],
+=======
+            ['username', 'mode', 'teamset_1'],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             [verified_learner.username, 'verified', 'protected_team']
         ])
         result = self.import_manager.set_team_memberships(csv_data)
@@ -623,7 +757,12 @@ class ExternalKeyCsvTests(TeamMembershipEventTestMixin, SharedModuleStoreTestCas
         self.add_user_to_course_program_team(new_user, add_to_team=False, external_user_key=new_ext_key)
         self.assert_user_not_on_team(new_user)
 
+<<<<<<< HEAD
         csv_import_row = _csv_dict_row(new_ext_key, 'audit', teamset_id=self.team.name)
+=======
+        csv_import_row = _csv_dict_row(new_user.username, new_ext_key, 'audit', teamset_id=self.team.name)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         csv_import(self.course, [csv_import_row])
         self.assert_user_on_team(new_user)
         self.assert_learner_added_emitted(self.team.team_id, new_user.id)
@@ -632,6 +771,7 @@ class ExternalKeyCsvTests(TeamMembershipEventTestMixin, SharedModuleStoreTestCas
         with self.assertNumQueries(3):
             # pylint: disable=protected-access
             data = csv._lookup_team_membership_data(self.course)
+<<<<<<< HEAD
         self._assert_test_users_on_team(_user_keyed_dict(data))
 
     def test_get_csv(self):
@@ -651,6 +791,30 @@ class ExternalKeyCsvTests(TeamMembershipEventTestMixin, SharedModuleStoreTestCas
                 self.user_in_program_no_external_id.username,
                 self.user_in_program_not_enrolled_through_program.username,
                 self.external_user_key
+=======
+        self._assert_test_users_on_team(_user_keyed_dict(data), None)
+
+    def test_get_csv(self):
+        reader = csv_export(self.course)
+        self._assert_test_users_on_team(_user_keyed_dict(reader), '')
+
+    def _assert_test_users_on_team(self, data, no_external_key_value):
+        """
+        Assert that the four test users should be listed as members of the team,
+        and user_in_program should be identified by their external_user_key.
+
+        no_external_key_value is used because _lookup_team_membership_data returns `None`
+        to mean there is no external key, but the CsvWriter library writes `None`s as an empty string
+        """
+        assert len(data) == 4
+        expected_data = {
+            username: _csv_dict_row(username, external_id, 'audit', teamset_id=self.team.name)
+            for username, external_id in [
+                (self.user_no_program.username, no_external_key_value),
+                (self.user_in_program_no_external_id.username, no_external_key_value),
+                (self.user_in_program_not_enrolled_through_program.username, no_external_key_value),
+                (self.user_in_program.username, self.external_user_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             ]
         }
         self.assertDictEqual(expected_data, data)

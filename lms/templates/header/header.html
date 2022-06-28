@@ -6,7 +6,11 @@
 <%namespace file='../main.html' import="login_query"/>
 <%!
 from django.urls import reverse
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import waffle
 
 from lms.djangoapps.ccx.overrides import get_current_ccx
@@ -50,14 +54,22 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
             props={}
         )}
     % endif
+<<<<<<< HEAD
     <div class="main-header">
+=======
+    <!-- <div class="main-header">
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         <%include file="navbar-logo-header.html" args="online_help_token=online_help_token"/>
         <div class="hamburger-menu" role="button" aria-label=${_("Options Menu")} aria-expanded="false" aria-controls="mobile-menu" tabindex="0">
             <span class="line"></span>
             <span class="line"></span>
             <span class="line"></span>
             <span class="line"></span>
+<<<<<<< HEAD
         </div>
+=======
+        </div> -->
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         % if user.is_authenticated:
             <%include file="navbar-authenticated.html" args="online_help_token=online_help_token"/>
         % else:

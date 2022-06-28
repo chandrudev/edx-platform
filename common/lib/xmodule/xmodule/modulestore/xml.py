@@ -81,7 +81,11 @@ class ImportSystem(XMLParsingSystem, MakoDescriptorSystem):  # lint-amnesty, pyl
 
                 # tags that really need unique names--they store (or should store) state.
                 need_uniq_names = ('problem', 'sequential', 'video', 'course', 'chapter',
+<<<<<<< HEAD
                                    'videosequence', 'poll_question', 'vertical')
+=======
+                                   'poll_question', 'vertical')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                 attr = xml_data.attrib
                 tag = xml_data.tag
@@ -159,9 +163,13 @@ class ImportSystem(XMLParsingSystem, MakoDescriptorSystem):  # lint-amnesty, pyl
 
             try:
                 xml_data = etree.fromstring(xml)
+<<<<<<< HEAD
 
                 make_name_unique(xml_data)
 
+=======
+                make_name_unique(xml_data)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 descriptor = self.xblock_from_node(
                     xml_data,
                     None,  # parent_id

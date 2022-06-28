@@ -22,8 +22,13 @@ from lms.djangoapps.commerce.models import CommerceConfiguration
 from lms.djangoapps.commerce.utils import EcommerceService, refund_entitlement, refund_seat
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 from openedx.core.lib.log_utils import audit_log
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Entitlements is not in CMS' INSTALLED_APPS so these imports will error during test collection
 if settings.ROOT_URLCONF == 'lms.urls':
@@ -74,6 +79,12 @@ class EcommerceServiceTests(TestCase):
         is_not_enabled = EcommerceService().is_enabled(self.user)
         assert not is_not_enabled
 
+<<<<<<< HEAD
+=======
+    # TODO: replace override_switch with override_waffle_switch when the
+    # DISABLE_ACCOUNT_ACTIVATION_REQUIREMENT_SWITCH will be defined as actual WaffleSwitch. Now
+    # we have only switch name defined in the settings
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @override_switch(settings.DISABLE_ACCOUNT_ACTIVATION_REQUIREMENT_SWITCH, active=True)
     def test_is_enabled_activation_requirement_disabled(self):
         """Verify that is_enabled() returns True when ecomm checkout is enabled. """

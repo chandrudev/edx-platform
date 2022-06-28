@@ -2,6 +2,7 @@
 Defines URLs for the course experience.
 """
 
+<<<<<<< HEAD
 
 from django.conf.urls import url
 
@@ -61,4 +62,13 @@ urlpatterns = [
         CourseDatesFragmentMobileView.as_view(),
         name=COURSE_DATES_FRAGMENT_VIEW_NAME,
     ),
+=======
+from django.urls import path
+from .views.course_home import outline_tab
+from .views.course_updates import CourseUpdatesView
+
+urlpatterns = [
+    path('', outline_tab),  # a now-removed legacy view, redirects to MFE
+    path('updates', CourseUpdatesView.as_view(), name='openedx.course_experience.course_updates'),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ]

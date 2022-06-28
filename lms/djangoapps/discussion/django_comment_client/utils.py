@@ -1,6 +1,11 @@
 # pylint: skip-file
 import json
 import logging
+<<<<<<< HEAD
+=======
+from typing import Set
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import regex
 from collections import defaultdict
 from datetime import datetime
@@ -24,14 +29,32 @@ from lms.djangoapps.discussion.django_comment_client.permissions import (
     has_permission
 )
 from lms.djangoapps.discussion.django_comment_client.settings import MAX_COMMENT_DEPTH
+<<<<<<< HEAD
 from openedx.core.djangoapps.course_groups.cohorts import get_cohort_id, get_cohort_names, is_course_cohorted
+=======
+from openedx.core.djangoapps.course_groups.cohorts import get_cohort_id
+from openedx.core.djangoapps.discussions.utils import (
+    get_accessible_discussion_xblocks,
+    get_accessible_discussion_xblocks_by_course_id,
+    get_course_division_scheme,
+    get_discussion_categories_ids,
+    get_group_names_by_id,
+    has_required_keys,
+)
+import openedx.core.djangoapps.django_comment_common.comment_client as cc
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.django_comment_common.models import (
     FORUM_ROLE_COMMUNITY_TA,
     FORUM_ROLE_STUDENT,
     CourseDiscussionSettings,
     DiscussionsIdMapping,
+<<<<<<< HEAD
     Role
 )
+=======
+    Role,
+    FORUM_ROLE_ADMINISTRATOR, FORUM_ROLE_MODERATOR, FORUM_ROLE_GROUP_MODERATOR)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.lib.cache_utils import request_cached
 from openedx.core.lib.courses import get_course_by_id
 from xmodule.modulestore.django import modulestore
@@ -77,6 +100,29 @@ def get_role_ids(course_id):
     return {role.name: list(role.users.values_list('id', flat=True)) for role in roles}
 
 
+<<<<<<< HEAD
+=======
+def get_user_role_names(user: User, course_key: CourseKey) -> Set[str]:
+    """
+    Get a set of discussion roles a user has for the specified course.
+
+    Args:
+        user (User): a user
+        course_key (CourseKey): a course key
+
+    Returns:
+        (Set[str]) a set of role names that the user has.
+
+    """
+    return set(
+        Role.objects.filter(
+            users=user,
+            course_id=course_key,
+        ).values_list('name', flat=True).distinct()
+    )
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def has_discussion_privileges(user, course_id):
     """
     Returns True if the user is privileged in teams discussions for
@@ -90,10 +136,17 @@ def has_discussion_privileges(user, course_id):
     Returns:
       bool
     """
+<<<<<<< HEAD
     # get_role_ids returns a dictionary of only admin, moderator and community TAs.
     roles = get_role_ids(course_id)
     for role in roles:
         if user.id in roles[role]:
+=======
+    roles = get_role_ids(course_id)
+
+    for user_ids in roles.values():
+        if user.id in user_ids:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return True
     return False
 
@@ -116,6 +169,7 @@ def is_user_community_ta(user, course_id):
     return has_forum_access(user, course_id, FORUM_ROLE_COMMUNITY_TA)
 
 
+<<<<<<< HEAD
 def has_required_keys(xblock):
     """
     Returns True iff xblock has the proper attributes for generating metadata
@@ -153,6 +207,40 @@ def get_accessible_discussion_xblocks_by_course_id(course_id, user=None, include
         xblock for xblock in all_xblocks
         if has_required_keys(xblock) and (include_all or has_access(user, 'load', xblock, course_id))
     ]
+=======
+def get_users_with_roles(roles, course_id):
+    """
+    Get all users with specified roles for a course
+    """
+    users_with_roles = [
+        user
+        for role in Role.objects.filter(
+            name__in=roles,
+            course_id=course_id
+        )
+        for user in role.users.all()
+    ]
+    return users_with_roles
+
+
+def get_users_with_moderator_roles(context):
+    """
+    Get all users within the course with moderator roles
+    """
+    moderators = get_users_with_roles([FORUM_ROLE_ADMINISTRATOR, FORUM_ROLE_MODERATOR,
+                                       FORUM_ROLE_COMMUNITY_TA], context['course_id'])
+
+    context_thread = cc.Thread.find(context['thread_id'])
+    if getattr(context_thread, 'group_id', None) is not None:
+        group_moderators = get_users_with_roles([FORUM_ROLE_GROUP_MODERATOR], context['course_id'])
+        course_discussion_settings = CourseDiscussionSettings.get(context['course_id'])
+        moderators_in_group = [user for user in group_moderators if get_group_id_for_user(
+            user, course_discussion_settings) == context_thread.group_id]
+        moderators += moderators_in_group
+
+    moderators = set(moderators)
+    return moderators
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def get_discussion_id_map_entry(xblock):
@@ -465,6 +553,7 @@ def discussion_category_id_access(course, user, discussion_id, xblock=None):
         return discussion_id in get_discussion_categories_ids(course, user)
 
 
+<<<<<<< HEAD
 def get_discussion_categories_ids(course, user, include_all=False):
     """
     Returns a list of available ids of categories for the course that
@@ -482,6 +571,8 @@ def get_discussion_categories_ids(course, user, include_all=False):
     return course.top_level_discussion_topic_ids + accessible_discussion_ids
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class JsonResponse(HttpResponse):
     """
     Django response object delivering JSON representations
@@ -737,7 +828,14 @@ def add_courseware_context(content_list, course, user, id_map=None):
             content.update({"courseware_url": url, "courseware_title": title})
 
 
+<<<<<<< HEAD
 def prepare_content(content, course_key, is_staff=False, discussion_division_enabled=None, group_names_by_id=None):
+=======
+def prepare_content(
+    content, course_key, is_staff=False, is_community_ta=False,
+    discussion_division_enabled=None, group_names_by_id=None
+):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     This function is used to pre-process thread and comment models in various
     ways before adding them to the HTTP response.  This includes fixing empty
@@ -751,6 +849,10 @@ def prepare_content(content, course_key, is_staff=False, discussion_division_ena
         content (dict): A thread or comment.
         course_key (CourseKey): The course key of the course.
         is_staff (bool): Whether the user is a staff member.
+<<<<<<< HEAD
+=======
+        is_community_ta (bool): Whether the user is a TA (community or grpup community TA).
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         discussion_division_enabled (bool): Whether division of course discussions is enabled.
            Note that callers of this method do not need to provide this value (it defaults to None)--
            it is calculated and then passed to recursive calls of this method.
@@ -764,11 +866,25 @@ def prepare_content(content, course_key, is_staff=False, discussion_division_ena
         'read', 'group_id', 'group_name', 'pinned', 'abuse_flaggers',
         'stats', 'resp_skip', 'resp_limit', 'resp_total', 'thread_type',
         'endorsed_responses', 'non_endorsed_responses', 'non_endorsed_resp_total',
+<<<<<<< HEAD
         'endorsement', 'context', 'last_activity_at'
     ]
 
     if (content.get('anonymous') is False) and ((content.get('anonymous_to_peers') is False) or is_staff):
         fields += ['username', 'user_id']
+=======
+        'endorsement', 'context', 'last_activity_at', 'username', 'user_id'
+    ]
+
+    is_anonymous = content.get('anonymous')
+    is_anonymous_to_peers = content.get('anonymous_to_peers')
+    # is_staff is true for both staff and TAs, is_user_staff will be true for staff members only
+    is_user_staff = is_staff and not is_community_ta
+
+    if is_anonymous or (is_anonymous_to_peers and not is_user_staff):
+        fields.remove('username')
+        fields.remove('user_id')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     content = strip_none(extract(content, fields))
 
@@ -808,6 +924,10 @@ def prepare_content(content, course_key, is_staff=False, discussion_division_ena
                     child,
                     course_key,
                     is_staff,
+<<<<<<< HEAD
+=======
+                    is_community_ta,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     discussion_division_enabled=discussion_division_enabled,
                     group_names_by_id=group_names_by_id
                 )
@@ -881,7 +1001,11 @@ def get_group_id_for_user(user, course_discussion_settings):
     If discussions are not divided, this method will return None.
     It will also return None if the user is in no group within the specified division_scheme.
     """
+<<<<<<< HEAD
     division_scheme = _get_course_division_scheme(course_discussion_settings)
+=======
+    division_scheme = get_course_division_scheme(course_discussion_settings)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if division_scheme == CourseDiscussionSettings.COHORT:
         return get_cohort_id(user, course_discussion_settings.course_id)
     elif division_scheme == CourseDiscussionSettings.ENROLLMENT_TRACK:
@@ -960,6 +1084,7 @@ def course_discussion_division_enabled(course_discussion_settings):
 
     Returns: True if discussion division is enabled for the course, else False
     """
+<<<<<<< HEAD
     return _get_course_division_scheme(course_discussion_settings) != CourseDiscussionSettings.NONE
 
 
@@ -1005,6 +1130,9 @@ def _get_course_division_scheme(course_discussion_settings):
     ):
         division_scheme = CourseDiscussionSettings.NONE
     return division_scheme
+=======
+    return get_course_division_scheme(course_discussion_settings) != CourseDiscussionSettings.NONE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def get_group_name(group_id, course_discussion_settings):
@@ -1023,6 +1151,7 @@ def get_group_name(group_id, course_discussion_settings):
     return group_names_by_id[group_id] if group_id in group_names_by_id else None
 
 
+<<<<<<< HEAD
 def get_group_names_by_id(course_discussion_settings):
     """
     Creates of a dict of group_id to learner-facing group names, for the division_scheme
@@ -1055,6 +1184,8 @@ def _get_enrollment_track_groups(course_key):
     return partition.groups if partition else []
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _verify_group_exists(group_id, course_discussion_settings):
     """
     Helper method that verifies the given group_id corresponds to a Group in the

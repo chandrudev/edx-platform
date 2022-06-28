@@ -16,7 +16,11 @@ COURSE_GRADE_CHANGED = Signal()
 COURSE_CERT_CHANGED = Signal()
 COURSE_CERT_AWARDED = Signal()
 COURSE_CERT_REVOKED = Signal()
+<<<<<<< HEAD
 # providing_args=["course_key", "available_date"]
+=======
+# providing_args=["course_key",]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 COURSE_CERT_DATE_CHANGE = Signal()
 
 # providing_args=['user', 'course_id', 'subsection_id', 'subsection_grade', ]

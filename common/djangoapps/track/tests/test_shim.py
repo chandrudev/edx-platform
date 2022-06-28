@@ -8,11 +8,19 @@ import ddt
 from django.test.utils import override_settings
 
 from openedx.core.lib.tests.assertions.events import assert_events_equal
+<<<<<<< HEAD
+=======
+from opaque_keys.edx.locator import CourseLocator  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .. import transformers
 from ..shim import PrefixedEventProcessor
 from . import FROZEN_TIME, EventTrackingTestCase
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 LEGACY_SHIM_PROCESSOR = [
     {
         'ENGINE': 'common.djangoapps.track.shim.LegacyFieldMappingProcessor'
@@ -156,6 +164,36 @@ class GoogleAnalyticsProcessorTestCase(EventTrackingTestCase):
         }
         assert_events_equal(expected_event, emitted_event)
 
+<<<<<<< HEAD
+=======
+    def test_valid_course_id(self):
+        """ Test that a courserun_key is added if course_id is a valid course key. """
+        data = {sentinel.key: sentinel.value}
+        courserun_key = str(CourseLocator(org='testx', course='test_course', run='test_run'))
+
+        context = {
+            'path': sentinel.path,
+            'user_id': sentinel.user_id,
+            'client_id': sentinel.client_id,
+            'course_id': courserun_key,
+        }
+        with self.tracker.context('test', context):
+            self.tracker.emit(sentinel.name, data)
+
+        emitted_event = self.get_event()
+
+        expected_event = {
+            'context': context,
+            'data': data,
+            'label': courserun_key,
+            'courserun_key': courserun_key,
+            'name': sentinel.name,
+            'nonInteraction': 1,
+            'timestamp': FROZEN_TIME,
+        }
+        assert_events_equal(expected_event, emitted_event)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 @override_settings(
     EVENT_TRACKING_BACKENDS={

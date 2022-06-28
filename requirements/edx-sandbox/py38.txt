@@ -4,14 +4,18 @@
 #
 #    make upgrade
 #
+<<<<<<< HEAD
 common/lib/sandbox-packages
     # via -r requirements/edx-sandbox/py38.in
 common/lib/symmath
     # via -r requirements/edx-sandbox/py38.in
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 cffi==1.15.0
     # via cryptography
 chem==1.2.0
     # via -r requirements/edx-sandbox/py38.in
+<<<<<<< HEAD
 click==7.1.2
     # via
     #   -c requirements/edx-sandbox/../constraints.txt
@@ -32,17 +36,47 @@ lxml==4.5.0
     #   -r requirements/edx-sandbox/py38.in
 markupsafe==2.0.1
     # via chem
+=======
+click==8.1.3
+    # via
+    #   -c requirements/edx-sandbox/../constraints.txt
+    #   nltk
+codejail-includes==1.0.0
+    # via -r requirements/edx-sandbox/py38.in
+cryptography==37.0.2
+    # via -r requirements/edx-sandbox/py38.in
+cycler==0.11.0
+    # via matplotlib
+joblib==1.1.0
+    # via nltk
+kiwisolver==1.4.2
+    # via matplotlib
+lxml==4.9.0
+    # via
+    #   -r requirements/edx-sandbox/py38.in
+    #   openedx-calc
+markupsafe==2.1.1
+    # via
+    #   chem
+    #   openedx-calc
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 matplotlib==3.3.4
     # via
     #   -c requirements/edx-sandbox/../constraints.txt
     #   -r requirements/edx-sandbox/py38.in
 mpmath==1.2.1
     # via sympy
+<<<<<<< HEAD
 networkx==2.5.1
     # via
     #   -c requirements/edx-sandbox/../constraints.txt
     #   -r requirements/edx-sandbox/py38.in
 nltk==3.6.5
+=======
+networkx==2.8.2
+    # via -r requirements/edx-sandbox/py38.in
+nltk==3.7
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via
     #   -r requirements/edx-sandbox/py38.in
     #   chem
@@ -53,6 +87,7 @@ numpy==1.16.6
     #   matplotlib
     #   openedx-calc
     #   scipy
+<<<<<<< HEAD
 openedx-calc==2.0.1
     # via -r requirements/edx-sandbox/py38.in
 pillow==8.3.2
@@ -60,11 +95,21 @@ pillow==8.3.2
 pycparser==2.20
     # via cffi
 pyparsing==2.4.7
+=======
+openedx-calc==3.0.1
+    # via -r requirements/edx-sandbox/py38.in
+pillow==9.1.1
+    # via matplotlib
+pycparser==2.21
+    # via cffi
+pyparsing==3.0.9
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via
     #   -r requirements/edx-sandbox/py38.in
     #   chem
     #   matplotlib
     #   openedx-calc
+<<<<<<< HEAD
 python-dateutil==2.4.0
     # via
     #   -c requirements/edx-sandbox/../constraints.txt
@@ -75,12 +120,24 @@ regex==2021.10.8
     # via nltk
 scipy==1.7.1
     # via
+=======
+python-dateutil==2.8.2
+    # via matplotlib
+random2==1.0.1
+    # via -r requirements/edx-sandbox/py38.in
+regex==2022.6.2
+    # via nltk
+scipy==1.7.3
+    # via
+    #   -c requirements/edx-sandbox/../constraints.txt
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     #   -r requirements/edx-sandbox/py38.in
     #   chem
     #   openedx-calc
 six==1.16.0
     # via
     #   chem
+<<<<<<< HEAD
     #   cycler
     #   python-dateutil
 sympy==1.6.2
@@ -89,4 +146,13 @@ sympy==1.6.2
     #   -r requirements/edx-sandbox/py38.in
     #   symmath
 tqdm==4.62.3
+=======
+    #   codejail-includes
+    #   python-dateutil
+sympy==1.10.1
+    # via
+    #   -r requirements/edx-sandbox/py38.in
+    #   openedx-calc
+tqdm==4.64.0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via nltk

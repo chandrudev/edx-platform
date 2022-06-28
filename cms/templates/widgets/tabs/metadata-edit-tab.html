@@ -8,7 +8,11 @@
     <%static:include path="js/metadata-editor.underscore" />
 </script>
 
+<<<<<<< HEAD
 % for template_name in ["metadata-number-entry", "metadata-string-entry", "metadata-option-entry", "metadata-list-entry", "metadata-dict-entry", "metadata-file-uploader-entry", "metadata-file-uploader-item"]:
+=======
+% for template_name in ["metadata-number-entry", "metadata-string-entry", "metadata-option-entry", "metadata-option-public-access", "metadata-list-entry", "metadata-dict-entry", "metadata-file-uploader-entry", "metadata-file-uploader-item"]:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     <script id="${template_name}" type="text/template">
         <%static:include path="js/${template_name}.underscore" />
     </script>

@@ -9,7 +9,11 @@ from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey
 from organizations.models import Organization
 
+<<<<<<< HEAD
 from ..models import DEFAULT_CONFIG_ENABLED, DEFAULT_PROVIDER_TYPE
+=======
+from ..models import DEFAULT_CONFIG_ENABLED, DEFAULT_PROVIDER_TYPE, Provider
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..models import DiscussionsConfiguration
 from ..models import ProviderFilter
 
@@ -137,7 +141,11 @@ class DiscussionsConfigurationModelTest(TestCase):
         self.configuration_with_values = DiscussionsConfiguration(
             context_key=self.course_key_with_values,
             enabled=False,
+<<<<<<< HEAD
             provider_type='legacy',
+=======
+            provider_type=Provider.LEGACY,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             plugin_configuration={
                 'url': 'http://localhost',
             },
@@ -162,7 +170,11 @@ class DiscussionsConfigurationModelTest(TestCase):
         assert configuration.enabled  # by default
         assert configuration.lti_configuration is None
         assert len(configuration.plugin_configuration.keys()) == 0
+<<<<<<< HEAD
         assert not configuration.provider_type
+=======
+        assert configuration.provider_type == DEFAULT_PROVIDER_TYPE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_get_with_values(self):
         """
@@ -236,7 +248,11 @@ class DiscussionsConfigurationModelTest(TestCase):
         assert configuration.enabled
         assert not configuration.lti_configuration
         assert not configuration.plugin_configuration
+<<<<<<< HEAD
         assert not configuration.provider_type
+=======
+        assert configuration.provider_type == 'legacy'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_get_explicit(self):
         """

@@ -5,6 +5,10 @@ Outside of this subpackage, import these functions
 from `lms.djangoapps.program_enrollments.api`.
 """
 
+<<<<<<< HEAD
+=======
+import re
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from functools import reduce
 from operator import or_
 
@@ -62,7 +66,11 @@ def get_program_enrollment(
         raise ValueError(_STUDENT_ARG_ERROR_MESSAGE)
     filters = {
         "user": user,
+<<<<<<< HEAD
         "external_user_key": external_user_key,
+=======
+        "external_user_key__iexact": external_user_key,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "curriculum_uuid": curriculum_uuid,
     }
     return ProgramEnrollment.objects.get(
@@ -100,7 +108,11 @@ def get_program_course_enrollment(
         raise ValueError(_STUDENT_ARG_ERROR_MESSAGE)
     filters = {
         "program_enrollment__user": user,
+<<<<<<< HEAD
         "program_enrollment__external_user_key": external_user_key,
+=======
+        "program_enrollment__external_user_key__iexact": external_user_key,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "program_enrollment__curriculum_uuid": curriculum_uuid,
     }
     return ProgramCourseEnrollment.objects.get(
@@ -142,10 +154,20 @@ def fetch_program_enrollments(
         raise ValueError(
             _REALIZED_FILTER_ERROR_TEMPLATE.format("realized_only", "waiting_only")
         )
+<<<<<<< HEAD
     filters = {
         "curriculum_uuid__in": curriculum_uuids,
         "user__in": users,
         "external_user_key__in": external_user_keys,
+=======
+    external_user_key_regex = None
+    if external_user_keys:
+        external_user_key_regex = r'^(' + '|'.join([re.escape(b) for b in external_user_keys]) + ')$'
+    filters = {
+        "curriculum_uuid__in": curriculum_uuids,
+        "user__in": users,
+        "external_user_key__iregex": external_user_key_regex,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "status__in": program_enrollment_statuses,
     }
     if realized_only:
@@ -202,10 +224,20 @@ def fetch_program_course_enrollments(
         raise ValueError(
             _REALIZED_FILTER_ERROR_TEMPLATE.format("realized_only", "waiting_only")
         )
+<<<<<<< HEAD
     filters = {
         "program_enrollment__curriculum_uuid__in": curriculum_uuids,
         "program_enrollment__user__in": users,
         "program_enrollment__external_user_key__in": external_user_keys,
+=======
+    external_user_key_regex = None
+    if external_user_keys:
+        external_user_key_regex = r'^(' + '|'.join([re.escape(b) for b in external_user_keys]) + ')$'
+    filters = {
+        "program_enrollment__curriculum_uuid__in": curriculum_uuids,
+        "program_enrollment__user__in": users,
+        "program_enrollment__external_user_key__iregex": external_user_key_regex,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "program_enrollment__status__in": program_enrollment_statuses,
         "program_enrollment__in": program_enrollments,
     }
@@ -301,9 +333,18 @@ def fetch_program_enrollments_by_students(
         raise ValueError(
             _REALIZED_FILTER_ERROR_TEMPLATE.format("realized_only", "waiting_only")
         )
+<<<<<<< HEAD
     filters = {
         "user__in": users,
         "external_user_key__in": external_user_keys,
+=======
+    external_user_key_regex = None
+    if external_user_keys:
+        external_user_key_regex = r'^(' + '|'.join([re.escape(b) for b in external_user_keys]) + ')$'
+    filters = {
+        "user__in": users,
+        "external_user_key__iregex": external_user_key_regex,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "status__in": program_enrollment_statuses,
     }
     if realized_only:
@@ -357,9 +398,18 @@ def fetch_program_course_enrollments_by_students(
         raise ValueError(
             _REALIZED_FILTER_ERROR_TEMPLATE.format("realized_only", "waiting_only")
         )
+<<<<<<< HEAD
     filters = {
         "program_enrollment__user__in": users,
         "program_enrollment__external_user_key__in": external_user_keys,
+=======
+    external_user_key_regex = None
+    if external_user_keys:
+        external_user_key_regex = r'^(' + '|'.join([re.escape(b) for b in external_user_keys]) + ')$'
+    filters = {
+        "program_enrollment__user__in": users,
+        "program_enrollment__external_user_key__iregex": external_user_key_regex,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "program_enrollment__program_uuid__in": program_uuids,
         "program_enrollment__curriculum_uuid__in": curriculum_uuids,
         "course_key__in": course_keys,

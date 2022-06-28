@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 <%page expression_filter="h" args="cert_status, course_ended_not_passing, course_overview, enrollment, reverify_link" />
+=======
+<%page expression_filter="h" args="cert_status, course_ended_not_passing, course_overview, enrollment" />
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 <%!
 from django.urls import reverse
 
+<<<<<<< HEAD
 from django.utils.translation import ugettext as _
+=======
+from django.utils.translation import gettext as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangolib.markup import HTML, Text
 from common.djangoapps.course_modes.models import CourseMode
 from lms.djangoapps.certificates.data import CertificateStatuses
@@ -34,7 +42,11 @@ elif cert_status['status'] == CertificateStatuses.notpassing:
 else:
     status_css_class = 'course-status-processing'
 %>
+<<<<<<< HEAD
 <% 
+=======
+<%
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   requesting_post_url = reverse('generate_user_cert', args=[str(course_overview.id)])
   progress_page_url = reverse('progress', args=[str(course_overview.id)])
 %>
@@ -157,19 +169,26 @@ else:
         % endif
       % endif
 
+<<<<<<< HEAD
       % if cert_status['status'] == 'downloadable' and enrollment.mode == 'verified' and cert_status['mode'] == 'honor':
         <div class="certificate-explanation">
             ${_('Since we did not have a valid set of verification photos from you when your {cert_name_long} was generated, we could not grant you a verified {cert_name_short}. An honor code {cert_name_short} has been granted instead.').format(cert_name_short=cert_name_short, cert_name_long=cert_name_long)}
         </div>
       % endif
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     </div>
   % endif
 % elif course_ended_not_passing:
   <div class="message message-status ${status_css_class} d-flex justify-content-between align-items-center">
     <div class="message-copy">
       <%
+<<<<<<< HEAD
         container_string = _("You are not eligible for a certificate.")
+=======
+        container_string = _("You are not yet eligible for a certificate.")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       %>
       <span class="info-date-block localized-datetime" data-language="${user_language}" data-timezone="${user_timezone}" data-string="${container_string}"></span>
     </div>

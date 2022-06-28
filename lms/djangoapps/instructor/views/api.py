@@ -7,12 +7,21 @@ Many of these GETs may become PUTs in the future.
 """
 
 import csv
+<<<<<<< HEAD
+=======
+import datetime
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import json
 import logging
 import string
 import random
 import re
 
+<<<<<<< HEAD
+=======
+import dateutil
+import pytz
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import edx_api_doc_tools as apidocs
 from django.conf import settings
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
@@ -33,12 +42,23 @@ from edx_rest_framework_extensions.auth.session.authentication import SessionAut
 from edx_when.api import get_date_for_block
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
+<<<<<<< HEAD
 from rest_framework import serializers, status
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from submissions import api as sub_api  # installed from the edx-submissions repository
 from xmodule.modulestore.django import modulestore
+=======
+from openedx.core.djangoapps.course_groups.cohorts import get_cohort_by_name
+from rest_framework import serializers, status  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.permissions import IsAdminUser, IsAuthenticated  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.response import Response  # lint-amnesty, pylint: disable=wrong-import-order
+from rest_framework.views import APIView  # lint-amnesty, pylint: disable=wrong-import-order
+from submissions import api as sub_api  # installed from the edx-submissions repository  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student import auth
@@ -69,8 +89,12 @@ from common.djangoapps.util.file import (
 )
 from common.djangoapps.util.json_request import JsonResponse, JsonResponseBadRequest
 from common.djangoapps.util.views import require_global_staff
+<<<<<<< HEAD
 from lms.djangoapps.bulk_email.api import is_bulk_email_feature_enabled
 from lms.djangoapps.bulk_email.models import CourseEmail
+=======
+from lms.djangoapps.bulk_email.api import is_bulk_email_feature_enabled, create_course_email
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.certificates import api as certs_api
 from lms.djangoapps.certificates.models import (
     CertificateStatuses
@@ -86,6 +110,10 @@ from lms.djangoapps.discussion.django_comment_client.utils import (
 )
 from lms.djangoapps.instructor import enrollment
 from lms.djangoapps.instructor.access import ROLES, allow_access, list_with_level, revoke_access, update_forum_role
+<<<<<<< HEAD
+=======
+from lms.djangoapps.instructor.constants import INVOICE_KEY
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.instructor.enrollment import (
     enroll_email,
     get_email_params,
@@ -94,14 +122,25 @@ from lms.djangoapps.instructor.enrollment import (
     send_mail_to_student,
     unenroll_email,
 )
+<<<<<<< HEAD
 from lms.djangoapps.instructor.views import INVOICE_KEY
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.instructor.views.instructor_task_helpers import extract_email_features, extract_task_features
 from lms.djangoapps.instructor_analytics import basic as instructor_analytics_basic, csvs as instructor_analytics_csvs
 from lms.djangoapps.instructor_task import api as task_api
 from lms.djangoapps.instructor_task.api_helper import AlreadyRunningError, QueueConnectionError
+<<<<<<< HEAD
 from lms.djangoapps.instructor_task.models import ReportStore
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.course_groups.cohorts import is_course_cohorted
+=======
+from lms.djangoapps.instructor_task.data import InstructorTaskTypes
+from lms.djangoapps.instructor_task.models import ReportStore
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from openedx.core.djangoapps.course_groups.cohorts import add_user_to_cohort, is_course_cohorted
+from openedx.core.djangoapps.course_groups.models import CourseUserGroup
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.django_comment_common.models import (
     CourseDiscussionSettings,
     FORUM_ROLE_ADMINISTRATOR,
@@ -274,12 +313,15 @@ def require_finance_admin(func):
     return wrapped
 
 
+<<<<<<< HEAD
 EMAIL_INDEX = 0
 USERNAME_INDEX = 1
 NAME_INDEX = 2
 COUNTRY_INDEX = 3
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @require_POST
 @ensure_csrf_cookie
 @cache_control(no_cache=True, no_store=True, must_revalidate=True)
@@ -289,6 +331,10 @@ def register_and_enroll_students(request, course_id):  # pylint: disable=too-man
     Create new account and Enroll students in this course.
     Passing a csv file that contains a list of students.
     Order in csv should be the following email = 0; username = 1; name = 2; country = 3.
+<<<<<<< HEAD
+=======
+    If there are more than 4 columns in the csv: cohort = 4, course mode = 5.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     Requires staff access.
 
     -If the email address and username already exists and the user is enrolled in the course,
@@ -315,6 +361,7 @@ def register_and_enroll_students(request, course_id):  # pylint: disable=too-man
     row_errors = []
     general_errors = []
 
+<<<<<<< HEAD
     # for white labels we use 'shopping cart' which uses CourseMode.HONOR as
     # course mode for creating course enrollments.
     if CourseMode.is_white_label(course_id):
@@ -323,6 +370,26 @@ def register_and_enroll_students(request, course_id):  # pylint: disable=too-man
         course_mode = None
 
     if 'students_list' in request.FILES:
+=======
+    # email-students is a checkbox input type; will be present in POST if checked, absent otherwise
+    notify_by_email = 'email-students' in request.POST
+
+    # for white labels we use 'shopping cart' which uses CourseMode.HONOR as
+    # course mode for creating course enrollments.
+    if CourseMode.is_white_label(course_id):
+        default_course_mode = CourseMode.HONOR
+    else:
+        default_course_mode = None
+
+    # Allow bulk enrollments in all non-expired course modes including "credit" (which is non-selectable)
+    valid_course_modes = set(map(lambda x: x.slug, CourseMode.modes_for_course(
+        course_id=course_id,
+        only_selectable=False,
+        include_expired=False,
+    )))
+
+    if 'students_list' in request.FILES:  # lint-amnesty, pylint: disable=too-many-nested-blocks
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         students = []
 
         try:
@@ -345,6 +412,7 @@ def register_and_enroll_students(request, course_id):  # pylint: disable=too-man
             upload_file.close()
 
         generated_passwords = []
+<<<<<<< HEAD
         row_num = 0
         for student in students:
             row_num = row_num + 1
@@ -366,6 +434,109 @@ def register_and_enroll_students(request, course_id):  # pylint: disable=too-man
             username = student[USERNAME_INDEX]
             name = student[NAME_INDEX]
             country = student[COUNTRY_INDEX][:2]
+=======
+        # To skip fetching cohorts from the DB while iterating on students,
+        # {<cohort name>: CourseUserGroup}
+        cohorts_cache = {}
+        already_warned_not_cohorted = False
+        extra_fields_is_enabled = configuration_helpers.get_value(
+            'ENABLE_AUTOMATED_SIGNUPS_EXTRA_FIELDS',
+            settings.FEATURES.get('ENABLE_AUTOMATED_SIGNUPS_EXTRA_FIELDS', False),
+        )
+
+        # Iterate each student in the uploaded csv file.
+        for row_num, student in enumerate(students, 1):
+
+            # Verify that we have the expected number of columns in every row
+            # but allow for blank lines.
+            if not student:
+                continue
+
+            if extra_fields_is_enabled:
+                is_valid_csv = 4 <= len(student) <= 6
+                error = _('Data in row #{row_num} must have between four and six columns: '
+                          'email, username, full name, country, cohort, and course mode. '
+                          'The last two columns are optional.').format(row_num=row_num)
+            else:
+                is_valid_csv = len(student) == 4
+                error = _('Data in row #{row_num} must have exactly four columns: '
+                          'email, username, full name, and country.').format(row_num=row_num)
+
+            if not is_valid_csv:
+                general_errors.append({
+                    'username': '',
+                    'email': '',
+                    'response': error
+                })
+                continue
+
+            # Extract each column, handle optional columns if they exist.
+            email, username, name, country, *optional_cols = student
+            if optional_cols:
+                optional_cols.append(default_course_mode)
+                cohort_name, course_mode, *_tail = optional_cols
+            else:
+                cohort_name = None
+                course_mode = None
+
+            # Validate cohort name, and get the cohort object.  Skip if course
+            # is not cohorted.
+            cohort = None
+
+            if cohort_name and not already_warned_not_cohorted:
+                if not is_course_cohorted(course_id):
+                    row_errors.append({
+                        'username': username,
+                        'email': email,
+                        'response': _('Course is not cohorted but cohort provided. '
+                                      'Ignoring cohort assignment for all users.')
+                    })
+                    already_warned_not_cohorted = True
+                elif cohort_name in cohorts_cache:
+                    cohort = cohorts_cache[cohort_name]
+                else:
+                    # Don't attempt to create cohort or assign student if cohort
+                    # does not exist.
+                    try:
+                        cohort = get_cohort_by_name(course_id, cohort_name)
+                    except CourseUserGroup.DoesNotExist:
+                        row_errors.append({
+                            'username': username,
+                            'email': email,
+                            'response': _('Cohort name not found: {cohort}. '
+                                          'Ignoring cohort assignment for '
+                                          'all users.').format(cohort=cohort_name)
+                        })
+                    cohorts_cache[cohort_name] = cohort
+
+            # Validate course mode.
+            if not course_mode:
+                course_mode = default_course_mode
+
+            if (course_mode is not None
+                    and course_mode not in valid_course_modes):
+                # If `default is None` and the user is already enrolled,
+                # `CourseEnrollment.change_mode()` will not update the mode,
+                # hence two error messages.
+                if default_course_mode is None:
+                    err_msg = _(
+                        'Invalid course mode: {mode}. Falling back to the '
+                        'default mode, or keeping the current mode in case the '
+                        'user is already enrolled.'
+                    ).format(mode=course_mode)
+                else:
+                    err_msg = _(
+                        'Invalid course mode: {mode}.  Failling back to '
+                        '{default_mode}, or resetting to {default_mode} in case '
+                        'the user is already enrolled.'
+                    ).format(mode=course_mode, default_mode=default_course_mode)
+                row_errors.append({
+                    'username': username,
+                    'email': email,
+                    'response': err_msg,
+                })
+                course_mode = default_course_mode
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             email_params = get_email_params(course, True, secure=request.is_secure())
             try:
@@ -415,8 +586,24 @@ def register_and_enroll_students(request, course_id):  # pylint: disable=too-man
                         enroll_email(course_id=course_id,
                                      student_email=email,
                                      auto_enroll=True,
+<<<<<<< HEAD
                                      email_students=True,
                                      email_params=email_params)
+=======
+                                     email_students=notify_by_email,
+                                     email_params=email_params)
+                    else:
+                        # update the course mode if already enrolled
+                        existing_enrollment = CourseEnrollment.get_enrollment(user, course_id)
+                        if existing_enrollment.mode != course_mode:
+                            existing_enrollment.change_mode(mode=course_mode)
+                    if cohort:
+                        try:
+                            add_user_to_cohort(cohort, user)
+                        except ValueError:
+                            # user already in this cohort; ignore
+                            pass
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 elif is_email_retired(email):
                     # We are either attempting to enroll a retired user or create a new user with an email which is
                     # already associated with a retired account.  Simply block these attempts.
@@ -433,9 +620,38 @@ def register_and_enroll_students(request, course_id):  # pylint: disable=too-man
                     # will raise an IntegrityError exception.
                     password = generate_unique_password(generated_passwords)
                     errors = create_and_enroll_user(
+<<<<<<< HEAD
                         email, username, name, country, password, course_id, course_mode, request.user, email_params
                     )
                     row_errors.extend(errors)
+=======
+                        email,
+                        username,
+                        name,
+                        country,
+                        password,
+                        course_id,
+                        course_mode,
+                        request.user,
+                        email_params,
+                        email_user=notify_by_email,
+                    )
+                    row_errors.extend(errors)
+                    if cohort:
+                        try:
+                            add_user_to_cohort(cohort, email)
+                        except ValueError:
+                            # user already in this cohort; ignore
+                            # NOTE: Checking this here may be unnecessary if we can prove that a new user will never be
+                            # automatically assigned to a cohort from the above.
+                            pass
+                        except ValidationError:
+                            row_errors.append({
+                                'username': username,
+                                'email': email,
+                                'response': _('Invalid email {email_address}.').format(email_address=email),
+                            })
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     else:
         general_errors.append({
@@ -521,7 +737,22 @@ def create_manual_course_enrollment(user, course_id, mode, enrolled_by, reason, 
     return enrollment_obj
 
 
+<<<<<<< HEAD
 def create_and_enroll_user(email, username, name, country, password, course_id, course_mode, enrolled_by, email_params):
+=======
+def create_and_enroll_user(
+    email,
+    username,
+    name,
+    country,
+    password,
+    course_id,
+    course_mode,
+    enrolled_by,
+    email_params,
+    email_user=True,
+):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Create a new user and enroll him/her to the given course, return list of errors in the following format
         Error format:
@@ -539,7 +770,12 @@ def create_and_enroll_user(email, username, name, country, password, course_id, 
     :param course_mode: mode for user enrollment, e.g. 'honor', 'audit' etc.
     :param enrolled_by: User who made the manual enrollment entry (usually instructor or support)
     :param email_params: information to send to the user via email
+<<<<<<< HEAD
 
+=======
+    :param email_user: If True and it's a new user, an email will be sent to
+                       them upon account creation.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     :return: list of errors
     """
     errors = []
@@ -569,6 +805,7 @@ def create_and_enroll_user(email, username, name, country, password, course_id, 
             'username': username, 'email': email, 'response': type(ex).__name__,
         })
     else:
+<<<<<<< HEAD
         try:
             # It's a new user, an email will be sent to each newly created user.
             email_params.update({
@@ -592,6 +829,35 @@ def create_and_enroll_user(email, username, name, country, password, course_id, 
             })
         else:
             log.info('email sent to new created user at %s', email)
+=======
+        if email_user:
+            try:
+                # It's a new user, an email will be sent to each newly created user.
+                email_params.update({
+                    'message_type': 'account_creation_and_enrollment',
+                    'email_address': email,
+                    'user_id': user.id,
+                    'password': password,
+                    'platform_name': configuration_helpers.get_value('platform_name', settings.PLATFORM_NAME),
+                })
+                send_mail_to_student(email, email_params)
+            except Exception as ex:  # pylint: disable=broad-except
+                log.exception(
+                    f"Exception '{type(ex).__name__}' raised while sending email to new user."
+                )
+                errors.append({
+                    'username': username,
+                    'email': email,
+                    'response':
+                        _("Error '{error}' while sending email to new user (user email={email}). "
+                          "Without the email student would not be able to login. "
+                          "Please contact support for further information.").format(
+                              error=type(ex).__name__, email=email
+                        ),
+                })
+            else:
+                log.info('email sent to new created user at %s', email)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     return errors
 
@@ -825,9 +1091,15 @@ def bulk_beta_modify_access(request, course_id):
             # Tabulate the action result of this email address
             results.append({
                 'identifier': identifier,
+<<<<<<< HEAD
                 'error': error,
                 'userDoesNotExist': user_does_not_exist,
                 'is_active': user_active
+=======
+                'error': error,  # pylint: disable=used-before-assignment
+                'userDoesNotExist': user_does_not_exist,  # pylint: disable=used-before-assignment
+                'is_active': user_active  # pylint: disable=used-before-assignment
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             })
 
     response_payload = {
@@ -1287,8 +1559,12 @@ def get_students_features(request, course_id, csv=False):  # pylint: disable=red
         query_features = [
             'id', 'username', 'name', 'email', 'language', 'location',
             'year_of_birth', 'gender', 'level_of_education', 'mailing_address',
+<<<<<<< HEAD
             'goals', 'enrollment_mode', 'verification_status',
             'last_login', 'date_joined', 'external_user_key'
+=======
+            'goals', 'enrollment_mode', 'last_login', 'date_joined', 'external_user_key'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         ]
 
     # Provide human-friendly and translatable names for these features. These names
@@ -1307,7 +1583,10 @@ def get_students_features(request, course_id, csv=False):  # pylint: disable=red
         'mailing_address': _('Mailing Address'),
         'goals': _('Goals'),
         'enrollment_mode': _('Enrollment Mode'),
+<<<<<<< HEAD
         'verification_status': _('Verification Status'),
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         'last_login': _('Last Login'),
         'date_joined': _('Date Joined'),
         'external_user_key': _('External User Key'),
@@ -1595,7 +1874,11 @@ def get_student_progress_url(request, course_id):
     user = get_student_from_identifier(request.POST.get('unique_student_identifier'))
 
     if course_home_mfe_progress_tab_is_active(course_id):
+<<<<<<< HEAD
         progress_url = get_learning_mfe_home_url(course_id, 'progress')
+=======
+        progress_url = get_learning_mfe_home_url(course_id, url_fragment='progress')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if user is not None:
             progress_url += '/{}/'.format(user.id)
     else:
@@ -1829,6 +2112,11 @@ def rescore_problem(request, course_id):
             )
         except NotImplementedError as exc:
             return HttpResponseBadRequest(str(exc))
+<<<<<<< HEAD
+=======
+        except ItemNotFoundError as exc:
+            return HttpResponseBadRequest(f"{module_state_key} not found")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     elif all_students:
         try:
@@ -1839,6 +2127,11 @@ def rescore_problem(request, course_id):
             )
         except NotImplementedError as exc:
             return HttpResponseBadRequest(str(exc))
+<<<<<<< HEAD
+=======
+        except ItemNotFoundError as exc:
+            return HttpResponseBadRequest(f"{module_state_key} not found")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     else:
         return HttpResponseBadRequest()
 
@@ -1872,11 +2165,22 @@ def override_problem_score(request, course_id):  # lint-amnesty, pylint: disable
 
     try:
         usage_key = UsageKey.from_string(problem_to_reset).map_into_course(course_key)
+<<<<<<< HEAD
     except InvalidKeyError:
         return _create_error_response(request, f"Unable to parse problem id {problem_to_reset}.")
 
     # check the user's access to this specific problem
     if not has_access(request.user, "staff", modulestore().get_item(usage_key)):
+=======
+        block = modulestore().get_item(usage_key)
+    except InvalidKeyError:
+        return _create_error_response(request, f"Unable to parse problem id {problem_to_reset}.")
+    except ItemNotFoundError:
+        return _create_error_response(request, f"Unable to find problem id {problem_to_reset}.")
+
+    # check the user's access to this specific problem
+    if not has_access(request.user, "staff", block):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         _create_error_response(request, "User {} does not have permission to override scores for problem {}.".format(
             request.user.id,
             problem_to_reset
@@ -1970,7 +2274,11 @@ def list_background_email_tasks(request, course_id):
     List background email tasks.
     """
     course_id = CourseKey.from_string(course_id)
+<<<<<<< HEAD
     task_type = 'bulk_course_email'
+=======
+    task_type = InstructorTaskTypes.BULK_COURSE_EMAIL
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # Specifying for the history of a single task type
     tasks = task_api.get_instructor_task_history(
         course_id,
@@ -1992,7 +2300,11 @@ def list_email_content(request, course_id):
     List the content of bulk emails sent
     """
     course_id = CourseKey.from_string(course_id)
+<<<<<<< HEAD
     task_type = 'bulk_course_email'
+=======
+    task_type = InstructorTaskTypes.BULK_COURSE_EMAIL
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # First get tasks list of bulk emails sent
     emails = task_api.get_instructor_task_history(course_id, task_type=task_type)
 
@@ -2549,14 +2861,22 @@ def send_email(request, course_id):
     - 'message' specifies email's content
     """
     course_id = CourseKey.from_string(course_id)
+<<<<<<< HEAD
 
     if not is_bulk_email_feature_enabled(course_id):
         log.warning('Email is not enabled for course %s', course_id)
+=======
+    course_overview = CourseOverview.get_from_id(course_id)
+
+    if not is_bulk_email_feature_enabled(course_id):
+        log.warning(f"Email is not enabled for course {course_id}")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return HttpResponseForbidden("Email is not enabled for this course.")
 
     targets = json.loads(request.POST.get("send_to"))
     subject = request.POST.get("subject")
     message = request.POST.get("message")
+<<<<<<< HEAD
 
     # allow two branding points to come from Site Configuration: which CourseEmailTemplate should be used
     # and what the 'from' field in the email should be
@@ -2599,6 +2919,49 @@ def send_email(request, course_id):
 
     # Submit the task, so that the correct InstructorTask object gets created (for monitoring purposes)
     task_api.submit_bulk_course_email(request, course_id, email.id)
+=======
+    # optional, this is a date and time in the form of an ISO8601 string
+    schedule = request.POST.get("schedule", "")
+
+    schedule_dt = None
+    if schedule:
+        try:
+            # convert the schedule from a string to a datetime, then check if its a valid future date and time, dateutil
+            # will throw a ValueError if the schedule is no good.
+            schedule_dt = dateutil.parser.parse(schedule).replace(tzinfo=pytz.utc)
+            if schedule_dt < datetime.datetime.now(pytz.utc):
+                raise ValueError("the requested schedule is in the past")
+        except ValueError as value_error:
+            error_message = (
+                f"Error occurred creating a scheduled bulk email task. Schedule provided: '{schedule}'. Error: "
+                f"{value_error}"
+            )
+            log.error(error_message)
+            return HttpResponseBadRequest(error_message)
+
+    # Retrieve the customized email "from address" and email template from site configuration for the course/partner. If
+    # there is no site configuration enabled for the current site then we use system defaults for both.
+    from_addr = _get_branded_email_from_address(course_overview)
+    template_name = _get_branded_email_template(course_overview)
+
+    # Create the CourseEmail object. This is saved immediately so that any transaction that has been pending up to this
+    # point will also be committed.
+    try:
+        email = create_course_email(
+            course_id,
+            request.user,
+            targets,
+            subject,
+            message,
+            template_name=template_name,
+            from_addr=from_addr,
+        )
+    except ValueError as err:
+        return HttpResponseBadRequest(repr(err))
+
+    # Submit the task, so that the correct InstructorTask object gets created (for monitoring purposes)
+    task_api.submit_bulk_course_email(request, course_id, email.id, schedule_dt)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     response_payload = {
         'course_id': str(course_id),
@@ -3414,3 +3777,48 @@ def _get_certificate_for_user(course_key, student):
         )
 
     return certificate
+<<<<<<< HEAD
+=======
+
+
+def _get_branded_email_from_address(course_overview):
+    """
+    Checks and retrieves a customized "from address", if one exists for the course/org. This is the email address that
+    learners will see the message coming from.
+
+    Args:
+        course_overview (CourseOverview): The course overview instance for the course-run.
+
+    Returns:
+        String: The customized "from address" to be used in messages sent by the bulk course email tool for this
+                course or org.
+    """
+    from_addr = configuration_helpers.get_value('course_email_from_addr')
+    if isinstance(from_addr, dict):
+        # If course_email_from_addr is a dict, we are customizing the email template for each organization that has
+        # courses on the site. The dict maps from addresses by org allowing us to find the correct from address to use
+        # here.
+        from_addr = from_addr.get(course_overview.display_org_with_default)
+
+    return from_addr
+
+
+def _get_branded_email_template(course_overview):
+    """
+    Checks and retrieves the custom email template, if one exists for the course/org, to style messages sent by the bulk
+    course email tool.
+
+    Args:
+        course_overview (CourseOverview): The course overview instance for the course-run.
+
+    Returns:
+        String: The name of the custom email template to use for this course or org.
+    """
+    template_name = configuration_helpers.get_value('course_email_template_name')
+    if isinstance(template_name, dict):
+        # If course_email_template_name is a dict, we are customizing the email template for each organization that has
+        # courses on the site. The dict maps template names by org allowing us to find the correct template to use here.
+        template_name = template_name.get(course_overview.display_org_with_default)
+
+    return template_name
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

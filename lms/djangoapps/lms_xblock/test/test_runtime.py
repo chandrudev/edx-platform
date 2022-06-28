@@ -19,9 +19,15 @@ from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.badges.tests.factories import BadgeClassFactory
 from lms.djangoapps.badges.tests.test_models import get_image
 from lms.djangoapps.lms_xblock.runtime import LmsModuleSystem
+<<<<<<< HEAD
 from xmodule.modulestore.django import ModuleI18nService
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.django import ModuleI18nService  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class BlockMock(Mock):
@@ -63,9 +69,14 @@ class TestHandlerUrl(TestCase):
             static_url='/static',
             track_function=Mock(),
             get_module=Mock(),
+<<<<<<< HEAD
             render_template=Mock(),
             replace_urls=str,
             course_id=self.course_key,
+=======
+            course_id=self.course_key,
+            user=Mock(),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             descriptor_runtime=Mock(),
         )
 
@@ -125,18 +136,26 @@ class TestUserServiceAPI(TestCase):
         self.course_id = CourseLocator("org", "course", "run")
         self.user = UserFactory.create()
 
+<<<<<<< HEAD
         def mock_get_real_user(_anon_id):
             """Just returns the test user"""
             return self.user
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.runtime = LmsModuleSystem(
             static_url='/static',
             track_function=Mock(),
             get_module=Mock(),
+<<<<<<< HEAD
             render_template=Mock(),
             replace_urls=str,
             course_id=self.course_id,
             get_real_user=mock_get_real_user,
+=======
+            user=self.user,
+            course_id=self.course_id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             descriptor_runtime=Mock(),
         )
         self.scope = 'course'
@@ -181,18 +200,26 @@ class TestBadgingService(ModuleStoreTestCase):
         """
         Create the testing runtime.
         """
+<<<<<<< HEAD
         def mock_get_real_user(_anon_id):
             """Just returns the test user"""
             return self.user
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return LmsModuleSystem(
             static_url='/static',
             track_function=Mock(),
             get_module=Mock(),
+<<<<<<< HEAD
             render_template=Mock(),
             replace_urls=str,
             course_id=self.course_id,
             get_real_user=mock_get_real_user,
+=======
+            course_id=self.course_id,
+            user=self.user,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             descriptor_runtime=Mock(),
         )
 
@@ -220,10 +247,18 @@ class TestBadgingService(ModuleStoreTestCase):
         premade_badge_class = BadgeClassFactory.create()
         # Ignore additional parameters. This class already exists.
         # We should get back the first class we created, rather than a new one.
+<<<<<<< HEAD
         badge_class = badge_service.get_badge_class(
             slug='test_slug', issuing_component='test_component', description='Attempted override',
             criteria='test', display_name='Testola', image_file_handle=get_image('good')
         )
+=======
+        with get_image('good') as image_handle:
+            badge_class = badge_service.get_badge_class(
+                slug='test_slug', issuing_component='test_component', description='Attempted override',
+                criteria='test', display_name='Testola', image_file_handle=image_handle
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # These defaults are set on the factory.
         assert badge_class.criteria == 'https://example.com/syllabus'
         assert badge_class.display_name == 'Test Badge'
@@ -244,9 +279,14 @@ class TestI18nService(ModuleStoreTestCase):
             static_url='/static',
             track_function=Mock(),
             get_module=Mock(),
+<<<<<<< HEAD
             render_template=Mock(),
             replace_urls=str,
             course_id=self.course.id,
+=======
+            course_id=self.course.id,
+            user=Mock(),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             descriptor_runtime=Mock(),
         )
 

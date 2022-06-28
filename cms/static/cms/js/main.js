@@ -12,7 +12,11 @@ define([
 ], function(domReady, $, _, str, Backbone, gettext, NotificationView) {
     'use strict';
 
+<<<<<<< HEAD
     var main, sendJSON;
+=======
+    var main, sendJSON, sendFormData, receiveFormData;
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     main = function() {
         AjaxPrefix.addAjaxPrefix(jQuery, function() {
             return $("meta[name='path_prefix']").attr('content');
@@ -69,12 +73,51 @@ define([
                 global: data ? data.global : true    // Trigger global AJAX error handler or not
             });
         };
+<<<<<<< HEAD
         $.postJSON = function(url, data, callback) {  // eslint-disable-line no-param-reassign
             return sendJSON(url, data, callback, 'POST');
         };
         $.patchJSON = function(url, data, callback) {  // eslint-disable-line no-param-reassign
             return sendJSON(url, data, callback, 'PATCH');
         };
+=======
+        sendFormData = function(url, data, callback, type) {  // eslint-disable-line no-param-reassign
+            if ($.isFunction(data)) {
+
+                callback = data;
+                data = undefined;
+            }
+            return $.ajax({
+                
+                url: url,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                
+                data: data,
+                success: callback,
+                global: data ? data.global : true    // Trigger global AJAX error handler or not
+            });
+        };
+        
+        
+        $.postJSON = function(url, data, callback) {  // eslint-disable-line no-param-reassign
+            return sendJSON(url, data, callback, 'POST');
+        };
+
+
+        $.getFiles = function(url, data, callback) {  // eslint-disable-line no-param-reassign
+            return sendJSON(url, data, callback, 'POST');
+        };
+
+
+        $.patchJSON = function(url, data, callback) {  // eslint-disable-line no-param-reassign
+            return sendJSON(url, data, callback, 'PATCH');
+        };
+        $.postFormData = function(url, data, callback) {  // eslint-disable-line no-param-reassign
+            return sendFormData(url, data, callback, 'POST');
+        };
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return domReady(function() {
             if (window.onTouchBasedDevice()) {
                 return $('body').addClass('touch-based-device');
@@ -84,4 +127,8 @@ define([
     };
     main();
     return main;
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

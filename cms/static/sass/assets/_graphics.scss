@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 // studio - assets - graphics
 // ====================
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 .drag-handle {
   display: inline-block;
@@ -29,7 +32,11 @@
   display: inline-block;
   width: ($baseline*3);
   height: ($baseline*3);
+<<<<<<< HEAD
   background: url('#{$static-path}/images/large-html-icon.png') center no-repeat;
+=======
+  background: url('#{$static-path}/images/large-text-icon.png') center no-repeat;
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 }
 
 .large-problem-icon {
@@ -52,3 +59,13 @@
   height: ($baseline*3);
   background: url('#{$static-path}/images/large-openassessment-icon.png') center no-repeat;
 }
+<<<<<<< HEAD
+=======
+
+.large-pdf-icon {
+  display: inline-block;
+  width: ($baseline*3);
+  height: ($baseline*3);
+  background: url('#{$static-path}/images/large-pdf-icon.png') center no-repeat;
+}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

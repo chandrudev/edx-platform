@@ -23,6 +23,10 @@ from xblock.core import XBlock
 
 from xmodule.course_module import Textbook
 from xmodule.modulestore import ModuleStoreEnum, prefer_xmodules
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.mixed import strip_key
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.tests.sample_courses import TOY_BLOCK_INFO_TREE, default_block_info_tree
 from xmodule.tabs import CourseTab
 
@@ -324,6 +328,10 @@ class ItemFactory(XModuleFactory):
         return parent.location
 
     @classmethod
+<<<<<<< HEAD
+=======
+    @strip_key
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _create(cls, target_class, **kwargs):  # lint-amnesty, pylint: disable=arguments-differ, too-many-statements, unused-argument
         """
         Uses ``**kwargs``:
@@ -365,6 +373,12 @@ class ItemFactory(XModuleFactory):
         submission_start = kwargs.pop('submission_start', None)
         submission_end = kwargs.pop('submission_end', None)
 
+<<<<<<< HEAD
+=======
+        # Remove this variable passed in by `strip_key`
+        kwargs.pop('field_decorator')
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Remove the descriptive_tag, it's just for generating display_name,
         # and doesn't need to be passed into the object constructor
         kwargs.pop('descriptive_tag')

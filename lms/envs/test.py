@@ -25,7 +25,11 @@ from path import Path as path
 from openedx.core.djangoapps.plugins.constants import ProjectType, SettingsType
 from openedx.core.lib.derived import derive_settings
 from openedx.core.lib.tempdir import mkdtemp_clean
+<<<<<<< HEAD
 from xmodule.modulestore.modulestore_settings import update_module_store_settings
+=======
+from xmodule.modulestore.modulestore_settings import update_module_store_settings  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .common import *
 
@@ -223,6 +227,7 @@ CACHES = {
     },
 }
 
+<<<<<<< HEAD
 ############################### BLOCKSTORE #####################################
 # Blockstore tests
 RUN_BLOCKSTORE_TESTS = os.environ.get('EDXAPP_RUN_BLOCKSTORE_TESTS', 'no').lower() in ('true', 'yes', '1')
@@ -233,6 +238,8 @@ XBLOCK_RUNTIME_V2_EPHEMERAL_DATA_CACHE = 'blockstore'  # This must be set to a w
 # Dummy secret key for dev
 SECRET_KEY = '85920908f28904ed733fe576320db18cabd7b6cd'
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ############################# SECURITY SETTINGS ################################
 # Default to advanced security in common.py, so tests can reset here to use
 # a simpler security model
@@ -314,7 +321,11 @@ ENTERPRISE_MARKETING_FOOTER_QUERY_PARAMS = OrderedDict([
 ############################ STATIC FILES #############################
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_ROOT = TEST_ROOT / "uploads"
+<<<<<<< HEAD
 MEDIA_URL = "/static/uploads/"
+=======
+MEDIA_URL = "/uploads/"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 STATICFILES_DIRS.append(("uploads", MEDIA_ROOT))
 
 _NEW_STATICFILES_DIRS = []
@@ -477,6 +488,11 @@ COMPREHENSIVE_THEME_DIRS = [REPO_ROOT / "themes", REPO_ROOT / "common/test"]
 COMPREHENSIVE_THEME_LOCALE_PATHS = [REPO_ROOT / "themes/conf/locale", ]
 ENABLE_COMPREHENSIVE_THEMING = True
 
+<<<<<<< HEAD
+=======
+PREPEND_LOCALE_PATHS = []
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 LMS_ROOT_URL = "http://localhost:8000"
 
 # Needed for derived settings used by cms only.
@@ -492,9 +508,33 @@ ECOMMERCE_PUBLIC_URL_ROOT = None
 ENTERPRISE_API_URL = 'http://enterprise.example.com/enterprise/api/v1/'
 ENTERPRISE_CONSENT_API_URL = 'http://enterprise.example.com/consent/api/v1/'
 
+<<<<<<< HEAD
 ACTIVATION_EMAIL_FROM_ADDRESS = 'test_activate@edx.org'
 
 TEMPLATES[0]['OPTIONS']['debug'] = True
+=======
+########################## ENTERPRISE LEARNER PORTAL ##############################
+ENTERPRISE_LEARNER_PORTAL_NETLOC = 'example.com:8734'
+ENTERPRISE_LEARNER_PORTAL_BASE_URL = 'http://' + ENTERPRISE_LEARNER_PORTAL_NETLOC
+
+ACTIVATION_EMAIL_FROM_ADDRESS = 'test_activate@edx.org'
+
+TEMPLATES[0]['OPTIONS']['debug'] = True
+TEMPLATES.append(
+    {
+        # This separate copy of the Mako backend is used to test rendering previews in the 'lms.main' namespace
+        'NAME': 'preview',
+        'BACKEND': 'common.djangoapps.edxmako.backend.Mako',
+        'APP_DIRS': False,
+        'DIRS': MAKO_TEMPLATE_DIRS_BASE,
+        'OPTIONS': {
+            'context_processors': CONTEXT_PROCESSORS,
+            'debug': False,
+            'namespace': 'lms.main',
+        }
+    }
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 ########################## VIDEO TRANSCRIPTS STORAGE ############################
 VIDEO_TRANSCRIPTS_SETTINGS = dict(
@@ -537,6 +577,27 @@ add_plugins(__name__, ProjectType.LMS, SettingsType.TEST)
 
 derive_settings(__name__)
 
+<<<<<<< HEAD
+=======
+############################### BLOCKSTORE #####################################
+# Blockstore tests
+RUN_BLOCKSTORE_TESTS = os.environ.get('EDXAPP_RUN_BLOCKSTORE_TESTS', 'no').lower() in ('true', 'yes', '1')
+BLOCKSTORE_USE_BLOCKSTORE_APP_API = not RUN_BLOCKSTORE_TESTS
+BLOCKSTORE_API_URL = os.environ.get('EDXAPP_BLOCKSTORE_API_URL', "http://edx.devstack.blockstore-test:18251/api/v1/")
+BLOCKSTORE_API_AUTH_TOKEN = os.environ.get('EDXAPP_BLOCKSTORE_API_AUTH_TOKEN', 'edxapp-test-key')
+XBLOCK_RUNTIME_V2_EPHEMERAL_DATA_CACHE = 'blockstore'  # This must be set to a working cache for the tests to pass
+BUNDLE_ASSET_STORAGE_SETTINGS = dict(
+    STORAGE_CLASS='django.core.files.storage.FileSystemStorage',
+    STORAGE_KWARGS=dict(
+        location=MEDIA_ROOT,
+        base_url=MEDIA_URL,
+    ),
+)
+
+# Dummy secret key for dev
+SECRET_KEY = '85920908f28904ed733fe576320db18cabd7b6cd'
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ############### Settings for edx-rbac  ###############
 SYSTEM_WIDE_ROLE_CLASSES = os.environ.get("SYSTEM_WIDE_ROLE_CLASSES", [])
 
@@ -565,6 +626,10 @@ ACCOUNT_MICROFRONTEND_URL = "http://account-mfe"
 AUTHN_MICROFRONTEND_URL = "http://authn-mfe"
 AUTHN_MICROFRONTEND_DOMAIN = "authn-mfe"
 LEARNING_MICROFRONTEND_URL = "http://learning-mfe"
+<<<<<<< HEAD
+=======
+DISCUSSIONS_MICROFRONTEND_URL = "http://discussions-mfe"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 ########################## limiting dashboard courses ######################
 
@@ -594,12 +659,26 @@ LOGIN_AND_REGISTER_FORM_RATELIMIT = '5/5m'
 
 REGISTRATION_VALIDATION_RATELIMIT = '5/minute'
 REGISTRATION_RATELIMIT = '5/minute'
+<<<<<<< HEAD
+=======
+OPTIONAL_FIELD_API_RATELIMIT = '5/m'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 RESET_PASSWORD_TOKEN_VALIDATE_API_RATELIMIT = '2/m'
 RESET_PASSWORD_API_RATELIMIT = '2/m'
 
 CORS_ORIGIN_WHITELIST = ['https://sandbox.edx.org']
 
+<<<<<<< HEAD
+=======
+# enable /api/v1/save/course/ api for testing
+ENABLE_SAVE_FOR_LATER = True
+
+# rate limit for /api/v1/save/course/ api
+SAVE_FOR_LATER_IP_RATE_LIMIT = '5/d'
+SAVE_FOR_LATER_EMAIL_RATE_LIMIT = '5/m'
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #################### Network configuration ####################
 # Tests are not behind any proxies
 CLOSEST_CLIENT_IP_FROM_HEADERS = []

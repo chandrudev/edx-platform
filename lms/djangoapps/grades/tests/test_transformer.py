@@ -9,15 +9,24 @@ from copy import deepcopy
 
 import ddt
 import pytz
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import check_mongo_calls
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.course_blocks.api import get_course_blocks
 from lms.djangoapps.course_blocks.transformers.tests.helpers import CourseStructureTestCase
 from openedx.core.djangoapps.content.block_structure.api import clear_course_from_cache
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import check_mongo_calls
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..transformer import GradesTransformer
 
@@ -49,7 +58,11 @@ class GradesTransformerTestCase(CourseStructureTestCase):
         Helper to update a course's grading policy in the modulestore.
         """
         course.set_grading_policy(grading_policy)
+<<<<<<< HEAD
         modulestore().update_item(course, self.user.id)
+=======
+        self.update_course(course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def _validate_grading_policy_hash(self, course_location, grading_policy_hash):
         """
@@ -115,10 +128,17 @@ class GradesTransformerTestCase(CourseStructureTestCase):
                 '#ref': 'course',
                 '#children': [
                     {
+<<<<<<< HEAD
                         'metadata': metadata,
                         '#type': 'problem',
                         '#ref': 'problem',
                         'data': data,
+=======
+                        '#type': 'problem',
+                        '#ref': 'problem',
+                        'data': data,
+                        **metadata,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     }
                 ]
             }
@@ -369,13 +389,22 @@ class GradesTransformerTestCase(CourseStructureTestCase):
         )
 
     def test_course_version_not_collected_in_old_mongo(self):
+<<<<<<< HEAD
         blocks = self.build_course_with_problems()
+=======
+        with self.store.default_store(ModuleStoreEnum.Type.mongo):
+            blocks = self.build_course_with_problems()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         block_structure = get_course_blocks(self.student, blocks['course'].location, self.transformers)
         assert block_structure.get_xblock_field(blocks['course'].location, 'course_version') is None
 
     def test_course_version_collected_in_split(self):
+<<<<<<< HEAD
         with self.store.default_store(ModuleStoreEnum.Type.split):
             blocks = self.build_course_with_problems()
+=======
+        blocks = self.build_course_with_problems()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         block_structure = get_course_blocks(self.student, blocks['course'].location, self.transformers)
         assert block_structure.get_xblock_field(blocks['course'].location, 'course_version') is not None
         assert block_structure.get_xblock_field(
@@ -430,7 +459,11 @@ class MultiProblemModulestoreAccessTestCase(CourseStructureTestCase, SharedModul
         self.client.login(username=self.student.username, password=password)
 
     @ddt.data(
+<<<<<<< HEAD
         (ModuleStoreEnum.Type.split, 3),
+=======
+        (ModuleStoreEnum.Type.split, 2),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         (ModuleStoreEnum.Type.mongo, 2),
     )
     @ddt.unpack

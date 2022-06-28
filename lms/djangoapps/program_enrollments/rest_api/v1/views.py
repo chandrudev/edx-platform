@@ -770,7 +770,11 @@ class UserProgramReadOnlyAccessView(DeveloperErrorViewMixin, PaginatedAPIView):
                 if course_run_program and course_run_program.get('type').lower() == program_type_filter:
                     program_dict[course_run_program['uuid']] = course_run_program
 
+<<<<<<< HEAD
         return program_dict.values()  # lint-amnesty, pylint: disable=dict-values-not-iterating
+=======
+        return program_dict.values()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class UserProgramCourseEnrollmentView(

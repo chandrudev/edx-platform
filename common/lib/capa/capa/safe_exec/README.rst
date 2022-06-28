@@ -15,11 +15,16 @@ CodeJail`__, with a few customized tweaks.
 __ https://github.com/edx/codejail/blob/master/README.rst
 
 
+<<<<<<< HEAD
 1. At the instruction to install packages into the sandboxed code, you'll 
+=======
+1. At the instruction to install packages into the sandboxed code, you'll
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
    need to install the requirements from requirements/edx-sandbox::
 
     $ pip install -r requirements/edx-sandbox/base.txt
 
+<<<<<<< HEAD
 2. At the instruction to create the AppArmor profile, you'll need a line in
    the profile for the sandbox packages.  <EDXPLATFORM> is the full path to
    your edx_platform repo::
@@ -27,6 +32,9 @@ __ https://github.com/edx/codejail/blob/master/README.rst
     <EDXPLATFORM>/common/lib/sandbox-packages/** r,
 
 3. You can configure resource limits in settings.py.  A CODE_JAIL setting is
+=======
+2. You can configure resource limits in settings.py.  A CODE_JAIL setting is
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
    available, a dictionary.  The "limits" key lets you adjust the limits for
    CPU time, real time, and memory use.  Setting any of them to zero disables
    that limit::

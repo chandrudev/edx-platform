@@ -64,10 +64,18 @@ class Oauth2ProviderConfigAdminTest(testutil.TestCase):
         # Remove the icon_image from the POST data, to simulate unchanged icon_image
         post_data = models.model_to_dict(provider1)
         del post_data['icon_image']
+<<<<<<< HEAD
         # Remove max_session_length and organization. A default null value must be POSTed
         # back as an absent value, rather than as a "null-like" included value.
         del post_data['max_session_length']
         del post_data['organization']
+=======
+        # Remove max_session_length, was_valid_at and organization. A default null value must be POSTed
+        # back as an absent value, rather than as a "null-like" included value.
+        del post_data['max_session_length']
+        del post_data['organization']
+        del post_data['was_valid_at']
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Change the name, to verify POST
         post_data['name'] = 'Another name'

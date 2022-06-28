@@ -8,6 +8,7 @@ from unittest import mock
 
 import ddt
 from django.test.client import Client, RequestFactory
+<<<<<<< HEAD
 from xblock.core import XBlock, XBlockAside
 
 from cms.djangoapps.contentstore.utils import reverse_usage_url
@@ -18,6 +19,27 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.modulestore.tests.test_asides import AsideTestType
+=======
+from django.test.utils import override_settings
+from edx_toggles.toggles.testutils import override_waffle_flag
+from web_fragments.fragment import Fragment
+from xblock.core import XBlock, XBlockAside
+
+from xmodule.contentstore.django import contentstore
+from xmodule.lti_module import LTIBlock
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.tests.django_utils import (
+    TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase, upload_file_to_course,
+)
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from xmodule.modulestore.tests.test_asides import AsideTestType
+from cms.djangoapps.contentstore.utils import reverse_usage_url
+from cms.djangoapps.contentstore.toggles import INDIVIDUALIZE_ANONYMOUS_USER_ID
+from cms.djangoapps.xblock_config.models import StudioConfig
+from common.djangoapps import static_replace
+from common.djangoapps.student.tests.factories import UserFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..preview import _preview_module_system, get_preview_fragment
 
@@ -168,13 +190,28 @@ class GetPreviewHtmlTestCase(ModuleStoreTestCase):
 
 @XBlock.needs("field-data")
 @XBlock.needs("i18n")
+<<<<<<< HEAD
+=======
+@XBlock.needs("mako")
+@XBlock.needs("replace_urls")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @XBlock.needs("user")
 @XBlock.needs("teams_configuration")
 class PureXBlock(XBlock):
     """
     Pure XBlock to use in tests.
     """
+<<<<<<< HEAD
     pass  # lint-amnesty, pylint: disable=unnecessary-pass
+=======
+    def student_view(self, context):
+        """
+        Renders the output that a student will see.
+        """
+        fragment = Fragment()
+        fragment.add_content(self.runtime.service(self, 'mako').render_template('edxmako.html', context))
+        return fragment
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
@@ -193,7 +230,11 @@ class StudioXBlockServiceBindingTest(ModuleStoreTestCase):
         self.field_data = mock.Mock()
 
     @XBlock.register_temp_plugin(PureXBlock, identifier='pure')
+<<<<<<< HEAD
     @ddt.data("user", "i18n", "field-data", "teams_configuration")
+=======
+    @ddt.data("user", "i18n", "field-data", "teams_configuration", "replace_urls")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_expected_services_exist(self, expected_service):
         """
         Tests that the 'user' and 'i18n' services are provided by the Studio runtime.
@@ -206,3 +247,105 @@ class StudioXBlockServiceBindingTest(ModuleStoreTestCase):
         )
         service = runtime.service(descriptor, expected_service)
         self.assertIsNotNone(service)
+<<<<<<< HEAD
+=======
+
+
+class CmsModuleSystemShimTest(ModuleStoreTestCase):
+    """
+    Tests that the deprecated attributes in the Module System (XBlock Runtime) return the expected values.
+    """
+    MODULESTORE = TEST_DATA_MONGO_MODULESTORE
+    COURSE_ID = 'edX/CmsModuleShimTest/2021_Fall'
+    PYTHON_LIB_FILENAME = 'test_python_lib.zip'
+    PYTHON_LIB_SOURCE_FILE = './common/test/data/uploads/python_lib.zip'
+
+    def setUp(self):
+        """
+        Set up the user, course and other fields that will be used to instantiate the runtime.
+        """
+        super().setUp()
+        org, number, run = self.COURSE_ID.split('/')
+        self.course = CourseFactory.create(org=org, number=number, run=run)
+        self.user = UserFactory()
+        self.request = RequestFactory().get('/dummy-url')
+        self.request.user = self.user
+        self.request.session = {}
+        self.descriptor = ItemFactory(category="video", parent=self.course)
+        self.field_data = mock.Mock()
+        self.contentstore = contentstore()
+        self.runtime = _preview_module_system(
+            self.request,
+            descriptor=ItemFactory(category="problem", parent=self.course),
+            field_data=mock.Mock(),
+        )
+
+    def test_get_user_role(self):
+        assert self.runtime.get_user_role() == 'staff'
+
+    @XBlock.register_temp_plugin(PureXBlock, identifier='pure')
+    def test_render_template(self):
+        descriptor = ItemFactory(category="pure", parent=self.course)
+        html = get_preview_fragment(self.request, descriptor, {'element_id': 142}).content
+        assert '<div id="142" ns="main">Testing the MakoService</div>' in html
+
+    @override_settings(COURSES_WITH_UNSAFE_CODE=[COURSE_ID])
+    def test_can_execute_unsafe_code(self):
+        assert self.runtime.can_execute_unsafe_code()
+
+    def test_cannot_execute_unsafe_code(self):
+        assert not self.runtime.can_execute_unsafe_code()
+
+    @override_settings(PYTHON_LIB_FILENAME=PYTHON_LIB_FILENAME)
+    def test_get_python_lib_zip(self):
+        zipfile = upload_file_to_course(
+            course_key=self.course.id,
+            contentstore=self.contentstore,
+            source_file=self.PYTHON_LIB_SOURCE_FILE,
+            target_filename=self.PYTHON_LIB_FILENAME,
+        )
+        assert self.runtime.get_python_lib_zip() == zipfile
+
+    def test_no_get_python_lib_zip(self):
+        zipfile = upload_file_to_course(
+            course_key=self.course.id,
+            contentstore=self.contentstore,
+            source_file=self.PYTHON_LIB_SOURCE_FILE,
+            target_filename=self.PYTHON_LIB_FILENAME,
+        )
+        assert self.runtime.get_python_lib_zip() is None
+
+    def test_cache(self):
+        assert hasattr(self.runtime.cache, 'get')
+        assert hasattr(self.runtime.cache, 'set')
+
+    def test_replace_urls(self):
+        html = '<a href="/static/id">'
+        assert self.runtime.replace_urls(html) == \
+            static_replace.replace_static_urls(html, course_id=self.runtime.course_id)
+
+    def test_anonymous_user_id_preview(self):
+        assert self.runtime.anonymous_student_id == 'student'
+
+    @override_waffle_flag(INDIVIDUALIZE_ANONYMOUS_USER_ID, active=True)
+    def test_anonymous_user_id_individual_per_student(self):
+        """Test anonymous_user_id on a block which uses per-student anonymous IDs"""
+        # Create the runtime with the flag turned on.
+        runtime = _preview_module_system(
+            self.request,
+            descriptor=ItemFactory(category="problem", parent=self.course),
+            field_data=mock.Mock(),
+        )
+        assert runtime.anonymous_student_id == '26262401c528d7c4a6bbeabe0455ec46'
+
+    @override_waffle_flag(INDIVIDUALIZE_ANONYMOUS_USER_ID, active=True)
+    def test_anonymous_user_id_individual_per_course(self):
+        """Test anonymous_user_id on a block which uses per-course anonymous IDs"""
+        # Create the runtime with the flag turned on.
+        runtime = _preview_module_system(
+            self.request,
+            descriptor=ItemFactory(category="lti", parent=self.course, spec=LTIBlock),
+            field_data=mock.Mock(),
+        )
+        assert runtime.anonymous_student_id == 'cf99fd26f9a41d4d9b4069739cc2be7b'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -29,7 +29,11 @@ class ProgramDetailsSidebarView extends Backbone.View {
     this.industryPathways = options.industryPathways;
     this.creditPathways = options.creditPathways;
     this.programModel = options.model;
+<<<<<<< HEAD
     this.programDiscussionEnabled =  options.programDiscussionEnabled;
+=======
+    this.programTabViewEnabled =  options.programTabViewEnabled;
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     this.render();
   }
 
@@ -40,7 +44,11 @@ class ProgramDetailsSidebarView extends Backbone.View {
       programRecordUrl: this.programRecordUrl,
       industryPathways: this.industryPathways,
       creditPathways: this.creditPathways,
+<<<<<<< HEAD
       programDiscussionEnabled: this.programDiscussionEnabled
+=======
+      programTabViewEnabled: this.programTabViewEnabled
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     });
 
     HtmlUtils.setHtml(this.$el, this.tpl(data));

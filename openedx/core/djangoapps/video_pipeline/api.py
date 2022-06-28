@@ -7,7 +7,11 @@ import logging
 
 from django.core.exceptions import ObjectDoesNotExist
 from oauth2_provider.models import Application
+<<<<<<< HEAD
 from slumber.exceptions import HttpClientError
+=======
+from requests.exceptions import HTTPError
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from openedx.core.djangoapps.video_pipeline.models import VEMPipelineIntegration
 from openedx.core.djangoapps.video_pipeline.utils import create_video_pipeline_api_client
@@ -29,14 +33,22 @@ def send_transcript_credentials(pipeline_integration, credentials_payload):
         oauth_client.client_id,
         oauth_client.client_secret
     )
+<<<<<<< HEAD
     error_message = "Unable to update transcript credentials -- org={}, provider={}, response={}"
     try:
         response = client.request("POST", pipeline_integration.api_url, json=credentials_payload)
+=======
+    error_message = "Unable to update transcript credentials -- org=%s, provider=%s, response=%s"
+    try:
+        response = client.post(pipeline_integration.api_url, json=credentials_payload)
+        response.raise_for_status()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if response.ok:
             is_updated = True
         else:
             is_updated = False
             error_response = json.loads(response.text)
+<<<<<<< HEAD
             log.error(error_message.format(
                 credentials_payload.get('org'),
                 credentials_payload.get('provider'),
@@ -50,6 +62,23 @@ def send_transcript_credentials(pipeline_integration, credentials_payload):
             ex.content
         ))
         error_response = json.loads(ex.content)
+=======
+            log.error(
+                error_message,
+                credentials_payload.get('org'),
+                credentials_payload.get('provider'),
+                response.text
+            )
+    except HTTPError as ex:
+        is_updated = False
+        log.exception(
+            error_message,
+            credentials_payload.get('org'),
+            credentials_payload.get('provider'),
+            ex.response.content
+        )
+        error_response = json.loads(ex.response.content)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     return error_response, is_updated
 

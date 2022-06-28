@@ -11,8 +11,13 @@ import requests
 from django.urls import NoReverseMatch, reverse
 
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 IMAGE_BOOK = ("An Image Textbook", "http://example.com/the_book/")
 
@@ -209,7 +214,11 @@ class StaticPdfBookTest(StaticBookTest):
         url = self.make_url('pdf_book', book_index=0, chapter=1)
         response = self.client.get(url)
         self.assertNotContains(response, 'file={}'.format(PORTABLE_PDF_BOOK['chapters'][0]['url']))
+<<<<<<< HEAD
         self.assertContains(response, 'file=/c4x/{0.org}/{0.course}/asset/{1}'.format(
+=======
+        self.assertContains(response, 'file=/asset-v1:{0.org}+{0.course}+{0.run}+type@asset+block/{1}'.format(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             self.course.location,
             PORTABLE_PDF_BOOK['chapters'][0]['url'].replace('/static/', '')))
 

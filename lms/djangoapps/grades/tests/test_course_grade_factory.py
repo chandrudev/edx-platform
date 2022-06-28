@@ -2,11 +2,16 @@
 Tests for the CourseGradeFactory class.
 """
 import itertools
+<<<<<<< HEAD
 from unittest.mock import patch
+=======
+from unittest.mock import patch, Mock
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 import ddt
 from django.conf import settings
 from edx_toggles.toggles.testutils import override_waffle_switch
+<<<<<<< HEAD
 
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.courseware.access import has_access
@@ -16,6 +21,20 @@ from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
 from ..config.waffle import ASSUME_ZERO_GRADE_IF_ABSENT, waffle_switch
+=======
+import pytest
+
+from common.djangoapps.student.tests.factories import UserFactory
+from lms.djangoapps.certificates.config import AUTO_CERTIFICATE_GENERATION
+from lms.djangoapps.courseware.access import has_access
+from lms.djangoapps.grades.config.tests.utils import persistent_grades_feature_flags
+from openedx.core.djangoapps.content.block_structure.factory import BlockStructureFactory
+from openedx.core.djangoapps.signals.signals import COURSE_GRADE_NOW_PASSED
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+
+from ..config.waffle import ASSUME_ZERO_GRADE_IF_ABSENT
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..course_grade import CourseGrade, ZeroCourseGrade
 from ..course_grade_factory import CourseGradeFactory
 from ..subsection_grade import ReadSubsectionGrade, ZeroSubsectionGrade
@@ -73,6 +92,38 @@ class TestCourseGradeFactory(GradeTestBase):
                 grade_factory.read(self.request.user, self.course)
         assert mock_read_grade.called == (feature_flag and course_setting)
 
+<<<<<<< HEAD
+=======
+    @patch.dict(settings.FEATURES, {'PERSISTENT_GRADES_ENABLED_FOR_ALL_TESTS': False})
+    def test_no_recursion_without_persistent_grades(self):
+        """
+        Course grade signals should not be fired recursively when persistent grades are disabled.
+        """
+        self.mock_process_signal = Mock()  # pylint: disable=attribute-defined-outside-init
+
+        def handler(**kwargs):
+            """
+            Mock signal receiver.
+            """
+            self.mock_process_signal()
+
+        with persistent_grades_feature_flags(
+            global_flag=False,
+            enabled_for_all_courses=False,
+            course_id=self.course.id,
+            enabled_for_course=False
+        ):
+            with override_waffle_switch(AUTO_CERTIFICATE_GENERATION, active=True), mock_get_score(2, 2):
+                COURSE_GRADE_NOW_PASSED.connect(handler)
+                try:
+                    CourseGradeFactory().update(self.request.user, self.course)
+                except RecursionError:
+                    pytest.fail("The COURSE_GRADE_NOW_PASSED signal fired recursively.")
+
+        self.mock_process_signal.assert_called_once()
+        COURSE_GRADE_NOW_PASSED.disconnect(handler)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_read_and_update(self):
         grade_factory = CourseGradeFactory()
 
@@ -95,6 +146,7 @@ class TestCourseGradeFactory(GradeTestBase):
                 self.sequence2.display_name
             ]
 
+<<<<<<< HEAD
         with self.assertNumQueries(5), mock_get_score(1, 2):
             _assert_read(expected_pass=False, expected_percent=0)  # start off with grade of 0
 
@@ -124,13 +176,48 @@ class TestCourseGradeFactory(GradeTestBase):
             grade_factory.update(self.request.user, self.course, force_update_subsections=True)
 
         with self.assertNumQueries(4):
+=======
+        with self.assertNumQueries(4), mock_get_score(1, 2):
+            _assert_read(expected_pass=False, expected_percent=0)  # start off with grade of 0
+
+        num_queries = 42
+        with self.assertNumQueries(num_queries), mock_get_score(1, 2):
+            grade_factory.update(self.request.user, self.course, force_update_subsections=True)
+
+        with self.assertNumQueries(3):
+            _assert_read(expected_pass=True, expected_percent=0.5)  # updated to grade of .5
+
+        num_queries = 6
+        with self.assertNumQueries(num_queries), mock_get_score(1, 4):
+            grade_factory.update(self.request.user, self.course, force_update_subsections=False)
+
+        with self.assertNumQueries(3):
+            _assert_read(expected_pass=True, expected_percent=0.5)  # NOT updated to grade of .25
+
+        num_queries = 18
+        with self.assertNumQueries(num_queries), mock_get_score(2, 2):
+            grade_factory.update(self.request.user, self.course, force_update_subsections=True)
+
+        with self.assertNumQueries(3):
+            _assert_read(expected_pass=True, expected_percent=1.0)  # updated to grade of 1.0
+
+        num_queries = 28
+        with self.assertNumQueries(num_queries), mock_get_score(0, 0):  # the subsection now is worth zero
+            grade_factory.update(self.request.user, self.course, force_update_subsections=True)
+
+        with self.assertNumQueries(3):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             _assert_read(expected_pass=False, expected_percent=0.0)  # updated to grade of 0.0
 
     @patch.dict(settings.FEATURES, {'ASSUME_ZERO_GRADE_IF_ABSENT_FOR_ALL_TESTS': False})
     @ddt.data(*itertools.product((True, False), (True, False)))
     @ddt.unpack
     def test_read_zero(self, assume_zero_enabled, create_if_needed):
+<<<<<<< HEAD
         with override_waffle_switch(waffle_switch(ASSUME_ZERO_GRADE_IF_ABSENT), active=assume_zero_enabled):
+=======
+        with override_waffle_switch(ASSUME_ZERO_GRADE_IF_ABSENT, active=assume_zero_enabled):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             grade_factory = CourseGradeFactory()
             course_grade = grade_factory.read(self.request.user, self.course, create_if_needed=create_if_needed)
             if create_if_needed or assume_zero_enabled:
@@ -279,7 +366,11 @@ class TestGradeIteration(SharedModuleStoreTestCase):
         iterator, but it shouldn't error.
         """
         grade_results = list(CourseGradeFactory().iter([], self.course))
+<<<<<<< HEAD
         assert grade_results == []
+=======
+        assert not grade_results
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_all_empty_grades(self):
         """
@@ -316,7 +407,11 @@ class TestGradeIteration(SharedModuleStoreTestCase):
             else mock_course_grade.return_value
             for student in self.students
         ]
+<<<<<<< HEAD
         with self.assertNumQueries(8):
+=======
+        with self.assertNumQueries(9):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             all_course_grades, all_errors = self._course_grades_and_errors_for(self.course, self.students)
         assert {student: str(all_errors[student]) for student in all_errors} == {
             student3: 'Error for student3.',

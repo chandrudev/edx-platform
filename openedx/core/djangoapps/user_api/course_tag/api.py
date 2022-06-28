@@ -69,6 +69,12 @@ def get_course_tag(user, course_id, key):
     Returns:
         string value, or None if there is no value saved
     """
+<<<<<<< HEAD
+=======
+    if user.is_anonymous:
+        return None
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if BulkCourseTags.is_prefetched(course_id):
         try:
             return BulkCourseTags.get_course_tag(user.id, course_id, key)
@@ -104,6 +110,12 @@ def set_course_tag(user, course_id, key, value):
     # simultaneous calls from many processes. Handle by retrying after
     # a short delay?
 
+<<<<<<< HEAD
+=======
+    if not user.id:
+        return
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     record, _ = UserCourseTag.objects.get_or_create(
         user=user,
         course_id=course_id,

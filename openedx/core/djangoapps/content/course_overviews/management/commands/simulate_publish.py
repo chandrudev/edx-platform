@@ -25,7 +25,11 @@ from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from openedx.core.djangoapps.content.course_overviews.models import SimulateCoursePublishConfig
 from lms.djangoapps.ccx.tasks import course_published_handler as ccx_receiver_fn
+<<<<<<< HEAD
 from xmodule.modulestore.django import SignalHandler, modulestore
+=======
+from xmodule.modulestore.django import SignalHandler, modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger('simulate_publish')
 
@@ -85,7 +89,11 @@ class Command(BaseCommand):
             dest='show_receivers',
             action='store_true',
             help=('Display the list of possible receiver functions and exit.')
+<<<<<<< HEAD
         ),  # lint-amnesty, pylint: disable=trailing-comma-tuple
+=======
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         parser.add_argument(
             '--dry-run',
             dest='dry_run',
@@ -95,7 +103,11 @@ class Command(BaseCommand):
                 "expensive modulestore query to find courses, but it will "
                 "not emit any signals."
             )
+<<<<<<< HEAD
         ),  # lint-amnesty, pylint: disable=trailing-comma-tuple
+=======
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         parser.add_argument(
             '--receivers',
             dest='receivers',
@@ -141,7 +153,11 @@ class Command(BaseCommand):
                 "process. However, if you know what you're doing and need to "
                 "override that behavior, use this flag."
             )
+<<<<<<< HEAD
         ),  # lint-amnesty, pylint: disable=trailing-comma-tuple
+=======
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         parser.add_argument(
             '--skip-ccx',
             dest='skip_ccx',
@@ -155,12 +171,20 @@ class Command(BaseCommand):
                 "if you know what you're doing, you can disable this behavior "
                 "with this flag, so that CCX receivers are omitted."
             )
+<<<<<<< HEAD
         ),  # lint-amnesty, pylint: disable=trailing-comma-tuple
+=======
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         parser.add_argument(
             '--args-from-database',
             action='store_true',
             help='Use arguments from the SimulateCoursePublishConfig model instead of the command line.',
+<<<<<<< HEAD
         ),  # lint-amnesty, pylint: disable=trailing-comma-tuple
+=======
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def get_args_from_database(self):
         """ Returns an options dictionary from the current SimulateCoursePublishConfig model. """

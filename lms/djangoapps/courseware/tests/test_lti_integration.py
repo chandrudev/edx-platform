@@ -10,12 +10,22 @@ import oauthlib
 from django.conf import settings
 from django.urls import reverse
 
+<<<<<<< HEAD
 from lms.djangoapps.courseware.tests.helpers import BaseTestXmodule
 from lms.djangoapps.courseware.views.views import get_course_lti_endpoints
 from openedx.core.lib.url_utils import quote_slashes
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.x_module import STUDENT_VIEW
+=======
+from common.djangoapps.xblock_django.constants import ATTR_KEY_ANONYMOUS_USER_ID
+from lms.djangoapps.courseware.tests.helpers import BaseTestXmodule
+from lms.djangoapps.courseware.views.views import get_course_lti_endpoints
+from openedx.core.lib.url_utils import quote_slashes
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.x_module import STUDENT_VIEW  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestLTI(BaseTestXmodule):
@@ -40,7 +50,12 @@ class TestLTI(BaseTestXmodule):
 
         # Note: this course_id is actually a course_key
         context_id = str(self.item_descriptor.course_id)
+<<<<<<< HEAD
         user_id = str(self.item_descriptor.xmodule_runtime.anonymous_student_id)
+=======
+        user_service = self.item_descriptor.xmodule_runtime.service(self.item_descriptor, 'user')
+        user_id = str(user_service.get_current_user().opt_attrs.get(ATTR_KEY_ANONYMOUS_USER_ID))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         hostname = self.item_descriptor.xmodule_runtime.hostname
         resource_link_id = str(urllib.parse.quote(f'{hostname}-{self.item_descriptor.location.html_id()}'))
 

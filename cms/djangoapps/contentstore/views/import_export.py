@@ -20,6 +20,10 @@ from django.core.files.storage import FileSystemStorage
 from django.db import transaction
 from django.http import Http404, HttpResponse, HttpResponseNotFound, StreamingHttpResponse
 from django.utils.translation import gettext as _
+<<<<<<< HEAD
+=======
+from django.views.decorators.cache import cache_control
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 from edx_django_utils.monitoring import set_custom_attribute, set_custom_attributes_for_course_key
@@ -36,7 +40,11 @@ from common.djangoapps.student.auth import has_course_author_access
 from common.djangoapps.util.json_request import JsonResponse
 from common.djangoapps.util.monitoring import monitor_import_failure
 from common.djangoapps.util.views import ensure_valid_course_key
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..storage import course_import_export_storage
 from ..tasks import CourseExportTask, CourseImportTask, export_olx, import_olx
@@ -232,6 +240,10 @@ def _write_chunk(request, courselike_key):  # lint-amnesty, pylint: disable=too-
 @require_GET
 @ensure_csrf_cookie
 @login_required
+<<<<<<< HEAD
+=======
+@cache_control(no_cache=True, no_store=True, must_revalidate=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @ensure_valid_course_key
 def import_status_handler(request, course_key_string, filename=None):
     """

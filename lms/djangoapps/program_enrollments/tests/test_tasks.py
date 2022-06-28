@@ -4,6 +4,10 @@ Unit tests for program_course_enrollments tasks
 
 
 from datetime import timedelta
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import pytest
 from django.db.models.base import ObjectDoesNotExist
 from django.test import TestCase

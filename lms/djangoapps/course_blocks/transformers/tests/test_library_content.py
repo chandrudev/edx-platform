@@ -2,7 +2,10 @@
 Tests for ContentLibraryTransformer.
 """
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from unittest import mock
 
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory
@@ -18,6 +21,10 @@ class MockedModule:
     """
     Object with mocked selected modules for user.
     """
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def __init__(self, state):
         """
         Set state attribute on initialize.
@@ -70,7 +77,10 @@ class ContentLibraryTransformerTestCase(CourseStructureTestCase):
                                     '#ref': 'vertical1',
                                     '#children': [
                                         {
+<<<<<<< HEAD
                                             'metadata': {'category': 'library_content'},
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                                             '#type': 'library_content',
                                             '#ref': 'library_content1',
                                             '#children': [
@@ -154,7 +164,16 @@ class ContentLibraryTransformerTestCase(CourseStructureTestCase):
                 self.course.location,
                 self.transformers,
             )
+<<<<<<< HEAD
             assert set(trans_block_structure.get_block_keys()) == self.get_block_key_set(self.blocks, 'course', 'chapter1', 'lesson1', 'vertical1', 'library_content1', selected_vertical, selected_child), f"Expected 'selected' equality failed in iteration {i}."  # pylint: disable=line-too-long
+=======
+            assert set(trans_block_structure.get_block_keys()) == self.get_block_key_set(self.blocks, 'course',
+                                                                                         'chapter1', 'lesson1',
+                                                                                         'vertical1',
+                                                                                         'library_content1',
+                                                                                         selected_vertical,
+                                                                                         selected_child), f"Expected 'selected' equality failed in iteration {i}."  # pylint: disable=line-too-long
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class ContentLibraryOrderTransformerTestCase(CourseStructureTestCase):
@@ -200,7 +219,10 @@ class ContentLibraryOrderTransformerTestCase(CourseStructureTestCase):
                                     '#ref': 'vertical1',
                                     '#children': [
                                         {
+<<<<<<< HEAD
                                             'metadata': {'category': 'library_content'},
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                                             '#type': 'library_content',
                                             '#ref': 'library_content1',
                                             '#children': [
@@ -329,3 +351,29 @@ class ContentLibraryOrderTransformerTestCase(CourseStructureTestCase):
                     break
 
             assert expected_children_without_hiding_or_gating != [child.block_id for child in children]
+<<<<<<< HEAD
+=======
+
+    @mock.patch('lms.djangoapps.course_blocks.transformers.library_content.get_student_module_as_dict')
+    def test_content_library_randomize_selected_blocks_missing(self, mocked):
+        """
+        Test that no selected blocks is handled gracefully
+        """
+        mocked.return_value = {}
+
+        expected_children_without_hiding_or_gating = ['vertical_vertical3', ]
+
+        for _ in range(5):
+            trans_block_structure = get_course_blocks(
+                self.user,
+                self.course.location,
+                self.transformers,
+            )
+            children = []
+            for block_key in trans_block_structure.topological_traversal():
+                if block_key.block_type == 'library_content':
+                    children = trans_block_structure.get_children(block_key)
+                    break
+
+            assert expected_children_without_hiding_or_gating != [child.block_id for child in children]
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

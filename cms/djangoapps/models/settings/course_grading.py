@@ -12,7 +12,11 @@ from eventtracking import tracker
 from cms.djangoapps.contentstore.signals.signals import GRADING_POLICY_CHANGED
 from cms.djangoapps.models.settings.waffle import material_recompute_only
 from common.djangoapps.track.event_transaction_utils import create_new_event_transaction_id
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 

@@ -21,7 +21,11 @@ from openedx.core.djangoapps.catalog.utils import get_programs
 from openedx.core.djangoapps.django_comment_common.models import Role
 from openedx.core.djangoapps.schedules.models import Schedule
 from openedx.features.course_duration_limits.access import get_user_course_duration, get_user_course_expiration_date
+<<<<<<< HEAD
 from xmodule.partitions.partitions_service import get_all_partitions_for_course, get_user_partition_groups
+=======
+from xmodule.partitions.partitions_service import get_all_partitions_for_course, get_user_partition_groups  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +39,11 @@ logger = logging.getLogger(__name__)
 # .. toggle_creation_date: 2019-2-25
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: REVEM-63, REVEM-198
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date.
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 PROGRAM_INFO_FLAG = WaffleFlag(
     'experiments.add_programs',
     __name__,
@@ -49,7 +57,11 @@ PROGRAM_INFO_FLAG = WaffleFlag(
 # .. toggle_creation_date: 2019-3-28
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: REVEM-118
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date.
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 DASHBOARD_INFO_FLAG = WaffleFlag('experiments.add_dashboard_info', __name__)
 # TODO END: clean up as part of REVEM-199 (End)
 
@@ -62,7 +74,11 @@ DASHBOARD_INFO_FLAG = WaffleFlag('experiments.add_dashboard_info', __name__)
 # .. toggle_creation_date: 2020-7-7
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: REV-1205
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date.
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 UPSELL_TRACKING_FLAG = WaffleFlag(
     'experiments.add_upsell_tracking',
     __name__,

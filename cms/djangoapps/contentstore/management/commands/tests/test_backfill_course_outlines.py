@@ -6,9 +6,15 @@ from opaque_keys.edx.keys import CourseKey
 
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.content.learning_sequences.api import get_course_keys_with_outlines
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ....outlines import update_outline_from_modulestore
 
@@ -62,22 +68,38 @@ class BackfillCourseOutlinesTest(SharedModuleStoreTestCase):
                 )
                 with cls.store.bulk_operations(course_key):
                     section = ItemFactory.create(
+<<<<<<< HEAD
                         parent_location=course.location,
+=======
+                        parent=course,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         category="chapter",
                         display_name="A Section"
                     )
                     sequence = ItemFactory.create(
+<<<<<<< HEAD
                         parent_location=section.location,
+=======
+                        parent=section,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         category="sequential",
                         display_name="A Sequence"
                     )
                     unit = ItemFactory.create(
+<<<<<<< HEAD
                         parent_location=sequence.location,
+=======
+                        parent=sequence,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         category="vertical",
                         display_name="A Unit"
                     )
                     ItemFactory.create(
+<<<<<<< HEAD
                         parent_location=unit.location,
+=======
+                        parent=unit,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                         category="html",
                         display_name="An HTML Module"
                     )

@@ -493,7 +493,11 @@ describe('Program Details Header View', () => {
         destination_url: 'industry.com',
       },
     ],
+<<<<<<< HEAD
     programDiscussionEnabled: false
+=======
+    programTabViewEnabled: false
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
   };
   const data = options.programData;
 

@@ -30,7 +30,10 @@ from xmodule.modulestore.tests.utils import (
     SPLIT_MODULESTORE_SETUP,
     TEST_DATA_DIR,
     MongoContentstoreBuilder,
+<<<<<<< HEAD
     mock_tab_from_json
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from xmodule.modulestore.xml_exporter import export_course_to_xml
 from xmodule.modulestore.xml_importer import import_course_from_xml
@@ -61,7 +64,10 @@ class CrossStoreXMLRoundtrip(CourseComparisonTest, PartitionTestCase):
         self.addCleanup(rmtree, self.export_dir, ignore_errors=True)
 
     @patch('xmodule.video_module.video_module.edxval_api', None)
+<<<<<<< HEAD
     @patch('xmodule.tabs.CourseTab.from_json', side_effect=mock_tab_from_json)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @ddt.data(*itertools.product(
         MODULESTORE_SETUPS,
         MODULESTORE_SETUPS,
@@ -72,7 +78,11 @@ class CrossStoreXMLRoundtrip(CourseComparisonTest, PartitionTestCase):
     @ddt.unpack
     def test_round_trip(
             self, source_builder, dest_builder, source_content_builder,
+<<<<<<< HEAD
             dest_content_builder, course_data_name, _mock_tab_from_json
+=======
+            dest_content_builder, course_data_name,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ):
         # Construct the contentstore for storing the first import
         with source_content_builder.build() as source_content:

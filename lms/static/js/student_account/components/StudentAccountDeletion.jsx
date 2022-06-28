@@ -41,7 +41,11 @@ export class StudentAccountDeletion extends React.Component {
     const loseAccessText = StringUtils.interpolate(
       gettext('You may also lose access to verified certificates and other program credentials like MicroMasters certificates. If you want to make a copy of these for your records before proceeding with deletion, follow the instructions for {htmlStart}printing or downloading a certificate{htmlEnd}.'),
       {
+<<<<<<< HEAD
         htmlStart: '<a href="https://edx.readthedocs.io/projects/edx-guide-for-students/en/latest/SFD_certificates.html#printing-a-certificate" rel="noopener" target="_blank">',
+=======
+        htmlStart: '<a href="https://edx.readthedocs.io/projects/open-edx-learner-guide/en/latest/OpenSFD_certificates.html#print-a-web-certificate" rel="noopener" target="_blank">',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         htmlEnd: '</a>',
       },
     );
@@ -57,10 +61,18 @@ export class StudentAccountDeletion extends React.Component {
     );
 
     const activationError = StringUtils.interpolate(
+<<<<<<< HEAD
       gettext('Before proceeding, please {htmlStart}activate your account{htmlEnd}.'),
       {
         htmlStart: '<a href="https://support.edx.org/hc/en-us/articles/115000940568-How-do-I-activate-my-account-" rel="noopener" target="_blank">',
         htmlEnd: '</a>',
+=======
+      gettext('Before proceeding, please {htmlStart}{emailMsg}{htmlEnd}.'),
+      {
+        htmlStart: '<a href="https://support.edx.org/hc/en-us/articles/115000940568-How-do-I-activate-my-account-" rel="noopener" target="_blank">',
+        htmlEnd: '</a>',
+        emailMsg: this.props.mktgEmailOptIn ? 'confirm your email' : 'activate your account',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       },
     );
 
@@ -173,6 +185,10 @@ StudentAccountDeletion.propTypes = {
   mktgRootLink: PropTypes.string,
   platformName: PropTypes.string,
   siteName: PropTypes.string,
+<<<<<<< HEAD
+=======
+  mktgEmailOptIn: PropTypes.bool.isRequired,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 };
 
 StudentAccountDeletion.defaultProps = {

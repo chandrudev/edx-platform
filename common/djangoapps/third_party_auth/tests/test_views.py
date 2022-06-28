@@ -19,7 +19,11 @@ from common.djangoapps.student.models import Registration
 from common.djangoapps.student.tests.factories import UserFactory
 from common.djangoapps.third_party_auth import pipeline
 # Define some XML namespaces:
+<<<<<<< HEAD
 from common.djangoapps.third_party_auth.tasks import SAML_XML_NS
+=======
+from common.djangoapps.third_party_auth.utils import SAML_XML_NS
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.third_party_auth.views import inactive_user_view
 
 from .testutil import AUTH_FEATURE_ENABLED, AUTH_FEATURES_KEY, SAMLTestCase
@@ -170,6 +174,10 @@ class IdPRedirectViewTest(SAMLTestCase):
     """
         Test IdPRedirectView.
     """
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         super().setUp()
 

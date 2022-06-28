@@ -9,12 +9,27 @@ import ddt
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
 
 @ddt.ddt
 @patch.dict('django.conf.settings.FEATURES', {'ENABLE_SPECIAL_EXAMS': True})
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+
+
+@ddt.ddt
+@patch.dict(
+    'django.conf.settings.FEATURES',
+    {
+        'ENABLE_SPECIAL_EXAMS': True,
+        'ENABLE_PROCTORED_EXAMS': True,
+    }
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class PermissionTests(ModuleStoreTestCase):
     """
     Tests for permissions defined in courseware.rules

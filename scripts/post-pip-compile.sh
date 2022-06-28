@@ -17,7 +17,11 @@ function clean_file {
     # Workaround for https://github.com/jazzband/pip-tools/issues/204 -
     # change absolute paths for local editable packages back to relative ones
     FILE_CONTENT=$(<${FILE_PATH})
+<<<<<<< HEAD
     FILE_URL_REGEX="-e (file:///[^"$'\n'"]*)/common/lib/symmath"
+=======
+    FILE_URL_REGEX="-e (file:///[^"$'\n'"]*)/common/lib/\w+"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if [[ "${FILE_CONTENT}" =~ ${FILE_URL_REGEX} ]]; then
         BASE_FILE_URL=${BASH_REMATCH[1]}
         sed "s|$BASE_FILE_URL/||" ${FILE_PATH} > ${TEMP_FILE}
@@ -28,8 +32,12 @@ function clean_file {
     # Code sandbox local package installs must be non-editable due to file
     # permissions issues.  edxapp ones must stay editable until assorted
     # packaging bugs are fixed.
+<<<<<<< HEAD
     if [[ "${FILE_PATH}" == "requirements/edx-sandbox/py35.txt" ||
         "${FILE_PATH}" == "requirements/edx-sandbox/py38.txt" ]]; then
+=======
+    if [[ "${FILE_PATH}" == "requirements/edx-sandbox/py38.txt" ]]; then
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         sed "s|-e common/lib/|common/lib/|" ${FILE_PATH} > ${TEMP_FILE}
         mv ${TEMP_FILE} ${FILE_PATH}
     fi

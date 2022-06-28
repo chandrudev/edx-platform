@@ -15,9 +15,15 @@ from completion.utilities import get_key_to_last_completed_block
 from django.conf import settings
 from django.contrib.auth import load_backend
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
+<<<<<<< HEAD
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.validators import ValidationError
 from django.db import IntegrityError, transaction, ProgrammingError
+=======
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.validators import ValidationError
+from django.db import IntegrityError, ProgrammingError, transaction
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.urls import NoReverseMatch, reverse
 from django.utils.translation import gettext as _
 from pytz import UTC
@@ -44,15 +50,27 @@ from lms.djangoapps.certificates.api import (
     auto_certificate_generation_enabled,
 )
 from lms.djangoapps.certificates.data import CertificateStatuses
+<<<<<<< HEAD
+=======
+from lms.djangoapps.course_blocks.api import get_course_blocks
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.grades.api import CourseGradeFactory
 from lms.djangoapps.instructor import access
 from lms.djangoapps.verify_student.models import VerificationDeadline
 from lms.djangoapps.verify_student.services import IDVerificationService
 from lms.djangoapps.verify_student.utils import is_verification_expiring_soon, verification_for_datetime
+<<<<<<< HEAD
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.theming.helpers import get_themes
 from openedx.core.djangoapps.user_authn.utils import is_safe_login_or_logout_redirect
 from xmodule.data import CertificatesDisplayBehaviors
+=======
+from openedx.core.djangoapps.content.block_structure.exceptions import UsageKeyNotInBlockStructure
+from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+from openedx.core.djangoapps.theming.helpers import get_themes
+from openedx.core.djangoapps.user_authn.utils import is_safe_login_or_logout_redirect
+from xmodule.data import CertificatesDisplayBehaviors  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Enumeration of per-course verification statuses
 # we display on the student dashboard.
@@ -114,6 +132,13 @@ def check_verify_status_by_course(user, course_enrollments):
     """
     status_by_course = {}
 
+<<<<<<< HEAD
+=======
+    # If integrity signature is enabled, this is a no-op because IDV is not required
+    if settings.FEATURES.get('ENABLE_INTEGRITY_SIGNATURE'):
+        return status_by_course
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # Retrieve all verifications for the user, sorted in descending
     # order by submission datetime
     verifications = IDVerificationService.verifications_for_user(user)
@@ -766,10 +791,25 @@ def get_resume_urls_for_enrollments(user, enrollments):
     for enrollment in enrollments:
         try:
             block_key = get_key_to_last_completed_block(user, enrollment.course_id)
+<<<<<<< HEAD
             url_to_block = reverse(
                 'jump_to',
                 kwargs={'course_id': enrollment.course_id, 'location': block_key}
             )
+=======
+            try:
+                block_data = get_course_blocks(user, block_key)
+            except UsageKeyNotInBlockStructure:
+                url_to_block = ''
+            else:
+                if block_key in block_data:
+                    url_to_block = reverse(
+                        'jump_to',
+                        kwargs={'course_id': enrollment.course_id, 'location': block_key}
+                    )
+                else:
+                    url_to_block = ''
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         except UnavailableCompletionData:
             url_to_block = ''
         resume_course_urls[enrollment.course_id] = url_to_block

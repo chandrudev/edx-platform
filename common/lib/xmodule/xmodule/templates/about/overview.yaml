@@ -41,7 +41,11 @@ data: |
         <h2>Frequently Asked Questions</h2>
         <article class="response">
           <h3>What web browser should I use?</h3>
+<<<<<<< HEAD
           <p>The Open edX platform works best with current versions of Chrome, Edge, Firefox, Internet Explorer, or Safari.</p>
+=======
+          <p>The Open edX platform works best with current versions of Chrome, Edge, Firefox, or Safari.</p>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
           <p>See our <a href="https://edx.readthedocs.org/projects/open-edx-learner-guide/en/latest/front_matter/browsers.html">list of supported browsers</a> for the most up-to-date information.</p>
         </article>
 

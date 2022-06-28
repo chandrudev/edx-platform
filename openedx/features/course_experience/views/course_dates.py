@@ -3,18 +3,25 @@ Fragment for rendering the course dates sidebar.
 """
 
 
+<<<<<<< HEAD
 from django.db import transaction
 from django.http import Http404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import get_language_bidi
+=======
+from django.template.loader import render_to_string
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys.edx.keys import CourseKey
 from web_fragments.fragment import Fragment
 
 from lms.djangoapps.courseware.courses import get_course_date_blocks, get_course_with_access
 from lms.djangoapps.courseware.tabs import DatesTab
+<<<<<<< HEAD
 from lms.djangoapps.course_home_api.toggles import course_home_legacy_is_active
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.features.course_experience.url_helpers import get_learning_mfe_home_url
 from openedx.core.djangoapps.plugin_api.views import EdxFragmentView
 
@@ -34,10 +41,14 @@ class CourseDatesFragmentView(EdxFragmentView):
         course_date_blocks = get_course_date_blocks(course, request.user, request, num_assignments=1)
 
         dates_tab_enabled = DatesTab.is_enabled(course, request.user)
+<<<<<<< HEAD
         if course_home_legacy_is_active(course_key):
             dates_tab_link = reverse('dates', args=[course.id])
         else:
             dates_tab_link = get_learning_mfe_home_url(course_key=course.id, view_name='dates')
+=======
+        dates_tab_link = get_learning_mfe_home_url(course_key=course.id, url_fragment='dates')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         context = {
             'course_date_blocks': [block for block in course_date_blocks if block.title != 'current_datetime'],
@@ -49,6 +60,7 @@ class CourseDatesFragmentView(EdxFragmentView):
         self.add_fragment_resource_urls(dates_fragment)
 
         return dates_fragment
+<<<<<<< HEAD
 
 
 @method_decorator(transaction.non_atomic_requests, name='dispatch')
@@ -81,3 +93,5 @@ class CourseDatesFragmentMobileView(CourseDatesFragmentView):
             return self.get_css_dependencies('style-mobile-rtl')
         else:
             return self.get_css_dependencies('style-mobile')
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

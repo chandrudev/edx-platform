@@ -3,6 +3,7 @@ Tests use cases related to LMS Entrance Exam behavior, such as gated content acc
 """
 
 
+<<<<<<< HEAD
 from unittest.mock import Mock, patch
 from crum import set_current_request
 from django.urls import reverse
@@ -10,6 +11,16 @@ from milestones.tests.utils import MilestonesTestCaseMixin
 
 from capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
 from edx_toggles.toggles.testutils import override_waffle_flag  # lint-amnesty, pylint: disable=wrong-import-order
+=======
+from unittest.mock import patch
+from crum import set_current_request
+from django.urls import reverse
+from milestones.tests.utils import MilestonesTestCaseMixin
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+from capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.entrance_exams import (
     course_has_entrance_exam,
     get_entrance_exam_content,
@@ -20,9 +31,14 @@ from lms.djangoapps.courseware.model_data import FieldDataCache
 from lms.djangoapps.courseware.module_render import get_module, handle_xblock_callback, toc_for_course
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
 from openedx.core.djangolib.testing.utils import get_mock_request
+<<<<<<< HEAD
 from openedx.features.course_experience import DISABLE_COURSE_OUTLINE_PAGE_FLAG, DISABLE_UNIFIED_COURSE_TAB_FLAG
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import AnonymousUserFactory, CourseEnrollmentFactory
+=======
+from common.djangoapps.student.models import CourseEnrollment
+from common.djangoapps.student.tests.factories import AnonymousUserFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.student.tests.factories import InstructorFactory
 from common.djangoapps.student.tests.factories import RequestFactoryNoCsrf
 from common.djangoapps.student.tests.factories import StaffFactory
@@ -35,9 +51,12 @@ from common.djangoapps.util.milestones_helpers import (
     get_milestone_relationship_types,
     get_namespace_choices
 )
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @patch.dict('django.conf.settings.FEATURES', {'ENTRANCE_EXAMS': True})
@@ -48,7 +67,10 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
     Creates a test course from scratch. The tests below are designed to execute
     workflows regardless of the feature flag settings.
     """
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @patch.dict('django.conf.settings.FEATURES', {'ENTRANCE_EXAMS': True})
     def setUp(self):
         """
@@ -60,6 +82,7 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
                 'entrance_exam_enabled': True,
             }
         )
+<<<<<<< HEAD
         with self.store.bulk_operations(self.course.id):
             self.chapter = ItemFactory.create(
                 parent=self.course,
@@ -136,6 +159,77 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
                 category="problem",
                 display_name="Exam Problem - Problem 2"
             )
+=======
+        self.chapter = ItemFactory.create(
+            parent=self.course,
+            display_name='Overview'
+        )
+        self.welcome = ItemFactory.create(
+            parent=self.chapter,
+            display_name='Welcome'
+        )
+        ItemFactory.create(
+            parent=self.course,
+            category='chapter',
+            display_name="Week 1"
+        )
+        self.chapter_subsection = ItemFactory.create(
+            parent=self.chapter,
+            category='sequential',
+            display_name="Lesson 1"
+        )
+        chapter_vertical = ItemFactory.create(
+            parent=self.chapter_subsection,
+            category='vertical',
+            display_name='Lesson 1 Vertical - Unit 1'
+        )
+        ItemFactory.create(
+            parent=chapter_vertical,
+            category="problem",
+            display_name="Problem - Unit 1 Problem 1"
+        )
+        ItemFactory.create(
+            parent=chapter_vertical,
+            category="problem",
+            display_name="Problem - Unit 1 Problem 2"
+        )
+
+        self.entrance_exam = ItemFactory.create(
+            parent=self.course,
+            category="chapter",
+            display_name="Entrance Exam Section - Chapter 1",
+            is_entrance_exam=True,
+            in_entrance_exam=True
+        )
+        self.exam_1 = ItemFactory.create(
+            parent=self.entrance_exam,
+            category='sequential',
+            display_name="Exam Sequential - Subsection 1",
+            graded=True,
+            in_entrance_exam=True
+        )
+        subsection = ItemFactory.create(
+            parent=self.exam_1,
+            category='vertical',
+            display_name='Exam Vertical - Unit 1'
+        )
+        problem_xml = MultipleChoiceResponseXMLFactory().build_xml(
+            question_text='The correct answer is Choice 3',
+            choices=[False, False, True, False],
+            choice_names=['choice_0', 'choice_1', 'choice_2', 'choice_3']
+        )
+        self.problem_1 = ItemFactory.create(
+            parent=subsection,
+            category="problem",
+            display_name="Exam Problem - Problem 1",
+            data=problem_xml
+        )
+        self.problem_2 = ItemFactory.create(
+            parent=subsection,
+            category="problem",
+            display_name="Exam Problem - Problem 2"
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         add_entrance_exam_milestone(self.course, self.entrance_exam)
 
@@ -146,7 +240,11 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         self.anonymous_user = AnonymousUserFactory()
         self.addCleanup(set_current_request, None)
         self.request = get_mock_request(UserFactory())
+<<<<<<< HEAD
         modulestore().update_item(self.course, self.request.user.id)
+=======
+        self.course = self.update_course(self.course, self.request.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self.client.login(username=self.request.user.username, password="test")
         CourseEnrollment.enroll(self.request.user, self.course.id)
@@ -205,6 +303,7 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
                     'display_id': 'week-1'
                 },
                 {
+<<<<<<< HEAD
                     'active': False,
                     'sections': [],
                     'url_name': 'Instructor',
@@ -212,6 +311,8 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
                     'display_id': 'instructor'
                 },
                 {
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     'active': True,
                     'sections': [
                         {
@@ -230,6 +331,7 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
             ]
         )
 
+<<<<<<< HEAD
     def test_view_redirect_if_entrance_exam_required(self):
         """
         Unit Test: if entrance exam is required. Should return a redirect.
@@ -278,6 +380,8 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         resp = self.client.get(expected_url)
         self.assertContains(resp, 'Exam Vertical - Unit 1')
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_get_entrance_exam_content(self):
         """
         test get entrance exam content method
@@ -293,6 +397,7 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         assert exam_chapter is None
         assert user_has_passed_entrance_exam(self.request.user, self.course)
 
+<<<<<<< HEAD
     def test_entrance_exam_requirement_message(self):
         """
         Unit Test: entrance exam requirement message should be present in response
@@ -382,6 +487,8 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         self.assertContains(resp, 'Your score is 100%. You have passed the entrance exam.')
         self.assertContains(resp, 'Lesson 1')
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_entrance_exam_gating(self):
         """
         Unit Test: test_entrance_exam_gating
@@ -441,6 +548,7 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         for toc_section in self.expected_unlocked_toc:
             assert toc_section in unlocked_toc
 
+<<<<<<< HEAD
     def test_courseware_page_access_without_passing_entrance_exam(self):
         """
         Test courseware access page without passing entrance exam
@@ -506,6 +614,8 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         """
         self._assert_chapter_loaded(self.course, self.chapter)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_can_skip_entrance_exam_with_anonymous_user(self):
         """
         Test can_skip_entrance_exam method with anonymous user
@@ -554,6 +664,7 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         assert response.status_code == 200
         self.assertContains(response, 'entrance_exam_passed')
 
+<<<<<<< HEAD
     def _assert_chapter_loaded(self, course, chapter):
         """
         Asserts courseware chapter load successfully.
@@ -565,6 +676,8 @@ class EntranceExamTestCases(LoginEnrollmentTestCase, ModuleStoreTestCase, Milest
         response = self.client.get(url)
         assert response.status_code == 200
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _return_table_of_contents(self):
         """
         Returns table of content for the entrance exam specific to this test

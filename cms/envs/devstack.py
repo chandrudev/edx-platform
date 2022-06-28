@@ -162,6 +162,15 @@ LIBRARY_AUTHORING_MICROFRONTEND_URL = 'http://localhost:3001'
 ################### FRONTEND APPLICATION COURSE AUTHORING ###################
 COURSE_AUTHORING_MICROFRONTEND_URL = 'http://localhost:2001'
 
+<<<<<<< HEAD
+=======
+################### FRONTEND APPLICATION DISCUSSIONS ###################
+DISCUSSIONS_MICROFRONTEND_URL = 'http://localhost:2002'
+
+################### FRONTEND APPLICATION DISCUSSIONS FEEDBACK URL###################
+DISCUSSIONS_MFE_FEEDBACK_URL = None
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ################################# DJANGO-REQUIRE ###############################
 
 # Whether to run django-require in debug mode.
@@ -207,6 +216,11 @@ IDA_LOGOUT_URI_LIST = [
     'http://localhost:18150/logout/',  # credentials
 ]
 
+<<<<<<< HEAD
+=======
+ENTERPRISE_BACKEND_SERVICE_EDX_OAUTH2_PROVIDER_URL = "http://edx.devstack.lms/oauth2"
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ############################### BLOCKSTORE #####################################
 BLOCKSTORE_API_URL = "http://edx.devstack.blockstore:18250/api/v1/"
 
@@ -250,6 +264,20 @@ FEATURES['ENABLE_PREREQUISITE_COURSES'] = True
 # (ref MST-637)
 PROCTORING_USER_OBFUSCATION_KEY = '85920908f28904ed733fe576320db18cabd7b6cd'
 
+<<<<<<< HEAD
+=======
+############## CourseGraph devstack settings ############################
+
+COURSEGRAPH_CONNECTION: dict = {
+    "protocol": "bolt",
+    "secure": False,
+    "host": "edx.devstack.coursegraph",
+    "port": 7687,
+    "user": "neo4j",
+    "password": "edx",
+}
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #################### Webpack Configuration Settings ##############################
 WEBPACK_LOADER['DEFAULT']['TIMEOUT'] = 5
 

@@ -12,7 +12,11 @@ from opaque_keys.edx.keys import UsageKey
 from rest_framework.exceptions import PermissionDenied
 
 from openedx.core.djangoapps.util.forms import ExtendedNullBooleanField, MultiValueField
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from . import permissions
 

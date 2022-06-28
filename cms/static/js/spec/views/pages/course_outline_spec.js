@@ -11,7 +11,11 @@ import Course from 'js/models/course';
 describe('CourseOutlinePage', function() {
     var createCourseOutlinePage, displayNameInput, model, outlinePage, requests, getItemsOfType, getItemHeaders,
         verifyItemsExpanded, expandItemsAndVerifyState, collapseItemsAndVerifyState, selectBasicSettings,
+<<<<<<< HEAD
         selectVisibilitySettings, selectAdvancedSettings, createMockCourseJSON, createMockSectionJSON,
+=======
+        selectVisibilitySettings, selectDiscussionSettings, selectAdvancedSettings, createMockCourseJSON, createMockSectionJSON,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         createMockSubsectionJSON, verifyTypePublishable, mockCourseJSON, mockEmptyCourseJSON, setSelfPaced, setSelfPacedCustomPLS,
         mockSingleSectionCourseJSON, createMockVerticalJSON, createMockIndexJSON, mockCourseEntranceExamJSON,
         selectOnboardingExam, createMockCourseJSONWithReviewRules,mockCourseJSONWithReviewRules,
@@ -37,6 +41,10 @@ describe('CourseOutlinePage', function() {
                 display_name: 'Section',
                 children: []
             },
+<<<<<<< HEAD
+=======
+            unit_level_discussions: false,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             user_partitions: [],
             user_partition_info: {},
             highlights_enabled: true,
@@ -197,6 +205,13 @@ describe('CourseOutlinePage', function() {
         $(".modal-section .settings-tab-button[data-tab='advanced']").click();
     };
 
+<<<<<<< HEAD
+=======
+    function selectDiscussionSettings() {
+        $(".modal-section .settings-tab-button[data-tab='discussion']").click();
+    }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     setSelfPaced = function() {
         /* global course */
         course.set('self_paced', true);
@@ -300,7 +315,11 @@ describe('CourseOutlinePage', function() {
             'course-outline', 'xblock-string-field-editor', 'modal-button',
             'basic-modal', 'course-outline-modal', 'release-date-editor',
             'due-date-editor', 'self-paced-due-date-editor', 'grading-editor', 'publish-editor',
+<<<<<<< HEAD
             'staff-lock-editor', 'unit-access-editor', 'content-visibility-editor',
+=======
+            'staff-lock-editor', 'unit-access-editor', 'discussion-editor', 'content-visibility-editor',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'settings-modal-tabs', 'timed-examination-preference-editor', 'access-editor',
             'show-correctness-editor', 'highlights-editor', 'highlights-enable-editor',
             'course-highlights-enable'
@@ -2316,8 +2335,14 @@ describe('CourseOutlinePage', function() {
 
     // Note: most tests for units can be found in Bok Choy
     describe('Unit', function() {
+<<<<<<< HEAD
         var getUnitStatus = function(options) {
             mockCourseJSON = createMockCourseJSON({}, [
+=======
+        var getUnitStatus = function(options, courseOptions) {
+            courseOptions = courseOptions || {};
+            mockCourseJSON = createMockCourseJSON(courseOptions, [
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 createMockSectionJSON({}, [
                     createMockSubsectionJSON({}, [
                         createMockVerticalJSON(options)
@@ -2409,6 +2434,38 @@ describe('CourseOutlinePage', function() {
             expect(messages).toContainText('Contains staff only content');
         });
 
+<<<<<<< HEAD
+=======
+        describe('discussion settings', function () {
+            it('hides discussion settings if unit level discussions are disabled', function() {
+                getUnitStatus({}, {unit_level_discussions: false});
+                outlinePage.$('.outline-unit .configure-button').click();
+                expect($('.modal-section .edit-discussion')).not.toExist();
+            });
+
+            it('shows discussion settings if unit level discussions are enabled', function() {
+                getUnitStatus({}, {unit_level_discussions: true});
+                outlinePage.$('.outline-unit .configure-button').click();
+                expect($('.modal-section .edit-discussion')).toExist();
+            });
+
+            it('marks checkbox as disabled', function() {
+                getUnitStatus({}, {unit_level_discussions: true});
+                outlinePage.$('.outline-unit .configure-button').click();
+
+                var discussionCheckbox = $('#discussion_enabled');
+                expect(discussionCheckbox).toExist();
+                expect(discussionCheckbox.is(':checked')).toBeFalsy();
+            });
+
+            it('marks checkbox as enabled', function() {
+                getUnitStatus({discussion_enabled: true}, {unit_level_discussions: true});
+                outlinePage.$('.outline-unit .configure-button').click();
+                expect($('#discussion_enabled').is(':checked')).toBeTruthy();
+            });
+        });
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         verifyTypePublishable('unit', function(options) {
             return createMockCourseJSON({}, [
                 createMockSectionJSON({}, [

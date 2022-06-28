@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <%! from django.utils.translation import ugettext as _ %>
+=======
+<%! from django.utils.translation import gettext as _ %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ${_("User '{user}' with e-mail {email} has requested {studio_name} course creator privileges on edge.").format(
     user=user_name, email=user_email, studio_name=settings.STUDIO_SHORT_NAME,
 )}

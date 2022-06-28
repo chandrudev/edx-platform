@@ -1,4 +1,5 @@
 """Helper functions for working with Credentials."""
+<<<<<<< HEAD
 
 
 from edx_rest_api_client.client import EdxRestApiClient
@@ -6,6 +7,14 @@ from edx_rest_api_client.client import EdxRestApiClient
 from openedx.core.djangoapps.credentials.models import CredentialsApiConfig
 from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
 from openedx.core.lib.edx_api_utils import get_edx_api_data
+=======
+import requests
+from edx_rest_api_client.auth import SuppliedJwtAuth
+
+from openedx.core.djangoapps.credentials.models import CredentialsApiConfig
+from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
+from openedx.core.lib.edx_api_utils import get_api_data
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def get_credentials_records_url(program_uuid=None):
@@ -25,23 +34,50 @@ def get_credentials_records_url(program_uuid=None):
     return base_url
 
 
+<<<<<<< HEAD
 def get_credentials_api_client(user, org=None):
+=======
+def get_credentials_api_client(user):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Returns an authenticated Credentials API client.
 
     Arguments:
         user (User): The user to authenticate as when requesting credentials.
+<<<<<<< HEAD
         org (str): Optional organization to look up the site config for, rather than the current request
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     scopes = ['email', 'profile', 'user_id']
     jwt = create_jwt_for_user(user, scopes=scopes)
 
+<<<<<<< HEAD
+=======
+    client = requests.Session()
+    client.auth = SuppliedJwtAuth(jwt)
+    return client
+
+
+def get_credentials_api_base_url(org=None):
+    """
+    Returns a credentials API base URL.
+
+    Arguments:
+        org (str): Optional organization to look up the site config for, rather than the current request
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if org is None:
         url = CredentialsApiConfig.current().internal_api_url  # by current request
     else:
         url = CredentialsApiConfig.get_internal_api_url_for_org(org)  # by org
+<<<<<<< HEAD
     return EdxRestApiClient(url, jwt=jwt)
+=======
+
+    return url
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def get_credentials(user, program_uuid=None, credential_type=None):
@@ -75,8 +111,22 @@ def get_credentials(user, program_uuid=None, credential_type=None):
     cache_key = f'{credential_configuration.CACHE_KEY}.{user.username}' if use_cache else None
     if cache_key and program_uuid:
         cache_key = f'{cache_key}.{program_uuid}'
+<<<<<<< HEAD
     api = get_credentials_api_client(user)
 
     return get_edx_api_data(
         credential_configuration, 'credentials', api=api, querystring=querystring, cache_key=cache_key
+=======
+
+    api_client = get_credentials_api_client(user)
+    base_api_url = get_credentials_api_base_url()
+
+    return get_api_data(
+        credential_configuration,
+        'credentials',
+        api_client=api_client,
+        base_api_url=base_api_url,
+        querystring=querystring,
+        cache_key=cache_key
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     )

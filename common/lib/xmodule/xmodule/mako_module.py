@@ -4,16 +4,42 @@ Code to handle mako templating for XModules and XBlocks.
 
 
 from web_fragments.fragment import Fragment
+<<<<<<< HEAD
 
 from .x_module import DescriptorSystem, XModuleDescriptor, shim_xmodule_js
 
 
 class MakoDescriptorSystem(DescriptorSystem):  # lint-amnesty, pylint: disable=abstract-method
+=======
+from xblock.core import XBlock
+
+from .x_module import DescriptorSystem, shim_xmodule_js, XModuleMixin
+
+
+class MakoDescriptorSystem(DescriptorSystem):  # lint-amnesty, pylint: disable=abstract-method
+    """
+    Descriptor system that renders mako templates.
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def __init__(self, render_template, **kwargs):
         super().__init__(**kwargs)
 
         self.render_template = render_template
 
+<<<<<<< HEAD
+=======
+        # Add the MakoService to the descriptor system.
+        #
+        # This is not needed by most XBlocks, because they are initialized with a full runtime ModuleSystem that already
+        # has the MakoService.
+        # However, there are a few cases where the XBlock only has the descriptor system instead of the full module
+        # runtime. Specifically:
+        # * in the Instructor Dashboard bulk emails tab, when rendering the HtmlBlock for its WYSIWYG editor.
+        # * during testing, when using the ModuleSystemTestCase to fetch factory-created blocks.
+        from common.djangoapps.edxmako.services import MakoService
+        self._services['mako'] = MakoService()
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class MakoTemplateBlockBase:
     """
@@ -57,7 +83,12 @@ class MakoTemplateBlockBase:
         return fragment
 
 
+<<<<<<< HEAD
 class MakoModuleDescriptor(MakoTemplateBlockBase, XModuleDescriptor):  # pylint: disable=abstract-method
+=======
+@XBlock.needs("i18n")
+class MakoModuleDescriptor(MakoTemplateBlockBase, XModuleMixin):  # pylint: disable=abstract-method
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Mixin to use for XModule descriptors.
     """

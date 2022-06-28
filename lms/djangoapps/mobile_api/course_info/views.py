@@ -14,9 +14,14 @@ from rest_framework.views import APIView
 from common.djangoapps.static_replace import make_static_urls_absolute
 from lms.djangoapps.courseware.courses import get_course_info_section_module
 from lms.djangoapps.course_goals.models import UserActivity
+<<<<<<< HEAD
 from lms.djangoapps.course_goals.toggles import COURSE_GOALS_NUMBER_OF_DAYS_GOALS
 from openedx.core.lib.xblock_utils import get_course_update_items
 
+=======
+from openedx.core.lib.xblock_utils import get_course_update_items
+from openedx.features.course_experience import ENABLE_COURSE_GOALS
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..decorators import mobile_course_access, mobile_view
 
 User = get_user_model()
@@ -112,9 +117,13 @@ def apply_wrappers_to_content(content, module, request):
     Returns: A piece of html content containing the original content updated by each wrapper.
 
     """
+<<<<<<< HEAD
     content = module.system.replace_urls(content)
     content = module.system.replace_course_urls(content)
     content = module.system.replace_jump_to_id_urls(content)
+=======
+    content = module.system.service(module, "replace_urls").replace_urls(content)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     return make_static_urls_absolute(request, content)
 
@@ -157,7 +166,11 @@ class CourseGoalsRecordUserActivity(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+<<<<<<< HEAD
         if not COURSE_GOALS_NUMBER_OF_DAYS_GOALS.is_enabled(course_key):
+=======
+        if not ENABLE_COURSE_GOALS.is_enabled(course_key):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             log.warning('For this mobile request, user activity is not enabled for this user {} and course {}'.format(
                 str(user_id), str(course_key))
             )

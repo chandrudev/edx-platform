@@ -13,21 +13,33 @@ class BulkUserRetirementViewTests(APITestCase):
     """
     def setUp(self):
         super().setUp()
+<<<<<<< HEAD
         self.client = APIClient()
+=======
+        login_client = APIClient()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.user1 = UserFactory.create(
             username='testuser1',
             email='test1@example.com',
             password='test1_password',
             profile__name="Test User1"
         )
+<<<<<<< HEAD
         self.client.login(username=self.user1.username, password='test1_password')
+=======
+        login_client.login(username=self.user1.username, password='test1_password')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.user2 = UserFactory.create(
             username='testuser2',
             email='test2@example.com',
             password='test2_password',
             profile__name="Test User2"
         )
+<<<<<<< HEAD
         self.client.login(username=self.user2.username, password='test2_password')
+=======
+        login_client.login(username=self.user2.username, password='test2_password')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.user3 = UserFactory.create(
             username='testuser3',
             email='test3@example.com',
@@ -47,6 +59,11 @@ class BulkUserRetirementViewTests(APITestCase):
             required=True
         )
         self.pending_state = RetirementState.objects.get(state_name='PENDING')
+<<<<<<< HEAD
+=======
+        # Use a separate client for retirement worker (don't mix cookie state)
+        self.client = APIClient()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.client.force_authenticate(user=self.user1)
 
     def test_gdpr_user_retirement_api(self):
@@ -84,6 +101,10 @@ class BulkUserRetirementViewTests(APITestCase):
             response = self.client.post(user_retirement_url, {
                 "usernames": f'{self.user3.username},{self.user4.username}'
             })
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             assert response.status_code == 200
             assert sorted(response.data['successful_user_retirements']) == sorted(expected_response['successful_user_retirements'])  # pylint: disable=line-too-long
 
@@ -99,6 +120,10 @@ class BulkUserRetirementViewTests(APITestCase):
             'successful_user_retirements': [self.user3.username, self.user4.username],
             'failed_user_retirements': ['non_existing_user']
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         with self.settings(RETIREMENT_SERVICE_WORKER_USERNAME=self.user1.username):
             response = self.client.post(user_retirement_url, {
                 "usernames": '{user1},{user2}, non_existing_user'.format(
@@ -107,6 +132,10 @@ class BulkUserRetirementViewTests(APITestCase):
                 )
             })
             assert response.status_code == 200
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             assert sorted(response.data['successful_user_retirements']) == sorted(expected_response['successful_user_retirements'])  # pylint: disable=line-too-long
 
             retirement_status_1 = UserRetirementStatus.objects.get(user__username=self.user3.username)

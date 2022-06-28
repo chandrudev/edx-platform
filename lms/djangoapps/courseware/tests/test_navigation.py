@@ -9,23 +9,39 @@ from unittest.mock import patch
 from django.conf import settings
 from django.test.utils import override_settings
 from django.urls import reverse
+<<<<<<< HEAD
 
 from edx_toggles.toggles.testutils import override_waffle_flag
 from common.djangoapps.student.tests.factories import GlobalStaffFactory
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
 from openedx.features.course_experience import DISABLE_COURSE_OUTLINE_PAGE_FLAG
 from common.djangoapps.student.tests.factories import UserFactory
+=======
+from edx_toggles.toggles.testutils import override_waffle_flag
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
+<<<<<<< HEAD
 
+=======
+from common.djangoapps.student.tests.factories import GlobalStaffFactory
+from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase, set_preview_mode
+from openedx.features.course_experience import DISABLE_COURSE_OUTLINE_PAGE_FLAG
+
+
+@set_preview_mode(True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
     """
     Check that navigation state is saved properly.
     """
+<<<<<<< HEAD
     STUDENT_INFO = [('view@test.com', 'foo'), ('view2@test.com', 'foo')]
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         # pylint: disable=super-method-not-called
@@ -69,6 +85,7 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
                                          display_name='pdf_textbooks_tab',
                                          default_tab='progress')
 
+<<<<<<< HEAD
         cls.staff_user = GlobalStaffFactory()
         cls.user = UserFactory()
 
@@ -81,6 +98,13 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
             username = f'u{i}'
             self.create_account(username, email, password)
             self.activate_user(email)
+=======
+        cls.user = GlobalStaffFactory(password='test')
+
+    def setUp(self):
+        super().setUp()
+        self.login(self.user.email, 'test')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def assertTabActive(self, tabname, response):
         ''' Check if the progress tab is active in the tab set '''
@@ -104,10 +128,13 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
         - Accordion enabled, or disabled
         - Navigation tabs enabled, disabled, or redirected
         '''
+<<<<<<< HEAD
         email, password = self.STUDENT_INFO[0]
         self.login(email, password)
         self.enroll(self.course, True)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         test_data = (
             ('tabs', False, True),
             ('none', False, False),
@@ -141,9 +168,12 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
         Verify that an inactive session times out and redirects to the
         login page
         """
+<<<<<<< HEAD
         email, password = self.STUDENT_INFO[0]
         self.login(email, password)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # make sure we can access courseware immediately
         resp = self.client.get(reverse('dashboard'))
         assert resp.status_code == 200
@@ -161,11 +191,14 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
         Verify that the first time we click on the courseware tab we are
         redirected to the 'Welcome' section.
         """
+<<<<<<< HEAD
         email, password = self.STUDENT_INFO[0]
         self.login(email, password)
         self.enroll(self.course, True)
         self.enroll(self.test_course, True)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         resp = self.client.get(reverse('courseware',
                                kwargs={'course_id': str(self.course.id)}))
         self.assertRedirects(resp, reverse(
@@ -178,11 +211,14 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
         Verify the accordion remembers we've already visited the Welcome section
         and redirects correspondingly.
         """
+<<<<<<< HEAD
         email, password = self.STUDENT_INFO[0]
         self.login(email, password)
         self.enroll(self.course, True)
         self.enroll(self.test_course, True)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         section_url = reverse(
             'courseware_section',
             kwargs={
@@ -201,11 +237,14 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
         """
         Verify the accordion remembers which chapter you were last viewing.
         """
+<<<<<<< HEAD
         email, password = self.STUDENT_INFO[0]
         self.login(email, password)
         self.enroll(self.course, True)
         self.enroll(self.test_course, True)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # Now we directly navigate to a section in a chapter other than 'Overview'.
         section_url = reverse(
             'courseware_section',
@@ -228,11 +267,14 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
     # TODO: LEARNER-71: Do we need to adjust or remove this test?
     @override_waffle_flag(DISABLE_COURSE_OUTLINE_PAGE_FLAG, active=True)
     def test_incomplete_course(self):
+<<<<<<< HEAD
         email = self.staff_user.email
         password = "test"
         self.login(email, password)
         self.enroll(self.test_course, True)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         test_course_id = str(self.test_course.id)
 
         url = reverse(
@@ -282,11 +324,14 @@ class TestNavigation(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
         courseware pages if either the FEATURE flag is turned off
         or the course is not proctored enabled
         """
+<<<<<<< HEAD
 
         email, password = self.STUDENT_INFO[0]
         self.login(email, password)
         self.enroll(self.test_course_proctored, True)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         test_course_id = str(self.test_course_proctored.id)
 
         with patch.dict(settings.FEATURES, {'ENABLE_SPECIAL_EXAMS': False}):

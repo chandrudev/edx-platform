@@ -8,6 +8,10 @@ from itertools import chain
 from urllib.parse import quote
 
 from django.conf import settings
+<<<<<<< HEAD
+=======
+from django.core.exceptions import ObjectDoesNotExist
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.utils.timezone import now
 from django.utils.translation import gettext as _
 
@@ -120,12 +124,16 @@ class IDVerificationService:
         sso_id_verifications = SSOVerification.objects.filter(**filter_kwargs)
         manual_id_verifications = ManualVerification.objects.filter(**filter_kwargs)
 
+<<<<<<< HEAD
         attempt = most_recent_verification(
             photo_id_verifications,
             sso_id_verifications,
             manual_id_verifications,
             'updated_at'
         )
+=======
+        attempt = most_recent_verification((photo_id_verifications, sso_id_verifications, manual_id_verifications))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return attempt and attempt.expiration_datetime
 
     @classmethod
@@ -240,3 +248,26 @@ class IDVerificationService:
         if course_id:
             location += f'?course_id={quote(str(course_id))}'
         return location
+<<<<<<< HEAD
+=======
+
+    @classmethod
+    def get_verification_details_by_id(cls, attempt_id):
+        """
+        Returns a verification attempt object by attempt_id
+        If the verification object cannot be found, returns None
+        """
+        verification = None
+        verification_models = [
+            SoftwareSecurePhotoVerification,
+            SSOVerification,
+            ManualVerification,
+        ]
+        for ver_model in verification_models:
+            if not verification:
+                try:
+                    verification = ver_model.objects.get(id=attempt_id)
+                except ObjectDoesNotExist:
+                    pass
+        return verification
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

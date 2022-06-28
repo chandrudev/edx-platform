@@ -19,8 +19,13 @@ from openedx.core.djangoapps.xmodule_django.models import NoneToEmptyManager
 from openedx.core.lib.cache_utils import request_cached
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import GlobalStaff
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 FORUM_ROLE_ADMINISTRATOR = gettext_noop('Administrator')
 FORUM_ROLE_MODERATOR = gettext_noop('Moderator')
@@ -239,6 +244,10 @@ class CourseDiscussionSettings(models.Model):
         help_text="Key/value store mapping discussion IDs to discussion XBlock usage keys.",
     )
     always_divide_inline_discussions = models.BooleanField(default=False)
+<<<<<<< HEAD
+=======
+    reported_content_email_notifications = models.BooleanField(default=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     _divided_discussions = models.TextField(db_column='divided_discussions', null=True, blank=True)  # JSON list
 
     COHORT = 'cohort'
@@ -297,6 +306,10 @@ class CourseDiscussionSettings(models.Model):
             'division_scheme': (str,)[0],
             'always_divide_inline_discussions': bool,
             'divided_discussions': list,
+<<<<<<< HEAD
+=======
+            'reported_content_email_notifications': bool,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         }
         for field, field_type in fields.items():
             if field in validated_data:

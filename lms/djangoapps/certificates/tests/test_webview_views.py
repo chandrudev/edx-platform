@@ -2,6 +2,10 @@
 
 
 import datetime
+<<<<<<< HEAD
+=======
+from unittest import skipUnless
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from unittest.mock import patch
 from urllib.parse import urlencode
 from uuid import uuid4
@@ -11,10 +15,14 @@ from django.conf import settings
 from django.test.client import Client, RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
+<<<<<<< HEAD
 from edx_name_affirmation.api import create_verified_name, create_verified_name_config
 from edx_name_affirmation.statuses import VerifiedNameStatus
 from edx_name_affirmation.toggles import VERIFIED_NAME_FLAG
 from edx_toggles.toggles.testutils import override_waffle_flag, override_waffle_switch
+=======
+from edx_toggles.toggles.testutils import override_waffle_switch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from organizations import api as organizations_api
 
 from common.djangoapps.course_modes.models import CourseMode
@@ -52,9 +60,16 @@ from openedx.core.djangoapps.site_configuration.tests.test_util import (
 from openedx.core.djangolib.js_utils import js_escaped_string
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase
 from openedx.core.lib.tests.assertions.events import assert_event_matches
+<<<<<<< HEAD
 from xmodule.data import CertificatesDisplayBehaviors
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from openedx.features.name_affirmation_api.utils import get_name_affirmation_service
+from xmodule.data import CertificatesDisplayBehaviors  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 FEATURES_WITH_CERTS_ENABLED = settings.FEATURES.copy()
 FEATURES_WITH_CERTS_ENABLED['CERTIFICATES_HTML_VIEW'] = True
@@ -67,6 +82,11 @@ FEATURES_WITH_CERTS_DISABLED['CERTIFICATES_HTML_VIEW'] = False
 FEATURES_WITH_CUSTOM_CERTS_ENABLED = FEATURES_WITH_CERTS_ENABLED.copy()
 FEATURES_WITH_CUSTOM_CERTS_ENABLED['CUSTOM_CERTIFICATE_TEMPLATES_ENABLED'] = True
 
+<<<<<<< HEAD
+=======
+name_affirmation_service = get_name_affirmation_service()
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class CommonCertificatesTestCase(ModuleStoreTestCase):
     """
@@ -149,7 +169,11 @@ class CommonCertificatesTestCase(ModuleStoreTestCase):
         self.course.certificates = {'certificates': certificates}
         self.course.cert_html_view_enabled = True
         self.course.save()
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def _create_custom_template(self, org_id=None, mode=None, course_key=None, language=None):
         """
@@ -238,6 +262,42 @@ class CommonCertificatesTestCase(ModuleStoreTestCase):
         )
         template.save()
 
+<<<<<<< HEAD
+=======
+    def _create_custom_template_with_verified_description(self, org_id=None, course_key=None, language=None):
+        """
+        Creates a custom certificate template entry in DB. This custom certificate can be used to test
+        that the correct language is used if the IDV requirement on certificates has been enabled for a course.
+        """
+        template_html = """
+            <%namespace name='static' file='static_content.html'/>
+            <html>
+            <body>
+                lang: ${LANGUAGE_CODE}
+                course name: ${accomplishment_copy_course_name}
+                mode: verified
+                ${accomplishment_copy_course_description}
+                ${certificate_type_description}
+                % if not idv_enabled_for_certificates:
+                <p> IDV disabled </p>
+                %endif
+                ${twitter_url}
+                <img class="custom-logo" src="${static.certificate_asset_url('custom-logo')}" />
+            </body>
+            </html>
+        """
+        template = CertificateTemplate(
+            name='custom template',
+            template=template_html,
+            organization_id=org_id,
+            course_key=course_key,
+            mode='verified',
+            is_active=True,
+            language=language
+        )
+        template.save()
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _add_certificate_date_override(self):
         """
         Creates a mock CertificateDateOverride and adds it to the certificate
@@ -499,7 +559,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         }
 
         self.course.save()
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         test_url = get_certificate_url(
             user_id=self.user.id,
@@ -683,7 +747,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         self.course.cert_html_view_enabled = True
         self.course.certificate_available_date = datetime.datetime.today() + datetime.timedelta(days=1)
         self.course.save()
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         test_url = get_certificate_url(
             user_id=self.user.id,
@@ -727,7 +795,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         self.course.certificates = {'certificates': test_certificates}
         self.course.cert_html_view_enabled = True
         self.course.save()
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         test_url = get_certificate_url(
             user_id=self.user.id,
             course_id=str(self.course.id),
@@ -755,7 +827,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
 
         self.course.display_coursenumber = "overridden_number"
         self.course.display_organization = "overridden_org"
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         response = self.client.get(test_url)
         self.assertContains(response, 'overridden_number')
@@ -775,7 +851,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         self.course.certificates = {'certificates': test_certificates}
         self.course.cert_html_view_enabled = True
         self.course.save()
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         test_url = get_certificate_url(
             user_id=self.user.id,
@@ -816,7 +896,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         self.course.certificates = {'certificates': test_certificates}
         self.course.cert_html_view_enabled = True
         self.course.save()
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         test_url = get_certificate_url(
             user_id=self.user.id,
@@ -943,7 +1027,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         self.course.self_paced = self_paced
         today = datetime.datetime.utcnow()
         self.course.certificate_available_date = today + datetime.timedelta(cert_avail_delta)
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self._add_course_certificates(count=1, signatory_count=1, is_active=True)
         test_url = get_certificate_url(
             user_id=self.user.id,
@@ -986,7 +1074,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
             self._add_certificate_date_override()
         today = datetime.datetime.utcnow()
         self.course.certificate_available_date = today + datetime.timedelta(-2)
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self._add_course_certificates(count=1, signatory_count=1, is_active=True)
         test_url = get_certificate_url(
             user_id=self.user.id,
@@ -1016,7 +1108,11 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
     def test_render_html_view_invalid_certificate_configuration(self):
         self.course.cert_html_view_enabled = True
         self.course.save()
+<<<<<<< HEAD
         self.store.update_item(self.course, self.user.id)
+=======
+        self.update_course(self.course, self.user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         test_url = get_certificate_url(
             user_id=self.user.id,
@@ -1581,6 +1677,7 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
                 )
             )
 
+<<<<<<< HEAD
     @override_settings(FEATURES=FEATURES_WITH_CERTS_ENABLED)
     @override_waffle_flag(VERIFIED_NAME_FLAG, active=True)
     @ddt.data((True, VerifiedNameStatus.APPROVED),
@@ -1596,6 +1693,30 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         verified_name = 'Jonathan Doe'
         create_verified_name(self.user, verified_name, self.user.profile.name, status=status)
         create_verified_name_config(self.user, use_verified_name_for_certs=should_use_verified_name_for_certs)
+=======
+    @skipUnless(name_affirmation_service is not None, 'Requires Name Affirmation')
+    @override_settings(FEATURES=FEATURES_WITH_CERTS_ENABLED)
+    @ddt.data((True, 'approved'),
+              (True, 'denied'),
+              (False, 'pending'))
+    @ddt.unpack
+    def test_certificate_view_verified_name(self, should_use_verified_name_for_certs, status):
+        """
+        Test that if the user has their preference set to use verified name for certificates,
+        their verified name will appear on the certificate rather than their profile name.
+        """
+        verified_name = 'Jonathan Doe'
+        name_affirmation_service.create_verified_name(
+            self.user,
+            verified_name,
+            self.user.profile.name,
+            status=status
+        )
+        name_affirmation_service.create_verified_name_config(
+            self.user,
+            use_verified_name_for_certs=should_use_verified_name_for_certs
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self._add_course_certificates(count=1, signatory_count=1)
         test_url = get_certificate_url(
@@ -1605,13 +1726,49 @@ class CertificatesViewsTests(CommonCertificatesTestCase, CacheIsolationTestCase)
         )
 
         response = self.client.get(test_url, HTTP_HOST='test.localhost')
+<<<<<<< HEAD
         if should_use_verified_name_for_certs and status == VerifiedNameStatus.APPROVED:
+=======
+        if should_use_verified_name_for_certs and status == 'approved':
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             self.assertContains(response, verified_name)
             self.assertNotContains(response, self.user.profile.name)
         else:
             self.assertContains(response, self.user.profile.name)
             self.assertNotContains(response, verified_name)
 
+<<<<<<< HEAD
+=======
+    @override_settings(FEATURES=FEATURES_WITH_CUSTOM_CERTS_ENABLED)
+    @ddt.data(
+        True,
+        False
+    )
+    def test_verified_certificate_description(self, enable_cert_idv_requirement):
+        """
+        Test that for a verified cert, the correct language is used when the integrity signature feature is enabled.
+        """
+        with patch.dict(settings.FEATURES, ENABLE_CERTIFICATES_IDV_REQUIREMENT=enable_cert_idv_requirement):
+            self._add_course_certificates(count=1, signatory_count=2, is_active=True)
+            self._create_custom_template_with_verified_description()
+            self.cert.mode = 'verified'
+            self.cert.save()
+            test_url = get_certificate_url(
+                user_id=self.user.id,
+                course_id=str(self.course.id),
+                uuid=self.cert.verify_uuid
+            )
+
+            response = self.client.get(test_url)
+            assert response.status_code == 200
+            if enable_cert_idv_requirement:
+                self.assertContains(response, 'identity of the learner has been checked and is valid')
+                self.assertNotContains(response, 'IDV disabled')
+            else:
+                self.assertNotContains(response, 'identity of the learner has been checked and is valid')
+                self.assertContains(response, 'IDV disabled')
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class CertificateEventTests(CommonCertificatesTestCase, EventTrackingTestCase):
     """
@@ -1684,12 +1841,20 @@ class CertificateEventTests(CommonCertificatesTestCase, EventTrackingTestCase):
             {
                 'name': 'edx.badge.assertion.evidence_visited',
                 'data': {
+<<<<<<< HEAD
                     'course_id': 'testorg/run1/refundable_course',
+=======
+                    'course_id': 'course-v1:testorg+run1+refundable_course',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     'assertion_id': assertion.id,
                     'badge_generator': 'DummyBackend',
                     'badge_name': 'refundable course',
                     'issuing_component': '',
+<<<<<<< HEAD
                     'badge_slug': 'testorgrun1refundable_course_honor_432f164',
+=======
+                    'badge_slug': 'course-v1testorgrun1refundable_course_honor_927f3ad',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     'assertion_json_url': 'https://www.example.com/assertion.json',
                     'assertion_image_url': 'https://www.example.com/image.png',
                     'user_id': self.user.id,

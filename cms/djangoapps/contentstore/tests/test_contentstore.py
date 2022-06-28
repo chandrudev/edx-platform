@@ -16,6 +16,10 @@ from django.conf import settings
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from django.test import TestCase
 from django.test.utils import override_settings
+<<<<<<< HEAD
+=======
+from edx_toggles.toggles.testutils import override_waffle_switch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edxval.api import create_video, get_videos_for_course
 from fs.osfs import OSFS
 from lxml import etree
@@ -23,6 +27,7 @@ from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import AssetKey, CourseKey, UsageKey
 from opaque_keys.edx.locations import CourseLocator
 from path import Path as path
+<<<<<<< HEAD
 from waffle.testutils import override_switch
 
 from cms.djangoapps.contentstore.config import waffle
@@ -36,6 +41,8 @@ from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import CourseCreatorRole, CourseInstructorRole
 from openedx.core.djangoapps.django_comment_common.utils import are_permissions_roles_seeded
 from openedx.core.lib.tempdir import mkdtemp_clean
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.capa_module import ProblemBlock
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
@@ -52,6 +59,21 @@ from xmodule.modulestore.xml_importer import import_course_from_xml, perform_xli
 from xmodule.seq_module import SequenceBlock
 from xmodule.video_module import VideoBlock
 
+<<<<<<< HEAD
+=======
+from cms.djangoapps.contentstore.config import waffle
+from cms.djangoapps.contentstore.tests.utils import AjaxEnabledTestClient, CourseTestCase, get_url, parse_json
+from cms.djangoapps.contentstore.utils import delete_course, reverse_course_url, reverse_url
+from cms.djangoapps.contentstore.views.component import ADVANCED_COMPONENT_TYPES
+from common.djangoapps.course_action_state.managers import CourseActionStateItemNotFoundError
+from common.djangoapps.course_action_state.models import CourseRerunState, CourseRerunUIStateManager
+from common.djangoapps.student import auth
+from common.djangoapps.student.models import CourseEnrollment
+from common.djangoapps.student.roles import CourseCreatorRole, CourseInstructorRole
+from openedx.core.djangoapps.django_comment_common.utils import are_permissions_roles_seeded
+from openedx.core.lib.tempdir import mkdtemp_clean
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 TEST_DATA_CONTENTSTORE = copy.deepcopy(settings.CONTENTSTORE)
 TEST_DATA_CONTENTSTORE['DOC_STORE_CONFIG']['db'] = 'test_xcontent_%s' % uuid4().hex
 
@@ -1055,9 +1077,13 @@ class MiscCourseTests(ContentStoreTestCase):
             resp = self.client.get_html('/c4x/InvalidOrg/InvalidCourse/asset/invalid.png')
             self.assertEqual(resp.status_code, 404)
 
+<<<<<<< HEAD
     @override_switch(
         f'{waffle.WAFFLE_NAMESPACE}.{waffle.ENABLE_ACCESSIBILITY_POLICY_PAGE}',
         active=False)
+=======
+    @override_waffle_switch(waffle.ENABLE_ACCESSIBILITY_POLICY_PAGE, active=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_disabled_accessibility_page(self):
         """
         Test that accessibility page returns 404 when waffle switch is disabled
@@ -2191,9 +2217,13 @@ class EntryPageTestCase(TestCase):
         # Logout redirects.
         self._test_page("/logout", 200)
 
+<<<<<<< HEAD
     @override_switch(
         f'{waffle.WAFFLE_NAMESPACE}.{waffle.ENABLE_ACCESSIBILITY_POLICY_PAGE}',
         active=True)
+=======
+    @override_waffle_switch(waffle.ENABLE_ACCESSIBILITY_POLICY_PAGE, active=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_accessibility(self):
         self._test_page('/accessibility')
 

@@ -197,7 +197,11 @@ class AccountSettingsViewTest(ThirdPartyAuthTestMixin, SiteMixin, ProgramsApiCon
         with mock_get_orders(exception=exceptions.HttpNotFoundError):
             order_detail = get_user_orders(self.user)
 
+<<<<<<< HEAD
         assert order_detail == []
+=======
+        assert not order_detail
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_incomplete_order_detail(self):
         response = {
@@ -215,7 +219,11 @@ class AccountSettingsViewTest(ThirdPartyAuthTestMixin, SiteMixin, ProgramsApiCon
         with mock_get_orders(response=response):
             order_detail = get_user_orders(self.user)
 
+<<<<<<< HEAD
         assert order_detail == []
+=======
+        assert not order_detail
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_order_history_with_no_product(self):
         response = {

@@ -27,6 +27,10 @@ class SubsectionScoresSerializer(ReadOnlySerializer):
     block_key = serializers.SerializerMethodField()
     display_name = serializers.CharField()
     has_graded_assignment = serializers.BooleanField(source='graded')
+<<<<<<< HEAD
+=======
+    override = serializers.SerializerMethodField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     learner_has_access = serializers.SerializerMethodField()
     num_points_earned = serializers.FloatField(source='graded_total.earned')
     num_points_possible = serializers.FloatField(source='graded_total.possible')
@@ -36,6 +40,19 @@ class SubsectionScoresSerializer(ReadOnlySerializer):
     show_grades = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
 
+<<<<<<< HEAD
+=======
+    def get_override(self, subsection):
+        """Proctoring or grading score override"""
+        if subsection.override is None:
+            return None
+        else:
+            return {
+                "system": subsection.override.system,
+                "reason": subsection.override.override_reason,
+            }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def get_block_key(self, subsection):
         return str(subsection.location)
 
@@ -124,6 +141,10 @@ class ProgressTabSerializer(VerifiedModeSerializer):
     certificate_data = CertificateDataSerializer()
     completion_summary = serializers.DictField()
     course_grade = CourseGradeSerializer()
+<<<<<<< HEAD
+=======
+    credit_course_requirements = serializers.DictField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     end = serializers.DateTimeField()
     enrollment_mode = serializers.CharField()
     grading_policy = GradingPolicySerializer()

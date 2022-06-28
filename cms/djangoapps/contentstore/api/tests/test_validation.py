@@ -9,6 +9,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+<<<<<<< HEAD
 
 from common.djangoapps.student.tests.factories import StaffFactory
 from common.djangoapps.student.tests.factories import UserFactory
@@ -17,12 +18,25 @@ from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 
 @override_settings(PROCTORING_BACKENDS={'DEFAULT': 'null', 'proctortrack': {}})
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+
+from common.djangoapps.student.tests.factories import StaffFactory
+from common.djangoapps.student.tests.factories import UserFactory
+
+
+@override_settings(PROCTORING_BACKENDS={'DEFAULT': 'proctortrack', 'proctortrack': {}})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CourseValidationViewTest(SharedModuleStoreTestCase, APITestCase):
     """
     Test course validation view via a RESTful API
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

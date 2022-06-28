@@ -1,19 +1,30 @@
 (function(define) {
     'use strict';
     define(['jquery', 'underscore', 'backbone', 'gettext', 'js/groups/models/cohort',
+<<<<<<< HEAD
         'js/groups/models/verified_track_settings',
         'js/groups/views/cohort_editor', 'js/groups/views/cohort_form',
         'js/groups/views/course_cohort_settings_notification',
         'js/groups/views/verified_track_settings_notification',
+=======
+        'js/groups/views/cohort_editor', 'js/groups/views/cohort_form',
+        'js/groups/views/course_cohort_settings_notification',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         'edx-ui-toolkit/js/utils/html-utils',
         'js/views/base_dashboard_view',
         'js/views/file_uploader', 'js/models/notification', 'js/views/notification',
         'string_utils'],
         function($, _, Backbone, gettext, CohortModel,
+<<<<<<< HEAD
                  VerifiedTrackSettingsModel,
                  CohortEditorView, CohortFormView,
                 CourseCohortSettingsNotificationView,
                  VerifiedTrackSettingsNotificationView, HtmlUtils, BaseDashboardView) {
+=======
+            CohortEditorView, CohortFormView,
+            CourseCohortSettingsNotificationView,
+            HtmlUtils, BaseDashboardView) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             var hiddenClass = 'hidden',
                 disabledClass = 'is-disabled',
                 enableCohortsSelector = '.cohorts-state';
@@ -52,6 +63,7 @@
                         cohortsEnabled: this.cohortSettings.get('is_cohorted')
                     }));
                     this.onSync();
+<<<<<<< HEAD
                     // Don't create this view until the first render is called, as at that point the
                     // various other models whose state is required to properly view the notification
                     // will have completed their fetch operations.
@@ -65,6 +77,8 @@
                             model: verifiedTrackSettingsModel
                         });
                     }
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                     return this;
                 },
 
@@ -83,6 +97,7 @@
                     cohortStateMessageNotificationView.render();
                 },
 
+<<<<<<< HEAD
                 renderVerifiedTrackSettingsNotificationView: function() {
                     if (this.verifiedTrackSettingsNotificationView) {
                         this.verifiedTrackSettingsNotificationView.validateSettings(
@@ -91,6 +106,8 @@
                     }
                 },
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 onSync: function(model, response, options) {
                     var selectedCohort = this.lastSelectedCohortId && this.model.get(this.lastSelectedCohortId),
                         hasCohorts = this.model.length > 0,
@@ -124,7 +141,10 @@
                             actionIconClass: 'fa-plus'
                         });
                     }
+<<<<<<< HEAD
                     this.renderVerifiedTrackSettingsNotificationView();
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 },
 
                 getSelectedCohort: function() {

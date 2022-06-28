@@ -5,13 +5,22 @@ from typing import Dict, Optional
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+<<<<<<< HEAD
 from django.utils.translation import ugettext_noop as _
+=======
+from django.utils.translation import gettext_noop as _
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys.edx.keys import CourseKey
 
 from lms.djangoapps.courseware.tabs import EnrolledTab
 from lms.djangoapps.teams.waffle import ENABLE_TEAMS_APP
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.course_apps.plugins import CourseApp
+<<<<<<< HEAD
+=======
+from openedx.core.lib.courses import get_course_by_id
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from . import is_feature_enabled
 
 
@@ -26,6 +35,10 @@ class TeamsTab(EnrolledTab):
     type = "teams"
     title = _("Teams")
     view_name = "teams_dashboard"
+<<<<<<< HEAD
+=======
+    priority = 60
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def is_enabled(cls, course, user=None):
@@ -64,11 +77,37 @@ class TeamsCourseApp(CourseApp):
 
     @classmethod
     def is_enabled(cls, course_key: CourseKey) -> bool:
+<<<<<<< HEAD
+=======
+        """
+        Returns the enabled status of teams.
+
+        Args:
+            course_key (CourseKey): The course for which to fetch the status of teams
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return CourseOverview.get_from_id(course_key).teams_enabled
 
     @classmethod
     def set_enabled(cls, course_key: CourseKey, enabled: bool, user: User) -> bool:
+<<<<<<< HEAD
         raise ValueError("Teams cannot be enabled/disabled via this API.")
+=======
+        """
+        Returns the enabled status of teams.
+        Args:
+            course_key (CourseKey): The course for which to set the status of teams
+            enabled (bool): The new satus for the app.
+            user (User): The user performing the operation
+
+        Returns:
+            (bool): the new status of the app
+        """
+        course = get_course_by_id(course_key)
+        course.teams_configuration.is_enabled = enabled
+        modulestore().update_item(course, user.id)
+        return enabled
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def get_allowed_operations(cls, course_key: CourseKey, user: Optional[User] = None) -> Dict[str, bool]:
@@ -76,6 +115,10 @@ class TeamsCourseApp(CourseApp):
         Return allowed operations for teams app.
         """
         return {
+<<<<<<< HEAD
             "enable": False,
+=======
+            "enable": True,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             "configure": True,
         }

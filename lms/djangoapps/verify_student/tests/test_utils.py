@@ -129,14 +129,26 @@ class TestVerifyStudentUtils(unittest.TestCase):
             sso_verification = SSOVerification.objects.create(user=user)
             photo_verification = SoftwareSecurePhotoVerification.objects.create(user=user)
         else:
+<<<<<<< HEAD
+=======
+            #last first = manual expected = photo case adds some duplicates for complexity
+            ManualVerification.objects.create(user=user)
+            SoftwareSecurePhotoVerification.objects.create(user=user)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             manual_verification = ManualVerification.objects.create(user=user)
             photo_verification = SoftwareSecurePhotoVerification.objects.create(user=user)
 
         most_recent = most_recent_verification(
+<<<<<<< HEAD
             SoftwareSecurePhotoVerification.objects.all(),
             SSOVerification.objects.all(),
             ManualVerification.objects.all(),
             'created_at'
+=======
+            (SoftwareSecurePhotoVerification.objects.all(),
+             SSOVerification.objects.all(),
+             ManualVerification.objects.all())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
         if not expected_verification:

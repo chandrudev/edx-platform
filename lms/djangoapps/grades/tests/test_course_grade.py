@@ -5,14 +5,24 @@ import ddt
 from crum import set_current_request
 from django.conf import settings
 from edx_toggles.toggles.testutils import override_waffle_switch
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory
 from openedx.core.djangolib.testing.utils import get_mock_request
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from ..config.waffle import ASSUME_ZERO_GRADE_IF_ABSENT, waffle_switch
+=======
+
+from ..config.waffle import ASSUME_ZERO_GRADE_IF_ABSENT
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..course_data import CourseData
 from ..course_grade import ZeroCourseGrade
 from ..course_grade_factory import CourseGradeFactory
@@ -33,7 +43,11 @@ class ZeroGradeTest(GradeTestBase):
         """
         Creates a ZeroCourseGrade and ensures it's empty.
         """
+<<<<<<< HEAD
         with override_waffle_switch(waffle_switch(ASSUME_ZERO_GRADE_IF_ABSENT), active=assume_zero_enabled):
+=======
+        with override_waffle_switch(ASSUME_ZERO_GRADE_IF_ABSENT, active=assume_zero_enabled):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             course_data = CourseData(self.request.user, structure=self.course_structure)
             chapter_grades = ZeroCourseGrade(self.request.user, course_data).chapter_grades
             for chapter in chapter_grades:
@@ -48,7 +62,11 @@ class ZeroGradeTest(GradeTestBase):
         """
         Creates a zero course grade and ensures that null scores aren't included in the section problem scores.
         """
+<<<<<<< HEAD
         with override_waffle_switch(waffle_switch(ASSUME_ZERO_GRADE_IF_ABSENT), active=assume_zero_enabled):
+=======
+        with override_waffle_switch(ASSUME_ZERO_GRADE_IF_ABSENT, active=assume_zero_enabled):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             with patch('lms.djangoapps.grades.subsection_grade.get_score', return_value=None):
                 course_data = CourseData(self.request.user, structure=self.course_structure)
                 chapter_grades = ZeroCourseGrade(self.request.user, course_data).chapter_grades
@@ -73,6 +91,10 @@ class TestScoreForModule(SharedModuleStoreTestCase):
                    (2/5) (3/5) (0/1)   -   (1/3)   -   (3/10)
 
     """
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def setUpClass(cls):

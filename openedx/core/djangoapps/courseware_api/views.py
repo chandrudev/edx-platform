@@ -1,11 +1,18 @@
 """
 Course API Views
 """
+<<<<<<< HEAD
 
 from completion.exceptions import UnavailableCompletionData
 from completion.utilities import get_key_to_last_completed_block
 from django.urls import reverse
 from django.utils.translation import gettext as _
+=======
+from completion.exceptions import UnavailableCompletionData
+from completion.utilities import get_key_to_last_completed_block
+from django.conf import settings
+from django.utils.functional import cached_property
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edx_django_utils.cache import TieredCache
 from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
 from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser
@@ -18,6 +25,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.exceptions import ItemNotFoundError, NoPathToItem
+from xmodule.modulestore.search import path_to_location
+from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.util.views import expose_header
 from lms.djangoapps.edxnotes.helpers import is_feature_enabled
@@ -26,6 +41,7 @@ from lms.djangoapps.certificates.models import GeneratedCertificate
 from lms.djangoapps.course_api.api import course_detail
 from lms.djangoapps.course_goals.models import UserActivity
 from lms.djangoapps.course_goals.api import get_course_goal
+<<<<<<< HEAD
 from lms.djangoapps.course_goals.toggles import COURSE_GOALS_NUMBER_OF_DAYS_GOALS
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.access_response import (
@@ -47,6 +63,25 @@ from lms.djangoapps.grades.api import CourseGradeFactory
 from lms.djangoapps.verify_student.services import IDVerificationService
 from openedx.core.djangoapps.agreements.api import get_integrity_signature
 from openedx.core.djangoapps.agreements.toggles import is_integrity_signature_enabled
+=======
+from lms.djangoapps.courseware.access import has_access
+
+from lms.djangoapps.courseware.context_processor import user_timezone_locale_prefs
+from lms.djangoapps.courseware.entrance_exams import course_has_entrance_exam, user_has_passed_entrance_exam
+from lms.djangoapps.courseware.masquerade import (
+    is_masquerading_as_specific_student,
+    setup_masquerade,
+    is_masquerading_as_non_audit_enrollment,
+)
+from lms.djangoapps.courseware.models import LastSeenCoursewareTimezone
+from lms.djangoapps.courseware.module_render import get_module_by_usage_id
+from lms.djangoapps.courseware.toggles import course_exit_page_is_active
+from lms.djangoapps.courseware.views.views import get_cert_data
+from lms.djangoapps.gating.api import get_entrance_exam_score, get_entrance_exam_usage_key
+from lms.djangoapps.grades.api import CourseGradeFactory
+from lms.djangoapps.verify_student.services import IDVerificationService
+from openedx.core.djangoapps.agreements.api import get_integrity_signature
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.courseware_api.utils import get_celebrations_dict
 from openedx.core.djangoapps.programs.utils import ProgramProgressMeter
 from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser
@@ -62,6 +97,7 @@ from common.djangoapps.student.models import (
     CourseEnrollmentCelebration,
     LinkedInAddToProfileConfiguration
 )
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError, NoPathToItem
 from xmodule.modulestore.search import path_to_location
@@ -69,12 +105,20 @@ from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
 
 from .serializers import CourseInfoSerializer
 from .utils import serialize_upgrade_info
+=======
+
+from .serializers import CourseInfoSerializer
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class CoursewareMeta:
     """
     Encapsulates courseware and enrollment metadata.
     """
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def __init__(self, course_key, request, username=''):
         self.request = request
         self.overview = course_detail(
@@ -82,6 +126,7 @@ class CoursewareMeta:
             username or self.request.user.username,
             course_key,
         )
+<<<<<<< HEAD
         # We must compute course load access *before* setting up masquerading,
         # else course staff (who are not enrolled) will not be able view
         # their course from the perspective of a learner.
@@ -93,12 +138,17 @@ class CoursewareMeta:
             check_if_authenticated=True,
         )
         self.original_user_is_staff = has_access(self.request.user, 'staff', self.overview).has_access
+=======
+
+        original_user_is_staff = has_access(self.request.user, 'staff', self.overview).has_access
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.original_user_is_global_staff = self.request.user.is_staff
         self.course_key = course_key
         self.course = get_course_by_id(self.course_key)
         self.course_masquerade, self.effective_user = setup_masquerade(
             self.request,
             course_key,
+<<<<<<< HEAD
             staff_access=self.original_user_is_staff,
         )
         self.request.user = self.effective_user
@@ -109,10 +159,18 @@ class CoursewareMeta:
             course_key=course_key,
             is_global_staff=self.original_user_is_global_staff,
         )
+=======
+            staff_access=original_user_is_staff,
+        )
+        self.request.user = self.effective_user
+        self.enrollment_object = CourseEnrollment.get_enrollment(self.effective_user, self.course_key,
+                                                                 select_related=['celebration', 'user__celebration'])
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def __getattr__(self, name):
         return getattr(self.overview, name)
 
+<<<<<<< HEAD
     def is_microfrontend_enabled_for_user(self):
         """
         Can this user see the MFE for this course?
@@ -123,6 +181,8 @@ class CoursewareMeta:
             is_course_staff=self.original_user_is_staff
         )
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @property
     def enrollment(self):
         """
@@ -160,6 +220,7 @@ class CoursewareMeta:
         return self.course.license
 
     @property
+<<<<<<< HEAD
     def course_access(self) -> dict:
         """
         Can the user load this course in the learning micro-frontend?
@@ -198,6 +259,8 @@ class CoursewareMeta:
         return serialize_upgrade_info(self.effective_user, self.overview, self.enrollment_object)
 
     @property
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def notes(self):
         """
         Return whether edxnotes is enabled and visible.
@@ -221,6 +284,7 @@ class CoursewareMeta:
         """
         Returns a dict of course goals
         """
+<<<<<<< HEAD
         if COURSE_GOALS_NUMBER_OF_DAYS_GOALS.is_enabled():
             course_goals = {
                 'goal_options': [],
@@ -235,12 +299,41 @@ class CoursewareMeta:
                         'subscribed_to_reminders': selected_goal.subscribed_to_reminders,
                     }
             return course_goals
+=======
+        course_goals = {
+            'selected_goal': None,
+            'weekly_learning_goal_enabled': False,
+        }
+        user_is_enrolled = CourseEnrollment.is_enrolled(self.effective_user, self.course_key)
+        if (user_is_enrolled and ENABLE_COURSE_GOALS.is_enabled(self.course_key)):
+            course_goals['weekly_learning_goal_enabled'] = True
+            selected_goal = get_course_goal(self.effective_user, self.course_key)
+            if selected_goal:
+                course_goals['selected_goal'] = {
+                    'days_per_week': selected_goal.days_per_week,
+                    'subscribed_to_reminders': selected_goal.subscribed_to_reminders,
+                }
+        return course_goals
+
+    @cached_property
+    def course_grade(self):
+        """
+        Returns the Course Grade for the effective user in the course
+
+        Cached property since we use this twice in the class and don't want to recreate the entire grade.
+        """
+        return CourseGradeFactory().read(self.effective_user, self.course)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @property
     def user_has_passing_grade(self):
         """ Returns a boolean on if the effective_user has a passing grade in the course """
         if not self.effective_user.is_anonymous:
+<<<<<<< HEAD
             user_grade = CourseGradeFactory().read(self.effective_user, self.course).percent
+=======
+            user_grade = self.course_grade.percent
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return user_grade >= self.course.lowest_passing_grade
         return False
 
@@ -259,6 +352,27 @@ class CoursewareMeta:
             return get_cert_data(self.effective_user, self.course, self.enrollment_object.mode)
 
     @property
+<<<<<<< HEAD
+=======
+    def entrance_exam_data(self):
+        """
+        Returns Entrance Exam data for the course
+
+        Although some of the fields will have values (i.e. entrance_exam_minimum_score_pct and
+        entrance_exam_passed), nothing will be used unless entrance_exam_enabled is True.
+        """
+        return {
+            'entrance_exam_current_score': get_entrance_exam_score(
+                self.course_grade, get_entrance_exam_usage_key(self.overview),
+            ),
+            'entrance_exam_enabled': course_has_entrance_exam(self.overview),
+            'entrance_exam_id': self.overview.entrance_exam_id,
+            'entrance_exam_minimum_score_pct': self.overview.entrance_exam_minimum_score_pct,
+            'entrance_exam_passed': user_has_passed_entrance_exam(self.effective_user, self.overview),
+        }
+
+    @property
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def verify_identity_url(self):
         """
         Returns a String to the location to verify a learner's identity
@@ -311,10 +425,21 @@ class CoursewareMeta:
             )
 
     @property
+<<<<<<< HEAD
+=======
+    def is_integrity_signature_enabled(self):
+        """
+        Django setting for the integrity signature feature.
+        """
+        return settings.FEATURES.get('ENABLE_INTEGRITY_SIGNATURE', False)
+
+    @property
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def user_needs_integrity_signature(self):
         """
         Boolean describing whether the user needs to sign the integrity agreement for a course.
         """
+<<<<<<< HEAD
         if (
             is_integrity_signature_enabled(self.course_key)
             and not self.is_staff
@@ -324,6 +449,30 @@ class CoursewareMeta:
             signature = get_integrity_signature(self.effective_user.username, str(self.course_key))
             if not signature:
                 return True
+=======
+        if not settings.FEATURES.get('ENABLE_INTEGRITY_SIGNATURE'):
+            return False
+
+        integrity_signature_required = (
+            self.enrollment_object
+            # Master's enrollments are excluded here as honor code is handled separately
+            and self.enrollment_object.mode in CourseMode.CREDIT_MODES + CourseMode.CREDIT_ELIGIBLE_MODES
+        )
+
+        if not integrity_signature_required:
+            # Check masquerading as a non-audit enrollment
+            integrity_signature_required = is_masquerading_as_non_audit_enrollment(
+                self.effective_user,
+                self.course_key,
+                self.course_masquerade
+            )
+
+        if integrity_signature_required:
+            signature = get_integrity_signature(self.effective_user.username, str(self.course_key))
+            if not signature:
+                return True
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return False
 
     @property
@@ -363,6 +512,24 @@ class CoursewareMeta:
         user_timezone_locale = user_timezone_locale_prefs(self.request)
         return user_timezone_locale['user_timezone']
 
+<<<<<<< HEAD
+=======
+    @property
+    def can_access_proctored_exams(self):
+        """Returns if the user is eligible to access proctored exams"""
+        if is_masquerading_as_non_audit_enrollment(
+            self.effective_user,
+            self.course_key,
+            self.course_masquerade
+        ):
+            # Masquerading should mimic the correct enrollment track behavior.
+            return True
+        else:
+            enrollment_mode = self.enrollment['mode']
+            enrollment_active = self.enrollment['is_active']
+            return enrollment_active and CourseMode.is_eligible_for_certificate(enrollment_mode)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class CoursewareInformation(RetrieveAPIView):
     """
@@ -383,10 +550,24 @@ class CoursewareInformation(RetrieveAPIView):
             * masquerading_expired_course: (bool) Whether this course is expired for the masqueraded user
             * upgrade_deadline: (str) Last chance to upgrade, in ISO 8601 notation (or None if can't upgrade anymore)
             * upgrade_url: (str) Upgrade linke (or None if can't upgrade anymore)
+<<<<<<< HEAD
         course_goals:
             selected_goal:
                 days_per_week: (int) The number of days the learner wants to learn per week
                 subscribed_to_reminders: (bool) Whether the learner wants email reminders about their goal
+=======
+        * celebrations: An object detailing which celebrations to render
+            * first_section: (bool) If the first section celebration should render
+                Note: Also uses information from frontend so this value is not final
+            * streak_length_to_celebrate: (int) The streak length to celebrate for the learner
+            * streak_discount_enabled: (bool) If the frontend should render an upgrade discount for hitting the streak
+            * weekly_goal: (bool) If the weekly goal celebration should render
+        * course_goals:
+            * selected_goal:
+                * days_per_week: (int) The number of days the learner wants to learn per week
+                * subscribed_to_reminders: (bool) Whether the learner wants email reminders about their goal
+            * weekly_learning_goal_enabled: Flag indicating if this feature is enabled for this call
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         * effort: A textual description of the weekly hours of effort expected
             in the course.
         * end: Date the course ends, in ISO 8601 notation
@@ -395,6 +576,16 @@ class CoursewareInformation(RetrieveAPIView):
             * is_active: boolean
         * enrollment_end: Date enrollment ends, in ISO 8601 notation
         * enrollment_start: Date enrollment begins, in ISO 8601 notation
+<<<<<<< HEAD
+=======
+        * entrance_exam_data: An object containing information about the course's entrance exam
+            * entrance_exam_current_score: (float) The users current score on the entrance exam
+            * entrance_exam_enabled: (bool) If the course has an entrance exam
+            * entrance_exam_id: (str) The block id for the entrance exam if enabled. Will be a section (chapter)
+            * entrance_exam_minimum_score_pct: (float) The minimum score a user must receive on the entrance exam
+                to unlock the remainder of the course. Returned as a float (i.e. 0.7 for 70%)
+            * entrance_exam_passed: (bool) Indicates if the entrance exam has been passed
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         * id: A unique identifier of the course; a serialized representation
             of the opaque key identifying the course.
         * media: An object that contains named media items.  Included here:
@@ -402,7 +593,10 @@ class CoursewareInformation(RetrieveAPIView):
               as an object with the following fields:
                 * uri: The location of the image
         * name: Name of the course
+<<<<<<< HEAD
         * number: Catalog number of the course
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         * offer: An object detailing upgrade discount information
             * code: (str) Checkout code
             * expiration_date: (str) Expiration of offer, in ISO 8601 notation
@@ -430,12 +624,16 @@ class CoursewareInformation(RetrieveAPIView):
             * `"timestamp"`: generated from the `start` timestamp
             * `"empty"`: no start date is specified
         * pacing: Course pacing. Possible values: instructor, self
+<<<<<<< HEAD
         * tabs: Course tabs
         * user_timezone: User's chosen timezone setting (or null for browser default)
         * can_load_course: Whether the user can view the course (AccessResponse object)
         * is_staff: Whether the effective user has staff access to the course
         * original_user_is_staff: Whether the original user has staff access to the course
         * can_view_legacy_courseware: Indicates whether the user is able to see the legacy courseware view
+=======
+        * user_timezone: User's chosen timezone setting (or null for browser default)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         * user_has_passing_grade: Whether or not the effective user's grade is equal to or above the courses minimum
             passing grade
         * course_exit_page_is_active: Flag for the learning mfe on whether or not the course exit page should display
@@ -474,6 +672,12 @@ class CoursewareInformation(RetrieveAPIView):
         The timezone in the user's account is frequently not set.
         This method sets a user's recent timezone that can be used as a fallback
         """
+<<<<<<< HEAD
+=======
+        if not user.id:
+            return
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         cache_key = 'browser_timezone_{}'.format(str(user.id))
         browser_timezone = self.request.query_params.get('browser_timezone', None)
         cached_value = TieredCache.get_cached_response(cache_key)
@@ -482,7 +686,11 @@ class CoursewareInformation(RetrieveAPIView):
                 TieredCache.set_all_tiers(cache_key, str(browser_timezone), 86400)  # Refresh the cache daily
                 LastSeenCoursewareTimezone.objects.update_or_create(
                     user=user,
+<<<<<<< HEAD
                     last_seen_courseware_timezone=browser_timezone,
+=======
+                    defaults={'last_seen_courseware_timezone': browser_timezone},
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 )
 
     def get_object(self):
@@ -568,9 +776,14 @@ class SequenceMetadata(DeveloperErrorViewMixin, APIView):
         """
         try:
             usage_key = UsageKey.from_string(usage_key_string)
+<<<<<<< HEAD
         except InvalidKeyError:
             raise NotFound(f"Invalid usage key: '{usage_key_string}'.")  # lint-amnesty, pylint: disable=raise-missing-from
 
+=======
+        except InvalidKeyError as exc:
+            raise NotFound(f"Invalid usage key: '{usage_key_string}'.") from exc
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         _, request.user = setup_masquerade(
             request,
             usage_key.course_key,
@@ -629,7 +842,11 @@ class Resume(DeveloperErrorViewMixin, APIView):
         JwtAuthentication,
         SessionAuthenticationAllowInactiveUser,
     )
+<<<<<<< HEAD
     permission_classes = (IsAuthenticated, )
+=======
+    permission_classes = (IsAuthenticated,)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def get(self, request, course_key_string, *args, **kwargs):  # lint-amnesty, pylint: disable=unused-argument
         """
@@ -670,6 +887,10 @@ class Celebration(DeveloperErrorViewMixin, APIView):
         Body consists of the following fields:
 
             * first_section (bool): whether we should celebrate when a user finishes their first section of a course
+<<<<<<< HEAD
+=======
+            * weekly_goal (bool): whether we should celebrate when a user hits their weekly learning goal in a course
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     **Returns**
 
@@ -683,7 +904,11 @@ class Celebration(DeveloperErrorViewMixin, APIView):
         BearerAuthenticationAllowInactiveUser,
         SessionAuthenticationAllowInactiveUser,
     )
+<<<<<<< HEAD
     permission_classes = (IsAuthenticated, )
+=======
+    permission_classes = (IsAuthenticated,)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     http_method_names = ['post']
 
     def post(self, request, course_key_string, *args, **kwargs):  # lint-amnesty, pylint: disable=unused-argument
@@ -704,6 +929,10 @@ class Celebration(DeveloperErrorViewMixin, APIView):
 
         data = dict(request.data)
         first_section = data.pop('first_section', None)
+<<<<<<< HEAD
+=======
+        weekly_goal = data.pop('weekly_goal', None)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if data:
             return Response(status=400)  # there were parameters we didn't recognize
 
@@ -714,6 +943,11 @@ class Celebration(DeveloperErrorViewMixin, APIView):
         defaults = {}
         if first_section is not None:
             defaults['celebrate_first_section'] = first_section
+<<<<<<< HEAD
+=======
+        if weekly_goal is not None:
+            defaults['celebrate_weekly_goal'] = weekly_goal
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if defaults:
             _, created = CourseEnrollmentCelebration.objects.update_or_create(enrollment=enrollment, defaults=defaults)

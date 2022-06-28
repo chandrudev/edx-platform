@@ -15,14 +15,21 @@ VISIBILITY_VIEW = 'visibility_view'
 
 
 @XBlock.needs("i18n")
+<<<<<<< HEAD
+=======
+@XBlock.needs("mako")
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class AuthoringMixin(XBlockMixin):
     """
     Mixin class that provides authoring capabilities for XBlocks.
     """
+<<<<<<< HEAD
     _services_requested = {
         'i18n': 'need',
     }
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _get_studio_resource_url(self, relative_url):
         """
         Returns the Studio URL to a static resource.
@@ -39,7 +46,11 @@ class AuthoringMixin(XBlockMixin):
         """
         fragment = Fragment()
         from cms.djangoapps.contentstore.utils import reverse_course_url
+<<<<<<< HEAD
         fragment.add_content(self.system.render_template('visibility_editor.html', {
+=======
+        fragment.add_content(self.runtime.service(self, 'mako').render_template('visibility_editor.html', {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'xblock': self,
             'manage_groups_url': reverse_course_url('group_configurations_list_handler', self.location.course_key),
         }))

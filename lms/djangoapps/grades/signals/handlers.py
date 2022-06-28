@@ -36,7 +36,11 @@ from .signals import (
     SUBSECTION_SCORE_CHANGED,
     COURSE_GRADE_PASSED_FIRST_TIME
 )
+<<<<<<< HEAD
 from openedx.core.djangoapps.signals.signals import (
+=======
+from openedx.core.djangoapps.signals.signals import (  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     COURSE_GRADE_NOW_FAILED,
     COURSE_GRADE_NOW_PASSED
 )
@@ -299,3 +303,7 @@ def listen_for_course_grade_passed_first_time(sender, user_id, course_id, **kwar
     Emits an event edx.course.grade.passed.first_time
     """
     events.course_grade_passed_first_time(user_id, course_id)
+<<<<<<< HEAD
+=======
+    events.fire_segment_event_on_course_grade_passed_first_time(user_id, course_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

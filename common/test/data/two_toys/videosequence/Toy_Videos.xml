@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 <videosequence display_name="Toy Videos" format="Lecture Sequence">
   <video url_name="Video_Resources"/>
 </videosequence>
+=======
+<sequential display_name="Toy Videos" format="Lecture Sequence">
+  <video url_name="Video_Resources"/>
+</sequential>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

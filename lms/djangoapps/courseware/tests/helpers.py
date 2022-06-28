@@ -7,7 +7,13 @@ import ast
 import json
 from collections import OrderedDict
 from datetime import timedelta
+<<<<<<< HEAD
 
+=======
+from unittest.mock import Mock, patch
+
+from django.conf import settings
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.contrib import messages
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from django.test import TestCase
@@ -17,6 +23,10 @@ from django.utils.timezone import now
 from xblock.field_data import DictFieldData
 
 from common.djangoapps.edxmako.shortcuts import render_to_string
+<<<<<<< HEAD
+=======
+from lms.djangoapps.courseware import access_utils
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.utils import verified_upgrade_deadline_link
 from lms.djangoapps.courseware.masquerade import MasqueradeView
@@ -27,10 +37,17 @@ from openedx.core.lib.url_utils import quote_slashes
 from common.djangoapps.student.models import CourseEnrollment, Registration
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 from common.djangoapps.util.date_utils import strftime_localized_html
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.tests import get_test_descriptor_system, get_test_system
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.tests import get_test_descriptor_system, get_test_system  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class BaseTestXmodule(ModuleStoreTestCase):
@@ -63,6 +80,7 @@ class BaseTestXmodule(ModuleStoreTestCase):
     METADATA = {}
     MODEL_DATA = {'data': '<some_module></some_module>'}
 
+<<<<<<< HEAD
     def new_module_runtime(self):
         """
         Generate a new ModuleSystem that is minimally set up for testing
@@ -75,6 +93,20 @@ class BaseTestXmodule(ModuleStoreTestCase):
         return runtime
 
     def initialize_module(self, **kwargs):  # lint-amnesty, pylint: disable=missing-function-docstring
+=======
+    def new_module_runtime(self, **kwargs):
+        """
+        Generate a new ModuleSystem that is minimally set up for testing
+        """
+        return get_test_system(course_id=self.course.id, **kwargs)
+
+    def new_descriptor_runtime(self, **kwargs):
+        runtime = get_test_descriptor_system(**kwargs)
+        runtime.get_block = modulestore().get_item
+        return runtime
+
+    def initialize_module(self, runtime_kwargs=None, **kwargs):  # lint-amnesty, pylint: disable=missing-function-docstring
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         kwargs.update({
             'parent_location': self.section.location,
             'category': self.CATEGORY
@@ -89,7 +121,13 @@ class BaseTestXmodule(ModuleStoreTestCase):
         student_data = DictFieldData(field_data)
         self.item_descriptor._field_data = LmsFieldData(self.item_descriptor._field_data, student_data)  # lint-amnesty, pylint: disable=protected-access
 
+<<<<<<< HEAD
         self.item_descriptor.xmodule_runtime = self.new_module_runtime()
+=======
+        if runtime_kwargs is None:
+            runtime_kwargs = {}
+        self.item_descriptor.xmodule_runtime = self.new_module_runtime(**runtime_kwargs)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         self.item_url = str(self.item_descriptor.location)
 
@@ -143,12 +181,23 @@ class BaseTestXmodule(ModuleStoreTestCase):
 
 class XModuleRenderingTestBase(BaseTestXmodule):  # lint-amnesty, pylint: disable=missing-class-docstring
 
+<<<<<<< HEAD
     def new_module_runtime(self):
         """
         Create a runtime that actually does html rendering
         """
         runtime = super().new_module_runtime()
         runtime.render_template = render_to_string
+=======
+    def new_module_runtime(self, **kwargs):
+        """
+        Create a runtime that actually does html rendering
+        """
+        if 'render_template' not in kwargs:
+            kwargs['render_template'] = render_to_string
+        runtime = super().new_module_runtime(**kwargs)
+        runtime.modulestore = Mock()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return runtime
 
 
@@ -326,14 +375,24 @@ class MasqueradeMixin:
     to pass in the course parameter below.
     """
 
+<<<<<<< HEAD
     def update_masquerade(self, course=None, role='student', group_id=None, username=None, user_partition_id=None):
+=======
+    def update_masquerade(self, course=None, course_id=None, role='student', group_id=None, username=None,
+                          user_partition_id=None):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Installs a masquerade for the specified user and course, to enable
         the user to masquerade as belonging to the specific partition/group
         combination.
 
         Arguments:
+<<<<<<< HEAD
             course (object): a course or None for self.course
+=======
+            course (object): a course or None for self.course (or you can pass course_id instead)
+            course_id (str|CourseKey): a course id, useful if you don't happen to have a full course object handy
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             user_partition_id (int): the integer partition id, referring to partitions already
                configured in the course.
             group_id (int); the integer group id, within the specified partition.
@@ -342,11 +401,19 @@ class MasqueradeMixin:
 
         Returns: the response object for the AJAX call to update the user's masquerade.
         """
+<<<<<<< HEAD
         course = course or self.course
         masquerade_url = reverse(
             'masquerade_update',
             kwargs={
                 'course_key_string': str(course.id),
+=======
+        course_id = str(course_id or (course and course.id) or self.course.id)
+        masquerade_url = reverse(
+            'masquerade_update',
+            kwargs={
+                'course_key_string': course_id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             }
         )
         response = self.client.post(
@@ -444,3 +511,14 @@ def get_context_dict_from_string(data):
         sorted(json.loads(cleaned_data['metadata']).items(), key=lambda t: t[0])
     )
     return cleaned_data
+<<<<<<< HEAD
+=======
+
+
+def set_preview_mode(preview_mode: bool):
+    """
+    A decorator to force the preview mode on or off.
+    """
+    hostname = settings.FEATURES.get('PREVIEW_LMS_BASE') if preview_mode else None
+    return patch.object(access_utils, 'get_current_request_hostname', new=lambda: hostname)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

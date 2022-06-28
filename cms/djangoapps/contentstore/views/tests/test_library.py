@@ -20,7 +20,11 @@ from cms.djangoapps.contentstore.tests.utils import AjaxEnabledTestClient, Cours
 from cms.djangoapps.contentstore.utils import reverse_course_url, reverse_library_url
 from cms.djangoapps.course_creators.views import add_user_with_status_granted as grant_course_creator_status
 from common.djangoapps.student.roles import LibraryUserRole
+<<<<<<< HEAD
 from xmodule.modulestore.tests.factories import LibraryFactory
+=======
+from xmodule.modulestore.tests.factories import LibraryFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..component import get_component_templates
 from ..library import user_can_create_library

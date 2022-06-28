@@ -101,9 +101,16 @@ from xmodule.modulestore.exceptions import (
     VersionConflictError
 )
 from xmodule.modulestore.split_mongo import BlockKey, CourseEnvelope
+<<<<<<< HEAD
 from xmodule.modulestore.split_mongo.mongo_connection import DuplicateKeyError, MongoConnection
 from xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
 from xmodule.partitions.partitions_service import PartitionService
+=======
+from xmodule.modulestore.split_mongo.mongo_connection import DuplicateKeyError, DjangoFlexPersistenceBackend
+from xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
+from xmodule.partitions.partitions_service import PartitionService
+from xmodule.util.misc import get_library_or_course_attribute
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..exceptions import ItemNotFoundError
 from .caching_descriptor_system import CachingDescriptorSystem
@@ -214,7 +221,11 @@ class SplitBulkWriteMixin(BulkOperationsMixin):
         if not isinstance(course_key, (CourseLocator, LibraryLocator)):
             raise TypeError(f'{course_key!r} is not a CourseLocator or LibraryLocator')
         # handle version_guid based retrieval locally
+<<<<<<< HEAD
         if course_key.org is None or course_key.course is None or course_key.run is None:
+=======
+        if course_key.org is None or get_library_or_course_attribute(course_key) is None or course_key.run is None:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return self._active_bulk_ops.records[
                 course_key.replace(org=None, course=None, run=None, branch=None)
             ]
@@ -231,7 +242,11 @@ class SplitBulkWriteMixin(BulkOperationsMixin):
         if not isinstance(course_key, (CourseLocator, LibraryLocator)):
             raise TypeError(f'{course_key!r} is not a CourseLocator or LibraryLocator')
 
+<<<<<<< HEAD
         if course_key.org and course_key.course and course_key.run:
+=======
+        if course_key.org and get_library_or_course_attribute(course_key) and course_key.run:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             del self._active_bulk_ops.records[course_key.replace(branch=None, version_guid=None)]
         else:
             del self._active_bulk_ops.records[
@@ -651,7 +666,11 @@ class SplitMongoModuleStore(SplitBulkWriteMixin, ModuleStoreWriteBase):
 
         super().__init__(contentstore, **kwargs)
 
+<<<<<<< HEAD
         self.db_connection = MongoConnection(**doc_store_config)
+=======
+        self.db_connection = DjangoFlexPersistenceBackend(**doc_store_config)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if default_class is not None:
             module_path, __, class_name = default_class.rpartition('.')
@@ -821,7 +840,11 @@ class SplitMongoModuleStore(SplitBulkWriteMixin, ModuleStoreWriteBase):
         """
         if not course_key.version_guid:
             head_validation = True
+<<<<<<< HEAD
         if head_validation and course_key.org and course_key.course and course_key.run:
+=======
+        if head_validation and course_key.org and get_library_or_course_attribute(course_key) and course_key.run:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if course_key.branch is None:
                 raise InsufficientSpecificationError(course_key)
 
@@ -1897,7 +1920,11 @@ class SplitMongoModuleStore(SplitBulkWriteMixin, ModuleStoreWriteBase):
             index_entry = {
                 '_id': ObjectId(),
                 'org': locator.org,
+<<<<<<< HEAD
                 'course': locator.course,
+=======
+                'course': get_library_or_course_attribute(locator),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'run': locator.run,
                 'edited_by': user_id,
                 'edited_on': datetime.datetime.now(UTC),
@@ -2923,7 +2950,11 @@ class SplitMongoModuleStore(SplitBulkWriteMixin, ModuleStoreWriteBase):
         :param force: if false, raises VersionConflictError if the current head of the course != the one identified
         by course_key
         """
+<<<<<<< HEAD
         if course_key.org is None or course_key.course is None or course_key.run is None or course_key.branch is None:
+=======
+        if course_key.org is None or get_library_or_course_attribute(course_key) is None or course_key.run is None or course_key.branch is None:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return None
         else:
             index_entry = self.get_course_index(course_key)

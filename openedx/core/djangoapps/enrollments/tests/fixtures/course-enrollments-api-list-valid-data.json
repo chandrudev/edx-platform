@@ -1,18 +1,30 @@
 [
     [
         {
+<<<<<<< HEAD
             "course_id": "e/d/X"
         },
         [
             {
                 "course_id": "e/d/X",
+=======
+            "course_id": "course-v1:e+d+X"
+        },
+        [
+            {
+                "course_id": "course-v1:e+d+X",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student1",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "e/d/X",
+=======
+                "course_id": "course-v1:e+d+X",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
@@ -22,25 +34,41 @@
     ],
     [
         {
+<<<<<<< HEAD
             "course_id": "x/y/Z"
         },
         [
             {
                 "course_id": "x/y/Z",
+=======
+            "course_id": "course-v1:x+y+Z"
+        },
+        [
+            {
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "verified",
                 "user": "staff",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "verified",
                 "user": "student3",
@@ -50,19 +78,31 @@
     ],
     [
         {
+<<<<<<< HEAD
             "course_id": "x/y/Z",
+=======
+            "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             "username": "student2,student3"
         },
         [
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "verified",
                 "user": "student3",
@@ -72,12 +112,20 @@
     ],
     [
         {
+<<<<<<< HEAD
             "course_id": "x/y/Z",
+=======
+            "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             "username": "student1,student2"
         },
         [
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
@@ -91,21 +139,33 @@
         },
         [
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "verified",
                 "user": "staff",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "e/d/X",
+=======
+                "course_id": "course-v1:e+d+X",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
@@ -118,35 +178,55 @@
         null,
         [
             {
+<<<<<<< HEAD
                 "course_id": "e/d/X",
+=======
+                "course_id": "course-v1:e+d+X",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student1",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "e/d/X",
+=======
+                "course_id": "course-v1:e+d+X",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "verified",
                 "user": "student3",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "honor",
                 "user": "student2",
                 "created": "2018-01-01T00:00:01Z"
             },
             {
+<<<<<<< HEAD
                 "course_id": "x/y/Z",
+=======
+                "course_id": "course-v1:x+y+Z",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 "is_active": true,
                 "mode": "verified",
                 "user": "staff",

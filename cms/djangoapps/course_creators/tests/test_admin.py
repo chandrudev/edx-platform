@@ -176,6 +176,7 @@ class CourseCreatorAdminTest(TestCase):
 
         self.request.user = self.user
         self.assertFalse(self.creator_admin.has_change_permission(self.request))
+<<<<<<< HEAD
 
     def test_rate_limit_login(self):
         with mock.patch.dict('django.conf.settings.FEATURES', {'ENABLE_CREATOR_GROUP': True}):
@@ -191,3 +192,5 @@ class CourseCreatorAdminTest(TestCase):
             # expecting this to return a 403 error to indicate that there have
             # been too many attempts
             self.assertEqual(response.status_code, 403)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -78,7 +78,11 @@ def _get_dynamic_partitions(course):
     Return the dynamic user partitions for this course.
     If none exists, returns an empty array.
     """
+<<<<<<< HEAD
     dynamic_partition_generators = DynamicPartitionGeneratorsPluginManager.get_available_plugins().values()  # lint-amnesty, pylint: disable=dict-values-not-iterating
+=======
+    dynamic_partition_generators = DynamicPartitionGeneratorsPluginManager.get_available_plugins().values()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     generated_partitions = []
     for generator in dynamic_partition_generators:
         generated_partition = generator(course)

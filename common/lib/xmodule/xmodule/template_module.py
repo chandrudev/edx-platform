@@ -3,6 +3,10 @@ Template module
 """
 
 from string import Template
+<<<<<<< HEAD
+=======
+from xblock.core import XBlock
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from lxml import etree
 from pkg_resources import resource_string
@@ -15,7 +19,10 @@ from xmodule.x_module import (
     ResourceTemplates,
     shim_xmodule_js,
     XModuleMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
 )
 from xmodule.xml_module import XmlMixin
@@ -27,7 +34,10 @@ class CustomTagTemplateBlock(  # pylint: disable=abstract-method
     RawMixin,
     XmlMixin,
     EditingMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,
@@ -40,6 +50,10 @@ class CustomTagTemplateBlock(  # pylint: disable=abstract-method
     """
 
 
+<<<<<<< HEAD
+=======
+@XBlock.needs('mako')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CustomTagBlock(CustomTagTemplateBlock):  # pylint: disable=abstract-method
     """
     This module supports tags of the form
@@ -85,7 +99,11 @@ class CustomTagBlock(CustomTagTemplateBlock):  # pylint: disable=abstract-method
         Return the studio view.
         """
         fragment = Fragment(
+<<<<<<< HEAD
             self.system.render_template(self.mako_template, self.get_context())
+=======
+            self.runtime.service(self, 'mako').render_template(self.mako_template, self.get_context())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         add_webpack_to_fragment(fragment, 'CustomTagBlockStudio')
         shim_xmodule_js(fragment, 'XMLEditingDescriptor')
@@ -137,7 +155,10 @@ class CustomTagBlock(CustomTagTemplateBlock):  # pylint: disable=abstract-method
 
 
 class TranslateCustomTagBlock(  # pylint: disable=abstract-method
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     XModuleMixin,
 ):

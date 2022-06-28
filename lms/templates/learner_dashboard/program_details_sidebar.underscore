@@ -21,7 +21,11 @@
         </div>
     <% } %>
 </aside>
+<<<<<<< HEAD
 <% if (!programDiscussionEnabled) { %>
+=======
+<% if (!programTabViewEnabled) { %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 <% if (creditPathways.length > 0) { %>
     <aside class="aside js-program-pathways program-credit-pathways">
         <h2 class = "divider-heading"><%- gettext('Additional Credit Opportunities') %></h2>

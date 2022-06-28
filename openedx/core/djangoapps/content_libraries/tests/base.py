@@ -4,10 +4,19 @@ Tests for Blockstore-based Content Libraries
 from contextlib import contextmanager
 from io import BytesIO
 from urllib.parse import urlencode
+<<<<<<< HEAD
 import unittest
 from unittest.mock import patch
 
 from django.conf import settings
+=======
+from unittest import mock, skipUnless
+from urllib.parse import urlparse
+
+from django.conf import settings
+from django.test import LiveServerTestCase
+from django.test.client import RequestFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.test.utils import override_settings
 from organizations.models import Organization
 from rest_framework.test import APITestCase, APIClient
@@ -47,8 +56,44 @@ URL_BLOCK_METADATA_URL = '/api/xblock/v2/xblocks/{block_key}/'
 URL_BLOCK_XBLOCK_HANDLER = '/api/xblock/v2/xblocks/{block_key}/handler/{user_id}-{secure_token}/{handler_name}/'
 
 
+<<<<<<< HEAD
 # Decorator for tests that require blockstore
 requires_blockstore = unittest.skipUnless(settings.RUN_BLOCKSTORE_TESTS, "Requires a running Blockstore server")
+=======
+# Decorators for tests that require the blockstore service/app
+requires_blockstore = skipUnless(settings.RUN_BLOCKSTORE_TESTS, "Requires a running Blockstore server")
+
+requires_blockstore_app = skipUnless(settings.BLOCKSTORE_USE_BLOCKSTORE_APP_API, "Requires blockstore app")
+
+
+class BlockstoreAppTestMixin:
+    """
+    Sets up the environment for tests to be run using the installed Blockstore app.
+    """
+    def setUp(self):
+        """
+        Ensure there's an active request, so that bundle file URLs can be made absolute.
+        """
+        super().setUp()
+
+        # Patch the blockstore get_current_request to use our live_server_url
+        mock.patch('blockstore.apps.api.methods.get_current_request',
+                   mock.Mock(return_value=self._get_current_request())).start()
+        self.addCleanup(mock.patch.stopall)
+
+    def _get_current_request(self):
+        """
+        Returns a request object using the live_server_url, if available.
+        """
+        request_args = {}
+        if hasattr(self, 'live_server_url'):
+            live_server_url = urlparse(self.live_server_url)
+            name, port = live_server_url.netloc.split(':')
+            request_args['SERVER_NAME'] = name
+            request_args['SERVER_PORT'] = port or '80'
+            request_args['wsgi.url_scheme'] = live_server_url.scheme
+        return RequestFactory().request(**request_args)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def elasticsearch_test(func):
@@ -63,9 +108,17 @@ def elasticsearch_test(func):
             'host': settings.TEST_ELASTICSEARCH_HOST,
             'port': settings.TEST_ELASTICSEARCH_PORT,
         }])(func)
+<<<<<<< HEAD
         func = patch("openedx.core.djangoapps.content_libraries.libraries_index.SearchIndexerBase.SEARCH_KWARGS", new={
             'refresh': 'wait_for'
         })(func)
+=======
+        func = mock.patch(
+            "openedx.core.djangoapps.content_libraries.libraries_index.SearchIndexerBase.SEARCH_KWARGS",
+            new={
+                'refresh': 'wait_for'
+            })(func)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return func
     else:
         @classmethod
@@ -77,20 +130,33 @@ def elasticsearch_test(func):
                 size=MAX_SIZE
             )
 
+<<<<<<< HEAD
         func = patch(
             "openedx.core.djangoapps.content_libraries.libraries_index.SearchIndexerBase.SEARCH_KWARGS",
             new={}
         )(func)
         func = patch(
+=======
+        func = mock.patch(
+            "openedx.core.djangoapps.content_libraries.libraries_index.SearchIndexerBase.SEARCH_KWARGS",
+            new={}
+        )(func)
+        func = mock.patch(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             "openedx.core.djangoapps.content_libraries.libraries_index.SearchIndexerBase._perform_elastic_search",
             new=mock_perform
         )(func)
         return func
 
 
+<<<<<<< HEAD
 @requires_blockstore
 @skip_unless_cms  # Content Libraries REST API is only available in Studio
 class ContentLibrariesRestApiTest(APITestCase):
+=======
+@skip_unless_cms  # Content Libraries REST API is only available in Studio
+class _ContentLibrariesRestApiTestMixin:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Base class for Blockstore-based Content Libraries test that use the REST API
 
@@ -350,3 +416,29 @@ class ContentLibrariesRestApiTest(APITestCase):
         """
         url = URL_BLOCK_GET_HANDLER_URL.format(block_key=block_key, handler_name=handler_name)
         return self._api('get', url, None, expect_response=200)["handler_url"]
+<<<<<<< HEAD
+=======
+
+
+@requires_blockstore
+class ContentLibrariesRestApiBlockstoreServiceTest(_ContentLibrariesRestApiTestMixin, APITestCase):
+    """
+    Base class for Blockstore-based Content Libraries test that use the REST API
+    and the standalone Blockstore service.
+    """
+
+
+@requires_blockstore_app
+class ContentLibrariesRestApiTest(
+    _ContentLibrariesRestApiTestMixin,
+    BlockstoreAppTestMixin,
+    APITestCase,
+    LiveServerTestCase,
+):
+    """
+    Base class for Blockstore-based Content Libraries test that use the REST API
+    and the installed Blockstore app.
+
+    We run this test with a live server, so that the blockstore asset files can be served.
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

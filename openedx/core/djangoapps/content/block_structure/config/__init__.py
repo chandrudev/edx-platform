@@ -16,7 +16,11 @@ from .models import BlockStructureConfiguration
 # .. toggle_description: When enabled, the block structure cache is invalidated when changes to
 #   courses are published. If `block_structure.storage_backing_for_cache` is active, all block
 #   structures related to the published course are also cleared from storage.
+<<<<<<< HEAD
 # .. toggle_warnings: This switch will likely be deprecated and removed.
+=======
+# .. toggle_warning: This switch will likely be deprecated and removed.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # .. toggle_use_cases: temporary
 # .. toggle_creation_date: 2017-02-23
 # .. toggle_target_removal_date: 2017-05-23
@@ -34,7 +38,11 @@ INVALIDATE_CACHE_ON_PUBLISH = WaffleSwitch(
 #   like a database, which provides an additional backup for cache misses, instead having them
 #   regenerated. The regenration of block structures is a time consuming process. Therefore,
 #   enabling this switch is recommended for Production.
+<<<<<<< HEAD
 # .. toggle_warnings: Depends on `BLOCK_STRUCTURES_SETTINGS['STORAGE_CLASS']` and
+=======
+# .. toggle_warning: Depends on `BLOCK_STRUCTURES_SETTINGS['STORAGE_CLASS']` and
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #   `BLOCK_STRUCTURES_SETTINGS['STORAGE_KWARGS']`.
 #   This switch will likely be deprecated and removed.
 #   The annotation will be updated with the DEPR ticket once that process has started.
@@ -54,7 +62,11 @@ STORAGE_BACKING_FOR_CACHE = WaffleSwitch(
 # .. toggle_description: Raises an error if the requested block structure does not exist in block
 #   structure store, or if it is outdated. Block structure store refers to both cache and storage,
 #   if enabled.
+<<<<<<< HEAD
 # .. toggle_warnings: This switch will likely be deprecated and removed.
+=======
+# .. toggle_warning: This switch will likely be deprecated and removed.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #   The annotation will be updated with the DEPR ticket once that process has started.
 # .. toggle_use_cases: temporary
 # .. toggle_creation_date: 2017-02-23

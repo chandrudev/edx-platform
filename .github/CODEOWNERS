@@ -38,6 +38,7 @@ lms/djangoapps/learner_dashboard/          @edx/platform-discovery
 openedx/features/content_type_gating/      @edx/rev-team
 openedx/features/course_duration_limits/   @edx/rev-team
 openedx/features/discounts/                @edx/rev-team
+<<<<<<< HEAD
 
 # Community Engineering Squad
 # Commented-out sections are officially owned by community-engineering,
@@ -60,3 +61,5 @@ openedx/features/lti_course_tab            @edx/community-engineering
 openedx/features/learner_profile           @edx/community-engineering
 vendor_extra                               @edx/community-engineering
 webpack-config                             @edx/community-engineering
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

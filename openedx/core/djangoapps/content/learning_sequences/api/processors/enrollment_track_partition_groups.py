@@ -6,6 +6,7 @@ from typing import Dict
 from opaque_keys.edx.keys import CourseKey
 from openedx.core import types
 
+<<<<<<< HEAD
 from xmodule.partitions.enrollment_track_partition_generator import (
     create_enrollment_track_partition_with_course_id
 )
@@ -14,6 +15,16 @@ from xmodule.partitions.partitions import (
 )
 from xmodule.partitions.partitions_service import get_user_partition_groups
 from xmodule.partitions.partitions import Group
+=======
+from xmodule.partitions.enrollment_track_partition_generator import (  # lint-amnesty, pylint: disable=wrong-import-order
+    create_enrollment_track_partition_with_course_id
+)
+from xmodule.partitions.partitions import (  # lint-amnesty, pylint: disable=wrong-import-order
+    ENROLLMENT_TRACK_PARTITION_ID,
+)
+from xmodule.partitions.partitions_service import get_user_partition_groups  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import Group  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .base import OutlineProcessor
 

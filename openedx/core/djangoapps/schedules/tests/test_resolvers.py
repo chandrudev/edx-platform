@@ -12,26 +12,47 @@ import pytz
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+<<<<<<< HEAD
 from testfixtures import LogCapture
 from waffle.testutils import override_switch
+=======
+from edx_toggles.toggles.testutils import override_waffle_switch
+from testfixtures import LogCapture
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 from lms.djangoapps.experiments.testutils import override_experiment_waffle_flag
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
+<<<<<<< HEAD
 from openedx.core.djangoapps.schedules.config import _EXTERNAL_COURSE_UPDATES_FLAG
+=======
+from openedx.core.djangoapps.schedules.config import (
+    _EXTERNAL_COURSE_UPDATES_FLAG,
+    COURSE_UPDATE_SHOW_UNSUBSCRIBE_WAFFLE_SWITCH,
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.schedules.models import Schedule
 from openedx.core.djangoapps.schedules.resolvers import (
     LOG,
     BinnedSchedulesBaseResolver,
     CourseNextSectionUpdate,
+<<<<<<< HEAD
     CourseUpdateResolver
+=======
+    CourseUpdateResolver,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 from openedx.core.djangoapps.schedules.tests.factories import ScheduleConfigFactory
 from openedx.core.djangoapps.site_configuration.tests.factories import SiteConfigurationFactory, SiteFactory
 from openedx.core.djangolib.testing.utils import CacheIsolationMixin, skip_unless_lms
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class SchedulesResolverTestMixin(CacheIsolationMixin):
@@ -167,7 +188,11 @@ class TestCourseUpdateResolver(SchedulesResolverTestMixin, ModuleStoreTestCase):
             'contact_mailing_address': '123 Sesame Street',
             'course_ids': [str(self.course.id)],
             'course_name': self.course.display_name,
+<<<<<<< HEAD
             'course_url': f'/courses/{self.course.id}/course/',
+=======
+            'course_url': f'http://learning-mfe/course/{self.course.id}/home',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'dashboard_url': '/dashboard',
             'homepage_url': '/',
             'mobile_store_urls': {},
@@ -183,7 +208,11 @@ class TestCourseUpdateResolver(SchedulesResolverTestMixin, ModuleStoreTestCase):
         }
         assert schedules == [(self.user, None, expected_context)]
 
+<<<<<<< HEAD
     @override_switch('schedules.course_update_show_unsubscribe', True)
+=======
+    @override_waffle_switch(COURSE_UPDATE_SHOW_UNSUBSCRIBE_WAFFLE_SWITCH, True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_schedule_context_show_unsubscribe(self):
         resolver = self.create_resolver()
         schedules = list(resolver.schedules_for_bin())
@@ -206,6 +235,11 @@ class TestCourseNextSectionUpdateResolver(SchedulesResolverTestMixin, ModuleStor
     """
     Tests the TestCourseNextSectionUpdateResolver.
     """
+<<<<<<< HEAD
+=======
+    ENABLED_SIGNALS = ['course_published']
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         super().setUp()
         self.today = datetime.datetime.utcnow()
@@ -247,7 +281,11 @@ class TestCourseNextSectionUpdateResolver(SchedulesResolverTestMixin, ModuleStor
     def test_schedule_context(self):
         resolver = self.create_resolver()
         # using this to make sure the select_related stays intact
+<<<<<<< HEAD
         with self.assertNumQueries(36):
+=======
+        with self.assertNumQueries(41):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             sc = resolver.get_schedules()
             schedules = list(sc)
 
@@ -256,7 +294,11 @@ class TestCourseNextSectionUpdateResolver(SchedulesResolverTestMixin, ModuleStor
             'contact_mailing_address': '123 Sesame Street',
             'course_ids': [str(self.course.id)],
             'course_name': self.course.display_name,
+<<<<<<< HEAD
             'course_url': f'/courses/{self.course.id}/course/',
+=======
+            'course_url': f'http://learning-mfe/course/{self.course.id}/home',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'dashboard_url': '/dashboard',
             'homepage_url': '/',
             'mobile_store_urls': {},
@@ -272,7 +314,11 @@ class TestCourseNextSectionUpdateResolver(SchedulesResolverTestMixin, ModuleStor
         }
         assert schedules == [(self.user, None, expected_context)]
 
+<<<<<<< HEAD
     @override_switch('schedules.course_update_show_unsubscribe', True)
+=======
+    @override_waffle_switch(COURSE_UPDATE_SHOW_UNSUBSCRIBE_WAFFLE_SWITCH, True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_schedule_context_show_unsubscribe(self):
         resolver = self.create_resolver()
         schedules = list(resolver.get_schedules())

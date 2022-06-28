@@ -2,6 +2,7 @@
 Tests for wiki course app.
 """
 
+<<<<<<< HEAD
 from common.djangoapps.student.tests.factories import AdminFactory, UserFactory
 from lms.djangoapps.course_wiki.plugins.course_app import WikiCourseApp
 from openedx.core.djangolib.testing.utils import skip_unless_cms
@@ -53,3 +54,23 @@ class WikiCourseAppTestCase(ModuleStoreTestCase):
         assert self.get_wiki_tab(self.course.id) is None
         WikiCourseApp.set_enabled(self.course.id, True, self.instructor)
         assert self.get_wiki_tab(self.course.id) is not None
+=======
+from lms.djangoapps.course_wiki.plugins.course_app import WikiCourseApp
+from openedx.core.djangoapps.course_apps.tests.utils import TabBasedCourseAppTestMixin
+from openedx.core.djangolib.testing.utils import skip_unless_cms
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+
+
+@skip_unless_cms
+class WikiCourseAppTestCase(TabBasedCourseAppTestMixin, ModuleStoreTestCase):
+    """Test cases for Wiki CourseApp."""
+
+    tab_type = 'wiki'
+    course_app_class = WikiCourseApp
+
+    def _assert_app_enabled(self, app_tab):
+        assert not app_tab.is_hidden
+
+    def _assert_app_disabled(self, app_tab):
+        assert app_tab.is_hidden
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

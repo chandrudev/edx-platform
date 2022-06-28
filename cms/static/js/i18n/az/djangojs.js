@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=(n != 1);
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n != 1);
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "%(sel)s of %(cnt)s selected": [
       "%(sel)s / %(cnt)s se\u00e7ilib",
       "%(sel)s / %(cnt)s se\u00e7ilib"
@@ -70,8 +86,13 @@
     "Tomorrow": "Sabah",
     "Type into this box to filter down the list of available %s.": "Bu xanaya yazmaqla m\u00fcmk\u00fcn %s siyah\u0131s\u0131n\u0131 filtrl\u0259y\u0259 bil\u0259rsiniz.",
     "Yesterday": "D\u00fcn\u0259n",
+<<<<<<< HEAD
     "You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button.": "Siz \u0259m\u0259liyyat\u0131 se\u00e7misiniz v\u0259 he\u00e7 bir sah\u0259y\u0259 d\u0259yi\u015fiklik etm\u0259misiniz. Siz y\u0259qin ki, Yadda saxla d\u00fcym\u0259sini deyil, Getdik d\u00fcym\u0259sini axtar\u0131rs\u0131n\u0131z.",
     "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action.": "\u018fm\u0259liyyat\u0131 se\u00e7misiniz, amma b\u0259zi sah\u0259l\u0259rd\u0259ki d\u0259yi\u015fiklikl\u0259ri h\u0259l\u0259 yadda saxlamam\u0131\u015f\u0131q. Bunun \u00fc\u00e7\u00fcn OK se\u00e7m\u0259lisiniz. Ondan sonra \u0259m\u0259liyyat\u0131 yenid\u0259n i\u015f\u0259 salma\u011fa c\u0259hd edin.",
+=======
+    "You have selected an action, and you haven\u2019t made any changes on individual fields. You\u2019re probably looking for the Go button rather than the Save button.": "\u018fm\u0259liyyat se\u00e7misiniz v\u0259 f\u0259rdi sah\u0259l\u0259rd\u0259 d\u0259yi\u015fikl\u0259r etm\u0259misiniz. B\u00f6y\u00fck ehtimal Saxla d\u00fcym\u0259si yerin\u0259 Get d\u00fcym\u0259sin\u0259 ehtiyyac\u0131n\u0131z var.",
+    "You have selected an action, but you haven\u2019t saved your changes to individual fields yet. Please click OK to save. You\u2019ll need to re-run the action.": "\u018fm\u0259liyyat se\u00e7misiniz, amma f\u0259rdi sah\u0259l\u0259rd\u0259ki d\u0259yi\u015fiklikl\u0259riniz h\u0259l\u0259 d\u0259 yadda saxlan\u0131lmay\u0131b. Saxlamaq \u00fc\u00e7\u00fcn l\u00fctf\u0259n Tamam d\u00fcym\u0259sin\u0259 klikl\u0259yin. \u018fm\u0259liyyat\u0131 t\u0259krar i\u015fl\u0259tm\u0259li olacaqs\u0131n\u0131z.",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "B\u0259zi sah\u0259l\u0259rd\u0259 etdiyiniz d\u0259yi\u015fiklikl\u0259ri h\u0259l\u0259 yadda saxlamam\u0131\u015f\u0131q. \u018fg\u0259r \u0259m\u0259liyyat\u0131 i\u015f\u0259 salsan\u0131z, d\u0259yi\u015fiklikl\u0259r \u0259ld\u0259n ged\u0259c\u0259k.",
     "one letter Friday\u0004F": "C",
     "one letter Monday\u0004M": "B",
@@ -81,24 +102,41 @@
     "one letter Tuesday\u0004T": "\u00c7",
     "one letter Wednesday\u0004W": "\u00c7"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -108,16 +146,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -140,11 +188,17 @@
       "%d.%m.%Y %H:%M:%S",
       "%d.%m.%Y %H:%M:%S.%f",
       "%d.%m.%Y %H:%M",
+<<<<<<< HEAD
       "%d.%m.%Y",
       "%d.%m.%y %H:%M:%S",
       "%d.%m.%y %H:%M:%S.%f",
       "%d.%m.%y %H:%M",
       "%d.%m.%y",
+=======
+      "%d.%m.%y %H:%M:%S",
+      "%d.%m.%y %H:%M:%S.%f",
+      "%d.%m.%y %H:%M",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
@@ -173,8 +227,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -193,6 +252,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

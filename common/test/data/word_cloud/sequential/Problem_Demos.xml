@@ -1,5 +1,9 @@
 <sequential>
+<<<<<<< HEAD
     <vertical name="test_vertical">
+=======
+    <vertical display_name="test_vertical">
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         <word_cloud name="cloud1" display_name="cloud" num_inputs="5" num_top_words="250" />
     </vertical>
 </sequential>

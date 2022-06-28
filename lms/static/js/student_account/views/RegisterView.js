@@ -64,7 +64,12 @@
                     this.autoRegisterWelcomeMessage = data.thirdPartyAuth.autoRegisterWelcomeMessage || '';
                     this.registerFormSubmitButtonText =
                         data.thirdPartyAuth.registerFormSubmitButtonText || _('Create Account');
+<<<<<<< HEAD
                     this.is_require_third_party_auth_enabled = data.is_require_third_party_auth_enabled || false;
+=======
+                    this.is_require_third_party_auth_enabled = data.is_require_third_party_auth_enabled;
+                    this.enableCoppaCompliance = data.enableCoppaCompliance;
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                     this.listenTo(this.model, 'sync', this.saveSuccess);
                     this.listenTo(this.model, 'validation', this.renderLiveValidations);
@@ -85,7 +90,11 @@
                         html.push(HtmlUtils.template(fieldTpl)($.extend(fields[i], {
                             form: this.formType,
                             requiredStr: this.requiredStr,
+<<<<<<< HEAD
                             optionalStr: this.optionalStr,
+=======
+                            optionalStr: fields[i].name === 'marketing_emails_opt_in' ? '' : this.optionalStr,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                             supplementalText: fields[i].supplementalText || '',
                             supplementalLink: fields[i].supplementalLink || ''
                         })));
@@ -135,7 +144,13 @@
                     html = this.renderFields(requiredFields, 'required-fields');
 
                     html.push.apply(html, this.renderFields(exposedOptionalFields, 'exposed-optional-fields'));
+<<<<<<< HEAD
                     html.push.apply(html, this.renderFields(optionalFields, 'optional-fields'));
+=======
+                    html.push.apply(html, this.renderFields(
+                      optionalFields, `optional-fields ${!this.enableCoppaCompliance ? '' : 'full-length-fields'}`
+                    ));
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                     this.render(html.join(''));
                 },
@@ -476,12 +491,23 @@
                                     return _.map(
                                         errorList,
                                         function(errorItem) {
+<<<<<<< HEAD
                                             return StringUtils.interpolate('<li {suppressAttr} >{error}</li>', {
                                                 error: errorItem.user_message,
                                                 suppressAttr: (
                                                   key === 'email' || key === 'username'
                                                 ) ? 'data-hj-suppress' : ''
                                             });
+=======
+                                            if (errorItem.user_message) {
+                                                return StringUtils.interpolate('<li {suppressAttr} >{error}</li>', {
+                                                    error: errorItem.user_message,
+                                                    suppressAttr: (
+                                                    key === 'email' || key === 'username'
+                                                    ) ? 'data-hj-suppress' : ''
+                                                });
+                                            }
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                                         }
                                   );
                                 }

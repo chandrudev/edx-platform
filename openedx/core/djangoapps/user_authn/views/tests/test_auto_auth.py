@@ -20,7 +20,11 @@ from openedx.core.djangoapps.django_comment_common.models import (
     Role
 )
 from openedx.core.djangoapps.django_comment_common.utils import seed_permissions_roles
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class AutoAuthTestCase(UrlResetMixin, TestCase):
@@ -206,6 +210,7 @@ class AutoAuthEnabledTestCase(AutoAuthTestCase, ModuleStoreTestCase):
         enrollment = CourseEnrollment.objects.get(course_id=course_key)
         assert enrollment.user.username == 'test'
 
+<<<<<<< HEAD
         # Check that the redirect was to the course info/outline page
         if settings.ROOT_URLCONF == 'lms.urls':
             url_pattern = '/course/'
@@ -213,6 +218,15 @@ class AutoAuthEnabledTestCase(AutoAuthTestCase, ModuleStoreTestCase):
             url_pattern = f'/course/{str(course_key)}'
 
         assert response.url.endswith(url_pattern)
+=======
+        # Check that the redirect was to the correct outline page for either lms or studio
+        if settings.ROOT_URLCONF == 'lms.urls':
+            expected_redirect_url = f'http://learning-mfe/course/{course_id}/home'
+        else:
+            expected_redirect_url = f'/course/{course_id}'
+
+        assert response.url == expected_redirect_url
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_redirect_to_main(self):
         # Create user and redirect to 'home' (cms) or 'dashboard' (lms)

@@ -5,11 +5,19 @@ Classes:
     CohortEventTest: Test event sent after cohort membership changes.
 """
 from openedx.core.djangoapps.course_groups.models import CohortMembership
+<<<<<<< HEAD
 from unittest.mock import Mock
 
 from openedx_events.learning.data import CohortData, CourseData, UserData, UserPersonalData
 from openedx_events.learning.signals import COHORT_MEMBERSHIP_CHANGED
 from openedx_events.tests.utils import OpenEdxEventsTestMixin
+=======
+from unittest.mock import Mock  # lint-amnesty, pylint: disable=wrong-import-order
+
+from openedx_events.learning.data import CohortData, CourseData, UserData, UserPersonalData  # lint-amnesty, pylint: disable=wrong-import-order
+from openedx_events.learning.signals import COHORT_MEMBERSHIP_CHANGED  # lint-amnesty, pylint: disable=wrong-import-order
+from openedx_events.tests.utils import OpenEdxEventsTestMixin  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.tests.factories import UserFactory
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
@@ -17,7 +25,11 @@ from openedx.core.djangolib.testing.utils import skip_unless_lms
 
 from openedx.core.djangoapps.course_groups.tests.helpers import CohortFactory
 
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @skip_unless_lms

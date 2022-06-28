@@ -183,9 +183,15 @@ class ProctoringCourseApp(CourseApp):
     @classmethod
     def is_available(cls, course_key: CourseKey) -> bool:
         """
+<<<<<<< HEAD
         Proctoring is available for all courses.
         """
         return settings.FEATURES.get("ENABLE_SPECIAL_EXAMS", False)
+=======
+        Returns true if the proctoring app is available for all courses.
+        """
+        return settings.FEATURES.get('ENABLE_PROCTORED_EXAMS')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @classmethod
     def is_enabled(cls, course_key: CourseKey) -> bool:

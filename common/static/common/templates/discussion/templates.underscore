@@ -477,12 +477,15 @@
                 <span class="icon fa fa-star" aria-hidden="true"></span><%- gettext("follow this post") %>
             </span>
         </label>
+<<<<<<< HEAD
         <% if (allow_anonymous) { %>
         <label for="anonymous" class="field-label label-inline">
             <input id="anonymous" type="checkbox" name="anonymous" class="field-input input-checkbox">
             <span class="field-input-label"><%- gettext("post anonymously") %></span>
         </label>
         <% } %>
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         <% if (allow_anonymous_to_peers) { %>
         <label for="anonymous_to_peers" class="field-label label-inline">
             <input id="anonymous_to_peers" type="checkbox" name="anonymous_to_peers" class="field-input input-checkbox">

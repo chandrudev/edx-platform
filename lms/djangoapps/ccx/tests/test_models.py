@@ -8,11 +8,19 @@ from datetime import datetime, timedelta
 
 import ddt
 from pytz import utc
+<<<<<<< HEAD
 
 from common.djangoapps.student.roles import CourseCcxCoachRole
 from common.djangoapps.student.tests.factories import AdminFactory
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls
+
+from common.djangoapps.student.roles import CourseCcxCoachRole
+from common.djangoapps.student.tests.factories import AdminFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..overrides import override_field_for_ccx
 from .factories import CcxFactory
@@ -22,9 +30,12 @@ from .factories import CcxFactory
 class TestCCX(ModuleStoreTestCase):
     """Unit tests for the CustomCourseForEdX model
     """
+<<<<<<< HEAD
 
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         """common setup for all tests"""
         super().setUp()
@@ -46,7 +57,11 @@ class TestCCX(ModuleStoreTestCase):
 
     def test_ccx_course_caching(self):
         """verify that caching the propery works to limit queries"""
+<<<<<<< HEAD
         with check_mongo_calls(3):
+=======
+        with check_mongo_calls(2):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             # these statements are used entirely to demonstrate the
             # instance-level caching of these values on CCX objects. The
             # check_mongo_calls context is the point here.
@@ -72,7 +87,11 @@ class TestCCX(ModuleStoreTestCase):
         """verify that caching the start property works to limit queries"""
         now = datetime.now(utc)
         self.set_ccx_override('start', now)
+<<<<<<< HEAD
         with check_mongo_calls(3):
+=======
+        with check_mongo_calls(2):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             # these statements are used entirely to demonstrate the
             # instance-level caching of these values on CCX objects. The
             # check_mongo_calls context is the point here.
@@ -97,7 +116,11 @@ class TestCCX(ModuleStoreTestCase):
         """verify that caching the due property works to limit queries"""
         expected = datetime.now(utc)
         self.set_ccx_override('due', expected)
+<<<<<<< HEAD
         with check_mongo_calls(3):
+=======
+        with check_mongo_calls(2):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             # these statements are used entirely to demonstrate the
             # instance-level caching of these values on CCX objects. The
             # check_mongo_calls context is the point here.

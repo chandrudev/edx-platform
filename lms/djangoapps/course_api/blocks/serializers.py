@@ -2,12 +2,19 @@
 Serializers for Course Blocks related return objects.
 """
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.conf import settings
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
 from lms.djangoapps.course_blocks.transformers.visibility import VisibilityTransformer
+<<<<<<< HEAD
+=======
+from openedx.core.djangoapps.discussions.transformers import DiscussionsTopicLinkTransformer
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .transformers.block_completion import BlockCompletionTransformer
 from .transformers.block_counts import BlockCountsTransformer
@@ -21,6 +28,7 @@ class SupportedFieldType:
     """
     Metadata about fields supported by different transformers
     """
+<<<<<<< HEAD
     def __init__(
             self,
             block_field_name,
@@ -28,6 +36,16 @@ class SupportedFieldType:
             requested_field_name=None,
             serializer_field_name=None,
             default_value=None
+=======
+
+    def __init__(
+        self,
+        block_field_name,
+        transformer=None,
+        requested_field_name=None,
+        serializer_field_name=None,
+        default_value=None
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ):
         self.transformer = transformer
         self.block_field_name = block_field_name
@@ -82,6 +100,11 @@ SUPPORTED_FIELDS = [
     SupportedFieldType(BlockCompletionTransformer.COMPLETION, BlockCompletionTransformer),
     SupportedFieldType(BlockCompletionTransformer.COMPLETE),
     SupportedFieldType(BlockCompletionTransformer.RESUME_BLOCK),
+<<<<<<< HEAD
+=======
+    SupportedFieldType(DiscussionsTopicLinkTransformer.EXTERNAL_ID),
+    SupportedFieldType(DiscussionsTopicLinkTransformer.EMBED_URL),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     *[SupportedFieldType(field_name) for field_name in ExtraFieldsTransformer.get_requested_extra_fields()],
 ]
@@ -111,6 +134,10 @@ class BlockSerializer(serializers.Serializer):  # pylint: disable=abstract-metho
     """
     Serializer for single course block
     """
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _get_field(self, block_key, transformer, field_name, default):
         """
         Get the field value requested.  The field may be an XBlock field, a

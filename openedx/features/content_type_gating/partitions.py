@@ -22,7 +22,11 @@ from openedx.core.lib.mobile_utils import is_request_from_mobile_app
 from openedx.features.content_type_gating.helpers import CONTENT_GATING_PARTITION_ID, FULL_ACCESS, LIMITED_ACCESS
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.discounts.utils import format_strikeout_price
+<<<<<<< HEAD
 from xmodule.partitions.partitions import UserPartition, UserPartitionError
+=======
+from xmodule.partitions.partitions import UserPartition, UserPartitionError  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 LOG = logging.getLogger(__name__)
 

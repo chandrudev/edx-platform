@@ -14,8 +14,13 @@ from openedx.core.djangoapps.content.block_structure.transformer import (
     BlockStructureTransformer,
     FilteringTransformerMixin
 )
+<<<<<<< HEAD
 from xmodule.library_content_module import LibraryContentBlock
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.library_content_module import LibraryContentBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..utils import get_student_module_as_dict
 
@@ -225,7 +230,11 @@ class ContentLibraryOrderTransformer(BlockStructureTransformer):
             if library_children:
                 state_dict = get_student_module_as_dict(usage_info.user, usage_info.course_key, block_key)
                 current_children_blocks = {block.block_id for block in library_children}
+<<<<<<< HEAD
                 current_selected_blocks = {item[1] for item in state_dict['selected']}
+=======
+                current_selected_blocks = {item[1] for item in state_dict.get('selected', [])}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
                 # As the selections should have already been made by the ContentLibraryTransformer,
                 # the current children of the library_content block should be the same as the stored

@@ -18,7 +18,11 @@ from xmodule.contentstore.content import XASSET_LOCATION_TAG
 from xmodule.exceptions import NotFoundError
 from xmodule.modulestore.django import ASSET_IGNORE_REGEX
 from xmodule.mongo_utils import connect_to_mongodb, create_collection_index
+<<<<<<< HEAD
 from xmodule.util.misc import escape_invalid_characters
+=======
+from xmodule.util.misc import escape_invalid_characters, get_library_or_course_attribute
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .content import ContentStore, StaticContent, StaticContentStream
 
@@ -324,7 +328,11 @@ class MongoContentStore(ContentStore):
         count = 0
         assets = []
         try:
+<<<<<<< HEAD
             result = cursor.next()  # lint-amnesty, pylint: disable=next-method-called
+=======
+            result = cursor.next()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if result:
                 count = result['count']
                 assets = list(result['results'])
@@ -614,7 +622,11 @@ def query_for_course(course_key, category=None):
     dbkey = SON([
         (f'{prefix}.tag', XASSET_LOCATION_TAG),
         (f'{prefix}.org', course_key.org),
+<<<<<<< HEAD
         (f'{prefix}.course', course_key.course),
+=======
+        (f'{prefix}.course', get_library_or_course_attribute(course_key)),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ])
     if category:
         dbkey[f'{prefix}.category'] = category

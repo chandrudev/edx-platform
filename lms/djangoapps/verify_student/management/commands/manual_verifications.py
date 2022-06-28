@@ -39,6 +39,15 @@ class Command(BaseCommand):
             help='Single email to verify one user',
             type=str,
         )
+<<<<<<< HEAD
+=======
+        parser.add_argument(
+            '--batch-size',
+            default=10000,
+            help='Maximum records to write in one query.',
+            type=int,
+        )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def handle(self, *args, **options):
 
@@ -51,12 +60,20 @@ class Command(BaseCommand):
             return
 
         email_ids_file = options['email_ids_file']
+<<<<<<< HEAD
+=======
+        batch_size = options['batch_size']
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if email_ids_file:
             if not os.path.exists(email_ids_file):
                 raise CommandError('Pass the correct absolute path to email ids file as --email-ids-file argument.')
 
+<<<<<<< HEAD
         total_emails, failed_emails = self._generate_manual_verification_from_file(email_ids_file)
+=======
+        total_emails, failed_emails = self._generate_manual_verification_from_file(email_ids_file, batch_size)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if failed_emails:
             log.error('Completed manual verification. {} of {} failed.'.format(
@@ -67,17 +84,26 @@ class Command(BaseCommand):
         else:
             log.info(f'Successfully generated manual verification for {total_emails} emails.')
 
+<<<<<<< HEAD
     def _generate_manual_verification_from_file(self, email_ids_file):
+=======
+    def _generate_manual_verification_from_file(self, email_ids_file, batch_size=None):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Generate manual verification for the emails provided in the email ids file.
 
         Arguments:
             email_ids_file (str): path of the file containing email ids.
+<<<<<<< HEAD
+=======
+            batch_size (int): limits the number of verifications written to db at once
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         Returns:
             (total_emails, failed_emails): a tuple containing count of emails processed and a list containing
              emails whose verifications could not be processed.
         """
+<<<<<<< HEAD
         failed_emails = []
 
         with open(email_ids_file) as file_handler:
@@ -90,6 +116,49 @@ class Command(BaseCommand):
                     failed_emails.append(email_id)
         return total_emails, failed_emails
 
+=======
+        with open(email_ids_file) as file_handler:
+            email_ids = [line.rstrip() for line in file_handler]
+            total_emails = len(email_ids)
+
+        log.info(f'Creating manual verification for {total_emails} emails.')
+        failed_emails = []
+        for n in range(0, total_emails, batch_size):
+            failed_emails.extend(self._add_users_to_manual_verification(email_ids[n:n + batch_size]))
+
+        return total_emails, failed_emails
+
+    def _add_users_to_manual_verification(self, email_ids):
+        """
+        Generates a verification for a list of user emails.
+
+        Arguments:
+            email_ids (list): emails of the users to be verified
+
+        Returns:
+            failed_emails: list of emails for which a verification was not created
+        """
+        verifications_to_create = []
+        users = User.objects.filter(email__in=email_ids)
+        user_existing_verification = {v.user.id for v in ManualVerification.objects.filter(
+            user__in=users,
+            status='approved',
+            created_at__gte=earliest_allowed_verification_date(),
+        )}
+        for user in users:
+            if user.id not in user_existing_verification:
+                verifications_to_create.append(ManualVerification(
+                    user=user,
+                    name=user.profile.name,
+                    status='approved',
+                ))
+            else:
+                log.info(f'Skipping email {user.email}, existing verification found.')
+        ManualVerification.objects.bulk_create(verifications_to_create)
+        failed_emails = set(email_ids) - set(users.values_list('email', flat=True))
+        return list(failed_emails)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _add_user_to_manual_verification(self, email_id):
         """
         Generates a single verification for a user.
@@ -101,7 +170,10 @@ class Command(BaseCommand):
             (success): boolean to show if the user has been successfully verified.
         """
         try:
+<<<<<<< HEAD
             email_id = email_id.strip()
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             user = User.objects.get(email=email_id)
             ManualVerification.objects.get_or_create(
                 user=user,

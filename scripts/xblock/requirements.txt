@@ -4,6 +4,7 @@
 #
 #    make upgrade
 #
+<<<<<<< HEAD
 certifi==2021.10.8
     # via requests
 charset-normalizer==2.0.7
@@ -13,4 +14,15 @@ idna==3.3
 requests==2.26.0
     # via -r scripts/xblock/requirements.in
 urllib3==1.26.7
+=======
+certifi==2022.5.18.1
+    # via requests
+charset-normalizer==2.0.12
+    # via requests
+idna==3.3
+    # via requests
+requests==2.27.1
+    # via -r scripts/xblock/requirements.in
+urllib3==1.26.9
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # via requests

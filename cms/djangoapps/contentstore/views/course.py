@@ -1,7 +1,10 @@
 """
 Views related to operations on course objects
 """
+<<<<<<< HEAD
 # pylint: disable=filter-builtin-not-iterating
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 import copy
@@ -26,7 +29,11 @@ from django.utils.translation import gettext as _
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_http_methods
 from edx_django_utils.monitoring import function_trace
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleSwitchNamespace
+=======
+from edx_toggles.toggles import WaffleSwitch
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from milestones import api as milestones_api
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
@@ -34,7 +41,11 @@ from opaque_keys.edx.locator import BlockUsageLocator
 from organizations.api import add_organization_course, ensure_organization
 from organizations.exceptions import InvalidOrganizationException
 from rest_framework.exceptions import ValidationError
+<<<<<<< HEAD
 
+=======
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from cms.djangoapps.course_creators.views import add_user_with_status_unrequested, get_course_creator_status
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from cms.djangoapps.models.settings.course_metadata import CourseMetadata
@@ -50,6 +61,10 @@ from common.djangoapps.student.roles import (
     GlobalStaff,
     UserBasedRole
 )
+<<<<<<< HEAD
+=======
+from rest_framework.permissions import IsAuthenticated
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.util.course import get_link_for_about_page
 from common.djangoapps.util.date_utils import get_default_time_display
 from common.djangoapps.util.json_request import JsonResponse, JsonResponseBadRequest, expect_json
@@ -59,6 +74,16 @@ from common.djangoapps.util.milestones_helpers import (
     remove_prerequisite_course,
     set_prerequisite_courses
 )
+<<<<<<< HEAD
+=======
+from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication # To Import
+from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser  # lint-amnesty, pylint: disable=wrong-import-order# To Import
+
+from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser # To Import
+from common.djangoapps.student.forms import DocumentForm # To Import
+from common.djangoapps.student.models import DocumentStorage # To Import
+from common.djangoapps.student.views.serializer import CourseSerializer # To Import
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.util.string_utils import _has_non_ascii_characters
 from common.djangoapps.xblock_django.api import deprecated_xblocks
 from openedx.core import toggles as core_toggles
@@ -73,6 +98,7 @@ from openedx.core.lib.courses import course_image_url
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.content_type_gating.partitions import CONTENT_TYPE_GATING_SCHEME
 from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBAR_HTML
+<<<<<<< HEAD
 from openedx.features.course_experience.waffle import waffle as course_experience_waffle
 from xmodule.contentstore.content import StaticContent
 from xmodule.course_module import CourseBlock, DEFAULT_START_DATE, CourseFields
@@ -82,6 +108,16 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import DuplicateCourseError, ItemNotFoundError
 from xmodule.partitions.partitions import UserPartition
 from xmodule.tabs import CourseTab, CourseTabList, InvalidTabsException
+=======
+from xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.course_module import CourseBlock, DEFAULT_START_DATE, CourseFields  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import EdxJSONEncoder  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.exceptions import DuplicateCourseError, ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.tabs import CourseTab, CourseTabList, InvalidTabsException  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..course_group_config import (
     COHORT_SCHEME,
@@ -115,6 +151,14 @@ from .library import (
     user_can_create_library,
     should_redirect_to_library_authoring_mfe
 )
+<<<<<<< HEAD
+=======
+from cms.envs import common # To Import
+import boto # To Import
+from boto.s3.key import Key # To Import
+from .s3boto import * # To Import
+from django.views.decorators.csrf import csrf_exempt # To Import
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 User = get_user_model()
@@ -132,6 +176,12 @@ __all__ = ['course_info_handler', 'course_handler', 'course_listing',
            'get_course_and_check_access']
 
 WAFFLE_NAMESPACE = 'studio_home'
+<<<<<<< HEAD
+=======
+ENABLE_GLOBAL_STAFF_OPTIMIZATION = WaffleSwitch(  # lint-amnesty, pylint: disable=toggle-missing-annotation
+    f'{WAFFLE_NAMESPACE}.enable_global_staff_optimization', __name__
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class AccessListFallback(Exception):
@@ -462,7 +512,11 @@ def _accessible_courses_iter_for_tests(request):
 
         return has_studio_read_access(request.user, course.id)
 
+<<<<<<< HEAD
     courses = filter(course_filter, modulestore().get_course_summaries())
+=======
+    courses = filter(course_filter, CourseOverview.get_all_courses())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     in_process_course_actions = get_in_process_course_actions(request)
     return courses, in_process_course_actions
@@ -482,15 +536,36 @@ def _accessible_courses_list_from_groups(request):
     courses_list = []
     course_keys = {}
 
+<<<<<<< HEAD
     for course_access in all_courses:
         if course_access.course_id is None:
             raise AccessListFallback
         course_keys[course_access.course_id] = course_access.course_id
+=======
+    user_global_orgs = set()
+    for course_access in all_courses:
+        if course_access.course_id is not None:
+            course_keys[course_access.course_id] = course_access.course_id
+        elif course_access.org:
+            user_global_orgs.add(course_access.org)
+        else:
+            raise AccessListFallback
+
+    if user_global_orgs:
+        # Getting courses from user global orgs
+        overviews = CourseOverview.get_all_courses(orgs=list(user_global_orgs))
+        overviews_course_keys = {overview.id: overview.id for overview in overviews}
+        course_keys.update(overviews_course_keys)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     course_keys = list(course_keys.values())
 
     if course_keys:
+<<<<<<< HEAD
         courses_list = modulestore().get_course_summaries(course_keys=course_keys)
+=======
+        courses_list = CourseOverview.get_all_courses(filter_={'id__in': course_keys})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     return courses_list, []
 
@@ -519,8 +594,12 @@ def course_listing(request):
     List all courses and libraries available to the logged in user
     """
 
+<<<<<<< HEAD
     optimization_enabled = GlobalStaff().has_user(request.user) and \
         LegacyWaffleSwitchNamespace(name=WAFFLE_NAMESPACE).is_enabled('enable_global_staff_optimization')
+=======
+    optimization_enabled = GlobalStaff().has_user(request.user) and ENABLE_GLOBAL_STAFF_OPTIMIZATION.is_enabled()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     org = request.GET.get('org', '') if optimization_enabled else None
     courses_iter, in_process_course_actions = get_courses_accessible_to_user(request, org)
@@ -555,6 +634,7 @@ def course_listing(request):
     in_process_course_actions = [format_in_process_course_view(uca) for uca in in_process_course_actions]
 
     return render_to_response('index.html', {
+<<<<<<< HEAD
         'courses': active_courses,
         'split_studio_home': split_library_view_on_dashboard(),
         'archived_courses': archived_courses,
@@ -575,6 +655,31 @@ def course_listing(request):
     })
 
 
+=======
+    'courses': active_courses,
+    'split_studio_home': split_library_view_on_dashboard(),
+    'archived_courses': archived_courses,
+    'in_process_course_actions': in_process_course_actions,
+    'libraries_enabled': LIBRARIES_ENABLED,
+    'liveclass_enabled': True,
+    'liveclass_enabled_list': False,
+    'redirect_to_library_authoring_mfe': should_redirect_to_library_authoring_mfe(),
+    'library_authoring_mfe_url': LIBRARY_AUTHORING_MICROFRONTEND_URL,
+    'liveclass_authoring_mfe_url': '#',
+    'libraries': [_format_library_for_view(lib, request) for lib in libraries],
+    'show_new_library_button': user_can_create_library(user) and not should_redirect_to_library_authoring_mfe(),
+    'show_new_liveclass_button': user_can_create_library(user) and not should_redirect_to_library_authoring_mfe(),
+    'user': user,
+    'request_course_creator_url': reverse('request_course_creator'),
+    'course_creator_status': _get_course_creator_status(user),
+    'rerun_creator_status': GlobalStaff().has_user(user),
+    'allow_unicode_course_id': settings.FEATURES.get('ALLOW_UNICODE_COURSE_ID', False),
+    'allow_course_reruns': settings.FEATURES.get('ALLOW_COURSE_RERUNS', True),
+    'optimization_enabled': optimization_enabled,
+    'active_tab': 'courses'
+    })
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 @login_required
 @ensure_csrf_cookie
 def library_listing(request):
@@ -590,6 +695,10 @@ def library_listing(request):
         'show_new_library_button': LIBRARIES_ENABLED and request.user.is_active,
         'user': request.user,
         'request_course_creator_url': reverse('request_course_creator'),
+<<<<<<< HEAD
+=======
+        'show_new_liveclass_button': LIBRARIES_ENABLED and request.user.is_active,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         'course_creator_status': _get_course_creator_status(request.user),
         'allow_unicode_course_id': settings.FEATURES.get('ALLOW_UNICODE_COURSE_ID', False),
         'archived_courses': True,
@@ -916,7 +1025,11 @@ def _create_or_rerun_course(request):
         return JsonResponse({
             "ErrMsg": _("Unable to create course '{name}'.\n\n{err}").format(name=display_name, err=str(error))}
         )
+<<<<<<< HEAD
     except PermissionDenied as error:
+=======
+    except PermissionDenied as error:  # pylint: disable=unused-variable
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         log.info(
             "User does not have the permission to create course in this organization"
             "or course creation is disabled."
@@ -1151,8 +1264,12 @@ def settings_handler(request, course_key_string):  # lint-amnesty, pylint: disab
                 'EDITABLE_SHORT_DESCRIPTION',
                 settings.FEATURES.get('EDITABLE_SHORT_DESCRIPTION', True)
             )
+<<<<<<< HEAD
             sidebar_html_enabled = course_experience_waffle().is_enabled(ENABLE_COURSE_ABOUT_SIDEBAR_HTML)
             # self_paced_enabled = SelfPacedConfiguration.current().enabled
+=======
+            sidebar_html_enabled = ENABLE_COURSE_ABOUT_SIDEBAR_HTML.is_enabled()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             verified_mode = CourseMode.verified_mode_for_course(course_key, include_expired=True)
             upgrade_deadline = (verified_mode and verified_mode.expiration_datetime and
@@ -1886,3 +2003,100 @@ def _get_course_creator_status(user):
         course_creator_status = 'granted'
 
     return course_creator_status
+<<<<<<< HEAD
+=======
+
+@api_view(['POST',])
+@authentication_classes((
+    JwtAuthentication,
+    BearerAuthenticationAllowInactiveUser,
+    SessionAuthenticationAllowInactiveUser,
+))
+@permission_classes((IsAuthenticated,))
+def doc_upload_view(request):
+    method = request.method
+    try:
+        if method == 'POST':
+            # if request.user.is_staff:
+                log.info(request.POST, request.FILES)
+                file = request.FILES.get('document')
+                course = request.POST.get('course')
+                form_data = DocumentForm(request.POST, request.FILES)
+                try:
+                    course =  CourseOverview.objects.get(id=course)
+                except Exception as e:
+                    return JsonResponse({"success":False, "message":{"error":f"Course does not exist {e}"}})
+                if form_data.is_valid():
+                    url_save = upload_to_s3(file)
+                    form_data = form_data.save(commit=False)
+                    form_data.created_by_id = 1
+                    form_data.course= course
+                    form_data.document = url_save
+                    form_data.save()
+                    return JsonResponse({"success":True})
+                return JsonResponse({"success":False, 'message':form_data.errors})
+            # return JsonResponse({"success":False, "message":{"error":"User not authorized"}})
+        return JsonResponse({"success":False, "messages":{"method": f"{request.method} is invalid method"}})
+    except Exception as e:
+        return JsonResponse({"success":False, "message":{"error":f"{e}"} })
+
+
+
+
+@api_view(['POST',])
+@authentication_classes((
+    JwtAuthentication,
+    BearerAuthenticationAllowInactiveUser,
+    SessionAuthenticationAllowInactiveUser,
+))
+@permission_classes((IsAuthenticated,))
+@csrf_exempt
+def update_doc(request):
+    method = request.method
+    try:
+        if method == "POST":
+            doc_id = request.POST.get('doc_id', None)
+            file = request.FILES.get('document')
+            if doc_id:
+                try:
+                    form_data = DocumentStorage.objects.get(id=doc_id)
+                except Exception as e:
+                    return JsonResponse({"success":False, "message":{"error":f"{e}"}})
+                form_data = DocumentForm(request.POST,request.FILES,instance=form_data)
+                if form_data.is_valid():
+                    form_data = form_data.save(commit=False)
+                    if file:
+                        url_save = upload_to_s3(file)
+                        form_data.document = url_save
+                    form_data.save()
+                    return JsonResponse({"success":True})
+                return JsonResponse({"success":False, 'messages':form_data.errors})
+            return JsonResponse({"success":False, "messages":{"doc_id":"Document Id not Provided"}})
+        return JsonResponse({"success":False, "messages":{"method": f"{request.method} is invalid method"}})
+    except Exception as e:
+        return JsonResponse({"success":False, "message":{"error":f"{e}"} })
+
+
+# @api_view(['POST', 'GET'])
+@csrf_exempt
+def delete_doc(request):
+    try:
+        method = request.method
+        data = JSONParser().parse(request)
+        id = data.get('doc_id', None)
+        if id:
+            if method == "POST" :
+                # if request.user.is_staff:
+                    try:
+                        DocumentStorage.objects.get(id=id).delete()
+                        return JsonResponse({"success":True, "message":{"deleted": "Data deleted Successfully."}})
+                    except Exception as e:
+                        return JsonResponse({"success":False, 'message':{"error":f"{e}"}})
+                # return JsonResponse({"success":False, 'message':{"role": 'Unauthorized action'}})
+            return JsonResponse({"success":False, 'message':{'id':'Document Id not provided.'}})  
+    except Exception as e:
+        return JsonResponse({"success":False, "message":{"error":f"{e}"} })
+      
+        
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

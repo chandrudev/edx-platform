@@ -5,6 +5,7 @@
         "display_name": "Graded Course",
         "graded": "true"
     },
+<<<<<<< HEAD
 	
 	
     "vertical/Homework1": {
@@ -43,6 +44,46 @@
         "format": "Final"
     },
 	
+=======
+
+
+    "vertical/Homework1": {
+        "display_name": "Homework 1",
+        "graded": true,
+        "format": "Homework"
+    },
+
+
+    "sequential/Homework2": {
+        "display_name": "Homework 2",
+        "graded": true,
+        "format": "Homework"
+    },
+
+    "problem/H2P1": {
+        "weight": 4
+    },
+
+    "sequential/Homework3": {
+        "display_name": "Homework 3",
+        "graded": true,
+        "format": "Homework"
+    },
+
+
+    "vertical/Homework1": {
+        "display_name": "Homework 1",
+        "graded": true,
+        "format": "Homework"
+    },
+
+    "problem/FinalQuestion": {
+        "display_name": "Final Question",
+        "graded": true,
+        "format": "Final"
+    },
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "chapter/Overview": {
         "display_name": "Overview"
     }

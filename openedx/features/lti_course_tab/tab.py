@@ -7,7 +7,11 @@ from urllib.parse import quote
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpRequest
+<<<<<<< HEAD
 from django.utils.translation import get_language, to_locale, gettext_lazy
+=======
+from django.utils.translation import get_language, gettext_lazy, to_locale
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lti_consumer.api import get_lti_pii_sharing_state_for_course
 from lti_consumer.lti_1p1.contrib.django import lti_embed
 from lti_consumer.models import LtiConfiguration
@@ -19,8 +23,13 @@ from lms.djangoapps.courseware.tabs import EnrolledTab
 from openedx.core.djangoapps.discussions.models import DiscussionsConfiguration
 from openedx.core.djangolib.markup import HTML
 from common.djangoapps.student.models import anonymous_id_for_user
+<<<<<<< HEAD
 from xmodule.course_module import CourseBlock
 from xmodule.tabs import TabFragmentViewMixin, key_checker
+=======
+from xmodule.course_module import CourseBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.tabs import TabFragmentViewMixin, key_checker  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class LtiCourseLaunchMixin:
@@ -29,11 +38,19 @@ class LtiCourseLaunchMixin:
     """
 
     ROLE_MAP = {
+<<<<<<< HEAD
         'student': 'Student',
         'staff': 'Administrator',
         'instructor': 'Instructor',
     }
     DEFAULT_ROLE = 'Student'
+=======
+        'student': 'Student,Learner',
+        'staff': 'Administrator',
+        'instructor': 'Instructor',
+    }
+    DEFAULT_ROLE = 'Student,Learner'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def _get_pii_lti_parameters(self, course: CourseBlock, request: HttpRequest) -> Dict[str, str]:
         """
@@ -195,6 +212,10 @@ class LtiCourseTab(LtiCourseLaunchMixin, EnrolledTab):
     A tab to add custom LTI components to a course in a tab.
     """
     type = 'lti_tab'
+<<<<<<< HEAD
+=======
+    priority = 120
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     is_default = False
     allow_multiple = True
 
@@ -266,6 +287,10 @@ class DiscussionLtiCourseTab(LtiCourseLaunchMixin, TabFragmentViewMixin, Enrolle
     Course tab that loads the associated LTI-based discussion provider in a tab.
     """
     type = 'lti_discussion'
+<<<<<<< HEAD
+=======
+    priority = 41
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     allow_multiple = False
     is_dynamic = True
     title = gettext_lazy("Discussion")
@@ -276,6 +301,7 @@ class DiscussionLtiCourseTab(LtiCourseLaunchMixin, TabFragmentViewMixin, Enrolle
 
     @classmethod
     def is_enabled(cls, course, user=None):
+<<<<<<< HEAD
         if super().is_enabled(course, user):
             config = DiscussionsConfiguration.get(course.id)
             return (
@@ -284,3 +310,9 @@ class DiscussionLtiCourseTab(LtiCourseLaunchMixin, TabFragmentViewMixin, Enrolle
             )
         else:
             return False
+=======
+        """Check if the tab is enabled."""
+        if super().is_enabled(course, user):
+            return DiscussionsConfiguration.lti_discussion_enabled(course.id)
+        return False
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

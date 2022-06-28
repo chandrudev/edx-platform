@@ -152,7 +152,11 @@ def course_info_to_ccxcon(course_key):
     if resp.status_code >= 400:
         log.error("Error creating course on ccxcon. Status: %s, Content: %s", resp.status_code, resp.content)
     # this API performs a POST request both for POST and PATCH, but the POST returns 201 and the PATCH returns 200
+<<<<<<< HEAD
     elif resp.status_code != HTTP_200_OK and resp.status_code != HTTP_201_CREATED:
+=======
+    elif resp.status_code not in (HTTP_200_OK, HTTP_201_CREATED):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         log.error('Server returned unexpected status code %s', resp.status_code)
     else:
         log.debug('Request successful. Status: %s, Content: %s', resp.status_code, resp.content)

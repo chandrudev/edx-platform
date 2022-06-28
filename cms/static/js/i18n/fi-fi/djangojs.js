@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=(n != 1);
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n != 1);
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "%(sel)s of %(cnt)s selected": [
       "%(sel)s valittuna %(cnt)s mahdollisesta",
       "%(sel)s valittuna %(cnt)s mahdollisesta"
@@ -70,9 +86,27 @@
     "Tomorrow": "Huomenna",
     "Type into this box to filter down the list of available %s.": "Kirjoita t\u00e4h\u00e4n listaan suodattaaksesi %s-listaa.",
     "Yesterday": "Eilen",
+<<<<<<< HEAD
     "You have selected an action, and you haven't made any changes on individual fields. You're probably looking for the Go button rather than the Save button.": "Olet valinnut toiminnon etk\u00e4 ole tehnyt yht\u00e4\u00e4n muutosta yksitt\u00e4isiss\u00e4 kentiss\u00e4. Etsit todenn\u00e4k\u00f6isesti Suorita-nappia Tallenna-napin sijaan.",
     "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action.": "Olet valinnut toiminnon, mutta et ole viel\u00e4 tallentanut muutoksiasi yksitt\u00e4isiin kenttiin. Paina OK tallentaaksesi. Sinun pit\u00e4\u00e4 suorittaa toiminto uudelleen.",
     "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "Sinulla on tallentamattomia muutoksia yksitt\u00e4isiss\u00e4 muokattavissa kentiss\u00e4. Jos suoritat toiminnon, tallentamattomat muutoksesi katoavat.",
+=======
+    "You have selected an action, and you haven\u2019t made any changes on individual fields. You\u2019re probably looking for the Go button rather than the Save button.": "Olet valinnut toiminnon etk\u00e4 ole tehnyt yht\u00e4\u00e4n muutosta yksitt\u00e4isiss\u00e4 kentiss\u00e4. Etsit todenn\u00e4k\u00f6isesti Suorita-painiketta Tallenna-painikkeen sijaan.",
+    "You have selected an action, but you haven\u2019t saved your changes to individual fields yet. Please click OK to save. You\u2019ll need to re-run the action.": "Olet valinnut toiminnon, mutta et ole viel\u00e4 tallentanut muutoksiasi yksitt\u00e4isiin kenttiin. Paina OK tallentaaksesi. Sinun pit\u00e4\u00e4 suorittaa toiminto uudelleen.",
+    "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "Sinulla on tallentamattomia muutoksia yksitt\u00e4isiss\u00e4 muokattavissa kentiss\u00e4. Jos suoritat toiminnon, tallentamattomat muutoksesi katoavat.",
+    "abbrev. month April\u0004Apr": "Huhti",
+    "abbrev. month August\u0004Aug": "Elo",
+    "abbrev. month December\u0004Dec": "Joulu",
+    "abbrev. month February\u0004Feb": "Helmi",
+    "abbrev. month January\u0004Jan": "Tammi",
+    "abbrev. month July\u0004Jul": "Hein\u00e4",
+    "abbrev. month June\u0004Jun": "Kes\u00e4",
+    "abbrev. month March\u0004Mar": "Maalis",
+    "abbrev. month May\u0004May": "Touko",
+    "abbrev. month November\u0004Nov": "Marras",
+    "abbrev. month October\u0004Oct": "Loka",
+    "abbrev. month September\u0004Sep": "Syys",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "one letter Friday\u0004F": "Pe",
     "one letter Monday\u0004M": "Ma",
     "one letter Saturday\u0004S": "La",
@@ -81,24 +115,41 @@
     "one letter Tuesday\u0004T": "Ti",
     "one letter Wednesday\u0004W": "Ke"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -108,16 +159,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -140,11 +201,17 @@
       "%d.%m.%Y %H.%M.%S",
       "%d.%m.%Y %H.%M.%S.%f",
       "%d.%m.%Y %H.%M",
+<<<<<<< HEAD
       "%d.%m.%Y",
       "%d.%m.%y %H.%M.%S",
       "%d.%m.%y %H.%M.%S.%f",
       "%d.%m.%y %H.%M",
       "%d.%m.%y",
+=======
+      "%d.%m.%y %H.%M.%S",
+      "%d.%m.%y %H.%M.%S.%f",
+      "%d.%m.%y %H.%M",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
@@ -176,8 +243,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -196,6 +268,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

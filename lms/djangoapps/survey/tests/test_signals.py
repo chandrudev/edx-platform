@@ -8,7 +8,11 @@ from lms.djangoapps.survey.models import SurveyAnswer
 from lms.djangoapps.survey.signals import _listen_for_lms_retire
 from lms.djangoapps.survey.tests.factories import SurveyAnswerFactory
 from openedx.core.djangoapps.user_api.accounts.tests.retirement_helpers import fake_completed_retirement
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class SurveyRetireSignalTests(ModuleStoreTestCase):

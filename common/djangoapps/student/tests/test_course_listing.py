@@ -17,11 +17,19 @@ from common.djangoapps.student.roles import GlobalStaff
 from common.djangoapps.student.tests.factories import UserFactory
 from common.djangoapps.student.views import get_course_enrollments
 from common.djangoapps.util.milestones_helpers import get_pre_requisite_courses_not_completed, set_prerequisite_courses
+<<<<<<< HEAD
 from xmodule.error_module import ErrorBlock
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore import ModuleStoreEnum  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestCourseListing(ModuleStoreTestCase, MilestonesTestCaseMixin):
@@ -117,7 +125,11 @@ class TestCourseListing(ModuleStoreTestCase, MilestonesTestCaseMixin):
             CourseOverview.objects.filter(id=course_key).delete()
 
             courses_list = list(get_course_enrollments(self.student, None, []))
+<<<<<<< HEAD
             assert courses_list == []
+=======
+            assert not courses_list
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_course_listing_errored_deleted_courses(self):
         """

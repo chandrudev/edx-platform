@@ -45,11 +45,20 @@ class CheckCourseAccessView(APIView):  # lint-amnesty, pylint: disable=missing-c
         if course_ids and user and user_ip_address:
             for course_id in course_ids:
                 try:
+<<<<<<< HEAD
                     if not check_course_access(CourseKey.from_string(course_id), user, user_ip_address):
                         response['access'] = False
                         break
                 except InvalidKeyError:
                     raise ValidationError('Invalid course_ids')  # lint-amnesty, pylint: disable=raise-missing-from
+=======
+                    course_key = CourseKey.from_string(course_id)
+                except InvalidKeyError as exc:
+                    raise ValidationError('Invalid course_ids') from exc
+                if not check_course_access(course_key, user=user, ip_addresses=[user_ip_address]):
+                    response['access'] = False
+                    break
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         else:
             raise ValidationError('Missing parameters')
 

@@ -42,7 +42,11 @@ from openedx.core.lib.api.view_utils import (
     build_api_error
 )
 from openedx.core.lib.teams_config import TeamsetType
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from . import is_feature_enabled
 from .api import (

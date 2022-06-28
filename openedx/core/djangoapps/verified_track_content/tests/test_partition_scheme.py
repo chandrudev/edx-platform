@@ -10,11 +10,18 @@ import pytest
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.partitions.partitions import MINIMUM_STATIC_PARTITION_ID, UserPartition, ReadOnlyUserPartitionError
 
 from ..models import VerifiedTrackCohortedCourse
+=======
+from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.partitions.partitions import MINIMUM_STATIC_PARTITION_ID, UserPartition, ReadOnlyUserPartitionError  # lint-amnesty, pylint: disable=wrong-import-order
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..partition_scheme import ENROLLMENT_GROUP_IDS, EnrollmentTrackPartitionScheme, EnrollmentTrackUserPartition
 
 
@@ -34,11 +41,14 @@ class EnrollmentTrackUserPartitionTest(SharedModuleStoreTestCase):
         assert 1 == len(groups)
         assert 'Audit' == groups[0].name
 
+<<<<<<< HEAD
     def test_using_verified_track_cohort(self):
         VerifiedTrackCohortedCourse.objects.create(course_key=self.course.id, enabled=True).save()
         partition = create_enrollment_track_partition(self.course)
         assert 0 == len(partition.groups)
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_multiple_groups(self):
         create_mode(self.course, CourseMode.AUDIT, "Audit Enrollment Track", min_price=0)
         # Note that the verified mode is expired-- this is intentional.
@@ -163,11 +173,14 @@ class EnrollmentTrackPartitionSchemeTest(SharedModuleStoreTestCase):
         )
         assert 'Verified Enrollment Track' == self._get_user_group().name
 
+<<<<<<< HEAD
     def test_using_verified_track_cohort(self):
         VerifiedTrackCohortedCourse.objects.create(course_key=self.course.id, enabled=True).save()
         CourseEnrollment.enroll(self.student, self.course.id)
         assert self._get_user_group() is None
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _get_user_group(self):
         """
         Gets the group the user is assigned to.

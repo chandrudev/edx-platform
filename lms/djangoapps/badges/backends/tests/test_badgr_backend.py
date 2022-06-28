@@ -18,8 +18,13 @@ from lms.djangoapps.badges.backends.badgr import BadgrBackend
 from lms.djangoapps.badges.models import BadgeAssertion
 from lms.djangoapps.badges.tests.factories import BadgeClassFactory
 from openedx.core.lib.tests.assertions.events import assert_event_matches
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 BADGR_SETTINGS = {
     'BADGR_BASE_URL': 'https://example.com',
@@ -30,7 +35,11 @@ BADGR_SETTINGS = {
 }
 
 # Should be the hashed result of test_slug as the slug, and test_component as the component
+<<<<<<< HEAD
 EXAMPLE_SLUG = '15bb687e0c59ef2f0a49f6838f511bf4ca6c566dd45da6293cabbd9369390e1a'
+=======
+EXAMPLE_SLUG = '9e915d55bb304a73d20c453531d3c27f81574218413c23903823d20d11b587ae'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 BADGR_SERVER_SLUG = 'test_badgr_server_slug'
 
 
@@ -114,7 +123,12 @@ class BadgrBackendTestCase(ModuleStoreTestCase, EventTrackingTestCase):
         Verify badge spec creation works.
         """
         self.handler._get_access_token = Mock(return_value='12345')
+<<<<<<< HEAD
         self.handler._create_badge(self.badge_class)
+=======
+        with self.allow_transaction_exception():
+            self.handler._create_badge(self.badge_class)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         args, kwargs = post.call_args
         assert args[0] == 'https://example.com/v2/issuers/test-issuer/badgeclasses'
         assert kwargs['files']['image'][0] == self.badge_class.image.name

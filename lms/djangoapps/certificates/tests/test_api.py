@@ -515,7 +515,11 @@ class CertificateGetTests(SharedModuleStoreTestCase):
         """
         Test the case when there are no certificates for a user.
         """
+<<<<<<< HEAD
         assert get_certificates_for_user(self.student_no_cert.username) == []
+=======
+        assert not get_certificates_for_user(self.student_no_cert.username)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @patch.dict(settings.FEATURES, {'CERTIFICATES_HTML_VIEW': True})
     def test_get_web_certificate_url(self):
@@ -564,6 +568,10 @@ class CertificateGetTests(SharedModuleStoreTestCase):
         assert get_certificate_for_user(self.student.username, self.nonexistent_course_id) is None
 
 
+<<<<<<< HEAD
+=======
+@ddt.ddt
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class GenerateUserCertificatesTest(ModuleStoreTestCase):
     """Tests for generating certificates for students. """
 
@@ -605,7 +613,12 @@ class GenerateUserCertificatesTest(ModuleStoreTestCase):
                 assert cert.mode == CourseMode.VERIFIED
 
     @patch.dict(settings.FEATURES, {'CERTIFICATES_HTML_VIEW': True})
+<<<<<<< HEAD
     def test_generation_unverified(self):
+=======
+    @ddt.data(True, False)
+    def test_generation_unverified(self, enable_idv_requirement):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Test that a cert is successfully generated with a status of unverified
         """
@@ -614,11 +627,23 @@ class GenerateUserCertificatesTest(ModuleStoreTestCase):
 
         with mock.patch(PASSING_GRADE_METHOD, return_value=True):
             with mock.patch(ID_VERIFIED_METHOD, return_value=False):
+<<<<<<< HEAD
                 generate_certificate_task(self.user, self.course_run_key)
 
                 cert = get_certificate_for_user_id(self.user.id, self.course_run_key)
                 assert cert.status == CertificateStatuses.unverified
                 assert cert.mode == CourseMode.VERIFIED
+=======
+                with mock.patch.dict(settings.FEATURES, ENABLE_CERTIFICATES_IDV_REQUIREMENT=enable_idv_requirement):
+                    generate_certificate_task(self.user, self.course_run_key)
+
+                    cert = get_certificate_for_user_id(self.user.id, self.course_run_key)
+                    assert cert.mode == CourseMode.VERIFIED
+                    if enable_idv_requirement:
+                        assert cert.status == CertificateStatuses.unverified
+                    else:
+                        assert cert.status == CertificateStatuses.downloadable
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @patch.dict(settings.FEATURES, {'CERTIFICATES_HTML_VIEW': True})
     def test_generation_notpassing(self):

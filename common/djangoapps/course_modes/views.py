@@ -11,9 +11,16 @@ import six
 import waffle  # lint-amnesty, pylint: disable=invalid-django-waffle-import
 from babel.dates import format_datetime
 from babel.numbers import get_currency_symbol
+<<<<<<< HEAD
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseBadRequest
+=======
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.http import HttpResponse
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -21,14 +28,23 @@ from django.utils.translation import get_language, to_locale
 from django.utils.translation import gettext as _
 from django.views.generic.base import View
 from edx_django_utils.monitoring.utils import increment
+<<<<<<< HEAD
 from ipware.ip import get_client_ip
 from opaque_keys.edx.keys import CourseKey
+=======
+from opaque_keys.edx.keys import CourseKey
+from urllib.parse import urljoin  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.helpers import get_course_final_price, get_verified_track_links
 from common.djangoapps.edxmako.shortcuts import render_to_response
 from common.djangoapps.util.date_utils import strftime_localized_html
+<<<<<<< HEAD
 from edx_toggles.toggles import WaffleFlag
+=======
+from edx_toggles.toggles import WaffleFlag  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.commerce.utils import EcommerceService
 from lms.djangoapps.experiments.utils import get_experiment_user_metadata_context
 from lms.djangoapps.verify_student.services import IDVerificationService
@@ -38,10 +54,18 @@ from openedx.core.djangoapps.enrollments.permissions import ENROLL_IN_COURSE
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.course_duration_limits.models import CourseDurationLimitConfig
 from openedx.features.course_duration_limits.access import get_user_course_duration, get_user_course_expiration_date
+<<<<<<< HEAD
 from openedx.features.enterprise_support.api import enterprise_customer_for_request
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.util.db import outer_atomic
 from xmodule.modulestore.django import modulestore
+=======
+from openedx.features.course_experience import course_home_url
+from openedx.features.enterprise_support.api import enterprise_customer_for_request
+from common.djangoapps.student.models import CourseEnrollment
+from common.djangoapps.util.db import outer_atomic
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 LOG = logging.getLogger(__name__)
 
@@ -53,7 +77,11 @@ LOG = logging.getLogger(__name__)
 # .. toggle_creation_date: 2021-8-23
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: REV-2133
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date.
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 VALUE_PROP_TRACK_SELECTION_FLAG = WaffleFlag('course_modes.use_new_track_selection', __name__)
 
 
@@ -100,12 +128,16 @@ class ChooseModeView(View):
 
         # Check whether the user has access to this course
         # based on country access rules.
+<<<<<<< HEAD
         embargo_redirect = embargo_api.redirect_if_blocked(
             course_key,
             user=request.user,
             ip_address=get_client_ip(request)[0],
             url=request.path
         )
+=======
+        embargo_redirect = embargo_api.redirect_if_blocked(request, course_key)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if embargo_redirect:
             return redirect(embargo_redirect)
 
@@ -133,7 +165,10 @@ class ChooseModeView(View):
                 if purchase_workflow == "bulk" and professional_mode.bulk_sku:
                     redirect_url = ecommerce_service.get_checkout_page_url(professional_mode.bulk_sku)
             return redirect(redirect_url)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course = modulestore().get_course(course_key)
 
         # If there isn't a verified mode available, then there's nothing
@@ -152,6 +187,13 @@ class ChooseModeView(View):
             locale = to_locale(get_language())
             enrollment_end_date = format_datetime(course.enrollment_end, 'short', locale=locale)
             params = six.moves.urllib.parse.urlencode({'course_closed': enrollment_end_date})
+<<<<<<< HEAD
+=======
+            LOG.info(
+                '[Track Selection Check] Enrollment is closed redirect for course [%s], user [%s]',
+                course_id, request.user.username
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return redirect('{}?{}'.format(reverse('dashboard'), params))
 
         # When a credit mode is available, students will be given the option
@@ -190,6 +232,10 @@ class ChooseModeView(View):
             "nav_hidden": True,
             "content_gating_enabled": gated_content,
             "course_duration_limit_enabled": CourseDurationLimitConfig.enabled_for_enrollment(request.user, course),
+<<<<<<< HEAD
+=======
+            "search_courses_url": urljoin(settings.MKTG_URLS.get('ROOT'), '/search?tab=course'),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         }
         context.update(
             get_experiment_user_metadata_context(
@@ -239,10 +285,18 @@ class ChooseModeView(View):
                 context["sku"] = verified_mode.sku
                 context["bulk_sku"] = verified_mode.bulk_sku
 
+<<<<<<< HEAD
+=======
+        # REV-2415 TODO: remove [Track Selection Check] logs introduced by REV-2355 for error handling check
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         context['currency_data'] = []
         if waffle.switch_is_active('local_currency'):
             if 'edx-price-l10n' not in request.COOKIES:
                 currency_data = get_currency_data()
+<<<<<<< HEAD
+=======
+                LOG.info('[Track Selection Check] Currency data: [%s], for course [%s]', currency_data, course_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 try:
                     context['currency_data'] = json.dumps(currency_data)
                 except TypeError:
@@ -259,6 +313,7 @@ class ChooseModeView(View):
         fbe_is_on = deadline and gated_content
 
         # Route to correct Track Selection page.
+<<<<<<< HEAD
         # REV-2133 TODO Value Prop: remove waffle flag after testing is completed
         # and happy path version is ready to be rolled out to all users.
         if VALUE_PROP_TRACK_SELECTION_FLAG.is_enabled():
@@ -270,6 +325,19 @@ class ChooseModeView(View):
                         return render_to_response("course_modes/unfbe.html", context)
 
         # If error or enterprise_customer, failover to old choose.html page
+=======
+        # REV-2378 TODO Value Prop: remove waffle flag after all edge cases for track selection are completed.
+        if VALUE_PROP_TRACK_SELECTION_FLAG.is_enabled():
+            if not enterprise_customer_for_request(request):  # TODO: Remove by executing REV-2342
+                if error:
+                    return render_to_response("course_modes/error.html", context)
+                if fbe_is_on:
+                    return render_to_response("course_modes/fbe.html", context)
+                else:
+                    return render_to_response("course_modes/unfbe.html", context)
+
+        # If enterprise_customer, failover to old choose.html page
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return render_to_response("course_modes/choose.html", context)
 
     @method_decorator(transaction.non_atomic_requests)
@@ -283,9 +351,16 @@ class ChooseModeView(View):
             course_id (unicode): The slash-separated course key.
 
         Returns:
+<<<<<<< HEAD
             Status code 400 when the requested mode is unsupported. When the honor mode
             is selected, redirects to the dashboard. When the verified mode is selected,
             returns error messages if the indicated contribution amount is invalid or
+=======
+            When the requested mode is unsupported, returns error message.
+            When the honor mode is selected, redirects to the dashboard.
+            When the verified mode is selected, returns error messages
+            if the indicated contribution amount is invalid or
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             below the minimum, otherwise redirects to the verification flow.
 
         """
@@ -297,13 +372,29 @@ class ChooseModeView(View):
         course = modulestore().get_course(course_key)
         if not user.has_perm(ENROLL_IN_COURSE, course):
             error_msg = _("Enrollment is closed")
+<<<<<<< HEAD
+=======
+            LOG.info(
+                '[Track Selection Check] Error: [%s], for course [%s], user [%s]',
+                error_msg, course_id, request.user.username
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return self.get(request, course_id, error=error_msg)
 
         requested_mode = self._get_requested_mode(request.POST)
 
         allowed_modes = CourseMode.modes_for_course_dict(course_key)
         if requested_mode not in allowed_modes:
+<<<<<<< HEAD
             return HttpResponseBadRequest(_("Enrollment mode not supported"))
+=======
+            LOG.info(
+                '[Track Selection Check] Error: requested enrollment mode [%s] is not supported for course [%s]',
+                requested_mode, course_id
+            )
+            error_msg = _("Enrollment mode not supported")
+            return self.get(request, course_id, error=error_msg)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         if requested_mode == 'audit':
             # If the learner has arrived at this screen via the traditional enrollment workflow,
@@ -323,20 +414,50 @@ class ChooseModeView(View):
         if requested_mode == 'verified':
             amount = request.POST.get("contribution") or \
                 request.POST.get("contribution-other-amt") or 0
+<<<<<<< HEAD
+=======
+            LOG.info(
+                '[Track Selection Check][%s] Requested verified mode - '
+                'contribution: [%s], contribution other amount: [%s]',
+                course_id, request.POST.get("contribution"), request.POST.get("contribution-other-amt")
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
             try:
                 # Validate the amount passed in and force it into two digits
                 amount_value = decimal.Decimal(amount).quantize(decimal.Decimal('.01'), rounding=decimal.ROUND_DOWN)
             except decimal.InvalidOperation:
                 error_msg = _("Invalid amount selected.")
+<<<<<<< HEAD
+=======
+                LOG.info(
+                    '[Track Selection Check][%s] Requested verified mode - Error: [%s]',
+                    course_id, error_msg
+                )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 return self.get(request, course_id, error=error_msg)
 
             # Check for minimum pricing
             if amount_value < mode_info.min_price:
                 error_msg = _("No selected price or selected price is too low.")
+<<<<<<< HEAD
                 return self.get(request, course_id, error=error_msg)
 
             donation_for_course = request.session.get("donation_for_course", {})
+=======
+                LOG.info(
+                    '[Track Selection Check][%s] Requested verified mode - Error: '
+                    'amount value [%s] is less than minimum price [%s]',
+                    course_id, amount_value, mode_info.min_price
+                )
+                return self.get(request, course_id, error=error_msg)
+
+            donation_for_course = request.session.get("donation_for_course", {})
+            LOG.info(
+                '[Track Selection Check] Donation for course [%s]: [%s], amount value: [%s]',
+                course_id, donation_for_course, amount_value
+            )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             donation_for_course[str(course_key)] = amount_value
             request.session["donation_for_course"] = donation_for_course
 
@@ -377,7 +498,11 @@ class ChooseModeView(View):
             302 to the course if possible or the dashboard if not.
         """
         if course.has_started() or user.is_staff:
+<<<<<<< HEAD
             return redirect(reverse('openedx.course_experience.course_home', kwargs={'course_id': course_key}))
+=======
+            return redirect(course_home_url(course_key))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         else:
             return redirect(reverse('dashboard'))
 

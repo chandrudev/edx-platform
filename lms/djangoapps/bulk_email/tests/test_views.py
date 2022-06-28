@@ -14,8 +14,13 @@ from lms.djangoapps.bulk_email.models import Optout
 from lms.djangoapps.bulk_email.views import opt_out_email_updates
 from lms.djangoapps.discussion.notification_prefs.views import UsernameCipher
 from openedx.core.lib.tests import attr
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @attr(shard=1)

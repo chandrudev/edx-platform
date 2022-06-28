@@ -24,6 +24,14 @@ disable+ =
     consider-using-enumerate,
     no-member,
     consider-using-with,
+<<<<<<< HEAD
+=======
+    unspecified-encoding,
+    unused-variable,
+    unused-argument,
+    unsubscriptable-object,
+    abstract-method,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 [BASIC]
 attr-rgx = [a-z_][a-z0-9_]{2,40}$

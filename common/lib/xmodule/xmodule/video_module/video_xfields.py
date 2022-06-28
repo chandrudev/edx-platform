@@ -206,3 +206,12 @@ class VideoFields:
         scope=Scope.preferences,
         default=False,
     )
+<<<<<<< HEAD
+=======
+    public_access = Boolean(
+        help=_("Specify whether the video can be accessed publicly by learners."),
+        display_name=_("Public Access"),
+        scope=Scope.settings,
+        default=False
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

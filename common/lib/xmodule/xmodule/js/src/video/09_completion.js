@@ -154,6 +154,10 @@
                 var errmsg;
                 this.isComplete = true;
                 this.lastSentTime = currentTime;
+<<<<<<< HEAD
+=======
+                this.state.el.trigger('complete');
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 if (this.state.config.publishCompletionUrl) {
                     $.ajax({
                         type: 'POST',

@@ -14,7 +14,10 @@ from xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     STUDENT_VIEW,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleMixin,
     XModuleToXBlockMixin,
 )
@@ -26,7 +29,10 @@ class RandomizeBlock(
     SequenceMixin,
     MakoTemplateBlockBase,
     XmlMixin,
+<<<<<<< HEAD
     XModuleDescriptorToXBlockMixin,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     XModuleToXBlockMixin,
     HTMLSnippet,
     ResourceTemplates,

@@ -1,11 +1,16 @@
 <%page expression_filter="h"/>
+<<<<<<< HEAD
 <%! from django.utils.translation import ugettext as _ %>
+=======
+<%! from django.utils.translation import gettext as _ %>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 <html>
 <h1>${_('Tracking Log')}</h1>
 <table border="1"><tr><th>${_('datetime')}</th><th>${_('username')}</th><th>${_('ipaddr')}</th><th>${_('source')}</th><th>${_('type')}</th></tr>
 % for rec in records:
     <tr>
+<<<<<<< HEAD
     <td>${rec.dtstr}</td> 
     <td>${rec.username}</td>  
     <td>${rec.ip}</td>  
@@ -14,4 +19,14 @@
     </tr>
 % endfor
 </table>    
+=======
+    <td>${rec.dtstr}</td>
+    <td>${rec.username}</td>
+    <td>${rec.ip}</td>
+    <td>${rec.event_source}</td>
+    <td>${rec.event_type}</td>
+    </tr>
+% endfor
+</table>
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 </html>

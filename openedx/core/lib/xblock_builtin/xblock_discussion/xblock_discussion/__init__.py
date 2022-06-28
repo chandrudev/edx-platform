@@ -4,6 +4,7 @@ Discussion XBlock
 
 import logging
 import urllib
+<<<<<<< HEAD
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import reverse
 from django.utils.translation import get_language_bidi
@@ -18,6 +19,24 @@ from openedx.core.djangolib.markup import HTML, Text
 from openedx.core.lib.xblock_builtin import get_css_dependencies, get_js_dependencies
 from xmodule.xml_module import XmlParserMixin
 
+=======
+
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.urls import reverse
+from django.utils.translation import get_language_bidi
+from web_fragments.fragment import Fragment
+from xblock.completable import XBlockCompletionMode
+from xblock.core import XBlock
+from xblock.fields import UNIQUE_ID, Scope, String
+from xblockutils.resources import ResourceLoader
+from xblockutils.studio_editable import StudioEditableXBlockMixin
+from xmodule.xml_module import XmlParserMixin
+
+from lms.djangoapps.discussion.toggles import ENABLE_DISCUSSIONS_MFE
+from openedx.core.djangoapps.discussions.url_helpers import get_discussions_mfe_topic_url
+from openedx.core.djangolib.markup import HTML, Text
+from openedx.core.lib.xblock_builtin import get_css_dependencies, get_js_dependencies
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)  # pylint: disable=invalid-name
@@ -32,6 +51,10 @@ def _(text):
 
 @XBlock.needs('user')  # pylint: disable=abstract-method
 @XBlock.needs('i18n')
+<<<<<<< HEAD
+=======
+@XBlock.needs('mako')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):  # lint-amnesty, pylint: disable=abstract-method
     """
     Provides a discussion forum that is inline with other content in the courseware.
@@ -69,11 +92,14 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):  # li
 
     has_author_view = True  # Tells Studio to use author_view
 
+<<<<<<< HEAD
     # support for legacy OLX format - consumed by XmlParserMixin.load_metadata
     metadata_translations = dict(XmlParserMixin.metadata_translations)
     metadata_translations['id'] = 'discussion_id'
     metadata_translations['for'] = 'discussion_target'
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @property
     def course_key(self):
         """
@@ -166,7 +192,10 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):  # li
         Renders student view for LMS.
         """
         fragment = Fragment()
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.add_resource_urls(fragment)
 
         login_msg = ''
@@ -202,7 +231,12 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):  # li
             'login_msg': login_msg,
         }
 
+<<<<<<< HEAD
         fragment.add_content(self.runtime.render_template('discussion/_discussion_inline.html', context))
+=======
+        fragment.add_content(self.runtime.service(self, 'mako').render_template('discussion/_discussion_inline.html',
+                                                                                context))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         fragment.initialize_js('DiscussionInlineBlock')
 
         return fragment
@@ -212,7 +246,11 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):  # li
         Renders author view for Studio.
         """
         fragment = Fragment()
+<<<<<<< HEAD
         fragment.add_content(self.runtime.render_template(
+=======
+        fragment.add_content(self.runtime.service(self, 'mako').render_template(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             'discussion/_discussion_inline_studio.html',
             {'discussion_id': self.discussion_id}
         ))
@@ -240,12 +278,16 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):  # li
         """
         block = super().parse_xml(node, runtime, keys, id_generator)
 
+<<<<<<< HEAD
         cls._apply_translations_to_node_attributes(block, node)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         cls._apply_metadata_and_policy(block, node, runtime)
 
         return block
 
     @classmethod
+<<<<<<< HEAD
     def _apply_translations_to_node_attributes(cls, block, node):
         """
         Applies metadata translations for attributes stored on an inlined XML element.
@@ -255,6 +297,8 @@ class DiscussionXBlock(XBlock, StudioEditableXBlockMixin, XmlParserMixin):  # li
                 setattr(block, target_attr, node.attrib[old_attr])
 
     @classmethod
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def _apply_metadata_and_policy(cls, block, node, runtime):
         """
         Attempt to load definition XML from "discussion" folder in OLX, than parse it and update block fields

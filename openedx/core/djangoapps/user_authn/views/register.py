@@ -22,9 +22,16 @@ from django.utils.translation import gettext as _
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.views.decorators.debug import sensitive_post_parameters
 from edx_django_utils.monitoring import set_custom_attribute
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlag, LegacyWaffleFlagNamespace
 from openedx_events.learning.data import UserData, UserPersonalData
 from openedx_events.learning.signals import STUDENT_REGISTRATION_COMPLETED
+=======
+from edx_toggles.toggles import WaffleFlag
+from openedx_events.learning.data import UserData, UserPersonalData
+from openedx_events.learning.signals import STUDENT_REGISTRATION_COMPLETED
+from openedx_filters.learning.filters import StudentRegistrationRequested
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from pytz import UTC
 from ratelimit.decorators import ratelimit
 from requests import HTTPError
@@ -39,6 +46,10 @@ from common.djangoapps import third_party_auth
 from common.djangoapps.student.helpers import get_next_url_for_login_page, get_redirect_url_with_host
 from lms.djangoapps.discussion.notification_prefs.views import enable_notifications
 from openedx.core.djangoapps.lang_pref import LANGUAGE_KEY
+<<<<<<< HEAD
+=======
+from openedx.core.djangoapps.safe_sessions.middleware import mark_user_change_as_expected
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.user_api import accounts as accounts_settings
 from openedx.core.djangoapps.user_api.accounts.api import (
@@ -83,7 +94,11 @@ from common.djangoapps.track import segment
 from common.djangoapps.util.db import outer_atomic
 from common.djangoapps.util.json_request import JsonResponse
 
+<<<<<<< HEAD
 from edx_django_utils.user import generate_password
+=======
+from edx_django_utils.user import generate_password  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger("edx.student")
 AUDIT_LOG = logging.getLogger("audit")
@@ -112,17 +127,26 @@ REGISTER_USER = Signal()
 # .. toggle_use_cases: temporary
 # .. toggle_creation_date: 2020-04-30
 # .. toggle_target_removal_date: 2020-06-01
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date.
 REGISTRATION_FAILURE_LOGGING_FLAG = LegacyWaffleFlag(
     waffle_namespace=LegacyWaffleFlagNamespace(name='registration'),
     flag_name='enable_failure_logging',
     module_name=__name__,
 )
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date.
+REGISTRATION_FAILURE_LOGGING_FLAG = WaffleFlag('registration.enable_failure_logging', __name__)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 REAL_IP_KEY = 'openedx.core.djangoapps.util.ratelimit.real_ip'
 
 
 @transaction.non_atomic_requests
+<<<<<<< HEAD
 def create_account_with_params(request, params):
+=======
+def create_account_with_params(request, params):  # pylint: disable=too-many-statements
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Given a request and a dict of parameters (which may or may not have come
     from the request), create an account for the requesting user, including
@@ -169,6 +193,12 @@ def create_account_with_params(request, params):
         if 'confirm_email' in extra_fields:
             del extra_fields['confirm_email']
 
+<<<<<<< HEAD
+=======
+    if settings.ENABLE_COPPA_COMPLIANCE and 'year_of_birth' in params:
+        params['year_of_birth'] = ''
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # registration via third party (Google, Facebook) using mobile application
     # doesn't use social auth pipeline (no redirect uri(s) etc involved).
     # In this case all related info (required for account linking)
@@ -281,6 +311,7 @@ def create_account_with_params(request, params):
 
     # TODO: there is no error checking here to see that the user actually logged in successfully,
     # and is not yet an active user.
+<<<<<<< HEAD
     is_new_user(request, new_user)
     return new_user
 
@@ -289,6 +320,16 @@ def is_new_user(request, user):
     if user is not None:
         AUDIT_LOG.info(f"Login success on new account creation - {user.username}")
         check_pwned_password_and_send_track_event.delay(user.id, request.POST.get('password'), user.is_staff)
+=======
+    is_new_user(form.cleaned_data['password'], new_user)
+    return new_user
+
+
+def is_new_user(password, user):
+    if user is not None:
+        AUDIT_LOG.info(f"Login success on new account creation - {user.username}")
+        check_pwned_password_and_send_track_event.delay(user.id, password, user.is_staff, True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def _link_user_to_third_party_provider(
@@ -349,6 +390,7 @@ def _link_user_to_third_party_provider(
 def _track_user_registration(user, profile, params, third_party_provider, registration):
     """ Track the user's registration. """
     if hasattr(settings, 'LMS_SEGMENT_KEY') and settings.LMS_SEGMENT_KEY:
+<<<<<<< HEAD
         identity_args = [
             user.id,
             {
@@ -370,6 +412,29 @@ def _track_user_registration(user, profile, params, third_party_provider, regist
         # .. pii_types: email_address, username, name, birth_date, location, gender
         # .. pii_retirement: third_party
         segment.identify(*identity_args)
+=======
+        traits = {
+            'email': user.email,
+            'username': user.username,
+            'name': profile.name,
+            # Mailchimp requires the age & yearOfBirth to be integers, we send a sane integer default if falsey.
+            'age': profile.age or -1,
+            'yearOfBirth': profile.year_of_birth or datetime.datetime.now(UTC).year,
+            'education': profile.level_of_education_display,
+            'address': profile.mailing_address,
+            'gender': profile.gender_display,
+            'country': str(profile.country),
+            'is_marketable': params.get('marketing_emails_opt_in') == 'true'
+        }
+        if settings.MARKETING_EMAILS_OPT_IN and params.get('marketing_emails_opt_in'):
+            email_subscribe = 'subscribed' if params.get('marketing_emails_opt_in') == 'true' else 'unsubscribed'
+            traits['email_subscribe'] = email_subscribe
+
+        # .. pii: Many pieces of PII are sent to Segment here. Retired directly through Segment API call in Tubular.
+        # .. pii_types: email_address, username, name, birth_date, location, gender
+        # .. pii_retirement: third_party
+        segment.identify(user.id, traits)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         properties = {
             'category': 'conversion',
             # ..pii: Learner email is sent to Segment in following line and will be associated with analytics data.
@@ -566,6 +631,17 @@ class RegistrationView(APIView):
         data = request.POST.copy()
         self._handle_terms_of_service(data)
 
+<<<<<<< HEAD
+=======
+        try:
+            data = StudentRegistrationRequested.run_filter(form_data=data)
+        except StudentRegistrationRequested.PreventRegistration as exc:
+            errors = {
+                "error_message": [{"user_message": str(exc)}],
+            }
+            return self._create_response(request, errors, status_code=exc.status_code)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         response = self._handle_duplicate_email_username(request, data)
         if response:
             return response
@@ -578,7 +654,11 @@ class RegistrationView(APIView):
         redirect_url = get_redirect_url_with_host(root_url, redirect_to)
         response = self._create_response(request, {}, status_code=200, redirect_url=redirect_url)
         set_logged_in_cookies(request, response, user)
+<<<<<<< HEAD
         if not user.is_active and settings.SHOW_ACCOUNT_ACTIVATION_CTA:
+=======
+        if not user.is_active and settings.SHOW_ACCOUNT_ACTIVATION_CTA and not settings.MARKETING_EMAILS_OPT_IN:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             response.set_cookie(
                 settings.SHOW_ACTIVATE_CTA_POPUP_COOKIE_NAME,
                 True,
@@ -586,6 +666,10 @@ class RegistrationView(APIView):
                 path='/',
                 secure=request.is_secure()
             )  # setting the cookie to show account activation dialogue in platform and learning MFE
+<<<<<<< HEAD
+=======
+        mark_user_change_as_expected(user.id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return response
 
     def _handle_duplicate_email_username(self, request, data):
@@ -782,7 +866,15 @@ class RegistrationValidationView(APIView):
     def name_handler(self, request):
         """ Validates whether fullname is valid """
         name = request.data.get('name')
+<<<<<<< HEAD
         return get_name_validation_error(name)
+=======
+        validation_error = get_name_validation_error(name)
+        if validation_error:
+            return validation_error
+        self.username_suggestions = generate_username_suggestions(name)
+        return validation_error
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def username_handler(self, request):
         """ Validates whether the username is valid. """
@@ -815,7 +907,12 @@ class RegistrationValidationView(APIView):
         username = request.data.get('username')
         email = request.data.get('email')
         password = request.data.get('password')
+<<<<<<< HEAD
         return get_password_validation_error(password, username, email)
+=======
+        reset_password_page = request.data.get('reset_password_page', 'false') == 'true'
+        return get_password_validation_error(password, username, email, reset_password_page)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def country_handler(self, request):
         """ Country validator """

@@ -5,11 +5,19 @@ Signal handler for invalidating cached course overviews
 
 import logging
 
+<<<<<<< HEAD
+=======
+from django.db import transaction
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.dispatch import Signal
 from django.dispatch.dispatcher import receiver
 
 from openedx.core.djangoapps.signals.signals import COURSE_CERT_DATE_CHANGE
+<<<<<<< HEAD
 from xmodule.modulestore.django import SignalHandler
+=======
+from xmodule.modulestore.django import SignalHandler  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .models import CourseOverview
 
@@ -92,8 +100,19 @@ def _check_for_cert_availability_date_changes(previous_course_overview, updated_
             f"{previous_course_overview.certificate_available_date} to " +
             f"{updated_course_overview.certificate_available_date}. Sending COURSE_CERT_DATE_CHANGE signal."
         )
+<<<<<<< HEAD
         COURSE_CERT_DATE_CHANGE.send_robust(
             sender=None,
             course_key=updated_course_overview.id,
             available_date=updated_course_overview.certificate_available_date
         )
+=======
+
+        def _send_course_cert_date_change_signal():
+            COURSE_CERT_DATE_CHANGE.send_robust(
+                sender=None,
+                course_key=updated_course_overview.id,
+            )
+
+        transaction.on_commit(_send_course_cert_date_change_signal)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

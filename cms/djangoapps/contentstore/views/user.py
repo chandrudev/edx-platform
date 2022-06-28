@@ -18,7 +18,11 @@ from common.djangoapps.student.auth import STUDIO_EDIT_ROLES, STUDIO_VIEW_USERS,
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import CourseInstructorRole, CourseStaffRole, LibraryUserRole
 from common.djangoapps.util.json_request import JsonResponse, expect_json
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 __all__ = ['request_course_creator', 'course_team_handler']
 

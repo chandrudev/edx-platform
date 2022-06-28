@@ -36,6 +36,10 @@ botocore==1.8.17                    # via boto3, s3transfer
 bridgekeeper                        # Used for determining permissions for courseware.
 celery                              # Asynchronous task execution library
 chem                                # A helper library for chemistry calculations
+<<<<<<< HEAD
+=======
+codejail-includes                   # CodeJail manages execution of untrusted code in secure sandboxes.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 contextlib2                         # We need contextlib2.ExitStack so we can stop using contextlib.nested which doesn't exist in python 3
 crowdsourcehinter-xblock
 cryptography                        # Implementations of assorted cryptography algorithms
@@ -70,16 +74,26 @@ django-webpack-loader               # Used to wire webpack bundles into the djan
 djangorestframework
 done-xblock
 edx-ace
+<<<<<<< HEAD
 edx-analytics-data-api-client
 edx-api-doc-tools
 edx-auth-backends                   # Allow Studio to use LMS SSO
+=======
+edx-api-doc-tools
+edx-auth-backends                   # Allow Studio to use LMS SSO
+edx-braze-client
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 edx-bulk-grades                     # LMS REST API for managing bulk grading operations
 edx-ccx-keys
 edx-celeryutils
 edx-completion
 edx-django-release-util             # Release utils for the edx release pipeline
 edx-django-sites-extensions
+<<<<<<< HEAD
 edx-django-utils>=4.0.0            # Utilities for cache, monitoring, and plugins
+=======
+edx-django-utils>=5.0.0            # Utilities for cache, monitoring, and plugins
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 edx-drf-extensions
 edx-enterprise
 edx-milestones
@@ -96,7 +110,11 @@ edx-user-state-client
 edx-when
 edxval
 event-tracking
+<<<<<<< HEAD
 fs==2.0.18
+=======
+fs
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 fs-s3fs==0.1.8
 geoip2                              # Python API for the GeoIP web services and databases
 glob2                               # Enhanced glob module, used in openedx.core.lib.rooted_paths
@@ -108,7 +126,11 @@ ipaddress                           # Ip network support for Embargo feature
 jsonfield                           # Django model field for validated JSON; used in several apps
 laboratory                          # Library for testing that code refactors/infrastructure changes produce identical results
 lxml                                # XML parser
+<<<<<<< HEAD
 lti-consumer-xblock
+=======
+lti-consumer-xblock>=4.1.0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 mailsnake                           # Needed for mailchimp (mailing djangoapp)
 mako                                # Primary template language used for server-side page rendering
 Markdown                            # Convert text markup to HTML; used in capa problems, forums, and course wikis
@@ -120,7 +142,12 @@ nodeenv                             # Utility for managing Node.js environments;
 oauthlib                            # OAuth specification support for authenticating via LTI or other Open edX services
 openedx-calc                        # Library supporting mathematical calculations for Open edX
 openedx-events                      # Open edX Events from Hooks Extension Framework (OEP-50)
+<<<<<<< HEAD
 ora2
+=======
+openedx-filters                     # Open edX Filters from Hooks Extension Framework (OEP-50)
+ora2>=4.4.0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 piexif                              # Exif image metadata manipulation, used in the profile_images app
 Pillow                              # Image manipulation library; used for course assets, profile images, invoice PDFs, etc.
 py2neo                              # Driver for converting Python modulestore structures to Neo4j's schema (for Coursegraph).

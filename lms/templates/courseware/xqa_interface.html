@@ -29,7 +29,11 @@ function setup_debug(element_id, edit_link, staff_context){
             var location = $("#" + element_id + "_history_location").val();
             // xss-lint: disable=mako-invalid-js-filter
             $("#" + element_id + "_history_text").load('/courses/' + "${six.text_type(getattr(course,'id','')) | u}" +
+<<<<<<< HEAD
                 "/submission_history/" + username_or_email + "/" + location);
+=======
+                "/submission_history/" + encodeURIComponent(username_or_email) + "/" + location);
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return false;
         }
     );

@@ -16,7 +16,11 @@ class CourseBlockSerializer(serializers.Serializer):
     """
     blocks = serializers.SerializerMethodField()
 
+<<<<<<< HEAD
     def get_blocks(self, block):
+=======
+    def get_blocks(self, block):  # pylint: disable=missing-function-docstring
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         block_key = block['id']
         block_type = block['type']
         children = block.get('children', []) if block_type != 'sequential' else []  # Don't descend past sequential
@@ -51,7 +55,10 @@ class CourseBlockSerializer(serializers.Serializer):
                 'icon': icon,
                 'id': block_key,
                 'lms_web_url': block['lms_web_url'] if enable_links else None,
+<<<<<<< HEAD
                 'legacy_web_url': block['legacy_web_url'] if enable_links else None,
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 'resume_block': block.get('resume_block', False),
                 'type': block_type,
                 'has_scheduled_content': block.get('has_scheduled_content'),
@@ -66,8 +73,13 @@ class CourseGoalsSerializer(serializers.Serializer):
     """
     Serializer for Course Goal data
     """
+<<<<<<< HEAD
     goal_options = serializers.ListField(default=[])
     selected_goal = serializers.DictField()
+=======
+    selected_goal = serializers.DictField()
+    weekly_learning_goal_enabled = serializers.BooleanField(default=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class CourseToolSerializer(serializers.Serializer):
@@ -122,6 +134,10 @@ class OutlineTabSerializer(DatesBannerSerializer, VerifiedModeSerializer):
     dates_widget = DatesWidgetSerializer()
     enroll_alert = EnrollAlertSerializer()
     enrollment_mode = serializers.CharField()
+<<<<<<< HEAD
+=======
+    enable_proctored_exams = serializers.BooleanField()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     handouts_html = serializers.CharField()
     has_ended = serializers.BooleanField()
     offer = serializers.DictField()

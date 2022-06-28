@@ -23,10 +23,14 @@
 % for description_id, description_text in response_data['descriptions'].items():
     <p class="question-description" id="${description_id}">${description_text}</p>
 % endfor
+<<<<<<< HEAD
 <input type="text" name="input_${id}" id="input_${id}" ${describedby_html} value="${value}"
     % if do_math:
         class="math"
     % endif
+=======
+<input type="text" class="mw-100 ${'math' if do_math else ''}" name="input_${id}" id="input_${id}" ${describedby_html} value="${value}"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     % if size:
         size="${size}"
     % endif

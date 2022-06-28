@@ -45,8 +45,14 @@ singledispatch            # Backport of functools.singledispatch from Python 3.4
 testfixtures              # Provides a LogCapture utility used by several tests
 tox                       # virtualenv management for tests
 tox-battery               # Makes tox aware of requirements file changes
+<<<<<<< HEAD
 transifex-client          # Command-line interface for the Transifex localization service
 unidiff                   # Required by coverage_pytest_plugin
 pylint-pytest==0.3.0      # A Pylint plugin to suppress pytest-related false positives.
 pact-python               # Library for contract testing 
 
+=======
+unidiff                   # Required by coverage_pytest_plugin
+pylint-pytest==0.3.0      # A Pylint plugin to suppress pytest-related false positives.
+pact-python               # Library for contract testing
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

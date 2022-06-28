@@ -6,7 +6,10 @@ data: |
       <p>This template is similar to the Text template. The only difference is 
       that this template opens in the Raw HTML editor rather than in the Visual
       editor.</p>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       <p>The Raw HTML editor saves your HTML exactly as you enter it.
       You can switch to the Visual editor by clicking the Settings tab and 
       changing the Editor setting to Visual. Note, however, that some of your 

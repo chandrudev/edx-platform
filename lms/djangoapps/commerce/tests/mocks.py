@@ -79,7 +79,11 @@ class mock_ecommerce_api_endpoint:
         if self.expect_called is None:
             called_if_expected = True
         else:
+<<<<<<< HEAD
             called_if_expected = self.expect_called == (httpretty.last_request().headers != {})
+=======
+            called_if_expected = self.expect_called == (bool(httpretty.last_request().headers))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         httpretty.disable()
 
         if self.reset_on_exit:

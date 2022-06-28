@@ -9,15 +9,27 @@ from crum import set_current_request
 from django.test import RequestFactory
 from django.utils import timezone
 from pytz import UTC
+<<<<<<< HEAD
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 from common.djangoapps.student.tests.factories import UserFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+
+from common.djangoapps.course_modes.models import CourseMode
+from common.djangoapps.course_modes.tests.factories import CourseModeFactory
+from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+from common.djangoapps.util.date_utils import strftime_localized
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.courseware.models import DynamicUpgradeDeadlineConfiguration
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
 from openedx.core.djangoapps.schedules.models import Schedule
 from openedx.core.djangoapps.user_api.preferences.api import set_user_preference
+<<<<<<< HEAD
 from openedx.core.djangolib.testing.utils import CacheIsolationTestCase
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.features.course_duration_limits.access import (
     generate_course_expired_message,
     get_access_expiration_data,
@@ -25,12 +37,19 @@ from openedx.features.course_duration_limits.access import (
     get_user_course_expiration_date
 )
 from openedx.features.course_duration_limits.models import CourseDurationLimitConfig
+<<<<<<< HEAD
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory
 from common.djangoapps.util.date_utils import strftime_localized
 
 
 @ddt.ddt
 class TestAccess(CacheIsolationTestCase):
+=======
+
+
+@ddt.ddt
+class TestAccess(ModuleStoreTestCase):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """Tests of openedx.features.course_duration_limits.access"""
     def setUp(self):
         super().setUp()  # lint-amnesty, pylint: disable=super-with-arguments
@@ -120,6 +139,10 @@ class TestAccess(CacheIsolationTestCase):
         message = generate_course_expired_message(enrollment.user, enrollment.course)
 
         self.assertDateInMessage(duration_limit_upgrade_deadline, message)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert 'data-timezone="Asia/Tokyo"' in message
 
         soft_upgradeable = schedule_upgrade_deadline is not None and now < schedule_upgrade_deadline

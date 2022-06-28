@@ -14,10 +14,16 @@ from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.grades.constants import GradeOverrideFeatureEnum
 from lms.djangoapps.grades.models import PersistentSubsectionGrade, PersistentSubsectionGradeOverride
 from lms.djangoapps.grades.services import GradesService
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from ..config.waffle import REJECTED_EXAM_OVERRIDES_GRADE
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from ..constants import ScoreDatabaseTableEnum
 
 
@@ -43,10 +49,17 @@ class GradesServiceTests(ModuleStoreTestCase):
         super().setUp()
         self.service = GradesService()
         self.course = CourseFactory.create(org='edX', number='DemoX', display_name='Demo_Course', run='Spring2019')
+<<<<<<< HEAD
         self.subsection = ItemFactory.create(parent=self.course, category="subsection", display_name="Subsection")
         self.subsection_without_grade = ItemFactory.create(
             parent=self.course,
             category="subsection",
+=======
+        self.subsection = ItemFactory.create(parent=self.course, category="sequential", display_name="Subsection")
+        self.subsection_without_grade = ItemFactory.create(
+            parent=self.course,
+            category="sequential",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             display_name="Subsection without grade"
         )
         self.user = UserFactory()
@@ -68,11 +81,18 @@ class GradesServiceTests(ModuleStoreTestCase):
         self.mock_create_id.return_value = 1
         self.type_patcher = patch('lms.djangoapps.grades.api.set_event_transaction_type')
         self.mock_set_type = self.type_patcher.start()
+<<<<<<< HEAD
         self.flag_patcher = patch('lms.djangoapps.grades.config.waffle.waffle_flags')
         self.mock_waffle_flags = self.flag_patcher.start()
         self.mock_waffle_flags.return_value = {
             REJECTED_EXAM_OVERRIDES_GRADE: MockWaffleFlag(True)
         }
+=======
+        self.waffle_flag_patch = patch(
+            'lms.djangoapps.grades.config.waffle.REJECTED_EXAM_OVERRIDES_GRADE', MockWaffleFlag(True)
+        )
+        self.waffle_flag_patch.start()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def tearDown(self):
         super().tearDown()
@@ -80,7 +100,11 @@ class GradesServiceTests(ModuleStoreTestCase):
         self.signal_patcher.stop()
         self.id_patcher.stop()
         self.type_patcher.stop()
+<<<<<<< HEAD
         self.flag_patcher.stop()
+=======
+        self.waffle_flag_patch.stop()
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def subsection_grade_to_dict(self, grade):
         return {
@@ -304,7 +328,12 @@ class GradesServiceTests(ModuleStoreTestCase):
 
     def test_should_override_grade_on_rejected_exam(self):
         assert self.service.should_override_grade_on_rejected_exam('course-v1:edX+DemoX+Demo_Course')
+<<<<<<< HEAD
         self.mock_waffle_flags.return_value = {
             REJECTED_EXAM_OVERRIDES_GRADE: MockWaffleFlag(False)
         }
         assert not self.service.should_override_grade_on_rejected_exam('course-v1:edX+DemoX+Demo_Course')
+=======
+        with patch('lms.djangoapps.grades.config.waffle.REJECTED_EXAM_OVERRIDES_GRADE', MockWaffleFlag(False)):
+            assert not self.service.should_override_grade_on_rejected_exam('course-v1:edX+DemoX+Demo_Course')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

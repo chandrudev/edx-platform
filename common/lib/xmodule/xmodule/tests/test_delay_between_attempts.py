@@ -103,8 +103,12 @@ class CapaFactoryWithDelay:
             # since everything else is a string.
             field_data['attempts'] = int(attempts)
 
+<<<<<<< HEAD
         system = get_test_system()
         system.render_template = Mock(return_value="<div>Test Template HTML</div>")
+=======
+        system = get_test_system(render_template=Mock(return_value="<div>Test Template HTML</div>"))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         module = ProblemBlock(
             system,
             DictFieldData(field_data),

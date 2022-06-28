@@ -4,6 +4,10 @@ Course modes API serializers.
 
 
 from rest_framework import serializers
+<<<<<<< HEAD
+=======
+from opaque_keys.edx.keys import CourseKey
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
@@ -39,7 +43,12 @@ class CourseModeSerializer(serializers.Serializer):
         ListCreateAPIView.
         """
         if 'course_id' in validated_data:
+<<<<<<< HEAD
             course_overview = CourseOverview.get_from_id(validated_data['course_id'])
+=======
+            course_id = CourseKey.from_string(validated_data['course_id'])
+            course_overview = CourseOverview.get_from_id(course_id)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             del validated_data['course_id']
             validated_data['course'] = course_overview
 

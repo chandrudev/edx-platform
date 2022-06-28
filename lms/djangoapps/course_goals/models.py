@@ -4,12 +4,18 @@ Course Goals Models
 
 import uuid
 import logging
+<<<<<<< HEAD
 import pytz
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from datetime import datetime, timedelta
 
 from django.contrib.auth import get_user_model
 from django.db import models
+<<<<<<< HEAD
 from django.utils.translation import gettext_lazy as _
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from edx_django_utils.cache import TieredCache
 from model_utils import Choices
 from model_utils.models import TimeStampedModel
@@ -17,6 +23,7 @@ from opaque_keys.edx.django.models import CourseKeyField
 from simple_history.models import HistoricalRecords
 
 from lms.djangoapps.courseware.masquerade import is_masquerading
+<<<<<<< HEAD
 from lms.djangoapps.course_goals.toggles import COURSE_GOALS_NUMBER_OF_DAYS_GOALS
 from openedx.core.djangoapps.user_api.preferences.api import get_user_preferences
 from openedx.core.lib.mobile_utils import is_request_from_mobile_app
@@ -27,6 +34,17 @@ GOAL_KEY_CHOICES = Choices(
     ('complete', _('Complete the course')),
     ('explore', _('Explore the course')),
     ('unsure', _('Not sure yet')),
+=======
+from lms.djangoapps.courseware.context_processor import get_user_timezone_or_last_seen_timezone_or_utc
+from openedx.core.lib.mobile_utils import is_request_from_mobile_app
+from openedx.features.course_experience import ENABLE_COURSE_GOALS
+
+_GOAL_KEY_CHOICES = Choices(
+    ('certify', 'Earn a certificate'),
+    ('complete', 'Complete the course'),
+    ('explore', 'Explore the course'),
+    ('unsure', 'Not sure yet'),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 )
 
 User = get_user_model()
@@ -58,7 +76,13 @@ class CourseGoal(models.Model):
     unsubscribe_token = models.UUIDField(null=True, blank=True, unique=True, editable=False, default=uuid.uuid4,
                                          help_text='Used to validate unsubscribe requests without requiring a login')
 
+<<<<<<< HEAD
     goal_key = models.CharField(max_length=100, choices=GOAL_KEY_CHOICES, default=GOAL_KEY_CHOICES.unsure)
+=======
+    # Deprecated and unused - replaced by days_per_week and its subscription-based approach to goals
+    goal_key = models.CharField(max_length=100, choices=_GOAL_KEY_CHOICES, default=_GOAL_KEY_CHOICES.unsure)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     history = HistoricalRecords()
 
     def __str__(self):
@@ -127,7 +151,11 @@ class UserActivity(models.Model):
         The return value is the id of the object that was created, or retrieved.
         A return value of None signifies that a user activity record was not stored or retrieved
         '''
+<<<<<<< HEAD
         if not COURSE_GOALS_NUMBER_OF_DAYS_GOALS.is_enabled(course_key):
+=======
+        if not ENABLE_COURSE_GOALS.is_enabled(course_key):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return None
 
         if not (user and user.id) or not course_key:
@@ -139,8 +167,12 @@ class UserActivity(models.Model):
         if is_masquerading(user, course_key):
             return None
 
+<<<<<<< HEAD
         user_preferences = get_user_preferences(user)
         timezone = pytz.timezone(user_preferences.get('time_zone', 'UTC'))
+=======
+        timezone = get_user_timezone_or_last_seen_timezone_or_utc(user)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         now = datetime.now(timezone)
         date = now.date()
 
@@ -148,6 +180,7 @@ class UserActivity(models.Model):
 
         cached_value = TieredCache.get_cached_response(cache_key)
         if cached_value.is_found:
+<<<<<<< HEAD
             # Temporary debugging log for testing mobile app connection
             if request:
                 log.info(
@@ -155,6 +188,8 @@ class UserActivity(models.Model):
                         str(request.build_absolute_uri()), str(user.id), str(course_key)
                     )
                 )
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             return cached_value.value, False
 
         activity_object, __ = cls.objects.get_or_create(user=user, course_key=course_key, date=date)

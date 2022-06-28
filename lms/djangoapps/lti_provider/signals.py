@@ -12,7 +12,11 @@ import lms.djangoapps.lti_provider.outcomes as outcomes
 from lms.djangoapps.grades.api import signals as grades_signals
 from lms.djangoapps.lti_provider.tasks import send_composite_outcome, send_leaf_outcome
 from lms.djangoapps.lti_provider.views import parse_course_and_usage_keys
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 log = logging.getLogger(__name__)
 

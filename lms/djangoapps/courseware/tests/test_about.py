@@ -4,6 +4,7 @@ Test the about xblock
 
 
 import datetime
+<<<<<<< HEAD
 
 from unittest import mock
 from unittest.mock import patch
@@ -26,11 +27,24 @@ from lms.djangoapps.course_home_api.toggles import COURSE_HOME_USE_LEGACY_FRONTE
 from common.djangoapps.student.tests.factories import AdminFactory, CourseEnrollmentAllowedFactory, UserFactory
 from common.djangoapps.track.tests import EventTrackingTestCase
 from common.djangoapps.util.milestones_helpers import get_prerequisite_courses_display, set_prerequisite_courses
+=======
+from unittest import mock
+from unittest.mock import patch
+
+import ddt
+import pytz
+from django.conf import settings
+from django.test.utils import override_settings
+from django.urls import reverse
+from edx_toggles.toggles.testutils import override_waffle_flag, override_waffle_switch
+from milestones.tests.utils import MilestonesTestCaseMixin
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.course_module import (
     CATALOG_VISIBILITY_ABOUT,
     CATALOG_VISIBILITY_NONE,
     COURSE_VISIBILITY_PRIVATE,
     COURSE_VISIBILITY_PUBLIC,
+<<<<<<< HEAD
     COURSE_VISIBILITY_PUBLIC_OUTLINE
 )
 from xmodule.modulestore.tests.django_utils import (
@@ -39,10 +53,26 @@ from xmodule.modulestore.tests.django_utils import (
     ModuleStoreTestCase,
     SharedModuleStoreTestCase
 )
+=======
+    COURSE_VISIBILITY_PUBLIC_OUTLINE,
+)
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.modulestore.tests.utils import TEST_DATA_DIR
 from xmodule.modulestore.xml_importer import import_course_from_xml
 
+<<<<<<< HEAD
+=======
+from common.djangoapps.course_modes.models import CourseMode
+from common.djangoapps.student.tests.factories import CourseEnrollmentAllowedFactory, UserFactory
+from common.djangoapps.track.tests import EventTrackingTestCase
+from common.djangoapps.util.milestones_helpers import get_prerequisite_courses_display, set_prerequisite_courses
+from openedx.core.djangoapps.models.course_details import CourseDetails
+from openedx.features.course_experience import COURSE_ENABLE_UNENROLLED_ACCESS_FLAG, course_home_url
+from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBAR_HTML
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .helpers import LoginEnrollmentTestCase
 
 # HTML for registration button
@@ -55,7 +85,10 @@ class AboutTestCase(LoginEnrollmentTestCase, SharedModuleStoreTestCase, EventTra
     """
     Tests about xblock.
     """
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -63,6 +96,7 @@ class AboutTestCase(LoginEnrollmentTestCase, SharedModuleStoreTestCase, EventTra
         cls.course_without_about = CourseFactory.create(catalog_visibility=CATALOG_VISIBILITY_NONE)
         cls.course_with_about = CourseFactory.create(catalog_visibility=CATALOG_VISIBILITY_ABOUT)
         cls.purchase_course = CourseFactory.create(org='MITx', number='buyme', display_name='Course To Buy')
+<<<<<<< HEAD
         cls.about = ItemFactory.create(
             category="about", parent_location=cls.course.location,
             data="OOGIE BLOOGIE", display_name="overview"
@@ -75,6 +109,11 @@ class AboutTestCase(LoginEnrollmentTestCase, SharedModuleStoreTestCase, EventTra
             category="about", parent_location=cls.course_with_about.location,
             data="WITH ABOUT", display_name="overview"
         )
+=======
+        CourseDetails.update_about_item(cls.course, 'overview', 'OOGIE BLOOGIE', None)
+        CourseDetails.update_about_item(cls.course_without_about, 'overview', 'WITHOUT ABOUT', None)
+        CourseDetails.update_about_item(cls.course_with_about, 'overview', 'WITH ABOUT', None)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def setUp(self):
         super().setUp()
@@ -137,6 +176,7 @@ class AboutTestCase(LoginEnrollmentTestCase, SharedModuleStoreTestCase, EventTra
         self.setup_user()
         url = reverse('about_course', args=[str(self.course.id)])
         resp = self.client.get(url)
+<<<<<<< HEAD
         # should be redirected
         assert resp.status_code == 302
         # follow this time, and check we're redirected to the course home page
@@ -144,6 +184,9 @@ class AboutTestCase(LoginEnrollmentTestCase, SharedModuleStoreTestCase, EventTra
         target_url = resp.redirect_chain[-1][0]
         course_home_url = reverse('openedx.course_experience.course_home', args=[str(self.course.id)])
         assert target_url.endswith(course_home_url)
+=======
+        self.assertRedirects(resp, course_home_url(self.course.id), fetch_redirect_response=False)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @patch.dict(settings.FEATURES, {'ENABLE_COURSE_HOME_REDIRECT': False})
     @patch.dict(settings.FEATURES, {'ENABLE_MKTG_SITE': True})
@@ -246,8 +289,11 @@ class AboutTestCaseXML(LoginEnrollmentTestCase, ModuleStoreTestCase):
     """
     Tests for the course about page
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_MIXED_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         """
         Set up the tests
@@ -260,7 +306,11 @@ class AboutTestCaseXML(LoginEnrollmentTestCase, ModuleStoreTestCase):
         self.xml_course_id = self.store.make_course_key('edX', 'detached_pages', '2014')
         import_course_from_xml(
             self.store,
+<<<<<<< HEAD
             'test_user',
+=======
+            self.user.id,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             TEST_DATA_DIR,
             source_dirs=['2014'],
             static_content_store=None,
@@ -295,10 +345,14 @@ class AboutWithCappedEnrollmentsTestCase(LoginEnrollmentTestCase, SharedModuleSt
     def setUpClass(cls):
         super().setUpClass()
         cls.course = CourseFactory.create(metadata={"max_student_enrollments_allowed": 1})
+<<<<<<< HEAD
         cls.about = ItemFactory.create(
             category="about", parent_location=cls.course.location,
             data="OOGIE BLOOGIE", display_name="overview"
         )
+=======
+        CourseDetails.update_about_item(cls.course, 'overview', 'OOGIE BLOOGIE', None)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_enrollment_cap(self):
         """
@@ -340,10 +394,13 @@ class AboutWithInvitationOnly(SharedModuleStoreTestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.course = CourseFactory.create(metadata={"invitation_only": True})
+<<<<<<< HEAD
         cls.about = ItemFactory.create(
             category="about", parent_location=cls.course.location,
             display_name="overview"
         )
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_invitation_only(self):
         """
@@ -394,11 +451,14 @@ class AboutWithClosedEnrollment(ModuleStoreTestCase):
         self.course.enrollment_end = nextday
         self.course = self.update_course(self.course, self.user.id)
 
+<<<<<<< HEAD
         self.about = ItemFactory.create(
             category="about", parent_location=self.course.location,
             display_name="overview"
         )
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_closed_enrollmement(self):
         url = reverse('about_course', args=[str(self.course.id)])
         resp = self.client.get(url)
@@ -407,7 +467,11 @@ class AboutWithClosedEnrollment(ModuleStoreTestCase):
         # Check that registration button is not present
         self.assertNotContains(resp, REG_STR)
 
+<<<<<<< HEAD
     def test_course_price_is_not_visble_in_sidebar(self):
+=======
+    def test_course_price_is_not_visible_in_sidebar(self):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         url = reverse('about_course', args=[str(self.course.id)])
         resp = self.client.get(url)
         # course price is not visible ihe course_about page when the course
@@ -434,6 +498,7 @@ class AboutSidebarHTMLTestCase(SharedModuleStoreTestCase):
     )
     @ddt.unpack
     def test_html_sidebar_enabled(self, itemfactory_display_name, itemfactory_data, waffle_switch_value):
+<<<<<<< HEAD
         with override_switch(
             '{}.{}'.format(
                 COURSE_EXPERIENCE_WAFFLE_NAMESPACE,
@@ -441,6 +506,9 @@ class AboutSidebarHTMLTestCase(SharedModuleStoreTestCase):
             ),
             active=waffle_switch_value
         ):
+=======
+        with override_waffle_switch(ENABLE_COURSE_ABOUT_SIDEBAR_HTML, active=waffle_switch_value):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             if itemfactory_display_name:
                 ItemFactory.create(
                     category="about",
@@ -455,6 +523,7 @@ class AboutSidebarHTMLTestCase(SharedModuleStoreTestCase):
                 self.assertContains(resp, itemfactory_data)
             else:
                 self.assertNotContains(resp, '<section class="about-sidebar-html">')
+<<<<<<< HEAD
 
 
 class CourseAboutTestCaseCCX(SharedModuleStoreTestCase, LoginEnrollmentTestCase):
@@ -492,3 +561,5 @@ class CourseAboutTestCaseCCX(SharedModuleStoreTestCase, LoginEnrollmentTestCase)
         response = self.client.get(url)
         expected = reverse('dashboard')
         self.assertRedirects(response, expected, status_code=302, target_status_code=200)
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

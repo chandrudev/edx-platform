@@ -41,8 +41,13 @@ from openedx.core.djangolib.testing.utils import skip_unless_lms
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory
 from common.djangoapps.util.date_utils import from_timestamp
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 TEST_CREDIT_PROVIDER_SECRET_KEY = "931433d583c84ca7ba41784bad3232e6"
 TEST_CREDIT_PROVIDER_SECRET_KEY_TWO = "abcf433d583c8baebae1784bad3232e6"
@@ -663,7 +668,11 @@ class CreditRequirementApiTests(CreditApiTestBase):
         assert not api.is_user_eligible_for_credit(user.username, self.course_key)
 
         # Satisfy the other requirement
+<<<<<<< HEAD
         with self.assertNumQueries(20):
+=======
+        with self.assertNumQueries(22):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             api.set_credit_requirement_status(
                 user,
                 self.course_key,
@@ -747,7 +756,11 @@ class CreditRequirementApiTests(CreditApiTestBase):
         # Since the requirement hasn't been published yet, it won't show
         # up in the list of requirements.
         req_status = api.get_credit_requirement_status(self.course_key, username, namespace="grade", name="grade")
+<<<<<<< HEAD
         assert req_status == []
+=======
+        assert not req_status
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Now add the requirements, simulating what happens when a course is published.
         requirements = [
@@ -1222,6 +1235,7 @@ class CourseApiTests(CreditApiTestBase):
         response_providers = get_credit_provider_attribute_values(self.course_key, 'display_name')
         self.assertListEqual(self.PROVIDERS_LIST, response_providers)
 
+<<<<<<< HEAD
     @httpretty.activate
     @mock.patch('edx_rest_api_client.client.EdxRestApiClient.__init__')
     def test_get_credit_provider_display_names_method_with_exception(self, mock_init):
@@ -1229,6 +1243,16 @@ class CourseApiTests(CreditApiTestBase):
         mock_init.side_effect = Exception
         response = get_credit_provider_attribute_values(self.course_key, 'display_name')
         assert mock_init.called
+=======
+    @mock.patch('openedx.core.djangoapps.credit.email_utils.get_ecommerce_api_client')
+    def test_get_credit_provider_display_names_method_with_exception(self, mock_get_client):
+        """
+        Verify that in case of any exception it logs the error and return.
+        """
+        mock_get_client.side_effect = Exception
+        response = get_credit_provider_attribute_values(self.course_key, 'display_name')
+        assert mock_get_client.called
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert response is None
 
     @httpretty.activate

@@ -65,6 +65,7 @@ _paver()
                     return 0
                 fi
                 ;;
+<<<<<<< HEAD
             test_bokchoy)
                 _test_bokchoy_args
                 if [[ -n $COMPREPLY ]]
@@ -74,6 +75,8 @@ _paver()
                 ;;
             *)
                 ;;
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         esac
 
         if [[ ${#COMP_WORDS[*]} == 3 ]]
@@ -113,6 +116,7 @@ _test_system_args()
         esac
 }
 
+<<<<<<< HEAD
 _test_bokchoy_args()
 {
     local bokchoy_tests cur prev
@@ -134,6 +138,8 @@ _test_bokchoy_args()
             ;;
     esac
 }
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 # Assign the auto-completion function for our command.
 
 complete -F _paver -o default paver

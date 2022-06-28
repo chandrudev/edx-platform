@@ -4,8 +4,11 @@ from django.core.management import call_command
 from django.http import Http404, HttpResponse
 from django.views.decorators.http import require_GET
 
+<<<<<<< HEAD
 from openedx.core.djangoapps.site_configuration.models import SiteConfiguration
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 @require_GET
 def cache_programs(request):
@@ -19,6 +22,7 @@ def cache_programs(request):
 
     # checks that does site has configuration if not then
     # add a configuration with COURSE_CATALOG_API_URL parameter.
+<<<<<<< HEAD
     from common.test.acceptance.fixtures import CATALOG_STUB_URL
 
     site_config = getattr(request.site, 'configuration', None)
@@ -28,6 +32,8 @@ def cache_programs(request):
             enabled=True,
             site_values={"COURSE_CATALOG_API_URL": f"{CATALOG_STUB_URL}/api/v1/"}
         )
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     if settings.FEATURES.get('EXPOSE_CACHE_PROGRAMS_ENDPOINT'):
         call_command('cache_programs')

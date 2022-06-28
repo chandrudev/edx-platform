@@ -6,7 +6,11 @@ from django.http import HttpResponseBadRequest
 from django.utils.decorators import method_decorator
 from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
 from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlag, LegacyWaffleFlagNamespace
+=======
+from edx_toggles.toggles import WaffleFlag
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.response import Response
@@ -32,12 +36,17 @@ from openedx.core.lib.api.view_utils import DeveloperErrorViewMixin
 # .. toggle_creation_date: 2019-09-05
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: REV-934
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date.
 MOBILE_UPSELL_FLAG = LegacyWaffleFlag(
     waffle_namespace=LegacyWaffleFlagNamespace(name='experiments'),
     flag_name='mobile_upsell_rev934',
     module_name=__name__,
 )
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date.
+MOBILE_UPSELL_FLAG = WaffleFlag('experiments.mobile_upsell_rev934', __name__)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 MOBILE_UPSELL_EXPERIMENT = 'mobile_upsell_experiment'
 
 

@@ -1,5 +1,9 @@
 {% load i18n %}{% autoescape off %}
+<<<<<<< HEAD
 {% blocktrans %}You're almost there! Use the link below to activate your account to access engaging, high-quality {{ platform_name }} courses. Note that you will not be able to log back into your account until you have activated it.{% endblocktrans %}
+=======
+{% blocktrans %}You’re almost there! Use the link below to activate your account to access engaging, high-quality {{ platform_name }} courses. Note that you will not be able to log back into your account until you have activated it.{% endblocktrans %}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 {{ confirm_activation_link }}
 

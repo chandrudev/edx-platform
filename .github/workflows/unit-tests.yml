@@ -5,15 +5,28 @@ on:
   push:
     branches:
       - master
+<<<<<<< HEAD
       - open-release/*.master
 
 jobs:
   run-tests:
+=======
+
+jobs:
+  run-tests:
+    if: github.repository == 'openedx/edx-platform' || github.repository == 'edx/edx-platform-private'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     runs-on: [ edx-platform-runner ]
     strategy:
       matrix:
         python-version: ['3.8']
+<<<<<<< HEAD
         django-version: ["3.2"]
+=======
+        django-version:
+          - "pinned"
+          #- "4.0"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         shard_name: [
             "lms-1",
             "lms-2",
@@ -23,10 +36,19 @@ jobs:
             "lms-6",
             "openedx-1",
             "openedx-2",
+<<<<<<< HEAD
+=======
+            "openedx-3",
+            "openedx-4",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             "cms-1",
             "cms-2",
             "common-1",
             "common-2",
+<<<<<<< HEAD
+=======
+            "common-3",
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         ]
 
 
@@ -34,13 +56,30 @@ jobs:
     steps:
       - name: sync directory owner
         run: sudo chown runner:runner -R .*
+<<<<<<< HEAD
       - uses: actions/checkout@v2
+=======
+
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      # This gives Mongo several chances to start. We started getting flakiness
+      # around 2022-02-15 wherein the start command would sometimes exit with:
+      #
+      #   * Starting database mongodb
+      #     ...fail!
+      #
+      # ...not having produced any logs or other output. We couldn't figure out
+      # what was causing Mongo to fail, so this is a (temporary?) hack to get
+      # PRs unblocked.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       - name: start mongod server for tests
         run: |
           sudo mkdir -p /data/db
           sudo chmod -R a+rw /data/db
           mongod &
 
+<<<<<<< HEAD
       - name: set top-level module name
         run: |
           echo "module_name=$(echo '${{ matrix.shard_name }}' | awk -F '-' '{print $1}')" >> $GITHUB_ENV
@@ -53,10 +92,13 @@ jobs:
 #        run: |
 #          echo "pytest_randomly_option=$(if [ '${{ env.module_name }}' = 'cms' ] || [ '${{ env.module_name }}' = 'common' ]; then echo '-p no:randomly'; else echo '' ; fi)" >> $GITHUB_ENV
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       - name: install requirements
         run: |
           sudo pip install -r requirements/pip.txt
           sudo pip install -r requirements/edx/testing.txt
+<<<<<<< HEAD
           sudo pip install "django~=${{ matrix.django-version }}.0"
 
       - name: get unit tests for shard
@@ -66,3 +108,45 @@ jobs:
       - name: run tests
         run: |
           python -Wd -m pytest -p no:randomly --ds=${{ env.settings_path }} ${{ env.unit_test_paths }}
+=======
+          if [[ "${{ matrix.django-version }}" == "pinned" ]]; then
+            sudo pip install -r requirements/edx/django.txt
+          else
+            sudo pip install "django~=${{ matrix.django-version }}.0"
+          fi
+
+      - name: list installed package versions
+        run: |
+          sudo pip freeze
+
+      - name: Setup and run tests
+        uses: ./.github/actions/unit-tests
+
+  compile-warnings-report:
+    runs-on: [ edx-platform-runner ]
+    needs: [ run-tests ]
+    steps:
+      - name: sync directory owner
+        run: sudo chown runner:runner -R .*
+      - uses: actions/checkout@v2
+      - name: collect pytest warnings files
+        uses: actions/download-artifact@v2
+        with:
+          name: pytest-warnings-json
+          path: test_root/log
+
+      - name: display structure of downloaded files
+        run: ls -la test_root/log
+
+      - name: compile warnings report
+        run: |
+          python openedx/core/process_warnings.py --dir-path test_root/log --html-path reports/pytest_warnings/warning_report_all.html
+
+      - name: save warning report
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: pytest-warning-report-html
+          path: |
+            reports/pytest_warnings/warning_report_all.html
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

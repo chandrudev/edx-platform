@@ -51,7 +51,11 @@ from xmodule.modulestore.store_utilities import draft_node_constructor, get_draf
 from xmodule.modulestore.xml import ImportSystem, LibraryXMLModuleStore, XMLModuleStore
 from xmodule.tabs import CourseTabList
 from xmodule.util.misc import escape_invalid_characters
+<<<<<<< HEAD
 from xmodule.x_module import XModuleDescriptor, XModuleMixin
+=======
+from xmodule.x_module import XModuleMixin
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from .inheritance import own_metadata
 from .store_utilities import rewrite_nonportable_content_links
@@ -647,7 +651,11 @@ class CourseImportManager(ImportManager):
                 courselike_key.course,
                 courselike_key.run
             )
+<<<<<<< HEAD
             if course.wiki_slug == original_unique_wiki_slug or course.wiki_slug == courselike_key.course:
+=======
+            if course.wiki_slug in (original_unique_wiki_slug, courselike_key.course):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 course.wiki_slug = '{}.{}.{}'.format(
                     course.id.org,
                     course.id.course,
@@ -1346,6 +1354,7 @@ def _update_module_location(module, new_location):
     """
     # Retrieve the content and settings fields that have been explicitly set
     # to ensure that they are properly re-keyed in the XBlock field data.
+<<<<<<< HEAD
     if isinstance(module, XModuleDescriptor):
         rekey_fields = []
     else:
@@ -1354,6 +1363,13 @@ def _update_module_location(module, new_location):
             list(module.get_explicitly_set_fields_by_scope(Scope.settings).keys()) +
             list(module.get_explicitly_set_fields_by_scope(Scope.children).keys())
         )
+=======
+    rekey_fields = (
+        list(module.get_explicitly_set_fields_by_scope(Scope.content).keys()) +
+        list(module.get_explicitly_set_fields_by_scope(Scope.settings).keys()) +
+        list(module.get_explicitly_set_fields_by_scope(Scope.children).keys())
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     module.location = new_location
 

@@ -26,9 +26,15 @@ from lms.djangoapps.courseware.model_data import get_score
 from lms.djangoapps.grades.config.models import ComputeGradesSetting
 from openedx.core.djangoapps.content.course_overviews.models import \
     CourseOverview  # lint-amnesty, pylint: disable=unused-import
+<<<<<<< HEAD
 from xmodule.modulestore.django import modulestore
 
 from .config.waffle import DISABLE_REGRADE_ON_POLICY_CHANGE, waffle
+=======
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+
+from .config.waffle import DISABLE_REGRADE_ON_POLICY_CHANGE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from .constants import ScoreDatabaseTableEnum
 from .course_grade_factory import CourseGradeFactory
 from .exceptions import DatabaseNotReadyError
@@ -58,7 +64,11 @@ def compute_all_grades_for_course(**kwargs):
     Kicks off a series of compute_grades_for_course_v2 tasks
     to cover all of the students in the course.
     """
+<<<<<<< HEAD
     if waffle().is_enabled(DISABLE_REGRADE_ON_POLICY_CHANGE):
+=======
+    if DISABLE_REGRADE_ON_POLICY_CHANGE.is_enabled():
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         log.debug('Grades: ignoring policy change regrade due to waffle switch')
     else:
         course_key = CourseKey.from_string(kwargs.pop('course_key'))

@@ -216,7 +216,14 @@ def get_enrollments_for_courses_in_program(user, program):
     return CourseEnrollment.objects.filter(
         user=user,
         course_id__in=course_keys,
+<<<<<<< HEAD
         mode__in=[CourseMode.VERIFIED, CourseMode.MASTERS, CourseMode.EXECUTIVE_EDUCATION],
+=======
+        mode__in=[
+            CourseMode.VERIFIED, CourseMode.MASTERS, CourseMode.EXECUTIVE_EDUCATION,
+            CourseMode.PAID_EXECUTIVE_EDUCATION, CourseMode.PAID_BOOTCAMP
+        ],
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         is_active=True,
     )
 

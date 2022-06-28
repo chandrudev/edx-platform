@@ -17,7 +17,11 @@ TEAM_SUBMISSIONS_FLAG = "team_submissions"
 # .. toggle_creation_date: 2020-03-03
 # .. toggle_target_removal_date: None
 # .. toggle_tickets: https://openedx.atlassian.net/browse/EDUCATOR-4951
+<<<<<<< HEAD
 # .. toggle_warnings: This temporary feature toggle does not have a target removal date. This can be overridden by a
+=======
+# .. toggle_warning: This temporary feature toggle does not have a target removal date. This can be overridden by a
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 #      course waffle flags or a waffle switch with identical name.
 # TODO: this should be moved to edx/edx-ora2
 TEAM_SUBMISSIONS_FEATURE = SettingDictToggle(
@@ -29,12 +33,20 @@ def are_team_submissions_enabled(course_key):
     """
     Checks to see if the CourseWaffleFlag or Django setting for team submissions is enabled
     """
+<<<<<<< HEAD
     if CourseWaffleFlag(WAFFLE_NAMESPACE, TEAM_SUBMISSIONS_FLAG, __name__).is_enabled(
+=======
+    if CourseWaffleFlag(f'{WAFFLE_NAMESPACE}.{TEAM_SUBMISSIONS_FLAG}', __name__).is_enabled(
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         course_key
     ):
         return True
 
+<<<<<<< HEAD
     # TODO: this behaviour differs from edx-ora2, where the LegacyWaffleSwitch overrides the setting.
+=======
+    # TODO: this behaviour differs from edx-ora2, where the WaffleSwitch overrides the setting.
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # https://github.com/edx/edx-ora2/blob/ac502d8301cb987c9885aaefbaeddaf456c13fb9/openassessment/xblock/config_mixin.py#L96
 
     if TEAM_SUBMISSIONS_FEATURE.is_enabled():

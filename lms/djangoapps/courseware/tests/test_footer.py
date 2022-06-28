@@ -8,9 +8,12 @@ import unittest
 
 from django.conf import settings
 from django.test import TestCase
+<<<<<<< HEAD
 from django.test.utils import override_settings
 
 from openedx.core.djangoapps.theming.tests.test_util import with_comprehensive_theme
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', 'Test only valid in lms')
@@ -41,6 +44,7 @@ class TestFooter(TestCase):
         "youtube": "https://www.youtube.com/"
     }
 
+<<<<<<< HEAD
     @with_comprehensive_theme("edx.org")
     def test_edx_footer(self):
         """
@@ -50,6 +54,8 @@ class TestFooter(TestCase):
         assert resp.status_code == 200
         self.assertContains(resp, 'footer-edx-v3')
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_openedx_footer(self):
         """
         Verify that the homepage, when accessed at something other than
@@ -58,6 +64,7 @@ class TestFooter(TestCase):
         resp = self.client.get('/')
         assert resp.status_code == 200
         self.assertContains(resp, 'footer-openedx')
+<<<<<<< HEAD
 
     @with_comprehensive_theme("edx.org")
     @override_settings(
@@ -70,3 +77,5 @@ class TestFooter(TestCase):
             self.assertContains(resp, url)
             self.assertContains(resp, settings.SOCIAL_MEDIA_FOOTER_DISPLAY[name]['title'])
             self.assertContains(resp, settings.SOCIAL_MEDIA_FOOTER_DISPLAY[name]['icon'])
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

@@ -9,6 +9,9 @@ out from edx-platform into separate packages at some point.
     :maxdepth: 2
 
     common/lib/capa/modules
+<<<<<<< HEAD
     common/lib/safe_lxml/modules
     common/lib/symmath/modules
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     common/lib/xmodule/modules

@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=(n != 1);
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n != 1);
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "%(sel)s of %(cnt)s selected": [
       "%(cnt)s \u0645\u06cc\u06ba \u0633\u06d2 %(sel)s \u0645\u0646\u062a\u062e\u0628 \u06a9\u06cc\u0627 \u06af\u06cc\u0627",
       "%(cnt)s \u0645\u06cc\u06ba \u0633\u06d2 %(sel)s \u0645\u0646\u062a\u062e\u0628 \u06a9\u06cc\u06d2 \u06af\u0626\u06d2"
@@ -44,24 +60,41 @@
     "You have selected an action, but you haven't saved your changes to individual fields yet. Please click OK to save. You'll need to re-run the action.": "\u0627\u0653\u067e \u0646\u06d2 \u0627\u06cc\u06a9 \u06a9\u0627\u0631\u0648\u0627\u0626\u06cc \u0645\u0646\u062a\u062e\u0628 \u06a9\u06cc \u06be\u06d2 \u0644\u06cc\u06a9\u0646 \u0627\u0628\u06be\u06cc \u062a\u06a9 \u0627\u0653\u067e \u0646\u06d2 \u0630\u0627\u062a\u06cc \u062e\u0627\u0646\u0648\u06ba \u0645\u06cc\u06ba \u0627\u067e\u0646\u06cc \u062a\u0628\u062f\u06cc\u0644\u06cc\u0627\u06ba \u0645\u062d\u0641\u0648\u0638 \u0646\u06c1\u06cc\u06ba \u06a9\u06cc \u06c1\u06cc\u06ba \u0628\u0631\u0627\u06c1 \u0645\u06be\u0631\u0628\u0627\u0646\u06cc \u0645\u062d\u0641\u0648\u0637 \u06a9\u0631\u0646\u06d2 \u06a9\u06d2 \u0644\u0626\u06d2 OK \u067e\u0631 \u06a9\u0644\u06a9 \u06a9\u0631\u06cc\u06ba\u06d4 \u0627\u0653\u067e \u06a9\u0627\u0648\u0627\u0626\u06cc \u062f\u0648\u0628\u0627\u0631\u06c1 \u0686\u0644\u0627\u0646\u06d2 \u06a9\u06cc \u0636\u0631\u0648\u0631\u062a \u06be\u0648\u06af\u06cc\u06d4",
     "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "\u0627\u0653\u067e \u06a9\u06d2 \u067e\u0627\u0633 \u0630\u0627\u062a\u06cc \u0642\u0627\u0628\u0644 \u062a\u062f\u0648\u06cc\u0646 \u062e\u0627\u0646\u0648\u06ba \u0645\u06cc\u06ba \u063a\u06cc\u0631 \u0645\u062d\u0641\u0648\u0638 \u062a\u0628\u062f\u06cc\u0644\u06cc\u0627\u06ba \u0645\u0648\u062c\u0648\u062f \u06be\u06cc\u06ba\u06d4 \u0627\u06af\u0631 \u0627\u0653\u067e \u06a9\u0648\u0626\u06cc \u06a9\u0627\u0631\u0648\u0627\u0626\u06cc \u06a9\u0631\u06cc\u06ba \u06af\u06d2 \u062a\u0648 \u0627\u0653\u067e \u06a9\u06cc \u063a\u06cc\u0631 \u0645\u062d\u0641\u0648\u0638 \u062a\u0628\u062f\u06cc\u0644\u06cc\u0627\u06ba \u0636\u0627\u0626\u0639 \u06be\u0648 \u062c\u0627\u0626\u06cc\u06ba \u06af\u06cc\u06d4"
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -71,16 +104,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -103,6 +146,7 @@
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
+<<<<<<< HEAD
       "%Y-%m-%d",
       "%m/%d/%Y %H:%M:%S",
       "%m/%d/%Y %H:%M:%S.%f",
@@ -112,6 +156,14 @@
       "%m/%d/%y %H:%M:%S.%f",
       "%m/%d/%y %H:%M",
       "%m/%d/%y"
+=======
+      "%m/%d/%Y %H:%M:%S",
+      "%m/%d/%Y %H:%M:%S.%f",
+      "%m/%d/%Y %H:%M",
+      "%m/%d/%y %H:%M:%S",
+      "%m/%d/%y %H:%M:%S.%f",
+      "%m/%d/%y %H:%M"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ],
     "DATE_FORMAT": "N j, Y",
     "DATE_INPUT_FORMATS": [
@@ -144,8 +196,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -164,6 +221,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

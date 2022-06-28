@@ -14,19 +14,36 @@ from django.urls import reverse
 from edx_toggles.toggles.testutils import override_waffle_flag
 from pyquery import PyQuery as pq
 from pytz import UTC
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.edxmako.shortcuts import render_to_response
 from common.djangoapps.student.models import CourseEnrollment
+<<<<<<< HEAD
 from common.djangoapps.student.roles import CourseFinanceAdminRole  # lint-amnesty, pylint: disable=unused-import
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.student.tests.factories import AdminFactory, CourseAccessRoleFactory, CourseEnrollmentFactory
 from common.djangoapps.student.tests.factories import StaffFactory
 from common.djangoapps.student.tests.factories import UserFactory
 from common.test.utils import XssTestMixin
+<<<<<<< HEAD
 from lms.djangoapps.courseware.tabs import get_course_tab_list
 from lms.djangoapps.courseware.tests.factories import StudentModuleFactory
 from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
 from lms.djangoapps.grades.config.waffle import WRITABLE_GRADEBOOK, waffle_flags
+=======
+from lms.djangoapps.courseware.courses import get_studio_url
+from lms.djangoapps.courseware.tabs import get_course_tab_list
+from lms.djangoapps.courseware.tests.factories import StudentModuleFactory
+from lms.djangoapps.courseware.tests.helpers import LoginEnrollmentTestCase
+from lms.djangoapps.grades.config.waffle import WRITABLE_GRADEBOOK
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from lms.djangoapps.instructor.toggles import DATA_DOWNLOAD_V2
 from lms.djangoapps.instructor.views.gradebook_api import calculate_page_info
 from openedx.core.djangoapps.course_groups.cohorts import set_course_cohorted
@@ -35,9 +52,12 @@ from openedx.core.djangoapps.discussions.config.waffle import (
     OVERRIDE_DISCUSSION_LEGACY_SETTINGS_FLAG
 )
 from openedx.core.djangoapps.site_configuration.models import SiteConfiguration
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def intercept_renderer(path, context):
@@ -80,7 +100,11 @@ class TestInstructorDashboard(ModuleStoreTestCase, LoginEnrollmentTestCase, XssT
             org="ACME",
             number="001",
             run="2017",
+<<<<<<< HEAD
             name="How to defeat the Road Runner"
+=======
+            display_name="How to defeat the Road Runner"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         self.course_mode.save()
         # Create instructor account
@@ -334,8 +358,12 @@ class TestInstructorDashboard(ModuleStoreTestCase, LoginEnrollmentTestCase, XssT
         Test that, when the writable gradebook feature is enabled and
         deployed in another domain, a staff member can see it.
         """
+<<<<<<< HEAD
         waffle_flag = waffle_flags()[WRITABLE_GRADEBOOK]
         with override_waffle_flag(waffle_flag, active=True):
+=======
+        with override_waffle_flag(WRITABLE_GRADEBOOK, active=True):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             response = self.client.get(self.url)
 
         expected_gradebook_url = f'http://gradebook.local.edx.org/{self.course.id}'
@@ -356,8 +384,12 @@ class TestInstructorDashboard(ModuleStoreTestCase, LoginEnrollmentTestCase, XssT
         Test that, when the writable gradebook feature is enabled and
         deployed in a subdirectory, a staff member can see it.
         """
+<<<<<<< HEAD
         waffle_flag = waffle_flags()[WRITABLE_GRADEBOOK]
         with override_waffle_flag(waffle_flag, active=True):
+=======
+        with override_waffle_flag(WRITABLE_GRADEBOOK, active=True):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             response = self.client.get(self.url)
 
         expected_gradebook_url = f'{settings.WRITABLE_GRADEBOOK_URL}/{self.course.id}'
@@ -392,8 +424,12 @@ class TestInstructorDashboard(ModuleStoreTestCase, LoginEnrollmentTestCase, XssT
         a message that the feature is only available for courses with small
         numbers of learners.
         """
+<<<<<<< HEAD
         waffle_flag = waffle_flags()[WRITABLE_GRADEBOOK]
         with override_waffle_flag(waffle_flag, active=True):
+=======
+        with override_waffle_flag(WRITABLE_GRADEBOOK, active=True):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             response = self.client.get(self.url)
         assert TestInstructorDashboard.GRADEBOOK_LEARNER_COUNT_MESSAGE not in response.content.decode('utf-8')
         self.assertContains(response, 'View Gradebook')
@@ -582,14 +618,35 @@ class TestInstructorDashboard(ModuleStoreTestCase, LoginEnrollmentTestCase, XssT
         # assert we don't get a 500 error
         assert 200 == response.status_code
 
+<<<<<<< HEAD
+=======
+    @patch("lms.djangoapps.instructor.views.instructor_dashboard.get_plugins_view_context")
+    def test_external_plugin_integration(self, mock_get_plugins_view_context):
+        """
+        Tests that whether context from plugins is being reflected/added in instructor dashboard.
+        """
+        test_studio_url = get_studio_url(self.course, 'course')
+
+        context = {
+            'studio_url': test_studio_url
+        }
+        mock_get_plugins_view_context.return_value = context
+
+        response = self.client.get(self.url)
+        self.assertContains(response, test_studio_url)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 @ddt.ddt
 class TestInstructorDashboardPerformance(ModuleStoreTestCase, LoginEnrollmentTestCase, XssTestMixin):
     """
     Tests for the instructor dashboard from the performance point of view.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def setUp(self):
         """
         Set up tests
@@ -673,6 +730,10 @@ class TestInstructorDashboardPerformance(ModuleStoreTestCase, LoginEnrollmentTes
 
         # check MongoDB calls count
         url = reverse('spoc_gradebook', kwargs={'course_id': self.course.id})
+<<<<<<< HEAD
         with check_mongo_calls(9):
+=======
+        with check_mongo_calls(6):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             response = self.client.get(url)
             assert response.status_code == 200

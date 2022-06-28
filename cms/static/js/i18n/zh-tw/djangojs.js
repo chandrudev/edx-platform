@@ -1,5 +1,6 @@
 
 
+<<<<<<< HEAD
 (function(globals) {
 
   var django = globals.django || (globals.django = {});
@@ -8,6 +9,17 @@
   django.pluralidx = function(n) {
     var v=0;
     if (typeof(v) == 'boolean') {
+=======
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = 0;
+    if (typeof v === 'boolean') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       return v ? 1 : 0;
     } else {
       return v;
@@ -19,7 +31,11 @@
 
   django.catalog = django.catalog || {};
   
+<<<<<<< HEAD
   var newcatalog = {
+=======
+  const newcatalog = {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "%(cohort_name)s (%(user_count)s)": "%(cohort_name)s (%(user_count)s)",
     "%(errorCount)s error found in form.": [
       "\u5728\u8868\u55ae\u4e2d\u767c\u73fe%(errorCount)s\u7684\u932f\u8aa4\u3002"
@@ -666,9 +682,12 @@
     "This action cannot be undone.": "\u9019\u500b\u64cd\u4f5c\u5fc5\u9808\u5b8c\u6210\u3002",
     "This assessment could not be submitted.": "\u9019\u4efd\u8a55\u5206\u7121\u6cd5\u63d0\u4ea4\u3002",
     "This certificate has already been activated and is live. Are you sure you want to continue editing?": "\u6b64\u8a8d\u8b49\u5df2\u88ab\u555f\u52d5\u4e26\u4f7f\u7528\u4e2d\u3002\u60a8\u78ba\u5b9a\u662f\u5426\u7e7c\u7e8c\u7de8\u8f2f?",
+<<<<<<< HEAD
     "This course has automatic cohorting enabled for verified track learners, but cohorts are disabled. You must enable cohorts for the feature to work.": "\u9019\u9580\u8ab2\u7a0b\u5df2\u555f\u7528\u81ea\u52d5\u70ba\u5df2\u78ba\u8a8d\u8ffd\u8e64\u5b78\u7fd2\u8005\u5206\u968a\u7684\u529f\u80fd\uff0c\u4f46\u5206\u968a\u5df2\u505c\u7528\u3002\u60a8\u5fc5\u9808\u555f\u7528\u5206\u968a\uff0c\u9019\u9805\u529f\u80fd\u624d\u80fd\u904b\u4f5c\u3002",
     "This course has automatic cohorting enabled for verified track learners, but the required cohort does not exist. You must create a manually-assigned cohort named '{verifiedCohortName}' for the feature to work.": "\u9019\u9580\u8ab2\u7a0b\u5df2\u555f\u7528\u81ea\u52d5\u70ba\u5df2\u78ba\u8a8d\u8ffd\u8e64\u5b78\u7fd2\u8005\u5206\u968a\u7684\u529f\u80fd\uff0c\u4f46\u6240\u9700\u7684\u5206\u968a\u4e0d\u5b58\u5728\u3002\u60a8\u5fc5\u9808\u5efa\u7acb\u540d\u70ba '{verifiedCohortName}' \u7684\u624b\u52d5\u6307\u6d3e\u5206\u968a\uff0c\u9019\u9805\u529f\u80fd\u624d\u80fd\u904b\u4f5c\u3002",
     "This course uses automatic cohorting for verified track learners. You cannot disable cohorts, and you cannot rename the manual cohort named '{verifiedCohortName}'. To change the configuration for verified track cohorts, contact your edX partner manager.": "\u9019\u9580\u8ab2\u7a0b\u63a1\u7528\u81ea\u52d5\u70ba\u5df2\u78ba\u8a8d\u8ffd\u8e64\u5b78\u7fd2\u8005\u5206\u968a\u7684\u529f\u80fd\u3002\u60a8\u7121\u6cd5\u505c\u7528\u5206\u968a\uff0c\u4e5f\u7121\u6cd5\u5c07\u540d\u70ba '{verifiedCohortName}' \u7684\u624b\u52d5\u5206\u968a\u7d50\u679c\u91cd\u65b0\u547d\u540d\u3002\u82e5\u8981\u8b8a\u66f4\u5df2\u78ba\u8a8d\u8ffd\u8e64\u5206\u968a\u7684\u8a2d\u5b9a\uff0c\u8acb\u548c edX \u5925\u4f34\u7d93\u7406\u9023\u7d61\u3002",
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     "This feedback could not be submitted.": "\u9019\u689d\u53cd\u994b\u610f\u898b\u7121\u6cd5\u63d0\u4ea4\u3002",
     "This image is for decorative purposes only and does not require a description.": "\u6b64\u5716\u7247\u50c5\u4f5c\u70ba\u8f14\u52a9\u7684\u7528\u9014\u4e26\u4e0d\u9700\u8981\u63cf\u8ff0\u3002",
     "This page contains information about orders that you have placed with {platform_name}.": "\u6b64\u9801\u5305\u542b\u60a8\u900f\u904e{platform_name}\u767c\u51fa\u7684\u8a02\u55ae\u7684\u76f8\u95dc\u8a0a\u606f\u3002",
@@ -877,24 +896,41 @@
     ],
     "\u2026": "..."
   };
+<<<<<<< HEAD
   for (var key in newcatalog) {
+=======
+  for (const key in newcatalog) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     django.catalog[key] = newcatalog[key];
   }
   
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
+<<<<<<< HEAD
       var value = django.catalog[msgid];
       if (typeof(value) == 'undefined') {
         return msgid;
       } else {
         return (typeof(value) == 'string') ? value : value[0];
+=======
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       }
     };
 
     django.ngettext = function(singular, plural, count) {
+<<<<<<< HEAD
       var value = django.catalog[singular];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return (count == 1) ? singular : plural;
       } else {
         return value.constructor === Array ? value[django.pluralidx(count)] : value;
@@ -904,16 +940,26 @@
     django.gettext_noop = function(msgid) { return msgid; };
 
     django.pgettext = function(context, msgid) {
+<<<<<<< HEAD
       var value = django.gettext(context + '\x04' + msgid);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = msgid;
       }
       return value;
     };
 
     django.npgettext = function(context, singular, plural, count) {
+<<<<<<< HEAD
       var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
       if (value.indexOf('\x04') != -1) {
+=======
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         value = django.ngettext(singular, plural, count);
       }
       return value;
@@ -936,6 +982,7 @@
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%d %H:%M:%S.%f",
       "%Y-%m-%d %H:%M",
+<<<<<<< HEAD
       "%Y-%m-%d",
       "%m/%d/%Y %H:%M:%S",
       "%m/%d/%Y %H:%M:%S.%f",
@@ -945,6 +992,14 @@
       "%m/%d/%y %H:%M:%S.%f",
       "%m/%d/%y %H:%M",
       "%m/%d/%y"
+=======
+      "%m/%d/%Y %H:%M:%S",
+      "%m/%d/%Y %H:%M:%S.%f",
+      "%m/%d/%Y %H:%M",
+      "%m/%d/%y %H:%M:%S",
+      "%m/%d/%y %H:%M:%S.%f",
+      "%m/%d/%y %H:%M"
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     ],
     "DATE_FORMAT": "N j, Y",
     "DATE_INPUT_FORMATS": [
@@ -977,8 +1032,13 @@
   };
 
     django.get_format = function(format_type) {
+<<<<<<< HEAD
       var value = django.formats[format_type];
       if (typeof(value) == 'undefined') {
+=======
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         return format_type;
       } else {
         return value;
@@ -997,6 +1057,10 @@
 
     django.jsi18n_initialized = true;
   }
+<<<<<<< HEAD
 
 }(this));
+=======
+};
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 

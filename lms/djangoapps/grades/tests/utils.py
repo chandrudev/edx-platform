@@ -11,7 +11,11 @@ import pytz
 
 from lms.djangoapps.courseware.model_data import FieldDataCache
 from lms.djangoapps.courseware.module_render import get_module
+<<<<<<< HEAD
 from xmodule.graders import ProblemScore
+=======
+from xmodule.graders import ProblemScore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @contextmanager

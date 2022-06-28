@@ -3,6 +3,10 @@ Tests for the course tab API.
 """
 
 import json
+<<<<<<< HEAD
+=======
+import random
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from urllib.parse import urlencode
 
 import ddt
@@ -42,11 +46,23 @@ class TabsAPITests(CourseTestCase):
         )
 
         # add a static tab to the course, for code coverage
+<<<<<<< HEAD
         self.test_tab = ItemFactory.create(
             parent_location=self.course.location,
             category="static_tab",
             display_name="Static_1",
         )
+=======
+        # add 4 static tabs to the course, for code coverage
+        self.test_tabs = []
+        for i in range(1, 5):
+            tab = ItemFactory.create(
+                parent_location=self.course.location,
+                category="static_tab",
+                display_name=f"Static_{i}"
+            )
+        self.test_tabs.append(tab)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.reload_course()
 
     def check_invalid_response(self, resp):
@@ -91,6 +107,7 @@ class TabsAPITests(CourseTestCase):
             content_type="application/json",
         )
 
+<<<<<<< HEAD
     def test_reorder_tabs(self):
         """
         Test re-ordering of tabs
@@ -100,10 +117,21 @@ class TabsAPITests(CourseTestCase):
         orig_tab_ids = [tab.tab_id for tab in self.course.tabs]
         tab_ids = list(orig_tab_ids)
         num_orig_tabs = len(orig_tab_ids)
+=======
+    def test_reorder_static_tabs(self):
+        """
+        Test re-ordering of static tabs in a course.
+        """
+
+        # get the original tabs
+        course_tabs = list(self.course.tabs)
+        num_orig_tabs = len(self.course.tabs)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # make sure we have enough tabs to play around with
         assert num_orig_tabs >= 5
 
+<<<<<<< HEAD
         # reorder the last two tabs
         tab_ids[num_orig_tabs - 1], tab_ids[num_orig_tabs - 2] = tab_ids[num_orig_tabs - 2], tab_ids[num_orig_tabs - 1]
 
@@ -121,6 +149,28 @@ class TabsAPITests(CourseTestCase):
         new_tab_ids = [tab.tab_id for tab in self.course.tabs]
         assert new_tab_ids == tab_ids + [removed_tab]
         assert new_tab_ids != orig_tab_ids
+=======
+        # Randomize the order of static tabs, leaving the rest intact
+        course_tabs.sort(key=lambda tab: (100 + random.random()) if tab.type == 'static_tab' else tab.priority)
+
+        tabs_data = [
+            {'tab_locator': str(self.course.id.make_usage_key("static_tab", tab.url_slug))}
+            for tab in course_tabs
+            if tab.type == 'static_tab'
+        ]
+        # Remove one tab randomly. This shouldn't delete the tab.
+        tabs_data.pop()
+
+        # post the request with the reordered static tabs only
+        resp = self.make_reorder_tabs_request(tabs_data)
+        assert resp.status_code == 204
+
+        # Reload the course and verify the new tab order
+        self.reload_course()
+        reordered_tab_ids = [tab.tab_id for tab in course_tabs]
+        new_tab_ids = [tab.tab_id for tab in self.course.tabs]
+        assert new_tab_ids == reordered_tab_ids
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_reorder_tabs_invalid_list(self):
         """

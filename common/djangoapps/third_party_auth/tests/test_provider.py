@@ -224,4 +224,8 @@ class RegistryTest(testutil.TestCase):
     def test_get_enabled_by_backend_name_returns_none_if_provider_not_enabled(self):
         google_provider = self.configure_google_provider(enabled=False)
         found = list(provider.Registry.get_enabled_by_backend_name(google_provider.backend_name))
+<<<<<<< HEAD
         assert found == []
+=======
+        assert not found
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

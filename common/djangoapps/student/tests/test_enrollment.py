@@ -11,6 +11,11 @@ import pytest
 from django.conf import settings
 from django.urls import reverse
 from openedx_events.tests.utils import OpenEdxEventsTestMixin
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
@@ -24,14 +29,21 @@ from common.djangoapps.student.roles import CourseInstructorRole, CourseStaffRol
 from common.djangoapps.student.tests.factories import CourseEnrollmentAllowedFactory, UserFactory
 from common.djangoapps.util.testing import UrlResetMixin
 from openedx.core.djangoapps.embargo.test_utils import restrict_course
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @ddt.ddt
 @patch.dict('django.conf.settings.FEATURES', {'ENABLE_SPECIAL_EXAMS': True})
 @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', 'Test only valid in lms')
+<<<<<<< HEAD
 class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase, OpenEdxEventsTestMixin):
+=======
+class EnrollmentTest(UrlResetMixin, ModuleStoreTestCase, OpenEdxEventsTestMixin):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Test student enrollment, especially with different course modes.
     """
@@ -53,6 +65,7 @@ class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase, OpenEdxEventsTest
         """
         super().setUpClass()
         cls.start_events_isolation()
+<<<<<<< HEAD
         cls.course = CourseFactory.create()
         cls.course_limited = CourseFactory.create()
         cls.proctored_course = CourseFactory(
@@ -61,15 +74,30 @@ class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase, OpenEdxEventsTest
         cls.proctored_course_no_exam = CourseFactory(
             enable_proctored_exams=True, enable_timed_exams=True
         )
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     @patch.dict(settings.FEATURES, {'EMBARGO': True})
     def setUp(self):
         """ Create a course and user, then log in. """
         super().setUp()
+<<<<<<< HEAD
         self.user = UserFactory.create(username=self.USERNAME, email=self.EMAIL, password=self.PASSWORD)
         self.client.login(username=self.USERNAME, password=self.PASSWORD)
         self.course_limited.max_student_enrollments_allowed = 1
         self.store.update_item(self.course_limited, self.user.id)
+=======
+        self.course = CourseFactory.create()
+        self.course_limited = CourseFactory.create(max_student_enrollments_allowed=1)
+        self.proctored_course = CourseFactory(
+            enable_proctored_exams=True, enable_timed_exams=True
+        )
+        self.proctored_course_no_exam = CourseFactory(
+            enable_proctored_exams=True, enable_timed_exams=True
+        )
+        self.user = UserFactory.create(username=self.USERNAME, email=self.EMAIL, password=self.PASSWORD)
+        self.client.login(username=self.USERNAME, password=self.PASSWORD)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.urls = [
             reverse('course_modes_choose', kwargs={'course_id': str(self.course.id)})
         ]
@@ -86,7 +114,11 @@ class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase, OpenEdxEventsTest
         ItemFactory.create(
             parent=chapter, category='sequential', display_name='Test Proctored Exam',
             graded=True, is_time_limited=True, default_time_limit_minutes=10,
+<<<<<<< HEAD
             is_proctored_exam=True, publish_item=True
+=======
+            is_proctored_enabled=True, publish_item=True
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
 
     @ddt.data(
@@ -288,6 +320,10 @@ class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase, OpenEdxEventsTest
     @patch.dict(
         'django.conf.settings.PROCTORING_BACKENDS', {'test_provider_honor_mode': {'allow_honor_mode': True}}
     )
+<<<<<<< HEAD
+=======
+    @patch.dict(settings.FEATURES, {'ENABLE_PROCTORED_EXAMS': True})
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_enroll_in_proctored_course_honor_mode_allowed(self):
         """
         If the proctoring provider allows honor mode, send proctoring requirements email when learners
@@ -358,6 +394,25 @@ class EnrollmentTest(UrlResetMixin, SharedModuleStoreTestCase, OpenEdxEventsTest
         resp = self._change_enrollment('unenroll', course_id="edx/")
         assert resp.status_code == 400
 
+<<<<<<< HEAD
+=======
+    @patch.dict(settings.FEATURES, {'DISABLE_UNENROLLMENT': True})
+    def test_unenroll_when_unenrollment_disabled(self):
+        """
+        Tests that a user cannot unenroll when unenrollment has been disabled.
+        """
+        # Enroll the student in the course
+        CourseEnrollment.enroll(self.user, self.course.id, mode="honor")
+
+        # Attempt to unenroll
+        resp = self._change_enrollment('unenroll')
+        assert resp.status_code == 400
+
+        # Verify that user is still enrolled
+        is_enrolled = CourseEnrollment.is_enrolled(self.user, self.course.id)
+        assert is_enrolled
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     def test_enrollment_limit(self):
         """
         Assert that in a course with max student limit set to 1, we can enroll staff and instructor along with

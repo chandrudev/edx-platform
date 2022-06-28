@@ -10,10 +10,20 @@ from django.urls import reverse
 from opaque_keys.edx.keys import CourseKey
 
 from common.djangoapps.student.tests.factories import AdminFactory
+<<<<<<< HEAD
 from lms.djangoapps.bulk_email.api import is_bulk_email_enabled_for_course, is_bulk_email_feature_enabled
 from lms.djangoapps.bulk_email.models import BulkEmailFlag, CourseAuthorization
 from xmodule.modulestore.tests.django_utils import TEST_DATA_MIXED_MODULESTORE, SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from lms.djangoapps.bulk_email.models_api import is_bulk_email_enabled_for_course, is_bulk_email_feature_enabled
+
+from lms.djangoapps.bulk_email.models import BulkEmailFlag, CourseAuthorization, DisabledCourse
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MIXED_MODULESTORE, SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+
+from lms.djangoapps.bulk_email.models_api import is_bulk_email_disabled_for_course
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 class TestNewInstructorDashboardEmailViewMongoBacked(SharedModuleStoreTestCase):
@@ -94,6 +104,23 @@ class TestNewInstructorDashboardEmailViewMongoBacked(SharedModuleStoreTestCase):
         response = self.client.get(self.url)
         self.assertContains(response, self.email_link)
 
+<<<<<<< HEAD
+=======
+    def test_course_authorized_and_on_deny_list(self):
+        BulkEmailFlag.objects.create(enabled=True, require_course_email_auth=True)
+        # Authorize the course to use email
+        cauth = CourseAuthorization(course_id=self.course.id, email_enabled=True)
+        cauth.save()
+        # Disabled the course to use email
+        disabled_course = DisabledCourse(course_id=self.course.id)
+        disabled_course.save()
+        # Assert that instructor email is disabled for this course
+        assert is_bulk_email_disabled_for_course(self.course.id)
+        # Assert that the URL for the email view is not in the response
+        response = self.client.get(self.url)
+        self.assertNotContains(response, self.email_link)
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # Flag is disabled, but course is authorized
     def test_course_authorized_feature_off(self):
         BulkEmailFlag.objects.create(enabled=False, require_course_email_auth=True)

@@ -20,6 +20,12 @@ from edx_django_utils.cache import RequestCache
 from opaque_keys.edx.keys import CourseKey
 from pytz import UTC
 from xblock.core import XBlock
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls, check_sum_of_calls
+from xmodule.modulestore.tests.utils import ProceduralCourseTestMixin
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory
@@ -30,6 +36,7 @@ from lms.djangoapps.courseware.views.views import progress
 from openedx.core.djangoapps.content.block_structure.api import get_course_in_cache
 from openedx.core.djangoapps.waffle_utils.testutils import WAFFLE_TABLES
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_MODULESTORE,
     TEST_DATA_SPLIT_MODULESTORE,
@@ -39,6 +46,10 @@ from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls
 from xmodule.modulestore.tests.utils import ProceduralCourseTestMixin
 
 QUERY_COUNT_TABLE_BLACKLIST = WAFFLE_TABLES
+=======
+
+QUERY_COUNT_TABLE_IGNORELIST = WAFFLE_TABLES
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @mock.patch.dict(
@@ -188,7 +199,11 @@ class FieldOverridePerformanceTestCase(FieldOverrideTestMixin, ProceduralCourseT
             # can actually take affect.
             OverrideFieldData.provider_classes = None
 
+<<<<<<< HEAD
             with self.assertNumQueries(sql_queries, using='default', table_blacklist=QUERY_COUNT_TABLE_BLACKLIST):
+=======
+            with self.assertNumQueries(sql_queries, using='default', table_ignorelist=QUERY_COUNT_TABLE_IGNORELIST):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 with self.assertNumQueries(0, using='student_module_history'):
                     with self.assertMongoCallCount(mongo_reads):
                         with self.assertXBlockInstantiations(1):
@@ -219,9 +234,12 @@ class FieldOverridePerformanceTestCase(FieldOverrideTestMixin, ProceduralCourseT
         if not enable_ccx and view_as_ccx:
             pytest.skip("Can't view a ccx course if ccx is disabled on the course")
 
+<<<<<<< HEAD
         if self.MODULESTORE == TEST_DATA_MONGO_MODULESTORE and view_as_ccx:
             pytest.skip("Can't use a MongoModulestore test as a CCX course")
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         with self.settings(
             XBLOCK_FIELD_DATA_WRAPPERS=['lms.djangoapps.courseware.field_overrides:OverrideModulestoreFieldData.wrap'],
             MODULESTORE_FIELD_OVERRIDE_PROVIDERS=providers[overrides],
@@ -234,6 +252,7 @@ class FieldOverridePerformanceTestCase(FieldOverrideTestMixin, ProceduralCourseT
             )
 
 
+<<<<<<< HEAD
 class TestFieldOverrideMongoPerformance(FieldOverridePerformanceTestCase):
     """
     Test cases for instrumenting field overrides against the Mongo modulestore.
@@ -263,10 +282,13 @@ class TestFieldOverrideMongoPerformance(FieldOverridePerformanceTestCase):
     }
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class TestFieldOverrideSplitPerformance(FieldOverridePerformanceTestCase):
     """
     Test cases for instrumenting field overrides against the Split modulestore.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
     __test__ = True
 
@@ -289,4 +311,27 @@ class TestFieldOverrideSplitPerformance(FieldOverridePerformanceTestCase):
         ('ccx', 1, False, False): (QUERY_COUNT, 3),
         ('ccx', 2, False, False): (QUERY_COUNT, 3),
         ('ccx', 3, False, False): (QUERY_COUNT, 3),
+=======
+    __test__ = True
+
+    # TODO: decrease query count as part of REVO-28
+    QUERY_COUNT = 31
+
+    TEST_DATA = {
+        ('no_overrides', 1, True, False): (QUERY_COUNT, 2),
+        ('no_overrides', 2, True, False): (QUERY_COUNT, 2),
+        ('no_overrides', 3, True, False): (QUERY_COUNT, 2),
+        ('ccx', 1, True, False): (QUERY_COUNT, 2),
+        ('ccx', 2, True, False): (QUERY_COUNT, 2),
+        ('ccx', 3, True, False): (QUERY_COUNT, 2),
+        ('ccx', 1, True, True): (QUERY_COUNT + 2, 2),
+        ('ccx', 2, True, True): (QUERY_COUNT + 2, 2),
+        ('ccx', 3, True, True): (QUERY_COUNT + 2, 2),
+        ('no_overrides', 1, False, False): (QUERY_COUNT, 2),
+        ('no_overrides', 2, False, False): (QUERY_COUNT, 2),
+        ('no_overrides', 3, False, False): (QUERY_COUNT, 2),
+        ('ccx', 1, False, False): (QUERY_COUNT, 2),
+        ('ccx', 2, False, False): (QUERY_COUNT, 2),
+        ('ccx', 3, False, False): (QUERY_COUNT, 2),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     }

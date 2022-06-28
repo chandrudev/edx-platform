@@ -13,6 +13,10 @@ from unittest.mock import Mock, patch
 import pytz
 import ddt
 from fs.memoryfs import MemoryFS
+<<<<<<< HEAD
+=======
+from django.contrib.auth.models import AnonymousUser
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from . import get_test_system
 from .helpers import StubUserService
@@ -157,11 +161,19 @@ class VerticalBlockTestCase(BaseVerticalBlockTest):
         now = datetime.now(pytz.UTC)
         self.vertical.due = now + timedelta(days=days)
         if view == STUDENT_VIEW:
+<<<<<<< HEAD
             self.module_system._services['user'] = StubUserService()
             self.module_system._services['completion'] = StubCompletionService(enabled=True,
                                                                                completion_value=completion_value)
         elif view == PUBLIC_VIEW:
             self.module_system._services['user'] = StubUserService(is_anonymous=True)
+=======
+            self.module_system._services['user'] = StubUserService(user=Mock(username=self.username))
+            self.module_system._services['completion'] = StubCompletionService(enabled=True,
+                                                                               completion_value=completion_value)
+        elif view == PUBLIC_VIEW:
+            self.module_system._services['user'] = StubUserService(user=AnonymousUser())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         html = self.module_system.render(
             self.vertical, view, self.default_context if context is None else context
@@ -189,7 +201,11 @@ class VerticalBlockTestCase(BaseVerticalBlockTest):
         Test the rendering of the student and public view.
         """
         self.module_system._services['bookmarks'] = Mock()
+<<<<<<< HEAD
         self.module_system._services['user'] = StubUserService()
+=======
+        self.module_system._services['user'] = StubUserService(user=Mock())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.module_system._services['completion'] = StubCompletionService(enabled=True, completion_value=0)
 
         now = datetime.now(pytz.UTC)
@@ -211,7 +227,11 @@ class VerticalBlockTestCase(BaseVerticalBlockTest):
     def test_render_access_denied_blocks(self, node_has_access_error, child_has_access_error):
         """ Tests access denied blocks are not rendered when hide_access_error_blocks is True """
         self.module_system._services['bookmarks'] = Mock()
+<<<<<<< HEAD
         self.module_system._services['user'] = StubUserService()
+=======
+        self.module_system._services['user'] = StubUserService(user=Mock())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.vertical.due = datetime.now(pytz.UTC) + timedelta(days=-1)
         self.problem_block.has_access_error = node_has_access_error
         self.nested_problem_block.has_access_error = child_has_access_error

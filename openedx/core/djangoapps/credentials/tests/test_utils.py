@@ -17,7 +17,11 @@ UTILS_MODULE = 'openedx.core.djangoapps.credentials.utils'
 
 
 @skip_unless_lms
+<<<<<<< HEAD
 @mock.patch(UTILS_MODULE + '.get_edx_api_data')
+=======
+@mock.patch(UTILS_MODULE + '.get_api_data')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class TestGetCredentials(CredentialsApiConfigMixin, CacheIsolationTestCase):
     """ Tests for credentials utility functions. """
 

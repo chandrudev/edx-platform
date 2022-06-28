@@ -10,6 +10,13 @@ from django.conf import settings
 from django.test.utils import override_settings
 from django.urls import reverse
 from pytz import UTC
+<<<<<<< HEAD
+=======
+from xmodule.modulestore import ModuleStoreEnum
+from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
+from xmodule.data import CertificatesDisplayBehaviors
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
@@ -19,10 +26,13 @@ from lms.djangoapps.certificates.tests.factories import (
     GeneratedCertificateFactory,
     LinkedInAddToProfileConfigurationFactory
 )
+<<<<<<< HEAD
 from xmodule.modulestore import ModuleStoreEnum
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 from xmodule.data import CertificatesDisplayBehaviors
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # pylint: disable=no-member
 
@@ -33,6 +43,10 @@ FUTURE_DATE = datetime.datetime.now(UTC) + datetime.timedelta(days=2)
 class CertificateDisplayTestBase(SharedModuleStoreTestCase):
     """Tests display of certificates on the student dashboard. """
 
+<<<<<<< HEAD
+=======
+    MODULESTORE = TEST_DATA_MONGO_AMNESTY_MODULESTORE
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     USERNAME = "test_user"
     PASSWORD = "password"
     DOWNLOAD_URL = "http://www.example.com/certificate.pdf"

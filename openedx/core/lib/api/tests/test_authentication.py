@@ -11,12 +11,19 @@ from datetime import timedelta
 
 import ddt
 from django.conf import settings
+<<<<<<< HEAD
 from django.conf.urls import url
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.http import HttpResponse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils.http import urlencode
 from django.utils.timezone import now
+<<<<<<< HEAD
+=======
+from django.urls import path
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from oauth2_provider import models as dot_models
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -44,6 +51,7 @@ class MockView(APIView):  # pylint: disable=missing-docstring
 
 
 urlpatterns = [
+<<<<<<< HEAD
     url(
         r'^oauth2-inactive-test/$',
         MockView.as_view(authentication_classes=[authentication.BearerAuthenticationAllowInactiveUser])
@@ -52,6 +60,14 @@ urlpatterns = [
         r'^oauth2-test/$',
         MockView.as_view(authentication_classes=[authentication.BearerAuthentication])
     )
+=======
+    path('oauth2-inactive-test/',
+         MockView.as_view(authentication_classes=[authentication.BearerAuthenticationAllowInactiveUser])
+         ),
+    path('oauth2-test/',
+         MockView.as_view(authentication_classes=[authentication.BearerAuthentication])
+         )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 ]
 
 

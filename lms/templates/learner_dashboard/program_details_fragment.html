@@ -20,8 +20,14 @@ ProgramDetailsFactory({
     userPreferences: ${user_preferences | n, dump_js_escaped_json},
     industryPathways: ${industry_pathways | n, dump_js_escaped_json},
     creditPathways: ${credit_pathways | n, dump_js_escaped_json},
+<<<<<<< HEAD
     programDiscussionEnabled: ${program_discussions_enabled | n, dump_js_escaped_json},
     discussionFragment: ${discussion_fragment, | n, dump_js_escaped_json}
+=======
+    programTabViewEnabled: ${program_tab_view_enabled | n, dump_js_escaped_json},
+    discussionFragment: ${discussion_fragment, | n, dump_js_escaped_json},
+    live_fragment: ${live_fragment, | n, dump_js_escaped_json}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 });
 </%static:webpack>
 </%block>

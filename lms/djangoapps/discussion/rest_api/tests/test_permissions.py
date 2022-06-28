@@ -6,6 +6,11 @@ Tests for discussion API permission logic
 import itertools
 
 import ddt
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from lms.djangoapps.discussion.rest_api.permissions import (
     can_delete,
@@ -16,16 +21,37 @@ from lms.djangoapps.discussion.rest_api.permissions import (
 from openedx.core.djangoapps.django_comment_common.comment_client.comment import Comment
 from openedx.core.djangoapps.django_comment_common.comment_client.thread import Thread
 from openedx.core.djangoapps.django_comment_common.comment_client.user import User
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
 
 
 def _get_context(requester_id, is_requester_privileged, is_cohorted=False, thread=None):
+=======
+
+
+def _get_context(
+    requester_id,
+    is_requester_privileged,
+    is_cohorted=False,
+    thread=None,
+    allow_anonymous=True,
+    allow_anonymous_to_peers=False,
+):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """Return a context suitable for testing the permissions module"""
     return {
         "cc_requester": User(id=requester_id),
         "is_requester_privileged": is_requester_privileged,
+<<<<<<< HEAD
         "course": CourseFactory(cohort_config={"cohorted": is_cohorted}),
+=======
+        "course": CourseFactory(
+            cohort_config={"cohorted": is_cohorted},
+            allow_anonymous=allow_anonymous,
+            allow_anonymous_to_peers=allow_anonymous_to_peers,
+        ),
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         "discussion_division_enabled": is_cohorted,
         "thread": thread,
     }
@@ -34,6 +60,7 @@ def _get_context(requester_id, is_requester_privileged, is_cohorted=False, threa
 @ddt.ddt
 class GetInitializableFieldsTest(ModuleStoreTestCase):
     """Tests for get_*_initializable_fields"""
+<<<<<<< HEAD
     @ddt.data(*itertools.product([True, False], [True, False]))
     @ddt.unpack
     def test_thread(self, is_privileged, is_cohorted):
@@ -41,15 +68,42 @@ class GetInitializableFieldsTest(ModuleStoreTestCase):
             requester_id="5",
             is_requester_privileged=is_privileged,
             is_cohorted=is_cohorted
+=======
+    @ddt.data(*itertools.product(*[[True, False] for _ in range(4)]))
+    @ddt.unpack
+    def test_thread(
+        self,
+        is_privileged,
+        is_cohorted,
+        allow_anonymous,
+        allow_anonymous_to_peers,
+    ):
+        context = _get_context(
+            requester_id="5",
+            is_requester_privileged=is_privileged,
+            is_cohorted=is_cohorted,
+            allow_anonymous=allow_anonymous,
+            allow_anonymous_to_peers=allow_anonymous_to_peers,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         actual = get_initializable_thread_fields(context)
         expected = {
             "abuse_flagged", "course_id", "following", "raw_body", "read", "title", "topic_id", "type", "voted"
         }
         if is_privileged:
+<<<<<<< HEAD
             expected |= {"closed", "pinned"}
         if is_privileged and is_cohorted:
             expected |= {"group_id"}
+=======
+            expected |= {"closed", "pinned", "close_reason_code", "edit_reason_code"}
+        if is_privileged and is_cohorted:
+            expected |= {"group_id"}
+        if allow_anonymous:
+            expected |= {"anonymous"}
+        if allow_anonymous_to_peers:
+            expected |= {"anonymous_to_peers"}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert actual == expected
 
     @ddt.data(*itertools.product([True, False], ["question", "discussion"], [True, False]))
@@ -62,8 +116,15 @@ class GetInitializableFieldsTest(ModuleStoreTestCase):
         )
         actual = get_initializable_comment_fields(context)
         expected = {
+<<<<<<< HEAD
             "abuse_flagged", "parent_id", "raw_body", "thread_id", "voted"
         }
+=======
+            "anonymous", "abuse_flagged", "parent_id", "raw_body", "thread_id", "voted"
+        }
+        if is_privileged:
+            expected |= {"edit_reason_code"}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if (is_thread_author and thread_type == "question") or is_privileged:
             expected |= {"endorsed"}
         assert actual == expected
@@ -72,23 +133,47 @@ class GetInitializableFieldsTest(ModuleStoreTestCase):
 @ddt.ddt
 class GetEditableFieldsTest(ModuleStoreTestCase):
     """Tests for get_editable_fields"""
+<<<<<<< HEAD
     @ddt.data(*itertools.product([True, False], [True, False], [True, False]))
     @ddt.unpack
     def test_thread(self, is_author, is_privileged, is_cohorted):
+=======
+    @ddt.data(*itertools.product(*[[True, False] for _ in range(5)]))
+    @ddt.unpack
+    def test_thread(
+        self,
+        is_author,
+        is_privileged,
+        is_cohorted,
+        allow_anonymous,
+        allow_anonymous_to_peers
+    ):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         thread = Thread(user_id="5" if is_author else "6", type="thread")
         context = _get_context(
             requester_id="5",
             is_requester_privileged=is_privileged,
+<<<<<<< HEAD
             is_cohorted=is_cohorted
+=======
+            is_cohorted=is_cohorted,
+            allow_anonymous=allow_anonymous,
+            allow_anonymous_to_peers=allow_anonymous_to_peers,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         )
         actual = get_editable_fields(thread, context)
         expected = {"abuse_flagged", "following", "read", "voted"}
         if is_privileged:
+<<<<<<< HEAD
             expected |= {"closed", "pinned"}
+=======
+            expected |= {"closed", "pinned", "close_reason_code", "edit_reason_code"}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if is_author or is_privileged:
             expected |= {"topic_id", "type", "title", "raw_body"}
         if is_privileged and is_cohorted:
             expected |= {"group_id"}
+<<<<<<< HEAD
         assert actual == expected
 
     @ddt.data(*itertools.product([True, False], [True, False], ["question", "discussion"], [True, False]))
@@ -106,6 +191,50 @@ class GetEditableFieldsTest(ModuleStoreTestCase):
             expected |= {"raw_body"}
         if (is_thread_author and thread_type == "question") or is_privileged:
             expected |= {"endorsed"}
+=======
+        if is_author and allow_anonymous:
+            expected |= {"anonymous"}
+        if is_author and allow_anonymous_to_peers:
+            expected |= {"anonymous_to_peers"}
+        assert actual == expected
+
+    @ddt.data(*itertools.product(*[[True, False] for _ in range(6)], ["question", "discussion"]))
+    @ddt.unpack
+    def test_comment(
+        self,
+        is_author,
+        is_thread_author,
+        is_privileged,
+        allow_anonymous,
+        allow_anonymous_to_peers,
+        has_parent,
+        thread_type
+    ):
+        comment = Comment(
+            user_id="5" if is_author else "6",
+            type="comment",
+            parent_id="parent-id" if has_parent else None,
+        )
+        context = _get_context(
+            requester_id="5",
+            is_requester_privileged=is_privileged,
+            thread=Thread(user_id="5" if is_thread_author else "6", thread_type=thread_type),
+            allow_anonymous=allow_anonymous,
+            allow_anonymous_to_peers=allow_anonymous_to_peers,
+        )
+        actual = get_editable_fields(comment, context)
+        expected = {"abuse_flagged", "voted"}
+        if is_privileged:
+            expected |= {"edit_reason_code"}
+        if is_author or is_privileged:
+            expected |= {"raw_body"}
+        if not has_parent and ((is_thread_author and thread_type == "question") or is_privileged):
+            expected |= {"endorsed"}
+        if is_author and allow_anonymous:
+            expected |= {"anonymous"}
+        if is_author and allow_anonymous_to_peers:
+            expected |= {"anonymous_to_peers"}
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         assert actual == expected
 
 

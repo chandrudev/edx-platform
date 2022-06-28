@@ -2,7 +2,13 @@
 Tests for the service classes in verify_student.
 """
 
+<<<<<<< HEAD
 from datetime import datetime, timedelta
+=======
+from datetime import datetime, timedelta, timezone
+import itertools
+from random import randint
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from unittest.mock import patch
 
 import ddt
@@ -17,8 +23,13 @@ from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.verify_student.models import ManualVerification, SoftwareSecurePhotoVerification, SSOVerification
 from lms.djangoapps.verify_student.services import IDVerificationService
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 FAKE_SETTINGS = {
     "DAYS_GOOD_FOR": 365,
@@ -130,7 +141,11 @@ class TestIDVerificationService(ModuleStoreTestCase):
         course = CourseFactory.create(org='Robot', number='999', display_name='Test Course')
         path = IDVerificationService.get_verify_location(course.id)
         expected_path = f'{settings.ACCOUNT_MICROFRONTEND_URL}/id-verification'
+<<<<<<< HEAD
         assert path == (expected_path + '?course_id=Robot/999/Test_Course')
+=======
+        assert path == (expected_path + '?course_id=course-v1%3ARobot%2B999%2BTest_Course')
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_get_verify_location_from_string(self):
         """
@@ -140,6 +155,71 @@ class TestIDVerificationService(ModuleStoreTestCase):
         expected_path = f'{settings.ACCOUNT_MICROFRONTEND_URL}/id-verification'
         assert path == (expected_path + '?course_id=course-v1%3AedX%2BDemoX%2BDemo_Course')
 
+<<<<<<< HEAD
+=======
+    def test_get_expiration_datetime(self):
+        """
+        Test that the latest expiration datetime is returned if there are multiple records
+        """
+        user_a = UserFactory.create()
+
+        SSOVerification.objects.create(
+            user=user_a, status='approved', expiration_date=datetime(2021, 11, 12, 0, 0, tzinfo=timezone.utc)
+        )
+        newer_record = SSOVerification.objects.create(
+            user=user_a, status='approved', expiration_date=datetime(2022, 1, 12, 0, 0, tzinfo=timezone.utc)
+        )
+
+        expiration_datetime = IDVerificationService.get_expiration_datetime(user_a, ['approved'])
+        assert expiration_datetime == newer_record.expiration_datetime
+
+    @ddt.data(
+        {'status': 'denied', 'error_msg': '[{"generalReasons": ["Name mismatch"]}]'},
+        {'status': 'approved', 'error_msg': ''},
+        {'status': 'submitted', 'error_msg': ''},
+    )
+    def test_get_verification_details_by_id(self, kwargs):
+        user = UserFactory.create()
+        kwargs['user'] = user
+        sspv = SoftwareSecurePhotoVerification.objects.create(**kwargs)
+        attempt = IDVerificationService.get_verification_details_by_id(sspv.id)
+        assert attempt.id == sspv.id
+        assert attempt.user.id == user.id
+        assert attempt.status == kwargs['status']
+        assert attempt.error_msg == kwargs['error_msg']
+
+    @ddt.data(
+        *itertools.product(
+            [SSOVerification, ManualVerification],
+            [
+                {'status': 'denied'},
+                {'status': 'approved'},
+                {'status': 'submitted'},
+            ]
+        )
+    )
+    @ddt.unpack
+    def test_get_verification_details_other_types(self, verification_model, kwargs):
+        user = UserFactory.create()
+        kwargs['user'] = user
+        model_object = verification_model.objects.create(**kwargs)
+
+        attempt = IDVerificationService.get_verification_details_by_id(model_object.id)
+        assert attempt.id == model_object.id
+        assert attempt.user.id == user.id
+        assert attempt.status == kwargs['status']
+
+    @ddt.data(
+        SoftwareSecurePhotoVerification, SSOVerification, ManualVerification
+    )
+    def test_get_verification_details_not_found(self, verification_model):
+        user = UserFactory.create()
+        model_object = verification_model.objects.create(user=user)
+        not_found_id = model_object.id + randint(100, 200)
+        attempt = IDVerificationService.get_verification_details_by_id(not_found_id)
+        assert attempt is None
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 @patch.dict(settings.VERIFY_STUDENT, FAKE_SETTINGS)
 @ddt.ddt

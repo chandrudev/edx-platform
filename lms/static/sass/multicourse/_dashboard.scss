@@ -1173,19 +1173,28 @@
       padding: $baseline/2;
       margin-bottom: 0;
 
+<<<<<<< HEAD
       .related-programs-preface {
+=======
+      .related-programs-preface  {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         @include float(left);
 
         margin: 0 $baseline/2;
         font-weight: bold;
       }
 
+<<<<<<< HEAD
       ul {
+=======
+      .related-program-container {
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         display: inline;
         padding: 0;
         margin: 0;
       }
 
+<<<<<<< HEAD
       li {
         @include float(left);
 
@@ -1205,6 +1214,32 @@
         }
       }
 
+=======
+      .related-program-element {
+        &.important-element {
+          @include float(left);
+
+          display: inline;
+          padding: 0 0.5em !important;
+
+          .category-icon {
+            @include float(left);
+            @include margin-right($baseline/4);
+
+            margin-top: ($baseline/10);
+            background-color: transparent;
+            background-size: 100%;
+            width: ($baseline*0.7);
+            height: ($baseline*0.7);
+          }
+        }
+      }
+
+      li {
+        border-right: 1px solid;
+      }
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
       // Remove separator from last list item.
       li:last-child {
         border: 0;

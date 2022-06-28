@@ -6,7 +6,11 @@ Utilities for view tests.
 import json
 
 from cms.djangoapps.contentstore.tests.utils import CourseTestCase
+<<<<<<< HEAD
 from xmodule.modulestore.tests.factories import ItemFactory
+=======
+from xmodule.modulestore.tests.factories import ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from ..helpers import xblock_studio_url
 
@@ -66,7 +70,11 @@ class StudioPageTestCase(CourseTestCase):
         )
         self.validate_html_for_action_button(
             html,
+<<<<<<< HEAD
             'button class="btn-default edit-button action-button">',
+=======
+            'button class="btn-default edit-button action-button"',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             can_edit
         )
         self.validate_html_for_action_button(

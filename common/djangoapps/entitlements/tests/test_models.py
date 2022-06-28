@@ -18,8 +18,13 @@ from lms.djangoapps.certificates.api import MODES
 from lms.djangoapps.certificates.data import CertificateStatuses
 from lms.djangoapps.certificates.tests.factories import GeneratedCertificateFactory
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 # Entitlements is not in CMS' INSTALLED_APPS so these imports will error during test collection
 if settings.ROOT_URLCONF == 'lms.urls':
@@ -109,7 +114,11 @@ class TestCourseEntitlementModelHelpers(ModuleStoreTestCase):
             )
             assert not CourseEnrollment.is_enrolled(user=self.user, course_key=new_course.id)
         except AttributeError as error:
+<<<<<<< HEAD
             self.fail(error.message)  # lint-amnesty, pylint: disable=no-member, exception-message-attribute
+=======
+            self.fail(error.message)  # lint-amnesty, pylint: disable=no-member
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', 'Test only valid in lms')

@@ -11,19 +11,31 @@ file and check it in at the same time as your model changes. To do that,
 3. Add the migration file created in edx-platform/common/djangoapps/student/migrations/
 """
 
+<<<<<<< HEAD
 
 import crum
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 import hashlib  # lint-amnesty, pylint: disable=wrong-import-order
 import json  # lint-amnesty, pylint: disable=wrong-import-order
 import logging  # lint-amnesty, pylint: disable=wrong-import-order
 import uuid  # lint-amnesty, pylint: disable=wrong-import-order
 from collections import defaultdict, namedtuple  # lint-amnesty, pylint: disable=wrong-import-order
+<<<<<<< HEAD
 from datetime import datetime, timedelta  # lint-amnesty, pylint: disable=wrong-import-order
 from functools import total_ordering  # lint-amnesty, pylint: disable=wrong-import-order
 from importlib import import_module  # lint-amnesty, pylint: disable=wrong-import-order
 from urllib.parse import urlencode  # lint-amnesty, pylint: disable=wrong-import-order
 import warnings  # lint-amnesty, pylint: disable=wrong-import-order
 
+=======
+from datetime import date, datetime, timedelta  # lint-amnesty, pylint: disable=wrong-import-order
+from functools import total_ordering  # lint-amnesty, pylint: disable=wrong-import-order
+from importlib import import_module  # lint-amnesty, pylint: disable=wrong-import-order
+from urllib.parse import urlencode, urljoin
+
+import crum
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from config_models.models import ConfigurationModel
 from django.apps import apps
 from django.conf import settings
@@ -38,18 +50,27 @@ from django.db.models import Count, Index, Q
 from django.db.models.signals import post_save, pre_save
 from django.db.utils import ProgrammingError
 from django.dispatch import receiver
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext_noop
 from django_countries.fields import CountryField
+<<<<<<< HEAD
 from edx_django_utils.cache import RequestCache, TieredCache, get_cache_key
 from edx_django_utils import monitoring
 from edx_rest_api_client.exceptions import SlumberBaseException
+=======
+from edx_django_utils import monitoring
+from edx_django_utils.cache import RequestCache, TieredCache, get_cache_key
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from eventtracking import tracker
 from model_utils.models import TimeStampedModel
 from opaque_keys.edx.django.models import CourseKeyField, LearningContextKeyField
 from opaque_keys.edx.keys import CourseKey
+<<<<<<< HEAD
 from pytz import UTC, timezone
 from simple_history.models import HistoricalRecords
 from slumber.exceptions import HttpClientError, HttpServerError
@@ -61,11 +82,15 @@ from openedx_events.learning.data import (
     UserData,
     UserPersonalData,
 )
+=======
+from openedx_events.learning.data import CourseData, CourseEnrollmentData, UserData, UserPersonalData
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx_events.learning.signals import (
     COURSE_ENROLLMENT_CHANGED,
     COURSE_ENROLLMENT_CREATED,
     COURSE_UNENROLLMENT_COMPLETED,
 )
+<<<<<<< HEAD
 import openedx.core.djangoapps.django_comment_common.comment_client as cc
 from common.djangoapps.course_modes.models import CourseMode, get_cosmetic_verified_display_price
 from common.djangoapps.student.emails import send_proctoring_requirements_email
@@ -73,6 +98,21 @@ from common.djangoapps.student.email_helpers import (
     generate_proctoring_requirements_email_context,
     should_send_proctoring_requirements_email
 )
+=======
+from openedx_filters.learning.filters import CourseEnrollmentStarted, CourseUnenrollmentStarted
+from pytz import UTC, timezone
+from requests.exceptions import HTTPError, RequestException
+from simple_history.models import HistoricalRecords
+from user_util import user_util
+
+import openedx.core.djangoapps.django_comment_common.comment_client as cc
+from common.djangoapps.course_modes.models import CourseMode, get_cosmetic_verified_display_price
+from common.djangoapps.student.email_helpers import (
+    generate_proctoring_requirements_email_context,
+    should_send_proctoring_requirements_email,
+)
+from common.djangoapps.student.emails import send_proctoring_requirements_email
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from common.djangoapps.student.signals import ENROLL_STATUS_CHANGE, ENROLLMENT_TRACK_UPDATED, UNENROLL_DONE
 from common.djangoapps.track import contexts, segment
 from common.djangoapps.util.model_utils import emit_field_changed_events, get_changed_fields_dict
@@ -85,7 +125,11 @@ from lms.djangoapps.courseware.models import (
 )
 from lms.djangoapps.courseware.toggles import streak_celebration_is_active
 from lms.djangoapps.verify_student.models import SoftwareSecurePhotoVerification
+<<<<<<< HEAD
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+=======
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview,LiveClasses
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 from openedx.core.djangoapps.enrollments.api import (
     _default_course_mode,
     get_enrollment_attributes,
@@ -161,12 +205,19 @@ class AnonymousUserId(models.Model):
     course_id = LearningContextKeyField(db_index=True, max_length=255, blank=True)
 
 
+<<<<<<< HEAD
 def anonymous_id_for_user(user, course_id, save='DEPRECATED'):
+=======
+def anonymous_id_for_user(user, course_id):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Inputs:
         user: User model
         course_id: string or None
+<<<<<<< HEAD
         save: Deprecated and ignored: ID is always saved in an AnonymousUserId object
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     Return a unique id for a (user, course_id) pair, suitable for inserting
     into e.g. personalized survey links.
@@ -178,6 +229,7 @@ def anonymous_id_for_user(user, course_id, save='DEPRECATED'):
 
     # This part is for ability to get xblock instance in xblock_noauth handlers, where user is unauthenticated.
     assert user
+<<<<<<< HEAD
 
     if save != 'DEPRECATED':
         warnings.warn(
@@ -186,6 +238,9 @@ def anonymous_id_for_user(user, course_id, save='DEPRECATED'):
             DeprecationWarning
         )
 
+=======
+    
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     if user.is_anonymous:
         return None
 
@@ -337,7 +392,15 @@ def email_exists_or_retired(email):
     """
     Check an email against the User model for existence.
     """
+<<<<<<< HEAD
     return User.objects.filter(email=email).exists() or is_email_retired(email)
+=======
+    return (
+        User.objects.filter(email=email).exists() or
+        is_email_retired(email) or
+        AccountRecovery.objects.filter(secondary_email=email).exists()
+    )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def get_retired_username_by_username(username):
@@ -624,7 +687,12 @@ class UserProfile(models.Model):
     profile_image_uploaded_at = models.DateTimeField(null=True, blank=True)
     phone_regex = RegexValidator(regex=r'^\+?1?\d*$', message="Phone number can only contain numbers.")
     phone_number = models.CharField(validators=[phone_regex], blank=True, null=True, max_length=50)
+<<<<<<< HEAD
 
+=======
+    #attendance = models.CharField(max_length=250, null=True, db_index=True)
+    #user_attendance = models.CharField(max_length=250, null=True, db_index=True)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     @property
     def has_profile_image(self):
         """
@@ -679,11 +747,19 @@ class UserProfile(models.Model):
         self.set_meta(meta)
         self.save()
 
+<<<<<<< HEAD
     def requires_parental_consent(self, date=None, age_limit=None, default_requires_consent=True):
         """Returns true if this user requires parental consent.
 
         Args:
             date (Date): The date for which consent needs to be tested (defaults to now).
+=======
+    def requires_parental_consent(self, year=None, age_limit=None, default_requires_consent=True):
+        """Returns true if this user requires parental consent.
+
+        Args:
+            year (int): The year for which consent needs to be tested (defaults to now).
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             age_limit (int): The age limit at which parental consent is no longer required.
                 This defaults to the value of the setting 'PARENTAL_CONTROL_AGE_LIMIT'.
             default_requires_consent (bool): True if users require parental consent if they
@@ -708,10 +784,17 @@ class UserProfile(models.Model):
         if year_of_birth is None:
             return default_requires_consent
 
+<<<<<<< HEAD
         if date is None:
             age = self.age
         else:
             age = self._calculate_age(date.year, year_of_birth)
+=======
+        if year is None:
+            age = self.age
+        else:
+            age = self._calculate_age(year, year_of_birth)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         return age < age_limit
 
@@ -871,6 +954,7 @@ class UserSignupSource(models.Model):
     site = models.CharField(max_length=255, db_index=True)
 
 
+<<<<<<< HEAD
 def unique_id_for_user(user, save='DEPRECATED'):
     """
     Return a unique id for a user, suitable for inserting into
@@ -885,6 +969,13 @@ def unique_id_for_user(user, save='DEPRECATED'):
             "always saves the ID in the database",
             DeprecationWarning
         )
+=======
+def unique_id_for_user(user):
+    """
+    Return a unique id for a user, suitable for inserting into
+    e.g. personalized survey links.
+    """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     # Setting course_id to '' makes it not affect the generated hash,
     # and thus produce the old per-student anonymous id
     return anonymous_id_for_user(user, None)
@@ -1113,6 +1204,17 @@ class AlreadyEnrolledError(CourseEnrollmentException):
     pass
 
 
+<<<<<<< HEAD
+=======
+class EnrollmentNotAllowed(CourseEnrollmentException):
+    pass
+
+
+class UnenrollmentNotAllowed(CourseEnrollmentException):
+    pass
+
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 class CourseEnrollmentManager(models.Manager):
     """
     Custom manager for CourseEnrollment with Table-level filter methods.
@@ -1221,6 +1323,12 @@ class CourseEnrollmentManager(models.Manager):
 # is used to cache the state in the request cache.
 CourseEnrollmentState = namedtuple('CourseEnrollmentState', 'mode, is_active')
 
+<<<<<<< HEAD
+=======
+class LiveClassEnrollment(models.Model):
+    live_class = models.ForeignKey(LiveClasses, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class CourseEnrollment(models.Model):
     """
@@ -1623,6 +1731,16 @@ class CourseEnrollment(models.Model):
 
         Also emits relevant events for analytics purposes.
         """
+<<<<<<< HEAD
+=======
+        try:
+            user, course_key, mode = CourseEnrollmentStarted.run_filter(
+                user=user, course_key=course_key, mode=mode,
+            )
+        except CourseEnrollmentStarted.PreventEnrollment as exc:
+            raise EnrollmentNotAllowed(str(exc)) from exc
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if mode is None:
             mode = _default_course_mode(str(course_key))
         # All the server-side checks for whether a user is allowed to enroll.
@@ -1751,6 +1869,17 @@ class CourseEnrollment(models.Model):
 
         try:
             record = cls.objects.get(user=user, course_id=course_id)
+<<<<<<< HEAD
+=======
+
+            try:
+                # .. filter_implemented_name: CourseUnenrollmentStarted
+                # .. filter_type: org.openedx.learning.course.unenrollment.started.v1
+                record = CourseUnenrollmentStarted.run_filter(enrollment=record)
+            except CourseUnenrollmentStarted.PreventUnenrollment as exc:
+                raise UnenrollmentNotAllowed(str(exc)) from exc
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             record.update_enrollment(is_active=False, skip_refund=skip_refund)
 
         except cls.DoesNotExist:
@@ -1962,6 +2091,10 @@ class CourseEnrollment(models.Model):
         # Due to circular import issues this import was placed close to usage. To move this to the
         # top of the file would require a large scale refactor of the refund code.
         import lms.djangoapps.certificates.api
+<<<<<<< HEAD
+=======
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         # If the student has already been given a certificate in a non refundable status they should not be refunded
         certificate = lms.djangoapps.certificates.api.get_certificate_for_user_id(
             self.user,
@@ -2042,7 +2175,11 @@ class CourseEnrollment(models.Model):
         """
 
         # NOTE: This is here to avoid circular references
+<<<<<<< HEAD
         from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
+=======
+        from openedx.core.djangoapps.commerce.utils import get_ecommerce_api_base_url, get_ecommerce_api_client
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         order_number = self.get_order_attribute_value('order_number')
         if not order_number:
             return None
@@ -2055,6 +2192,7 @@ class CourseEnrollment(models.Model):
         else:
             try:
                 # response is not cached, so make a call to ecommerce to fetch order details
+<<<<<<< HEAD
                 order = ecommerce_api_client(self.user).orders(order_number).get()
             except HttpClientError:
                 log.warning(
@@ -2072,6 +2210,23 @@ class CourseEnrollment(models.Model):
                 log.warning(
                     "Encountered an error while getting order details from ecommerce. "
                     "Order={number} and user {user}".format(number=order_number, user=self.user.id))
+=======
+                api_url = urljoin(f"{get_ecommerce_api_base_url()}/", f"orders/{order_number}/")
+                response = get_ecommerce_api_client(self.user).get(api_url)
+                response.raise_for_status()
+                order = response.json()
+            except HTTPError as err:
+                log.warning(
+                    "Encountered HTTPError while getting order details from ecommerce. "
+                    "Status code was %d, Order=%s and user %s", err.response.status_code, order_number, self.user.id
+                )
+                return None
+            except RequestException:
+                log.warning(
+                    "Encountered an error while getting order details from ecommerce. "
+                    "Order=%s and user %s", order_number, self.user.id
+                )
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
                 return None
 
             cache_time_out = getattr(settings, 'ECOMMERCE_ORDERS_API_CACHE_TIMEOUT', 3600)
@@ -2812,7 +2967,11 @@ class LinkedInAddToProfileConfiguration(ConfigurationModel):
         ),
     )
 
+<<<<<<< HEAD
     def is_enabled(self, *key_fields):
+=======
+    def is_enabled(self, *key_fields):  # pylint: disable=arguments-differ
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         """
         Checks both the model itself and share_settings to see if LinkedIn Add to Profile is enabled
         """
@@ -3441,6 +3600,7 @@ class CourseEnrollmentCelebration(TimeStampedModel):
     """
     enrollment = models.OneToOneField(CourseEnrollment, models.CASCADE, related_name='celebration')
     celebrate_first_section = models.BooleanField(default=False)
+<<<<<<< HEAD
 
     def __str__(self):
         return (
@@ -3450,6 +3610,24 @@ class CourseEnrollmentCelebration(TimeStampedModel):
     @staticmethod
     def should_celebrate_first_section(enrollment):
         """ Returns the celebration value for first_section with appropriate fallback if it doesn't exist """
+=======
+    celebrate_weekly_goal = models.BooleanField(default=False)
+
+    def __str__(self):
+        return (
+            '[CourseEnrollmentCelebration] course: {}; user: {}'
+        ).format(self.enrollment.course.id, self.enrollment.user.username)
+
+    @staticmethod
+    def should_celebrate_first_section(enrollment):
+        """
+        Returns the celebration value for first_section with appropriate fallback if it doesn't exist.
+
+        The frontend will use this result and additional information calculated to actually determine
+        if the first section celebration will render. In other words, the value returned here is
+        NOT the final value used.
+        """
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         if not enrollment:
             return False
         try:
@@ -3457,6 +3635,39 @@ class CourseEnrollmentCelebration(TimeStampedModel):
         except CourseEnrollmentCelebration.DoesNotExist:
             return False
 
+<<<<<<< HEAD
+=======
+    @staticmethod
+    def should_celebrate_weekly_goal(enrollment):
+        """
+        Returns the celebration value for weekly_goal with appropriate fallback if it doesn't exist.
+
+        The frontend will use this result directly to determine if the weekly goal celebration
+        should be rendered. The value returned here IS the final value used.
+        """
+        # Avoiding circular import
+        from lms.djangoapps.course_goals.models import CourseGoal, UserActivity
+        try:
+            if not enrollment or not enrollment.celebration.celebrate_weekly_goal:
+                return False
+        except CourseEnrollmentCelebration.DoesNotExist:
+            return False
+
+        try:
+            goal = CourseGoal.objects.get(user=enrollment.user, course_key=enrollment.course.id)
+            if not goal.days_per_week:
+                return False
+
+            today = date.today()
+            monday_date = today - timedelta(days=today.weekday())
+            week_activity_count = UserActivity.objects.filter(
+                user=enrollment.user, course_key=enrollment.course.id, date__gte=monday_date,
+            ).count()
+            return week_activity_count == goal.days_per_week
+        except CourseGoal.DoesNotExist:
+            return False
+
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 class UserPasswordToggleHistory(TimeStampedModel):
     """
@@ -3472,3 +3683,25 @@ class UserPasswordToggleHistory(TimeStampedModel):
 
     def __str__(self):
         return self.comment
+<<<<<<< HEAD
+=======
+
+class DocumentStorage(models.Model):
+    objects = None
+    id = models.AutoField(primary_key=True)
+    course= models.ForeignKey(CourseOverview, related_name='Course', on_delete=models.CASCADE)
+    chapter_name = models.CharField(max_length=50, help_text='Course Chapter Name', null=True, blank=True)
+    document_type = models.CharField(max_length=10, null=True, blank=True)
+    document_name = models.CharField(max_length=50, null=True, blank=True, help_text='Enter Document Name')
+    document = models.FileField(upload_to="course_docs")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    added_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return json.dumps({"course_id":self.course_id, "document_id":self.document_id})
+
+    class Meta:
+        db_table = 'cms_doc_storage'
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38

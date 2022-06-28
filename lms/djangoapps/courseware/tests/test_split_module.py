@@ -5,17 +5,29 @@ Test for split test XModule
 
 from unittest.mock import MagicMock
 from django.urls import reverse
+<<<<<<< HEAD
+=======
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from xmodule.partitions.partitions import Group, UserPartition
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from lms.djangoapps.courseware.model_data import FieldDataCache
 from lms.djangoapps.courseware.module_render import get_module_for_descriptor
 from openedx.core.djangoapps.user_api.tests.factories import UserCourseTagFactory
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
+<<<<<<< HEAD
 from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 from xmodule.partitions.partitions import Group, UserPartition
 
 
 class SplitTestBase(SharedModuleStoreTestCase):
+=======
+
+
+class SplitTestBase(ModuleStoreTestCase):
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     """
     Sets up a basic course and user for split test testing.
     Also provides tests of rendered HTML for two user_tag conditions, 0 and 1.
@@ -39,6 +51,7 @@ class SplitTestBase(SharedModuleStoreTestCase):
             ]
         )
 
+<<<<<<< HEAD
         cls.course = CourseFactory.create(
             number=cls.COURSE_NUMBER,
             user_partitions=[cls.partition]
@@ -51,13 +64,32 @@ class SplitTestBase(SharedModuleStoreTestCase):
         )
         cls.sequential = ItemFactory.create(
             parent_location=cls.chapter.location,
+=======
+    def setUp(self):
+        super().setUp()
+
+        self.course = CourseFactory.create(
+            number=self.COURSE_NUMBER,
+            user_partitions=[self.partition]
+        )
+        self.chapter = ItemFactory.create(
+            parent_location=self.course.location,
+            category="chapter",
+            display_name="test chapter",
+        )
+        self.sequential = ItemFactory.create(
+            parent_location=self.chapter.location,
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
             category="sequential",
             display_name="Split Test Tests",
         )
 
+<<<<<<< HEAD
     def setUp(self):
         super().setUp()
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         self.student = UserFactory.create()
         CourseEnrollmentFactory.create(user=self.student, course_id=self.course.id)
         self.client.login(username=self.student.username, password='test')
@@ -116,12 +148,16 @@ class SplitTestBase(SharedModuleStoreTestCase):
             value=str(user_tag)
         )
 
+<<<<<<< HEAD
         resp = self.client.get(reverse(
             'courseware_section',
             kwargs={'course_id': str(self.course.id),
                     'chapter': self.chapter.url_name,
                     'section': self.sequential.url_name}
         ))
+=======
+        resp = self.client.get(reverse('render_xblock', args=[str(self.sequential.location)]))
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         unicode_content = resp.content.decode(resp.charset)
 
         # Assert we see the proper icon in the top display

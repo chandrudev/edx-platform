@@ -16,7 +16,11 @@ import lms.djangoapps.grades.scores as scores
 from lms.djangoapps.grades.models import BlockRecord
 from lms.djangoapps.grades.transformer import GradesTransformer
 from openedx.core.djangoapps.content.block_structure.block_structure import BlockData
+<<<<<<< HEAD
 from xmodule.graders import ProblemScore
+=======
+from xmodule.graders import ProblemScore  # lint-amnesty, pylint: disable=wrong-import-order
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 NOW = now()
 
@@ -58,7 +62,11 @@ class TestScoredBlockTypes(TestCase):
         'course', 'chapter', 'sequential', 'vertical',
         'library_content', 'split_test', 'conditional', 'library', 'randomize',
         'problem', 'drag-and-drop-v2', 'openassessment', 'lti', 'lti_consumer',
+<<<<<<< HEAD
         'videosequence', 'problemset', 'acid_parent', 'done', 'wrapper', 'edx_sga',
+=======
+        'acid_parent', 'done', 'wrapper', 'edx_sga',
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     }
 
     def test_block_types_possibly_scored(self):

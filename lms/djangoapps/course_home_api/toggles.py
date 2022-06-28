@@ -2,6 +2,7 @@
 Toggles for course home experience.
 """
 
+<<<<<<< HEAD
 from edx_toggles.toggles import LegacyWaffleFlagNamespace
 
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
@@ -27,13 +28,26 @@ COURSE_HOME_USE_LEGACY_FRONTEND = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'cours
 
 def course_home_legacy_is_active(course_key):
     return COURSE_HOME_USE_LEGACY_FRONTEND.is_enabled(course_key) or course_key.deprecated
+=======
+from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
+
+WAFFLE_FLAG_NAMESPACE = 'course_home'
+
+COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag(  # lint-amnesty, pylint: disable=toggle-missing-annotation
+    f'{WAFFLE_FLAG_NAMESPACE}.course_home_mfe_progress_tab', __name__
+)
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 
 def course_home_mfe_progress_tab_is_active(course_key):
     # Avoiding a circular dependency
     from .models import DisableProgressPageStackedConfig
     return (
+<<<<<<< HEAD
         (not course_home_legacy_is_active(course_key)) and
+=======
+        not course_key.deprecated and
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         COURSE_HOME_MICROFRONTEND_PROGRESS_TAB.is_enabled(course_key) and
         not DisableProgressPageStackedConfig.current(course_key=course_key).disabled
     )

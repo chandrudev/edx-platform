@@ -71,10 +71,14 @@ def top_python_dirs(dirname):
             dirs = os.listdir(subdir)
             top_dirs.extend(d for d in dirs if os.path.isdir(os.path.join(subdir, d)))
 
+<<<<<<< HEAD
     # sandbox-packages module causes F0001: module-not-found error when running pylint
     # this will exclude sandbox-packages module from pylint execution
     # TODO: upgrade the functionality to run pylint tests on sandbox-packages module too.
     modules_to_remove = ['sandbox-packages', '__pycache__']
+=======
+    modules_to_remove = ['__pycache__']
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     for module in modules_to_remove:
         if module in top_dirs:
             top_dirs.remove(module)
@@ -375,14 +379,22 @@ def run_stylelint(options):
     Runs stylelint on Sass files.
     If limit option is passed, fails build if more violations than the limit are found.
     """
+<<<<<<< HEAD
     violations_limit = int(getattr(options, 'limit', -1))
+=======
+    violations_limit = 0
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     num_violations = _get_stylelint_violations()
 
     # Record the metric
     _write_metric(num_violations, (Env.METRICS_DIR / "stylelint"))
 
     # Fail if number of violations is greater than the limit
+<<<<<<< HEAD
     if num_violations > violations_limit > -1:
+=======
+    if num_violations > violations_limit:
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         fail_quality(
             'stylelint',
             "FAILURE: Stylelint failed with too many violations: ({count}).\nThe limit is {violations_limit}.".format(
@@ -505,6 +517,7 @@ def run_xsslint(options):
         write_junit_xml('xsslint')
 
 
+<<<<<<< HEAD
 @task
 @needs('pavelib.prereqs.install_python_prereqs')
 @timed
@@ -560,6 +573,8 @@ def run_xsscommitlint():
     write_junit_xml("xsscommitlint")
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _write_metric(metric, filename):
     """
     Write a given metric to a given file
@@ -663,6 +678,7 @@ def _get_xsslint_counts(filename):
     return violations
 
 
+<<<<<<< HEAD
 def _get_xsscommitlint_count(filename):
     """
     Returns the violation count from the xsscommitlint report.
@@ -691,6 +707,8 @@ def _get_xsscommitlint_count(filename):
         return None
 
 
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 def _extract_missing_pii_annotations(filename):
     """
     Returns the number of uncovered models from the stdout report of django_find_annotations.

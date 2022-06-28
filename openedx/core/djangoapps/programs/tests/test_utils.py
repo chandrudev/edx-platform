@@ -16,6 +16,13 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from pytz import utc
 from testfixtures import LogCapture
+<<<<<<< HEAD
+=======
+from xmodule.data import CertificatesDisplayBehaviors
+from xmodule.modulestore.django import modulestore
+from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
+from xmodule.modulestore.tests.factories import CourseFactory as ModuleStoreCourseFactory
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
@@ -49,12 +56,15 @@ from openedx.core.djangoapps.site_configuration.tests.factories import SiteFacto
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 from common.djangoapps.student.tests.factories import AnonymousUserFactory, CourseEnrollmentFactory, UserFactory
 from common.djangoapps.util.date_utils import strftime_localized
+<<<<<<< HEAD
 from xmodule.data import CertificatesDisplayBehaviors
 from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.tests.django_utils import (
     ModuleStoreTestCase, SharedModuleStoreTestCase, TEST_DATA_SPLIT_MODULESTORE
 )
 from xmodule.modulestore.tests.factories import CourseFactory as ModuleStoreCourseFactory
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
 ECOMMERCE_URL_ROOT = 'https://ecommerce.example.com'
 UTILS_MODULE = 'openedx.core.djangoapps.programs.utils'
@@ -105,9 +115,15 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
 
         meter = ProgramProgressMeter(self.site, self.user)
 
+<<<<<<< HEAD
         assert meter.engaged_programs == []
         self._assert_progress(meter)
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not meter.engaged_programs
+        self._assert_progress(meter)
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_enrollments_but_no_programs(self, mock_get_programs):
         """Verify behavior when enrollments exist, but no matching programs do."""
@@ -117,9 +133,15 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
         self._create_enrollments(course_run_id)
         meter = ProgramProgressMeter(self.site, self.user)
 
+<<<<<<< HEAD
         assert meter.engaged_programs == []
         self._assert_progress(meter)
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not meter.engaged_programs
+        self._assert_progress(meter)
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_entitlements_but_no_programs(self, mock_get_programs):
         """ Verify engaged_programs is empty when entitlements exist, but no matching programs do. """
@@ -128,7 +150,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
         self._create_entitlements(uuid.uuid4())
         meter = ProgramProgressMeter(self.site, self.user)
 
+<<<<<<< HEAD
         assert meter.engaged_programs == []
+=======
+        assert not meter.engaged_programs
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_single_program_enrollment(self, mock_get_programs):
         """
@@ -158,7 +184,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
             meter,
             ProgressFactory(uuid=program['uuid'], in_progress=1)
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_single_program_entitlement(self, mock_get_programs):
         """
@@ -375,7 +405,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
             meter,
             *(ProgressFactory(uuid=program['uuid'], in_progress=1) for program in programs)
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_multiple_program_entitlement(self, mock_get_programs):
         """
@@ -443,7 +477,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
             meter,
             *(ProgressFactory(uuid=program['uuid'], in_progress=1) for program in programs)
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
     def test_shared_entitlement_engagement(self, mock_get_programs):
         """
@@ -522,7 +560,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
         # No enrollments, no programs in progress.
         meter = ProgramProgressMeter(self.site, self.user)
         self._assert_progress(meter)
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # One enrollment, one program in progress.
         self._create_enrollments(first_course_run_key)
@@ -532,7 +574,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
             meter,
             ProgressFactory(uuid=program_uuid, in_progress=1, not_started=2)
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # 3 enrollments, 3 courses in progress.
         self._create_enrollments(second_course_run_key)
@@ -545,7 +591,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
                 in_progress=3,
             )
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # One valid certificate earned, one course complete.
         self._create_certificates(first_course_run_key, mode=MODES.verified)
@@ -558,7 +608,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
                 in_progress=2,
             )
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Invalid certificate earned, still one course to complete. (invalid because mode doesn't match the course)
         second_cert = self._create_certificates(second_course_run_key, mode=MODES.honor)[0]
@@ -572,7 +626,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
                 in_progress=2,
             )
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Second valid certificate obtained, 2 courses complete.
         second_cert.mode = MODES.verified
@@ -586,7 +644,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
                 in_progress=1,
             )
         )
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # 3 certs, 1 unavailable, Program available in the future
         self._create_certificates(third_course_run_key, mode=MODES.verified)
@@ -770,7 +832,11 @@ class TestProgramProgressMeter(ModuleStoreTestCase):
 
         # Verify that the test program is not complete.
         meter = ProgramProgressMeter(self.site, self.user)
+<<<<<<< HEAD
         assert list(meter.completed_programs_with_available_dates.keys()) == []
+=======
+        assert not list(meter.completed_programs_with_available_dates.keys())
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
 
         # Grant a 'no-id-professional' certificate for one of the course runs,
         # thereby completing the program.
@@ -1654,7 +1720,10 @@ class TestProgramEnrollment(SharedModuleStoreTestCase):
 
     Requests to the data in the Program cache are mocked out.
     """
+<<<<<<< HEAD
     MODULESTORE = TEST_DATA_SPLIT_MODULESTORE
+=======
+>>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
     MICROBACHELORS = 'microbachelors'
 
     @classmethod
