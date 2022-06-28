@@ -30,10 +30,7 @@
      *         - verifyToggleBannerFailedOff
      */
      edx.dashboard.legacy.init = function(urls) {
-<<<<<<< HEAD
-=======
 
->>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
          var $notifications = $('.dashboard-notifications'),
              $upgradeButtonLinks = $('.action-upgrade'),
              $verifyButtonLinks = $('.verification-cta > .cta');
@@ -43,8 +40,6 @@
              $notifications.focus();
          }
 
-<<<<<<< HEAD
-=======
          live_class()
          function live_class()
          {
@@ -101,7 +96,6 @@
             });
         }
 
->>>>>>> 295cf4fc64a17ee2e01e062ad782fcbe7b514c38
         // Track clicks of the upgrade button. The `trackLink` method is a helper that makes
         // a `track` call whenever a bound link is clicked. Usually the page would change before
         // `track` had time to execute; `trackLink` inserts a small timeout to give the `track`
