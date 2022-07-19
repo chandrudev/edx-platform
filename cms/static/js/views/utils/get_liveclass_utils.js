@@ -17,8 +17,9 @@ define(["jquery", "gettext", "common/js/components/utils/view_utils", "js/views/
     var nonEmptyCheckFieldSelectors = [selectors.name, selectors.org, selectors.number];
 
     CreateUtilsFactory.call(this, selectors, classes);
+    var base_url = window.location.origin;
 
-    var endpoint = "http://localhost:18010/live_class/details/";
+    var endpoint = base_url+"/live_class/details/";
     var lib_info = {};
 
     //Pagination is implemented using the two buttons
@@ -36,19 +37,21 @@ define(["jquery", "gettext", "common/js/components/utils/view_utils", "js/views/
     //To Delete selected Live class
     var deleteLive = (e) => {
       let id = e.target.attributes.value.value;
-      $.deleteJSON("http://localhost:18010/live_class/" + id, id, function (id) {});
+      var base_url = window.location.origin;
+      $.deleteJSON(base_url+"/live_class/" + id, id, function (id) {});
       window.location.reload();
     };
 
     //To Update Live class
     var updateLive = (e) => {
+      var base_url = window.location.origin;
       let id = e.target.attributes.value.value;
       var createLiveButton = document.querySelector(".new-liveclass-button");
       createLiveButton.click();
       console.log(id);
 
       //Getting details of Live class using id
-      $.getJSON("http://localhost:18010/live_class/" + id, id, function (id) {}).then((data) => {
+      $.getJSON(base_url+"/live_class/" + id, id, function (id) {}).then((data) => {
         console.log(data);
 
         displayAssignedUsers(data.id);
@@ -99,7 +102,8 @@ define(["jquery", "gettext", "common/js/components/utils/view_utils", "js/views/
             start_date.val() < end_date.val() ||
             (start_date.val() === end_date.val() && start_time.val() < end_time.val())
           ) {
-            $.patchJSON("http://localhost:18010/live_class/" + id, lib_info, function (id) {}).then(() => {
+            var base_url = window.location.origin;
+            $.patchJSON(base_url+"/live_class/" + id, lib_info, function (id) {}).then(() => {
               console.log("Update Success");
               window.location.reload();
             });
@@ -111,7 +115,9 @@ define(["jquery", "gettext", "common/js/components/utils/view_utils", "js/views/
     };
 
     var displayAssignedUsers = (id) => {
-      $.getJSON("http://localhost:18010/live_class/enroll/detail/" + id, {}).then((data) => {
+    var base_url = window.location.origin;
+
+      $.getJSON(base_url+"/live_class/enroll/detail/" + id, {}).then((data) => {
         var assignedUsersList = document.querySelector(".assigned-liveclass-users");
         assignedUsersList.innerText = "";
         if (data.results.length !== 0) {
@@ -131,16 +137,17 @@ define(["jquery", "gettext", "common/js/components/utils/view_utils", "js/views/
     this.create = function (liveclassInfo, errorHandler) {
       $.getJSON(endpoint, liveclassInfo)
         .done(function (response) {
+          var base_url = window.location.origin;
           var output = document.getElementById("output");
           output.innerHTML = "";
           output.style.display = "block";
 
           //Assigning the values of Previous and Next buttons
           response.next === null
-            ? (nextButton.value = "http://localhost:18010/live_class/details/")
+            ? (nextButton.value = base_url+"/live_class/details/")
             : (nextButton.value = response.next);
           response.previous === null
-            ? (prevButton.value = "http://localhost:18010/live_class/details/?page=" + response.num_pages)
+            ? (prevButton.value = base_url+"/live_class/details/?page=" + response.num_pages)
             : (prevButton.value = response.previous);
 
           //Getting list of live classes as js object
