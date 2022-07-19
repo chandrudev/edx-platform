@@ -1580,7 +1580,6 @@ xblock==1.6.1
     #   crowdsourcehinter-xblock
     #   done-xblock
     #   edx-completion
-    #   edx-sga
     #   edx-user-state-client
     #   edx-when
     #   lti-consumer-xblock
@@ -1599,7 +1598,6 @@ xblock-poll @ git+https://github.com/open-craft/xblock-poll@v1.12.0
 xblock-utils==3.0.0
     # via
     #   -r requirements/edx/testing.txt
-    #   edx-sga
     #   lti-consumer-xblock
     #   staff-graded-xblock
     #   xblock-drag-and-drop-v2
