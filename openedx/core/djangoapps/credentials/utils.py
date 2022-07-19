@@ -44,6 +44,23 @@ def get_credentials_api_client(user, org=None):
     return EdxRestApiClient(url, jwt=jwt)
 
 
+
+
+def get_credentials_api_base_url(org=None):
+    """
+    Returns a credentials API base URL.
+
+    Arguments:
+        org (str): Optional organization to look up the site config for, rather than the current request
+    """
+    if org is None:
+        url = CredentialsApiConfig.current().internal_api_url  # by current request
+    else:
+        url = CredentialsApiConfig.get_internal_api_url_for_org(org)  # by org
+
+    return url
+
+
 def get_credentials(user, program_uuid=None, credential_type=None):
     """
     Given a user, get credentials earned from the credentials service.
