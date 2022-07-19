@@ -454,7 +454,7 @@ class TestProblemTypeAccess(SharedModuleStoreTestCase, MasqueradeMixin):  # pyli
         ('openassessment', True),
         ('drag-and-drop-v2', True),
         ('done', True),
-        ('edx_sga', True),
+        # ('edx_sga', True),
         ('lti_block', True),
         ('ungraded_problem', False),
         ('lti_block_not_scored', False),
