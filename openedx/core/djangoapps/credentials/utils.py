@@ -5,7 +5,7 @@ from edx_rest_api_client.client import EdxRestApiClient
 
 from openedx.core.djangoapps.credentials.models import CredentialsApiConfig
 from openedx.core.djangoapps.oauth_dispatch.jwt import create_jwt_for_user
-from openedx.core.lib.edx_api_utils import get_edx_api_data
+from openedx.core.lib.edx_api_utils import get_api_data
 
 
 def get_credentials_records_url(program_uuid=None):
@@ -77,6 +77,6 @@ def get_credentials(user, program_uuid=None, credential_type=None):
         cache_key = f'{cache_key}.{program_uuid}'
     api = get_credentials_api_client(user)
 
-    return get_edx_api_data(
+    return get_api_data(
         credential_configuration, 'credentials', api=api, querystring=querystring, cache_key=cache_key
     )
