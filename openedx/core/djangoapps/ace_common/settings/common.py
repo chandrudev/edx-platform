@@ -2,6 +2,8 @@
 Settings for ace_common app.
 """
 
+ACE_ROUTING_KEY='edx.core.low'
+
 
 def plugin_settings(settings):  # lint-amnesty, pylint: disable=missing-function-docstring, missing-module-docstring
     settings.ACE_ENABLED_CHANNELS = [
