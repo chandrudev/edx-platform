@@ -444,6 +444,8 @@ function enroll_click()
 }
 function enroll_student()
 {
+  var base_url = window.location.origin;
+
   url=window.location.href;  
   str_data = url.split('/')
   student = document.getElementById('enroll-student').value
@@ -453,7 +455,7 @@ function enroll_student()
         "course_id":str_data[str_data.length-1]
     }
 }
-  fetch("http://localhost:18010/user/enrollment", {
+  fetch(base_url+"/user/enrollment", {
       method: "POST",
       headers: {
       'Content-Type': 'application/json',
@@ -490,11 +492,11 @@ function removeElementStudents() {
 }
 function login()
 {
- 
-          let formData = new FormData();
+var base_url = window.location.origin; 
+let formData = new FormData();
 formData.append("email","edx@example.com");
 formData.append( "password","edx123456");
-  fetch('http://localhost:18010/api/user/v1/account/login_session/', {
+  fetch(base_url+'/api/user/v1/account/login_session/', {
     body: formData,
            method: "POST"
           
@@ -508,7 +510,8 @@ formData.append( "password","edx123456");
 }
 function csrftoken()
 {
-  fetch('http://localhost:18010/csrf/api/v1/token', {headers: {
+  var base_url = window.location.origin; 
+  fetch(base_url+'/csrf/api/v1/token', {headers: {
           'Content-Type': 'application/json',
         }},)
     .then( res => res.json() )
@@ -522,8 +525,10 @@ function getStudents()
 {
   url=window.location.href;  
   str_data = url.split('/')
+  var base_url = window.location.origin; 
+
   
-   fetch("http://localhost:18010/course/enroll/course/detail/"+encodeURIComponent(str_data[str_data.length-1]), 
+   fetch(base_url+"/course/enroll/course/detail/"+encodeURIComponent(str_data[str_data.length-1]), 
   // fetch("http://localhost:18010/user/enrollment?course_id="+encodeURIComponent(str_data[str_data.length-1]), 
        )
     .then( res => res.json() )
