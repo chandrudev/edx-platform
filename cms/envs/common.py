@@ -929,7 +929,7 @@ P3P_HEADER = 'CP="Open EdX does not have a P3P policy."'
 
 # Import after sys.path fixup
 from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore import prefer_xmodules
+# from xmodule.modulestore import prefer_xmodules
 from xmodule.x_module import XModuleMixin
 
 # These are the Mixins that should be added to every XBlock.
@@ -944,7 +944,7 @@ XBLOCK_MIXINS = (
 )
 XBLOCK_EXTRA_MIXINS = ()
 
-XBLOCK_SELECT_FUNCTION = prefer_xmodules
+# XBLOCK_SELECT_FUNCTION = prefer_xmodules
 
 # Paths to wrapper methods which should be applied to every XBlock's FieldData.
 XBLOCK_FIELD_DATA_WRAPPERS = ()

@@ -72,6 +72,7 @@ from lms.djangoapps.lms_xblock.mixin import LmsBlockMixin
 # .. setting_default: Your Platform Name Here
 # .. setting_description: The display name of the platform to be used in
 #     templates/emails/etc.
+'ALLOW_ALL_ADVANCED_COMPONENTS': True
 PLATFORM_NAME = _('Your Platform Name Here')
 PLATFORM_DESCRIPTION = _('Your Platform Description Here')
 CC_MERCHANT_NAME = PLATFORM_NAME
@@ -1518,7 +1519,7 @@ COURSE_LISTINGS = {}
 # Import after sys.path fixup
 from xmodule.modulestore.edit_info import EditInfoMixin  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
 from xmodule.modulestore.inheritance import InheritanceMixin  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
-from xmodule.modulestore import prefer_xmodules  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
+# from xmodule.modulestore import prefer_xmodules  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
 from xmodule.x_module import XModuleMixin  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
 
 # These are the Mixins that should be added to every XBlock.
@@ -1533,7 +1534,7 @@ XBLOCK_EXTRA_MIXINS = ()
 #     Some alternatives are `prefer_xmodules` and `default_select`. The `prefer_modules` function
 #     will choose the first "xmodule" if there is one, otherwise, it will act like `default_select`.
 #     The `default_select` function will simply choose the first match found.
-XBLOCK_SELECT_FUNCTION = prefer_xmodules
+# XBLOCK_SELECT_FUNCTION = prefer_xmodules
 
 # .. setting_name: XBLOCK_FIELD_DATA_WRAPPERS
 # .. setting_default: ()
