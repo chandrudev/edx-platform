@@ -17,6 +17,8 @@ from openedx.core.lib.logsettings import log_python_warnings
 log_python_warnings()
 
 # Patch the xml libs before anything else.
+from openedx.core.lib.safe_lxml import defuse_xml_libs  # isort:skip
+defuse_xml_libs()
 
 
 import importlib
