@@ -20,6 +20,10 @@ from .views import (
     EnrollLiveClassDetailsView,
     # EnrollLiveClassUserDetailsView,
     # EnrollLiveClassUserDetailsView,
+    LiveClassUserAttendanceDetails,
+    LiveClassUserTotalAttendanceDetails,
+    UserAttendancedetails,
+    UserCallRequestCreate,
 )
 
 urlpatterns = [
@@ -53,6 +57,10 @@ urlpatterns = [
     re_path(r'^enrollments/live_class/?$', LiveClassesListApiListView.as_view(), name='live_class_list'),
 
     path('enrollment/live_class/enroll', EnrollLiveClassDetailsView.as_view(), name='user_live_class_details' ),
+    path('live_class/attendance/<id>', LiveClassUserAttendanceDetails.as_view(), name='user_live_class_attendance_details' ),
+    path('live_class/total/attendance/details', LiveClassUserTotalAttendanceDetails.as_view(), name='user_live_class_total_attendance_details' ),
+    path('user/attendance/details', UserAttendancedetails.as_view(), name='user_total_attendance_details' ),
+    path('user/call/request/create', UserCallRequestCreate.as_view(), name='user_call_request_create' ),
 
     # path('enrollment/live_class/enroll/detail/<live_class_id>', EnrollLiveClassUserDetailsView.as_view(), name='user_live_class_details' ),
 

@@ -264,7 +264,7 @@ class StaffListSerializer(serializers.ModelSerializer):
         fields = ('id' , 'username', 'email' ,  'is_staff' )
 
 
-class STudentUserListSerializer(serializers.ModelSerializer):
+# class STudentUserListSerializer(serializers.ModelSerializer):
 
 class LiveClassEnrollmentSerializer(serializers.ModelSerializer):
 
