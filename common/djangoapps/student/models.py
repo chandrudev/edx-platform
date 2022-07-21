@@ -89,6 +89,9 @@ from openedx.core.djangoapps.xmodule_django.models import NoneToEmptyManager
 from openedx.core.djangolib.model_mixins import DeletableByUserValue
 from openedx.core.toggles import ENTRANCE_EXAMS
 
+
+announcement_choice = [('all', 'all'), ('student', 'student'), ('course', 'course')]
+
 log = logging.getLogger(__name__)
 AUDIT_LOG = logging.getLogger("audit")
 SessionStore = import_module(settings.SESSION_ENGINE).SessionStore  # pylint: disable=invalid-name
@@ -153,7 +156,7 @@ class AnonymousUserId(models.Model):
     course_id = LearningContextKeyField(db_index=True, max_length=255, blank=True)
 
 
-def anonymous_id_for_user(user, course_id):
+def anonymous_id_for_user(user, course_id, save='DEPRECATED'):
     """
     Inputs:
         user: User model
@@ -170,6 +173,13 @@ def anonymous_id_for_user(user, course_id):
     # This part is for ability to get xblock instance in xblock_noauth handlers, where user is unauthenticated.
     assert user
     
+    if save != 'DEPRECATED':
+        warnings.warn(
+            "anonymous_id_for_user no longer accepts save param and now "
+            "always saves the ID in the database",
+            DeprecationWarning
+        )
+
     if user.is_anonymous:
         return None
 
@@ -613,7 +623,11 @@ class UserProfile(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d*$', message="Phone number can only contain numbers.")
     phone_number = models.CharField(validators=[phone_regex], blank=True, null=True, max_length=50)
     #attendance = models.CharField(max_length=250, null=True, db_index=True)
-    #user_attendance = models.CharField(max_length=250, null=True, db_index=True)
+    # user_attendance = models.CharField(max_length=250, null=True, db_index=True)
+    user_attendance = models.PositiveIntegerField(default=0, blank=True, null=True)
+
+
+
     @property
     def has_profile_image(self):
         """
@@ -1210,6 +1224,148 @@ class CourseEnrollmentManager(models.Manager):
 CourseEnrollmentState = namedtuple('CourseEnrollmentState', 'mode, is_active')
 
 
+
+
+class LiveClassEnrollment(models.Model):
+
+    live_class = models.ForeignKey(LiveClasses, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    liveclass_attendance = models.PositiveIntegerField(default=0, blank=True, null=True)
+    updated_at = models.DateTimeField(null=True)
+
+
+
+class NotifyCallRequest(models.Model):
+    requested_by = models.ForeignKey(User, related_name="%(class)s_requested_by" , on_delete=models.CASCADE)
+
+    requested_to = models.ForeignKey(User, related_name="%(class)s_requested_to" , on_delete=models.CASCADE)
+
+    requested_at = models.DateTimeField(null=True)
+    
+    messeage = models.CharField(max_length=300 , null=True)
+
+    seen = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'notify_call_request_details'
+
+
+class DocumentStorage(models.Model):
+    objects = None
+    id = models.AutoField(primary_key=True)
+    course= models.ForeignKey(CourseOverview, related_name='Course', on_delete=models.CASCADE)
+    chapter_name = models.CharField(max_length=50, help_text='Course Chapter Name', null=True, blank=True)
+    document_type = models.CharField(max_length=10, null=True, blank=True)
+    document_name = models.CharField(max_length=50, null=True, blank=True, help_text='Enter Document Name')
+    document = models.FileField(max_length=255, upload_to="course_docs")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    added_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return json.dumps({"course_id":self.course_id, "document_id":self.document_id})
+
+    class Meta:
+        db_table = 'cms_doc_storage'
+
+
+
+
+class Badges(models.Model):
+    objects = None
+    id = models.AutoField(primary_key=True)
+    badge_name = models.CharField(max_length=20, null=True, blank=True)
+    min_points = models.IntegerField(default=0, unique=True,null=True, blank=True)
+    active = models.BooleanField(default=True)
+    badge_image = models.ImageField(upload_to='badge_image/', max_length=256,null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, related_name="%(class)s_created_by",on_delete=models.DO_NOTHING)
+    last_updated_by = models.ForeignKey(User,related_name="%(class)s_updated_by",on_delete=models.DO_NOTHING)
+    class Meta:
+        db_table = 'course_badges'
+
+
+
+class CoursePoints(models.Model):
+
+    objects = None
+    id = models.AutoField(primary_key=True)
+    course = models.ForeignKey(CourseOverview,on_delete=models.DO_NOTHING)
+    chapter = models.CharField(max_length=100, null=True, blank=True)
+    reward_coins = models.IntegerField(default=0, null=True, blank=True)
+    created_by = models.ForeignKey(User, related_name="%(class)s_created_by",on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        db_table = 'course_chapter_points' 
+        unique_together=('course', 'chapter')
+
+
+
+class CoinsEarn(models.Model):
+
+    objects = None
+    id = models.AutoField(primary_key=True)
+    student = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    badge = models.ForeignKey(Badges, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'course_coin_earn'
+
+
+
+
+class Announcement(models.Model):
+    
+    objects = None
+    id = models.AutoField(primary_key=True)
+    content = models.TextField(null=True, blank=True, default='lorem ispum')
+    active = models.BooleanField(default=True)
+    announcement_bases = models.CharField(choices=announcement_choice, default='all', max_length=7,null=True, blank=True)
+    announcement_for = models.JSONField(null=True, blank=True)    
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True) 
+    
+    class Meta:
+        db_table = 'launch_announcements'
+
+
+
+class Progress(models.Model):
+
+    objects = None
+    id = models.AutoField(primary_key=True)
+    chapter_name = models.CharField(max_length=100, null=True, blank=True)
+    hw_completed = models.BooleanField(default=False)
+    assign_completed = models.BooleanField(default=False)
+    progress = models.FloatField(default=0)
+    course = models.ForeignKey(CourseOverview, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'course_progress'
+
+    def save(self, *args, **kwargs):
+        if self.assign_completed and self.hw_completed:
+            self.progress = 100.0
+        elif self.assign_completed or self.hw_completed:
+            self.progress = 50.0
+        else:
+            self.progress = 0.0
+        return super(Progress, self).save(*args, **kwargs)
+
+
+        
+
+
+
+
 class CourseEnrollment(models.Model):
     """
     Represents a Student's Enrollment record for a single Course. You should
@@ -1226,7 +1382,9 @@ class CourseEnrollment(models.Model):
     """
     MODEL_TAGS = ['course', 'is_active', 'mode']
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name="%(class)s_user" , on_delete=models.CASCADE)
+
+    assigned_by = models.ForeignKey(User, related_name="%(class)s_assigned_by" , on_delete=models.CASCADE  , null=True )
 
     course = models.ForeignKey(
         CourseOverview,
@@ -1289,7 +1447,7 @@ class CourseEnrollment(models.Model):
         cache.delete(self.enrollment_status_hash_cache_key(self.user))
 
     @classmethod
-    def get_or_create_enrollment(cls, user, course_key):
+    def get_or_create_enrollment(cls, user, course_key, assigned_by):
         """
         Create an enrollment for a user in a class. By default *this enrollment
         is not active*. This is useful for when an enrollment needs to go
@@ -1322,6 +1480,7 @@ class CourseEnrollment(models.Model):
         enrollment, __ = cls.objects.get_or_create(
             user=user,
             course_id=course_key,
+            assigned_by=assigned_by,
             defaults={
                 'mode': CourseMode.DEFAULT_MODE_SLUG,
                 'is_active': False
@@ -1664,7 +1823,7 @@ class CourseEnrollment(models.Model):
                 raise AlreadyEnrolledError
 
         # User is allowed to enroll if they've reached this point.
-        enrollment = cls.get_or_create_enrollment(user, course_key)
+        enrollment = cls.get_or_create_enrollment(user, course_key, assigned_by)
         enrollment.update_enrollment(is_active=True, mode=mode, enterprise_uuid=enterprise_uuid)
         enrollment.send_signal(EnrollStatusChange.enroll)
 
@@ -2046,7 +2205,7 @@ class CourseEnrollment(models.Model):
         """
 
         # NOTE: This is here to avoid circular references
-        from openedx.core.djangoapps.commerce.utils import get_ecommerce_api_base_url, get_ecommerce_api_client
+        from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
         order_number = self.get_order_attribute_value('order_number')
         if not order_number:
             return None
@@ -2059,21 +2218,23 @@ class CourseEnrollment(models.Model):
         else:
             try:
                 # response is not cached, so make a call to ecommerce to fetch order details
-                api_url = urljoin(f"{get_ecommerce_api_base_url()}/", f"orders/{order_number}/")
-                response = get_ecommerce_api_client(self.user).get(api_url)
-                response.raise_for_status()
-                order = response.json()
-            except HTTPError as err:
+                order = ecommerce_api_client(self.user).orders(order_number).get()
+            except HttpClientError:
                 log.warning(
-                    "Encountered HTTPError while getting order details from ecommerce. "
-                    "Status code was %d, Order=%s and user %s", err.response.status_code, order_number, self.user.id
-                )
+                    "Encountered HttpClientError while getting order details from ecommerce. "
+                    "Order={number} and user {user}".format(number=order_number, user=self.user.id))
                 return None
-            except RequestException:
+
+            except HttpServerError:
+                log.warning(
+                    "Encountered HttpServerError while getting order details from ecommerce. "
+                    "Order={number} and user {user}".format(number=order_number, user=self.user.id))
+                return None
+
+            except SlumberBaseException:
                 log.warning(
                     "Encountered an error while getting order details from ecommerce. "
-                    "Order=%s and user %s", order_number, self.user.id
-                )
+                    "Order={number} and user {user}".format(number=order_number, user=self.user.id))
                 return None
 
             cache_time_out = getattr(settings, 'ECOMMERCE_ORDERS_API_CACHE_TIMEOUT', 3600)

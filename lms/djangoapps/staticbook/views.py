@@ -2,7 +2,7 @@
 Views for serving static textbooks.
 """
 
-
+import logging
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -12,6 +12,9 @@ from common.djangoapps.edxmako.shortcuts import render_to_response
 from common.djangoapps.static_replace import replace_static_urls
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.courses import get_course_with_access
+
+
+log = logging.getLogger(__name__)
 
 
 @login_required

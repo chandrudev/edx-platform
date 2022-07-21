@@ -1,6 +1,10 @@
 import logging
-from openedx.core.djangoapps.enrollments.serializers import  LiveClassesSerializer , UserListSerializer ,CourseEnrollmentSerializer ,LiveClassEnrollmentSerializer ,LiveClassUserDetailsSerializer ,UserLiveClassDetailsSerializer, CourseEnrolledUserDetailsSerializer ,LoginStaffCourseDetailsSerializer
-from common.djangoapps.student.models import LiveClassEnrollment
+from urllib import response
+
+import json
+from openedx.core.djangoapps.enrollments.serializers import  (LiveClassesSerializer , UserListSerializer ,UserAttendanceListSerializer ,CourseEnrollmentSerializer ,LiveClassEnrollmentSerializer ,LiveClassUserDetailsSerializer ,UserLiveClassDetailsSerializer, CourseEnrolledUserDetailsSerializer ,LoginStaffCourseDetailsSerializer
+, StaffNotifyCallSerializer , STudentUserListSerializer , StudentListbytaffDetailsSerializer)
+from common.djangoapps.student.models import LiveClassEnrollment, UserProfile , NotifyCallRequest
 from openedx.core.djangoapps.enrollments import api
 from openedx.core.lib.log_utils import audit_log
 from openedx.core.djangoapps.enrollments.views import ApiKeyPermissionMixIn
@@ -13,6 +17,8 @@ from lms.djangoapps.course_api.forms import  CourseListGetForm
 from lms.djangoapps.course_api.api import  list_courses ,course_detail, list_course_keys, _filter_by_search
 
 from openedx.core.lib.api.view_utils import DeveloperErrorViewMixin, view_auth_classes
+
+import requests
 
 from openedx.core.djangoapps.course_groups.cohorts import CourseUserGroup, add_user_to_cohort, get_cohort_by_name
 from common.djangoapps.student.roles import CourseStaffRole, GlobalStaff
@@ -100,21 +106,62 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
     # def get_queryset(self):
     #     created_by_id = self.kwargs.get('username')
 
-    #     return LiveClasses.objects.filter(created_by=created_by_id)
+    def rooms(self, topic_name):
+        url = "https://api.daily.co/v1/rooms/"
+        payload = json.dumps({
+            "name": topic_name,
+            "privacy": "private",
+            "properties": {
+            "start_audio_off": True,
+            "start_video_off": True,
+            # "owner_only_broadcast": False
 
+            }
+        })
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer a471ccb8f1587c7a95c5fdd63556391cf898fd210a997ae6635b2915b585dc10",
+        }
+
+        response = requests.request("POST", url, headers=headers, data= payload)
+        if response.status_code==200:
+            data=json.loads(response.text)
+            link_url = data.get('url')
+
+            url = "https://api.daily.co/v1/meeting-tokens"
+            payload = json.dumps({
+                "properties": {
+                    "room_name": topic_name
+                }
+                })
+            headers = {
+            "authorization": "Bearer a471ccb8f1587c7a95c5fdd63556391cf898fd210a997ae6635b2915b585dc10",
+            "Content-Type": "application/json"
+            }
+
+            response = requests.request("POST", url, headers=headers, data=payload)
+
+            if response.status_code==200:
+                data=json.loads(response.text)
+                token = data.get('token')
+                return (link_url , token)
+        else:
+            return None , None
 
     def get_queryset(self):
         return LiveClasses.objects.filter(created_by=self.request.user)
 
-
-
-
-        
-
-
     def post(self, request, *args, **kwargs):
         """Upload documents"""
         try:
+            data= request.data
+            room_name =data.get('topic_name')
+            call_dailyco=self.rooms(room_name)
+
+
+            data['meeting_link']=call_dailyco[0]
+            data['client_token']=call_dailyco[1]
+
             serializer = self.serializer_class(
                 data=request.data, context={'user':self.request.user}
             )
@@ -179,11 +226,45 @@ class UserDetailsListApiView(DeveloperErrorViewMixin, ListAPIView):
     queryset = User.objects.all()
 
 
-    # def get_queryset(self):
-    #     is_active = self.kwargs.get('is_active')
+    def get_serializer_class(self):
+        """Get Serializer"""
+        if self.request.method == 'GET':
+            return UserListSerializer
 
     #     return User.objects.filter(is_active=is_active)
 
+
+
+class StudentUserDetailsListApiView(ListAPIView):
+
+    authentication_classes = (
+        JwtAuthentication,
+        BearerAuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser,
+    )
+    permission_classes = (permissions.IsAdminUser,)
+    pagination_class = None
+    serializer_class = STudentUserListSerializer
+    queryset = User.objects.all()
+
+
+    def get_queryset(self):
+        return User.objects.filter(is_active=True , is_staff=False , is_superuser=False)
+
+
+
+
+class UserAttendanceDetailsListApiView(DeveloperErrorViewMixin, ListAPIView):
+
+    authentication_classes = (
+        JwtAuthentication,
+        BearerAuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser,
+    )
+    permission_classes = (permissions.IsAdminUser,)
+    pagination_class = None
+    serializer_class = UserListSerializer
+    queryset = UserProfile.objects.all()
 
 
     def get_serializer_class(self):
@@ -212,7 +293,7 @@ class EnrollLiveClassCreateView(DeveloperErrorViewMixin, CreateAPIView):
         """Upload documents"""
         try:
             serializer = self.serializer_class(
-                data=request.data,
+                data=request.data, context = {'assigned_by':self.request.user}
             )
             serializer.is_valid(raise_exception=True)
             
@@ -557,6 +638,7 @@ class UserCourseEnrollment(CreateAPIView , ApiKeyPermissionMixIn):
                     str(course_id),
                     mode=mode,
                     is_active=is_active,
+                    assigned_by=self.request.user,
                     enrollment_attributes=enrollment_attributes,
                     enterprise_uuid=request.data.get('enterprise_uuid')
                 )
@@ -755,8 +837,88 @@ class CourseListView(DeveloperErrorViewMixin, ListAPIView):
         )
 
 
-    # queryset = CourseOverview.objects.all()
-    # def get_serializer_class(self):
-    #     """Get Serializer"""
-    #     if self.request.method == 'GET':
-    #         return CourseSerializer                
+
+
+
+class StaffNotifyCallRequestListDetails(DeveloperErrorViewMixin, ListAPIView):
+    authentication_classes = (
+        JwtAuthentication,
+        BearerAuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser,
+    )
+    permission_classes = (permissions.IsAdminUser,)
+    pagination_class = None
+    serializer_class = StaffNotifyCallSerializer
+
+    lookup_field = "requested_to"
+
+
+    # lookup_field = "username"
+
+    def get_queryset(self):
+
+        return NotifyCallRequest.objects.filter(requested_to=self.request.user)
+
+
+class StaffNotifyCallRequestRetrieveDetails(DeveloperErrorViewMixin, RetrieveDestroyAPIView):
+    authentication_classes = (
+        JwtAuthentication,
+        BearerAuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser,
+    )
+    permission_classes = (permissions.IsAdminUser,)
+    serializer_class = StaffNotifyCallSerializer
+
+    model = NotifyCallRequest
+    lookup_field = "id"
+
+
+
+    def get(self, request, *args, **kwargs):
+        
+
+        instance=self.model.objects.get(id=self.kwargs.get('id'))
+    
+   
+        if instance.requested_to == self.request.user:
+                    instance.seen = True
+                    instance.save()
+                    serializer = self.serializer_class(instance)
+
+                    # serializers= serializer.data.popitem('seen')
+        else:
+            return Response("You are not notify with this call request", status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+
+
+
+class StudentListbyCourseDetailsList(DeveloperErrorViewMixin, ListAPIView):
+    authentication_classes = (
+        JwtAuthentication,
+        BearerAuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser,
+    )
+    permission_classes = (permissions.IsAdminUser,)
+    pagination_class = None
+    serializer_class = StudentListbytaffDetailsSerializer
+    lookup_url_kwarg = 'assigned_by'
+
+
+    # def get_queryset(self):
+    
+    #     return CourseEnrollment.objects.filter(assigned_by=self.request.user)
+
+
+    def get(self, request, *args, **kwargs):
+
+        courses=CourseEnrollment.objects.filter(assigned_by=self.request.user)
+        # courses_l = courses.values_list('course').distinct()
+        data = {}
+
+        for course in courses:
+
+            serializer = self.serializer_class(courses.filter(course_id=course.course_id) ,many=True).data
+            data[str(course.course_id)]=serializer
+        return Response(data, status=status.HTTP_200_OK)
+
+        

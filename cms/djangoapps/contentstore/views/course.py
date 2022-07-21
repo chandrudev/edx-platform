@@ -12,6 +12,19 @@ import string
 from collections import defaultdict
 from typing import Dict
 
+from rest_framework.parsers import JSONParser
+
+
+
+
+from django.contrib.auth.models import User 
+from opaque_keys import InvalidKeyError 
+
+from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication # To Import
+from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser  # lint-amnesty, pylint: disable=wrong-import-order# To Import
+
+from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser # To
+
 import django.utils
 from ccx_keys.locator import CCXLocator
 from django.conf import settings
@@ -34,6 +47,13 @@ from organizations.api import add_organization_course, ensure_organization
 from organizations.exceptions import InvalidOrganizationException
 from rest_framework.exceptions import ValidationError
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
+from common.djangoapps.student.models import DocumentStorage 
+from common.djangoapps.student.views.serializer import CourseSerializer 
+from django.views.decorators.csrf import csrf_exempt # To Import
+
+
 from cms.djangoapps.course_creators.views import add_user_with_status_unrequested, get_course_creator_status
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from cms.djangoapps.models.settings.course_metadata import CourseMetadata
@@ -49,7 +69,13 @@ from common.djangoapps.student.roles import (
     GlobalStaff,
     UserBasedRole
 )
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response ##
+from rest_framework.views import APIView ##
+from common.djangoapps.student.forms import DocumentForm  , BadgeForm
+from cms.djangoapps.contentstore.views.serializers import BadgeSerializer, CoursePointsSerializer
+
+
+from common.djangoapps.student.models import Badges, DocumentStorage , CoursePoints, Announcement,CourseEnrollment # To Import
 from common.djangoapps.util.course import get_link_for_about_page
 from common.djangoapps.util.date_utils import get_default_time_display
 from common.djangoapps.util.json_request import JsonResponse, JsonResponseBadRequest, expect_json
@@ -80,6 +106,7 @@ from openedx.core.lib.courses import course_image_url
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.content_type_gating.partitions import CONTENT_TYPE_GATING_SCHEME
 from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBAR_HTML
+from openedx.features.course_experience.waffle import waffle as course_experience_waffle
 from xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.course_module import CourseBlock, DEFAULT_START_DATE, CourseFields  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
@@ -979,7 +1006,10 @@ def create_new_course(user, org, number, run, fields):
     return new_course
 
 
-def create_new_course_in_store(store, user, org, number, run, fields):
+
+
+
+def create_new_course_in_store(store, user, org, number, run, fields , course_type):
     """
     Create course in store w/ handling instructor enrollment, permissions, and defaulting the wiki slug.
     Separated out b/c command line course creation uses this as well as the web interface.
@@ -998,6 +1028,7 @@ def create_new_course_in_store(store, user, org, number, run, fields):
             number,
             run,
             user.id,
+            course_type,
             fields=fields,
         )
 
@@ -1009,7 +1040,7 @@ def create_new_course_in_store(store, user, org, number, run, fields):
     return new_course
 
 
-def rerun_course(user, source_course_key, org, number, run, fields, background=True):
+def rerun_course(user, source_course_key, org, number, run, fields, course_type, background=True):
     """
     Rerun an existing course.
     """
@@ -1020,7 +1051,7 @@ def rerun_course(user, source_course_key, org, number, run, fields, background=T
     # create destination course key
     store = modulestore()
     with store.default_store('split'):
-        destination_course_key = store.make_course_key(org, number, run)
+        destination_course_key = store.make_course_key(org, number, run, course_type)
 
     # verify org course and run don't already exist
     if store.has_course(destination_course_key, ignore_case=True):
@@ -1920,12 +1951,13 @@ def _get_course_creator_status(user):
     SessionAuthenticationAllowInactiveUser,
 ))
 @permission_classes((IsAuthenticated,))
+@csrf_exempt
 def doc_upload_view(request):
     method = request.method
     try:
         if method == 'POST':
-            # if request.user.is_staff:
-                log.info(request.POST, request.FILES)
+            if request.user.is_staff:
+                # log.info(request.POST, request.FILES)
                 file = request.FILES.get('document')
                 course = request.POST.get('course')
                 form_data = DocumentForm(request.POST, request.FILES)
@@ -1936,13 +1968,13 @@ def doc_upload_view(request):
                 if form_data.is_valid():
                     url_save = upload_to_s3(file)
                     form_data = form_data.save(commit=False)
-                    form_data.created_by_id = 1
+                    form_data.created_by_id = request.user.id
                     form_data.course= course
                     form_data.document = url_save
                     form_data.save()
                     return JsonResponse({"success":True})
                 return JsonResponse({"success":False, 'message':form_data.errors})
-            # return JsonResponse({"success":False, "message":{"error":"User not authorized"}})
+            return JsonResponse({"success":False, "message":{"error":"User not authorized"}})
         return JsonResponse({"success":False, "messages":{"method": f"{request.method} is invalid method"}})
     except Exception as e:
         return JsonResponse({"success":False, "message":{"error":f"{e}"} })
@@ -1985,7 +2017,9 @@ def update_doc(request):
 
 
 # @api_view(['POST', 'GET'])
-@csrf_exempt
+@authentication_classes(())
+@permission_classes(())
+#for retrive / delete doc 
 def delete_doc(request):
     try:
         method = request.method
@@ -2005,4 +2039,128 @@ def delete_doc(request):
         return JsonResponse({"success":False, "message":{"error":f"{e}"} })
       
         
+
+
+
+
+
+
+class BadgeView(APIView):
+
+    authentication_classes = (
+                    JwtAuthentication,
+                    BearerAuthenticationAllowInactiveUser,
+                    SessionAuthenticationAllowInactiveUser,
+                            )
+    permission_classes = (IsAuthenticated, )
+    
+    def get(self, request, active=None):
+        try:
+            if request.user.is_staff:
+                all_badges = Badges.objects.all()
+                if active == None or active== "all":
+                    return Response({"success":True, "data":{"badge_list":BadgeSerializer(all_badges, many=True).data}})
+                active = bool(active.capitalize())
+                return Response({"success":True, "data":{"badge_list":BadgeSerializer(all_badges.filter(active=active), many=True).data}})
+            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))
+        except Exception as e:
+            return Response({"success":False, "message":{"error":f"{e}"} })
+      
+    def post(self, request):
+        try:
+            data = request.data
+            form_data = BadgeForm(data=data,files=data)
+            if request.user.is_staff:
+                if form_data.is_valid():
+                    form_data = form_data.save(commit=False)
+                    form_data.created_by = request.user 
+                    form_data.last_updated_by = request.user
+                    form_data.save() 
+                    return Response({"success":True, "message":{"created":"Created Successfully"}})
+                return Response({"success":False, "message":{"errors":form_data.errors}})
+            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))        
+        except Exception as e:
+            return Response({"success":False, "message":{"error":f"{e}"} })
+
+    def put(self, request,badge_id=None):
+        try:
+            if request.user.is_staff:
+                if badge_id:
+                    data = request.data
+                    file = data.get('badge_image')
+                    try:
+                        badge_data = Badges.objects.get(id=badge_id)
+                    except Badges.DoesNotExist  as not_exist:
+                        return Response({"success":False, "message":{"badge_id":not_exist}})
+                    form_data = BadgeForm(data=data, instance=badge_data)
+                    if form_data.is_valid():
+                        form_data = form_data.save(commit=False)
+                        form_data.last_updated_by = request.user
+                        form_data.save()
+                        return Response({"success":True, "message":{"updated": 'Data updated Successfully.'}})
+                    return Response({"success":False, "message":{"errors":form_data.errors}})
+                return Response({"success":False, "message":{"id":'Id not provided'}})
+            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))
+        except Exception as e:
+            return Response({"success":False, "message":{"error":f"{e}"} })
+
+    def delete(self, request,badge_id=None):
+        try:
+            if request.user.is_staff:
+                if badge_id:
+                    data = request.data
+                    active = data.get('active')
+                    try:
+                        badge_data = Badges.objects.get(id=badge_id)
+                    except Badges.DoesNotExist  as not_exist:
+                        return Response({"success":False, "message":{"badge_id":not_exist}})
+                    badge_data.active = active
+                    badge_data.last_updated_by = request.user
+                    badge_data.save()
+                    return Response({"success":True, "message":{"updated": 'Status Changed Successfully.'}})
+                return Response({"success":False, "message":{"id":'Id not provided'}})
+            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))
+        except Exception as e:
+            return Response({"success":False, "message":{"error":f"{e}"} })
+
+
+class PointsView(APIView):
+
+    authentication_classes = (
+                    JwtAuthentication,
+                    BearerAuthenticationAllowInactiveUser,
+                    SessionAuthenticationAllowInactiveUser,
+                            )
+    permission_classes = (IsAuthenticated, )
+    
+    def post(self, request):
+        try:
+            if request.user.is_staff:
+                data = request.data
+                serialized_data = CoursePointsSerializer(data=data)
+                if serialized_data.is_valid():
+                    serialized_data.save(created_by=self.request.user)
+                    return Response({"success":True, "message":{"created":"Added Successfully"}})
+                return Response({"success":False, "message":{"error":serialized_data.errors}})
+            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))
+        except Exception as e:
+            return Response({"success":False, "message":{'error':f"{e}"}})
+
+    
+    def get(self, request, course_id=None):
+
+        try:
+            if request.user.is_staff:
+                if course_id != None:
+                    filtered_data = CoursePoints.objects.filter(course_id=course_id)
+                    if filtered_data.exists():
+                        filtered_data = [{"id": data.id, "course":course_id, "chapter":data.chapter, "reward_coins":data.reward_coins} for data in filtered_data]
+                    return Response({"success":True, "data":filtered_data})
+                return Response({"success":False, "message":{"id":"Course Id not provided"}})
+            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))
+        except Exception as e:
+            return Response({"success":False, "message":{'error':f"{e}"}})
+
+        
+
 
