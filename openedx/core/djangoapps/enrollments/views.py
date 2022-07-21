@@ -30,7 +30,6 @@ from rest_framework.generics import ListAPIView , ListCreateAPIView , RetrieveAP
 from rest_framework.response import Response  # lint-amnesty, pylint: disable=wrong-import-order
 from rest_framework.throttling import UserRateThrottle  # lint-amnesty, pylint: disable=wrong-import-order
 from rest_framework.views import APIView  # lint-amnesty, pylint: disable=wrong-import-order
-from rest_framework import generics
 from yaml import serialize
 from cms.djangoapps.api.v1 import serializers
 from rest_framework.permissions import AllowAny
