@@ -1209,9 +1209,6 @@ class CourseEnrollmentManager(models.Manager):
 # is used to cache the state in the request cache.
 CourseEnrollmentState = namedtuple('CourseEnrollmentState', 'mode, is_active')
 
-class LiveClassEnrollment(models.Model):
-    live_class = models.ForeignKey(LiveClasses, null=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class CourseEnrollment(models.Model):
     """
