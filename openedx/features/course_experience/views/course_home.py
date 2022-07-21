@@ -33,8 +33,7 @@ from openedx.core.djangoapps.util.maintenance_banner import add_maintenance_bann
 from openedx.features.course_duration_limits.access import generate_course_expired_fragment
 from openedx.features.course_experience import (
     COURSE_ENABLE_UNENROLLED_ACCESS_FLAG,
-    LATEST_UPDATE_FLAG,
-    SHOW_UPGRADE_MSG_ON_COURSE_HOME,
+
 )
 from openedx.features.course_experience.course_tools import CourseToolsPluginManager
 from openedx.features.course_experience.url_helpers import get_learning_mfe_home_url
@@ -154,14 +153,14 @@ class CourseHomeFragmentView(EdxFragmentView):
             outline_fragment = CourseOutlineFragmentView().render_to_fragment(
                 request, course_id=course_id, **kwargs
             )
-            if LATEST_UPDATE_FLAG.is_enabled(course_key):
-                update_message_fragment = LatestUpdateFragmentView().render_to_fragment(
-                    request, course_id=course_id, **kwargs
-                )
-            else:
-                update_message_fragment = WelcomeMessageFragmentView().render_to_fragment(
-                    request, course_id=course_id, **kwargs
-                )
+            # if LATEST_UPDATE_FLAG.is_enabled(course_key):
+            #     update_message_fragment = LatestUpdateFragmentView().render_to_fragment(
+            #         request, course_id=course_id, **kwargs
+            #     )
+            # else:
+            #     update_message_fragment = WelcomeMessageFragmentView().render_to_fragment(
+            #         request, course_id=course_id, **kwargs
+            #     )
             course_sock_fragment = CourseSockFragmentView().render_to_fragment(
                 request, course=course, **kwargs
             )
