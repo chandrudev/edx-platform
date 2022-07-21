@@ -2,9 +2,11 @@
 Views that handle course updates.
 """
 
+import six  # lint-amnesty, pylint: disable=unused-import
 from django.contrib.auth.decorators import login_required
 from django.template.context_processors import csrf
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from opaque_keys.edx.keys import CourseKey
@@ -13,7 +15,7 @@ from web_fragments.fragment import Fragment
 from lms.djangoapps.courseware.courses import get_course_info_section_module, get_course_with_access
 from lms.djangoapps.courseware.views.views import CourseTabView
 from openedx.core.djangoapps.plugin_api.views import EdxFragmentView
-from openedx.features.course_experience import default_course_url
+# from openedx.features.course_experience import default_course_url_name
 from openedx.features.course_experience.course_updates import get_ordered_updates
 
 
