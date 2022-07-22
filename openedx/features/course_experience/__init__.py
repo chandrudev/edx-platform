@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from edx_toggles.toggles import WaffleFlag
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
+from openedx.core.djangoapps.util.user_messages import UserMessageCollection
 
 
 # Namespace for course experience waffle flags.
@@ -105,3 +106,17 @@ def course_home_url(course_key):
         return reverse('info', args=[str(course_key)])
 
     return get_learning_mfe_home_url(course_key, url_fragment='home')
+
+
+class CourseHomeMessages(UserMessageCollection):
+    """
+    This set of messages appear above the outline on the course home page.
+    """
+    NAMESPACE = 'course_home_level_messages'
+
+    @classmethod
+    def get_namespace(cls):
+        """
+        Returns the namespace of the message collection.
+        """
+        return cls.NAMESPACE
