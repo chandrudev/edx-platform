@@ -18,7 +18,7 @@ from common.djangoapps.student.models import CourseEnrollment , LiveClassEnrollm
 from openedx.core.djangoapps.content.course_overviews.models import LiveClasses, CourseOverview
 
 from common.djangoapps.split_modulestore_django.models import SplitModulestoreCourseIndex
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 import datetime
 
 log = logging.getLogger(__name__)
@@ -39,7 +39,7 @@ class StringListField(serializers.CharField):
             return []
 
         items = obj.suggested_prices.split(',')
-        return [int(item) for item in items]  
+        return [int(item) for item in items]
 
 
 class CourseSerializer(serializers.Serializer):  # pylint: disable=abstract-method
@@ -106,7 +106,7 @@ class CourseEnrollmentSerializer(serializers.ModelSerializer):
     #         obj.course
     #         )
     #     log.info("____course-Price______", price , obj)
-    #     return price 
+    #     return price
 
 
 
@@ -148,9 +148,9 @@ class LiveClassesSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        
+
         model = LiveClasses
-        
+
         fields = ('id', 'start_time' ,'end_time' , 'start_date' , 'end_date' , 'room_key' , 'room_name', 'topic_name' , 'client_token', 'meeting_link' ,'created_by_id', 'created_date' , 'days', 'meeting_notes' , 'is_recurrence_meeting' , 'course' , 'course_id')
 
     def create(self, validated_data ):
@@ -161,7 +161,7 @@ class LiveClassesSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         super(LiveClassesSerializer, self).update(instance, validated_data)
-        return instance 
+        return instance
 
     def validate(self, data):
         topic_name = data.get('topic_name')
@@ -190,8 +190,8 @@ class LiveClassesSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError("Days should be non empty list")
                 if not set(days).issubset(set(days_list)):
                     raise serializers.ValidationError(f"Invalid list of days Should be {days_list}")
-        return data 
-        
+        return data
+
 
 
 class CourseEnrollmentsApiListSerializer(CourseEnrollmentSerializer):
@@ -229,7 +229,7 @@ class ModeSerializer(serializers.Serializer):  # pylint: disable=abstract-method
 
 
 
-# class LiveClassesDetailsSerializer(serializers.Serializer): 
+# class LiveClassesDetailsSerializer(serializers.Serializer):
 
 #     start_time = serializers.TimeField()
 #     end_time = serializers.TimeField()
@@ -248,7 +248,7 @@ class ModeSerializer(serializers.Serializer):  # pylint: disable=abstract-method
 
 
 class UserListSerializer(serializers.ModelSerializer):
-    
+
 
     class Meta:
         model = User
@@ -279,7 +279,7 @@ class LiveClassEnrollmentSerializer(serializers.ModelSerializer):
 
 
 class UserAttendanceListSerializer(serializers.ModelSerializer):
-        
+
     user = serializers.CharField()
 
     # def create(self, validated_data):
@@ -294,11 +294,11 @@ class LiveClassEnrollmentSerializer(serializers.ModelSerializer):
 
     #     data['user_id']=user.id
     #     return data
-        
+
     class Meta:
         model = LiveClassEnrollment
         fields = ( 'id','user', 'live_class')
-        
+
     #     #return LiveClassEnrollment.objects.create(**validated_data)
 
 
@@ -363,7 +363,7 @@ class LoginStaffCourseDetailsSerializer(serializers.ModelSerializer):
         fields = ('org' ,'course_id' ,'edited_by_id' ,'edited_on' ,'last_update' )
 
 
-    
+
     # def get_edited_by_id(self, model):
     #     """Retrieves the username from the associated model."""
     #     return model.username
@@ -373,7 +373,7 @@ class LiveClassUserTotalAttendanceSerializer(serializers.ModelSerializer):
 
 
     user = serializers.CharField()
-    
+
     class Meta:
         model = LiveClassEnrollment
         fields= ('id','liveclass_attendance', 'user' , )
@@ -382,7 +382,7 @@ class LiveClassUserTotalAttendanceSerializer(serializers.ModelSerializer):
 class UserRequestCallSerializer(serializers.ModelSerializer):
 
 
-    
+
     class Meta:
         model = NotifyCallRequest
         fields= ('requested_to', 'messeage' , 'requested_at' , 'seen')
@@ -392,14 +392,14 @@ class UserRequestCallSerializer(serializers.ModelSerializer):
         validated_data['requested_at']= datetime.datetime.now()
         validated_data['requested_by_id']= self.context['user'].id
         return NotifyCallRequest.objects.create(**validated_data)
-    
+
 
 
 class StaffNotifyCallSerializer(serializers.ModelSerializer):
 
 
     requested_by = serializers.CharField()
-    
+
     class Meta:
         model = NotifyCallRequest
         fields= ('id','requested_by', 'messeage' , 'requested_at' , 'seen')
@@ -412,7 +412,7 @@ class StaffofCourseDetailsSerializer(serializers.ModelSerializer):
     # course=serializers.CharField()
     course = CourseSerializer(read_only=True)
 
-    
+
 
     class Meta:
         model= CourseEnrollment
@@ -424,7 +424,7 @@ class StudentListbytaffDetailsSerializer(serializers.ModelSerializer):
     user = serializers.CharField()
 
     # course = CourseSerializer(read_only=True)
-  
+
 
     class Meta:
         model= CourseEnrollment
@@ -437,11 +437,16 @@ class CourseandStafAassignedDetailsSerializer(serializers.ModelSerializer):
     assigned_by = serializers.CharField()
     course = serializers.CharField()
 
-    
+
     class Meta:
         model= CourseEnrollment
         fields=('id', 'course' , 'assigned_by')
 
+
+class STudentUserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'is_active', 'first_name', 'last_name', 'date_joined')
 
 
 
