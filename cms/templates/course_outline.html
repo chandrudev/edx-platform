@@ -453,7 +453,7 @@ function enroll_student()
         "course_id":str_data[str_data.length-1]
     }
 }
-  fetch("http://studio.launchpadlearning.ca/user/enrollment", {
+  fetch("http://studio.launchpadlearning.ca/live_class/user/enrollment", {
       method: "POST",
       headers: {
       'Content-Type': 'application/json',
