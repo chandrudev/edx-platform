@@ -1583,7 +1583,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'method_override',
     'openedx.core.djangoapps.content_libraries',
-    'openedx.core.djangoapps.bookmarks',
+    # 'openedx.core.djangoapps.bookmarks',
     'openedx.core.djangoapps.theming',
     'openedx.core.djangoapps.discussions',
     'lms.djangoapps.program_enrollments',

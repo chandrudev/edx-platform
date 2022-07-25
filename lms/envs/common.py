@@ -2950,7 +2950,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_results',
     'openedx.core.djangoapps.content_libraries',
-    'openedx.core.djangoapps.bookmarks',
+    # 'openedx.core.djangoapps.bookmarks',
     'openedx.core.djangoapps.theming',
     'openedx.core.djangoapps.discussions',
     'lms.djangoapps.program_enrollments',
