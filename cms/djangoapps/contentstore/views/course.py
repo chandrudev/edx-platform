@@ -2027,13 +2027,13 @@ def delete_doc(request):
         id = data.get('doc_id', None)
         if id:
             if method == "POST" :
-                # if request.user.is_staff:
+                if request.user.is_staff:
                     try:
                         DocumentStorage.objects.get(id=id).delete()
                         return JsonResponse({"success":True, "message":{"deleted": "Data deleted Successfully."}})
                     except Exception as e:
                         return JsonResponse({"success":False, 'message':{"error":f"{e}"}})
-                # return JsonResponse({"success":False, 'message':{"role": 'Unauthorized action'}})
+                return JsonResponse({"success":False, 'message':{"role": 'Unauthorized action'}})
             return JsonResponse({"success":False, 'message':{'id':'Document Id not provided.'}})  
     except Exception as e:
         return JsonResponse({"success":False, "message":{"error":f"{e}"} })
