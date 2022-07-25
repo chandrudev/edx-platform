@@ -469,7 +469,7 @@ def _default_course_mode(course_id):
     return CourseMode.DEFAULT_MODE_SLUG
 
 
-def validate_course_mode(course_id, mode, assigned_by=Noe,is_active=None, include_expired=False):
+def validate_course_mode(course_id, mode, assigned_by=None,is_active=None, include_expired=False):
     """Checks to see if the specified course mode is valid for the course.
 
     If the requested course mode is not available for the course, raise an error with corresponding
