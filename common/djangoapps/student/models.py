@@ -172,7 +172,7 @@ def anonymous_id_for_user(user, course_id, save='DEPRECATED'):
 
     # This part is for ability to get xblock instance in xblock_noauth handlers, where user is unauthenticated.
     assert user
-    
+
     if save != 'DEPRECATED':
         warnings.warn(
             "anonymous_id_for_user no longer accepts save param and now "
@@ -1229,9 +1229,10 @@ CourseEnrollmentState = namedtuple('CourseEnrollmentState', 'mode, is_active')
 class LiveClassEnrollment(models.Model):
 
     live_class = models.ForeignKey(LiveClasses, null=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="%(class)s_assigned_to" )
     liveclass_attendance = models.PositiveIntegerField(default=0, blank=True, null=True)
     updated_at = models.DateTimeField(null=True)
+    assigned_by = models.ForeignKey(User, related_name="%(class)s_assigned_by" ,on_delete=models.CASCADE)
 
 
 
@@ -1241,7 +1242,7 @@ class NotifyCallRequest(models.Model):
     requested_to = models.ForeignKey(User, related_name="%(class)s_requested_to" , on_delete=models.CASCADE)
 
     requested_at = models.DateTimeField(null=True)
-    
+
     messeage = models.CharField(max_length=300 , null=True)
 
     seen = models.BooleanField(default=False)
@@ -1264,7 +1265,7 @@ class DocumentStorage(models.Model):
 
 
     def __str__(self):
-        return json.dumps({"course_id":self.course_id, "document_id":self.document_id})
+        return json.dumps({"course_id":self.course_id, "document_id":self.id})
 
     class Meta:
         db_table = 'cms_doc_storage'
@@ -1301,7 +1302,7 @@ class CoursePoints(models.Model):
 
 
     class Meta:
-        db_table = 'course_chapter_points' 
+        db_table = 'course_chapter_points'
         unique_together=('course', 'chapter')
 
 
@@ -1322,16 +1323,16 @@ class CoinsEarn(models.Model):
 
 
 class Announcement(models.Model):
-    
+
     objects = None
     id = models.AutoField(primary_key=True)
     content = models.TextField(null=True, blank=True, default='lorem ispum')
     active = models.BooleanField(default=True)
     announcement_bases = models.CharField(choices=announcement_choice, default='all', max_length=7,null=True, blank=True)
-    announcement_for = models.JSONField(null=True, blank=True)    
+    announcement_for = models.JSONField(null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True) 
-    
+    created_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         db_table = 'launch_announcements'
 
@@ -1361,7 +1362,7 @@ class Progress(models.Model):
         return super(Progress, self).save(*args, **kwargs)
 
 
-        
+
 
 
 
