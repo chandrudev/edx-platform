@@ -17,8 +17,8 @@ from rest_framework.parsers import JSONParser
 
 
 
-from django.contrib.auth.models import User 
-from opaque_keys import InvalidKeyError 
+from django.contrib.auth.models import User
+from opaque_keys import InvalidKeyError
 
 from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication # To Import
 from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser  # lint-amnesty, pylint: disable=wrong-import-order# To Import
@@ -49,8 +49,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
-from common.djangoapps.student.models import DocumentStorage 
-from common.djangoapps.student.views.serializer import CourseSerializer 
+from common.djangoapps.student.models import DocumentStorage
+from common.djangoapps.student.views.serializer import CourseSerializer
 from django.views.decorators.csrf import csrf_exempt # To Import
 
 
@@ -106,7 +106,6 @@ from openedx.core.lib.courses import course_image_url
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.content_type_gating.partitions import CONTENT_TYPE_GATING_SCHEME
 from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBAR_HTML
-from openedx.features.course_experience.waffle import waffle as course_experience_waffle
 from xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.course_module import CourseBlock, DEFAULT_START_DATE, CourseFields  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
@@ -2019,7 +2018,7 @@ def update_doc(request):
 # @api_view(['POST', 'GET'])
 @authentication_classes(())
 @permission_classes(())
-#for retrive / delete doc 
+#for retrive / delete doc
 def delete_doc(request):
     try:
         method = request.method
@@ -2034,11 +2033,11 @@ def delete_doc(request):
                     except Exception as e:
                         return JsonResponse({"success":False, 'message':{"error":f"{e}"}})
                 return JsonResponse({"success":False, 'message':{"role": 'Unauthorized action'}})
-            return JsonResponse({"success":False, 'message':{'id':'Document Id not provided.'}})  
+            return JsonResponse({"success":False, 'message':{'id':'Document Id not provided.'}})
     except Exception as e:
         return JsonResponse({"success":False, "message":{"error":f"{e}"} })
-      
-        
+
+
 
 
 
@@ -2053,7 +2052,7 @@ class BadgeView(APIView):
                     SessionAuthenticationAllowInactiveUser,
                             )
     permission_classes = (IsAuthenticated, )
-    
+
     def get(self, request, active=None):
         try:
             if request.user.is_staff:
@@ -2065,7 +2064,7 @@ class BadgeView(APIView):
             return Response(({"success":False,'message':{"role":'Unauthorized action'}}))
         except Exception as e:
             return Response({"success":False, "message":{"error":f"{e}"} })
-      
+
     def post(self, request):
         try:
             data = request.data
@@ -2073,12 +2072,12 @@ class BadgeView(APIView):
             if request.user.is_staff:
                 if form_data.is_valid():
                     form_data = form_data.save(commit=False)
-                    form_data.created_by = request.user 
+                    form_data.created_by = request.user
                     form_data.last_updated_by = request.user
-                    form_data.save() 
+                    form_data.save()
                     return Response({"success":True, "message":{"created":"Created Successfully"}})
                 return Response({"success":False, "message":{"errors":form_data.errors}})
-            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))        
+            return Response(({"success":False,'message':{"role":'Unauthorized action'}}))
         except Exception as e:
             return Response({"success":False, "message":{"error":f"{e}"} })
 
@@ -2132,7 +2131,7 @@ class PointsView(APIView):
                     SessionAuthenticationAllowInactiveUser,
                             )
     permission_classes = (IsAuthenticated, )
-    
+
     def post(self, request):
         try:
             if request.user.is_staff:
@@ -2146,7 +2145,7 @@ class PointsView(APIView):
         except Exception as e:
             return Response({"success":False, "message":{'error':f"{e}"}})
 
-    
+
     def get(self, request, course_id=None):
 
         try:
@@ -2161,6 +2160,6 @@ class PointsView(APIView):
         except Exception as e:
             return Response({"success":False, "message":{'error':f"{e}"}})
 
-        
+
 
 
