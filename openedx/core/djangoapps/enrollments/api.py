@@ -199,7 +199,7 @@ def get_enrollment(username, course_id):
     return _data_api().get_course_enrollment(username, course_id)
 
 
-def add_enrollment(username, course_id, mode=None, is_active=True, enrollment_attributes=None, enterprise_uuid=None):
+def add_enrollment(username, course_id, assigned_by=None,mode=None, is_active=True, enrollment_attributes=None, enterprise_uuid=None):
     """Enrolls a user in a course.
 
     Enrolls a user in a course. If the mode is not specified, this will default to `CourseMode.DEFAULT_MODE_SLUG`.
@@ -250,7 +250,7 @@ def add_enrollment(username, course_id, mode=None, is_active=True, enrollment_at
     """
     if mode is None:
         mode = _default_course_mode(course_id)
-    validate_course_mode(course_id, mode, is_active=is_active)
+    validate_course_mode(course_id, mode, is_active=is_active,assigned_by=assigned_by)
     enrollment = _data_api().create_course_enrollment(username, course_id, mode, is_active, enterprise_uuid)
 
     if enrollment_attributes is not None:
@@ -469,7 +469,7 @@ def _default_course_mode(course_id):
     return CourseMode.DEFAULT_MODE_SLUG
 
 
-def validate_course_mode(course_id, mode, is_active=None, include_expired=False):
+def validate_course_mode(course_id, mode, assigned_by=Noe,is_active=None, include_expired=False):
     """Checks to see if the specified course mode is valid for the course.
 
     If the requested course mode is not available for the course, raise an error with corresponding
