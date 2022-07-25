@@ -731,11 +731,11 @@ AWS_QUERYSTRING_AUTH = False
 AWS_STORAGE_BUCKET_NAME = 'edxlaunchpad'
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_HEADERS = {'Access-Control-Allow-Origin': '*'} 
+AWS_HEADERS = {'Access-Control-Allow-Origin': '*'}
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# File store here 
+# File store here
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/' 
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 ##############################################################################
 
 EDX_ROOT_URL = ''
@@ -821,11 +821,11 @@ AWS_QUERYSTRING_AUTH = False
 AWS_STORAGE_BUCKET_NAME = 'edxlaunchpad'
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_HEADERS = {'Access-Control-Allow-Origin': '*'} 
+AWS_HEADERS = {'Access-Control-Allow-Origin': '*'}
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# File store here 
+# File store here
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/' 
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 
 
 ######################### CSRF #########################################
@@ -1582,6 +1582,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_results',
     'method_override',
+    'openedx.core.djangoapps.content_libraries',
+    'openedx.core.djangoapps.bookmarks',
+    'openedx.core.djangoapps.theming',
+    'openedx.core.djangoapps.discussions',
+    'lms.djangoapps.program_enrollments',
 
     # Common Initialization
     'openedx.core.djangoapps.common_initialization.apps.CommonInitializationConfig',
