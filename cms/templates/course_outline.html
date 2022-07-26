@@ -541,7 +541,7 @@ function getStudents()
           var ele = document.createElement("div");
           ele.setAttribute("id","timedrpact"+i);
           ele.setAttribute("class","inner-student");
-          ele.innerHTML=response.results[i]['user']['username']
+          ele.innerHTML=response.data[i]['user']['username']
           parent.appendChild(ele);
           output.appendChild(parent);  
         }
