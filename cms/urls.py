@@ -133,7 +133,7 @@ urlpatterns = oauth2_urlpatterns + [
     path('get_coins/<str:course_id>/', PointsView.as_view(), name="get_points"),
     path('announcement/', AnnouncementView.as_view(), name="generate_announcement"),
     path('deactivate_announcement/<int:ann_id>/', AnnouncementView.as_view(), name='deactivate'),
-    path('course/enroll/course/detail/<course_id>', EnrollCourseUserDetailsView.as_view(), name='course_user_details' ),
+    path('course/enroll/course/detail/<str:course_id>', EnrollCourseUserDetailsView.as_view(), name='course_user_details' ),
     
     path('staff/course/detail/<edited_by_id>', LoginStaffCourseDetailsList.as_view(), name='live_class_user_details' ),
 

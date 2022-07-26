@@ -339,12 +339,12 @@ class EnrollCourseUserDetailsView(DeveloperErrorViewMixin, RetrieveDestroyAPIVie
     lookup_url_kwarg = 'course_id'
 
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, course_id):
 
-        serializer = self.serializer_class(CourseEnrollment.objects.filter(course_id=self.kwargs.get('course_id')), many=True)
+        serializer = self.serializer_class(CourseEnrollment.objects.filter(course_id=course_id), many=True)
 
         data={}
-        data['course_id']=self.kwargs.get('course_id')
+        data['course_id']=course_id
         data['datas']=serializer.data
     
         return Response(data, status=status.HTTP_200_OK)
