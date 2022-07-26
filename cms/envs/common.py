@@ -758,7 +758,7 @@ ICP_LICENSE_INFO = {}
 LOGGING_ENV = 'sandbox'
 
 LMS_BASE = 'localhost:18000'
-LMS_ROOT_URL = "https://localhost:18000"
+LMS_ROOT_URL = "http://localhost:18000"
 LMS_INTERNAL_ROOT_URL = LMS_ROOT_URL
 
 # Use LMS SSO for login, once enabled by setting LOGIN_URL (see docs/guides/studio_oauth.rst)

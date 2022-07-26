@@ -326,27 +326,28 @@ class EnrollLiveClassUserDetailsView(DeveloperErrorViewMixin, ListCreateAPIView)
 
 
 
-class EnrollCourseUserDetailsView(DeveloperErrorViewMixin, ListAPIView):
+
+
+class EnrollCourseUserDetailsView(DeveloperErrorViewMixin, RetrieveDestroyAPIView):
     authentication_classes = (
         JwtAuthentication,
         BearerAuthenticationAllowInactiveUser,
         SessionAuthenticationAllowInactiveUser,
     )
     permission_classes = (permissions.IsAdminUser,)
-    #throttle_classes = (EnrollmentUserThrottle,)
     serializer_class = CourseEnrolledUserDetailsSerializer
-    # pagination_class = LiveClassesSerializer
     lookup_url_kwarg = 'course_id'
 
 
-    # lookup_field = "username"
+    def get(self, request, *args, **kwargs):
 
-    def get_queryset(self):
+        serializer = self.serializer_class(CourseEnrollment.objects.filter(course_id=self.kwargs.get('course_id')), many=True)
+
+        data={}
+        data['course_id']=self.kwargs.get('course_id')
+        data['datas']=serializer.data
     
-        return CourseEnrollment.objects.filter(course_id=self.kwargs.get('course_id'))
-
-
-
+        return Response(data, status=status.HTTP_200_OK)
 
 
 
