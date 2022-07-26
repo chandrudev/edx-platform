@@ -2206,7 +2206,7 @@ class CourseEnrollment(models.Model):
         """
 
         # NOTE: This is here to avoid circular references
-        from openedx.core.djangoapps.commerce.utils import ecommerce_api_client
+        from openedx.core.djangoapps.commerce.utils import get_ecommerce_api_client
         order_number = self.get_order_attribute_value('order_number')
         if not order_number:
             return None
