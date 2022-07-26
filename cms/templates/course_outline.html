@@ -533,7 +533,7 @@ function getStudents()
 
      // alert(JSON.stringify(response))
      var output = document.getElementById('output-students');
-      for(let i=0;i<response.results.length;i++)
+      for(let i=0;i<response.results.data.length;i++)
       {
         var parent = document.createElement("div");
         if(!document.getElementById('timedrpact'+i))

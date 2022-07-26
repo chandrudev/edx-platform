@@ -345,7 +345,7 @@ class EnrollCourseUserDetailsView(DeveloperErrorViewMixin, RetrieveDestroyAPIVie
 
         data={}
         data['course_id']=course_id
-        data['datas']=serializer.data
+        data['data']=serializer.data
     
         return Response(data, status=status.HTTP_200_OK)
 

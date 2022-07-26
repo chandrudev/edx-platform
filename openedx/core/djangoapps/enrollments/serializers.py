@@ -330,7 +330,7 @@ class CourseEnrolledUserDetailsSerializer(serializers.ModelSerializer):
 
     #live_class =LiveClassesSerializer(read_only=True)
     user =UserListSerializer( read_only=True)
-    course_id = serializers.CharField()
+    # course_id = serializers.CharField()
 
 
 
