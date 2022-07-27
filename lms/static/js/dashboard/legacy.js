@@ -276,7 +276,7 @@
                  display: 'block',
                  'z-index': 0
              });
-             $('#activate-account-modal').focus()
+             $('#activate-account-modal').focus();
          }
 
          $('.action-email-settings').each(function(index) {
@@ -318,7 +318,6 @@
             headers: new Headers({'Content-Type':'application/json'}),
             data: $(this).serializeArray(),
             success: function(response){
-                var asd = JSON.stringify(response);
                 var response_new = JSON.parse(JSON.stringify(response));
                 var output = document.getElementById('output');
                 output.style.display = 'block';
