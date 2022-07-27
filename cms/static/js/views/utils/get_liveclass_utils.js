@@ -18,21 +18,21 @@
     var nonEmptyCheckFieldSelectors = [selectors.name, selectors.org, selectors.number];
 
     CreateUtilsFactory.call(this, selectors, classes);
-
+    var base_url = window.location.origin;
     var endpoint = base_url+"/live_class/details/";
     var lib_info = {};
 
     //Pagination is implemented using the two buttons
-    var nextButton = document.querySelector(".liveclass-next");
-    var prevButton = document.querySelector(".liveclass-previous");
-    var nextButtonPressed = () => {
-      endpoint = nextButton.value;
-      this.create(lib_info, function (res, errorMessage) {});
-    };
-    var prevButtonPressed = () => {
-      endpoint = prevButton.value;
-      this.create(lib_info, function (res, errorMessage) {});
-    };
+    // var nextButton = document.querySelector(".liveclass-next");
+    // var prevButton = document.querySelector(".liveclass-previous");
+    // var nextButtonPressed = () => {
+    //   endpoint = nextButton.value;
+    //   this.create(lib_info, function (res, errorMessage) {});
+    // };
+    // var prevButtonPressed = () => {
+    //   endpoint = prevButton.value;
+    //   this.create(lib_info, function (res, errorMessage) {});
+    // };
 
     //To Delete selected Live class
     var deleteLive = (e) => {
