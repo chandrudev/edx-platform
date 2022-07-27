@@ -303,4 +303,4 @@
      });
 
      return CourseOutlineView;
- }); // end define();
+ }); // end define();s

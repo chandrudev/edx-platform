@@ -8,7 +8,6 @@
   CreateUtilsFactory
 ) {
   "use strict";
-  var base_url = window.location.origin;
   return function (selectors, classes) {
     var keyLengthViolationMessage = gettext(
       "The combined length of the organization and library code fields" +
@@ -19,7 +18,7 @@
 
     CreateUtilsFactory.call(this, selectors, classes);
 
-    var endpoint = base_url+"/live_class/details/";
+    var endpoint = "http://localhost:18010/live_class/details/";
     var lib_info = {};
 
     //Pagination is implemented using the two buttons
@@ -37,8 +36,7 @@
     //To Delete selected Live class
     var deleteLive = (e) => {
       let id = e.target.attributes.value.value;
-
-      $.deleteJSON(base_url+"/live_class/" + id, id, function (id) {});
+      $.deleteJSON("http://localhost:18010/live_class/" + id, id, function (id) {});
       window.location.reload();
     };
 
@@ -50,7 +48,7 @@
       console.log(id);
 
       //Getting details of Live class using id
-      $.getJSON(base_url+"/live_class/" + id, id, function (id) {}).then((data) => {
+      $.getJSON("http://localhost:18010/live_class/" + id, id, function (id) {}).then((data) => {
         console.log(data);
 
         displayAssignedUsers(data.id);
@@ -101,7 +99,7 @@
             start_date.val() < end_date.val() ||
             (start_date.val() === end_date.val() && start_time.val() < end_time.val())
           ) {
-            $.patchJSON(base_url+"/live_class/" + id, lib_info, function (id) {}).then(() => {
+            $.patchJSON("http://localhost:18010/live_class/" + id, lib_info, function (id) {}).then(() => {
               console.log("Update Success");
               window.location.reload();
             });
@@ -113,7 +111,7 @@
     };
 
     var displayAssignedUsers = (id) => {
-      $.getJSON(base_url+"/live_class/enroll/detail/" + id, {}).then((data) => {
+      $.getJSON("http://localhost:18010/live_class/enroll/detail/" + id, {}).then((data) => {
         var assignedUsersList = document.querySelector(".assigned-liveclass-users");
         assignedUsersList.innerText = "";
         if (data.results.length !== 0) {
@@ -137,12 +135,26 @@
           output.innerHTML = "";
           output.style.display = "block";
 
+          var outputButtons = document.createElement("div");
+          outputButtons.id = "output-buttons";
+          outputButtons.style = "width:100%"
+
+          var nextButton = document.createElement("input");
+          nextButton.type = "button";
+          nextButton.innerText = "Next";
+          var prevButton = document.createElement("input");
+          prevButton.type = "button";
+          prevButton.innerText = "Previous";
+
+          outputButtons.append(prevButton, nextButton);
+
+
           //Assigning the values of Previous and Next buttons
           response.next === null
-            ? (nextButton.value = base_url+"/live_class/details/")
+            ? (nextButton.value = "http://localhost:18010/live_class/details/")
             : (nextButton.value = response.next);
           response.previous === null
-            ? (prevButton.value = base_url+"/live_class/details/?page=" + response.num_pages)
+            ? (prevButton.value = "http://localhost:18010/live_class/details/?page=" + response.num_pages)
             : (prevButton.value = response.previous);
 
           //Getting list of live classes as js object
@@ -189,7 +201,7 @@
             live_list.appendChild(live_list_item);
           });
 
-          output.appendChild(live_list);
+          output.prepend(live_list);
           nextButton.onclick = nextButtonPressed;
           prevButton.onclick = prevButtonPressed;
         })
