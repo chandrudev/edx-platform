@@ -1111,24 +1111,23 @@ class LiveClassesListApiListView(DeveloperErrorViewMixin, ListAPIView):
 
 
 
-class EnrollLiveClassDetailsView(DeveloperErrorViewMixin, ListCreateAPIView):
+class EnrollLiveClassDetailsView(APIView):
     # authentication_classes = (
     #     JwtAuthentication,
     #     BearerAuthenticationAllowInactiveUser,
     #     SessionAuthenticationAllowInactiveUser,
     # )
     #permission_classes = (permissions.IsAdminUser,)
-    throttle_classes = (EnrollmentUserThrottle,)
     serializer_class = UserLiveClassDetailsSerializer
-    #pagination_class = LiveClassesSerializer
+    # pagination_class = LiveClassesSerializer
     lookup_field = "username"
 
 
     # lookup_field = "username"
 
-    def get_queryset(self):
+    def get(self, request):
 
-        return LiveClassEnrollment.objects.filter(user=self.request.user)
+        return Response(self.serializer_class(LiveClassEnrollment.objects.filter(user=self.request.user), many=True).data)
 
 
 
