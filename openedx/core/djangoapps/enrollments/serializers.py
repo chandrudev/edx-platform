@@ -180,10 +180,15 @@ class LiveClassesSerializer(serializers.ModelSerializer):
         if start_date and start_time and end_date and end_time is not None:
             if int(float((end_date - start_date).days)/30.5)> 6:
                 raise serializers.ValidationError("Live Course should not exceed 6 months.")
-            if start_date < current_date or start_time < current_time:
-                raise serializers.ValidationError("Start date and time shouldn't be less than today's date and time ")
-            if end_date < start_date or end_time < start_time:
+            if start_date < current_date :
+                raise serializers.ValidationError("Start date  shouldn't be less than today's date.")
+            if start_date == current_date and  start_time < current_time:
+                raise serializers.ValidationError("Start time shouldn't be less than current time ")
+            if end_date < start_date:
                 raise serializers.ValidationError("End date and time shouldn't be less than start date and time")
+            if end_date == start_date and end_time < start_time:
+                    raise serializers.ValidationError("End time shouldn't be less than start time")
+
         if data.get('is_recurrence_meeting') is not None:
             if data.get('is_recurrence_meeting'):
                 if type(days) != list or days == [] :

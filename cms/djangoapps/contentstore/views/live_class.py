@@ -293,7 +293,7 @@ class EnrollLiveClassCreateView(DeveloperErrorViewMixin, CreateAPIView):
         """Upload documents"""
         try:
             serializer = self.serializer_class(
-                data=request.data, context = {'assigned_by':self.request.user}
+                data=request.data, context = {'assigned_by_id':self.request.user}
             )
             serializer.is_valid(raise_exception=True)
             
