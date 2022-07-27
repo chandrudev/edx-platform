@@ -37,7 +37,7 @@
     //To Delete selected Live class
     var deleteLive = (e) => {
       let id = e.target.attributes.value.value;
-
+      var base_url = window.location.origin;
       $.deleteJSON(base_url+"/live_class/" + id, id, function (id) {});
       window.location.reload();
     };
@@ -45,6 +45,7 @@
     //To Update Live class
     var updateLive = (e) => {
       let id = e.target.attributes.value.value;
+      var base_url = window.location.origin;
       var createLiveButton = document.querySelector(".new-liveclass-button");
       createLiveButton.click();
       console.log(id);
@@ -101,6 +102,7 @@
             start_date.val() < end_date.val() ||
             (start_date.val() === end_date.val() && start_time.val() < end_time.val())
           ) {
+            var base_url = window.location.origin;
             $.patchJSON(base_url+"/live_class/" + id, lib_info, function (id) {}).then(() => {
               console.log("Update Success");
               window.location.reload();
@@ -113,6 +115,7 @@
     };
 
     var displayAssignedUsers = (id) => {
+      var base_url = window.location.origin;
       $.getJSON(base_url+"/live_class/enroll/detail/" + id, {}).then((data) => {
         var assignedUsersList = document.querySelector(".assigned-liveclass-users");
         assignedUsersList.innerText = "";
@@ -134,6 +137,7 @@
       $.getJSON(endpoint, liveclassInfo)
         .done(function (response) {
           var output = document.getElementById("output");
+          var base_url = window.location.origin;
           output.innerHTML = "";
           output.style.display = "block";
 
