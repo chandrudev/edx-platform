@@ -312,12 +312,14 @@
 
      $(document).ready(function(){
     if($("#live_classes_list").is(":visible")){
+        alert("id is vidible");
         $.ajax({
             url:  '/api/enrollment/v1/enrollment/live_class/enroll',
             type: 'GET',
             headers: new Headers({'Content-Type':'application/json'}),
             data: $(this).serializeArray(),
             success: function(response){
+                alert('into success');
                 var response_new = JSON.parse(JSON.stringify(response));
                 var output = document.getElementById('output');
                 output.style.display = 'block';
