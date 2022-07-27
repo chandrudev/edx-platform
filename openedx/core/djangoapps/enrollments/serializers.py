@@ -309,11 +309,10 @@ class LiveClassEnrollmentSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        context = self.context
-        instance=LiveClassEnrollment.objects.create(live_class=validated_data.get('live_class'), user=context.get("assigned_by"), updated_at = datetime.datetime.now())
+        instance=LiveClassEnrollment.objects.create(live_class=validated_data.get('live_class'), user=validated_data.get('user') , updated_at = datetime.datetime.now())
         instance.save()
-        CourseEnrollment.objects.create(course=instance.live_class.course, user=instance.user, assigned_by=self.context['assigned_by'])
-
+        CourseEnrollment.objects.create(course=instance.live_class.course, user=instance.user, assigned_by=self.context['assigned_by'], assigned_by_id=self.context['assigned_by'].id )
+        
         return instance
 
 

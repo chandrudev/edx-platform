@@ -271,10 +271,7 @@ class UserAttendanceDetailsListApiView(DeveloperErrorViewMixin, ListAPIView):
         """Get Serializer"""
         if self.request.method == 'GET':
             return UserListSerializer
-
-
-
-
+            
 class EnrollLiveClassCreateView(DeveloperErrorViewMixin, CreateAPIView):
     authentication_classes = (
         JwtAuthentication,
@@ -293,11 +290,11 @@ class EnrollLiveClassCreateView(DeveloperErrorViewMixin, CreateAPIView):
         """Upload documents"""
         try:
             serializer = self.serializer_class(
-                data=request.data, context = {'assigned_by_id':self.request.user}
+                data=request.data, context = {'assigned_by':self.request.user}
             )
             serializer.is_valid(raise_exception=True)
             
-            serializer.save(assign_by_id=request.user.id)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
