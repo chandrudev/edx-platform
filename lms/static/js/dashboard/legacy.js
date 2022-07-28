@@ -370,7 +370,7 @@
             // courses.innerText = JSON.stringify(response);
           },
         });
-      };
+      }
 
     //Display List of Teachers
     const teachers_tab = document.querySelector(".teachers-link");
@@ -413,7 +413,7 @@
           content.appendChild(userProfile);
         },
       });
-    };
+    }
 
      $(document).ready(function(){
     if($("#live_classes_list").is(":visible")){
