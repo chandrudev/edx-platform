@@ -117,6 +117,8 @@
     var displayAssignedUsers = (id) => {
       var base_url = window.location.origin;
       $.getJSON(base_url+"/live_class/enroll/detail/" + id, {}).then((data) => {
+        alert(JSON.parse(JSON.stringify(data)),'json');
+        alert(data, 'ersponse');
         var assignedUsersList = document.querySelector(".assigned-liveclass-users");
         assignedUsersList.innerText = "";
         if (data.results.length !== 0) {
