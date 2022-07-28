@@ -313,8 +313,8 @@
 
     f$(".teachers-link").click(function(){
         var courses = document.querySelector("#my-courses");
-          document.querySelector("#main").style = "display:unset";
-          document.querySelector("#user-profile-view") ? document.querySelector("#user-profile-view").remove() : {};
+        //   document.querySelector("#main").style = "display:unset";
+        //   document.querySelector("#user-profile-view") ? document.querySelector("#user-profile-view").remove() : {};
     
           courses.innerText = "";
           $.ajax({
