@@ -310,6 +310,111 @@
          });
      };
 
+     function teachers_list() {
+        var courses = document.querySelector("#my-courses");
+        document.querySelector("#main").style = "display:unset";
+        document.querySelector("#user-profile-view") ? document.querySelector("#user-profile-view").remove() : {};
+  
+        courses.innerText = "";
+        $.ajax({
+          type: "GET",
+          url: "get/staff/list/details",
+          data: $(this).serializeArray(),
+          success: function (response) {
+            console.log(response);
+  
+            var teachersHeading = document.createElement("h2");
+            teachersHeading.innerText = "All Teachers";
+            teachersHeading.style = "font-size: 24px; font-weight: 900; margin-bottom: 24px";
+            courses.appendChild(teachersHeading);
+  
+            response.forEach((element) => {
+              console.log(element);
+              var teacher = document.createElement("div");
+              teacher.style =
+                "background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.20); padding-bottom:0; margin-bottom: 36px; overflow: hidden; border-radius: 8px; flex: 1 1 100%; display: flex;";
+  
+              var teacher_image = document.createElement("img");
+              teacher_image.src = "https://i.pravatar.cc/150";
+              teacher_image.style = "margin:10px 30px; border-radius:50%; max-width: 150px";
+  
+              var teacher_details = document.createElement("div");
+              teacher_details.className = "wrapper-course-details";
+              teacher_details.style = "width:100%";
+  
+              var name = document.createElement("h3");
+              name.className = "course-title";
+              name.style = " font-weight:600 ; color:#000; font-family: Roboto;";
+              name.innerText = element.username;
+  
+              var email = document.createElement("p");
+              email.style = "display:inline-block";
+              email.innerText = element.email;
+  
+              var contact = document.createElement("div");
+              contact.className = "continue-button";
+  
+              var teacher_contact = document.createElement("a");
+              teacher_contact.style =
+                "background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100; display:inline-block; padding: 4px 24px; float: right; margin-right:20px";
+              teacher_contact.innerText = "Contact";
+  
+              contact.append(email, teacher_contact);
+  
+              teacher_details.append(name, contact);
+  
+              teacher.append(teacher_image, teacher_details);
+              courses.appendChild(teacher);
+            });
+  
+            // courses.innerText = JSON.stringify(response);
+          },
+        });
+      };
+
+    //Display List of Teachers
+    const teachers_tab = document.querySelector(".teachers-link");
+    teachers_tab.removeAttribute("href");
+    teachers_tab.onclick = teachers_list;
+
+    //Display Profile of the user
+    const paid_profile = document.querySelector(".user-image-frame").parentElement;
+    paid_profile.removeAttribute("href");
+    paid_profile.style = "cursor:pointer";
+    paid_profile.onclick = display_profile;
+
+    function display_profile() {
+      var content = document.querySelector("#content");
+      document.querySelector("#main").style = "display:none";
+      content.style = "max-width:100%; padding:0";
+      $.ajax({
+        type: "GET",
+        url: "api/user/v1/accounts",
+        // data: $(this).serializeArray(),
+        success: function (response) {
+          console.log(response[0]);
+          var userProfile = document.createElement("div");
+          userProfile.id = "user-profile-view";
+          var banner = document.createElement("img");
+          banner.src = "static/images/profiles/banner.png";
+          banner.style = "width:100%; display:block";
+
+          var userDetails = document.createElement("div");
+          userDetails.style = "min-height: 50vh; display:block; position: relative; text-align: left; color: #262d33; font-family: GROBOLD; margin-left:10%"
+          userDetails.innerHTML = `
+                <img style="position: relative; top:-50px; border: 10px solid #ff7f27; border-radius: 50%; display:inline-block; overflow: hidden; max-width:175px" alt="" src="${response[0].profile_image.image_url_full}" />
+                <div style=" display:inline-block; margin-left:10px">
+                  <h1 style="position: relative; color:#262d33; letter-spacing: 0.02em; line-height: 120%; font-weight: 500; display: inline-block;">${response[0].username}</h1>
+                  <p style="font-size: 20px; color:#8499b1">${response[0].email}</p>
+                </div>
+          `;
+
+          userProfile.append(banner, userDetails);
+          content.appendChild(userProfile);
+        },
+      });
+    };
+
      $(document).ready(function(){
     if($("#live_classes_list").is(":visible")){
         $.ajax({
@@ -346,6 +451,7 @@
                         var meet_link= document.createElement("a");
                         meet_link.setAttribute("id","meet_link_"+i);
                         meet_link.setAttribute("class","button inner-link");
+                        
                         meet_link.setAttribute("href",live_response.meeting_link);
                         meet_link.setAttribute("target",'_blank');
                         meet_link.setAttribute("style", "font-size: 18px; margin-right: 20px; box-shadow: 0px 5px 0px #ee6100; border: none; color:#fff; background: #ff7f27; border-radius: 12px; padding: 12px 20px; background-image: none; text-shadow: 0 0");
@@ -367,6 +473,7 @@
                         var meet_link= document.createElement("a");
                         meet_link.setAttribute("id","meet_link_"+i);
                         meet_link.setAttribute("class","button inner-link");
+                        meet_link.setAttribute("style", "background-color: #FF7F27; background-image: none; text-shadow: 0 0;  color: #fff; font-size: 16px; min-width: 86px; font-weight: 500;");
                         meet_link.setAttribute("href",live_response.meeting_link);
                         meet_link.setAttribute("target",'_blank');
                         meet_link.innerHTML='Join Class';
@@ -377,13 +484,6 @@
                         li_list.appendChild(join_button);
                         ul_list.appendChild(li_list);
                         live_class_list.appendChild(ul_list);
-
-
-
-
-
-                
-                        
                     }
                 }
 

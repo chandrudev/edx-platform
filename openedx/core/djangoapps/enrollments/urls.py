@@ -64,5 +64,5 @@ urlpatterns = [
 
     # path('enrollment/live_class/enroll/detail/<live_class_id>', EnrollLiveClassUserDetailsView.as_view(), name='user_live_class_details' ),
 
-    # path('enrollment/live_class/enroll/live_class/detail/<id>', EnrollLiveClassUserDetailsView.as_view(), name='user_live_class_details' ),
+    # path('    /live_class/detail/<id>', EnrollLiveClassUserDetailsView.as_view(), name='user_live_class_details' ),
 ]
