@@ -1184,7 +1184,7 @@ class CourseEnrollmentManager(models.Manager):
 
         Returns:
             Returns a User queryset.
-        """
+        """"margin:0; color: #8499B1;"
         filter_kwargs = {
             'courseenrollment__course_id': course_id,
         }

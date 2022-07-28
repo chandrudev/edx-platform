@@ -320,7 +320,9 @@
             success: function(response){
                 var response_new = JSON.parse(JSON.stringify(response));
                 var output = document.getElementById('output');
-                alert(response_new, response_new.results.length)
+                var live_class_list = document.querySelector("#live_class_list");
+                var ul_list = document.createElement('ul');
+                ul_list.setAttribute("style", "list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap:20px; padding:12px");
                 output.style.display = 'block';
                 for(var i=0; i<response_new.results.length; i++){
                     var live_response = response_new.results[i].live_class;
@@ -350,6 +352,38 @@
                         meet_link.innerHTML='Join Class';
                         parent.appendChild(meet_link);
                         output.appendChild(parent);
+                        var li_list = document.createElement('li')
+                        li_list.setAttribute("class", "liveclass"+i);
+                        li_list.setAttribute("style", "display: flex; justify-content: space-between; align-items: flex-start;");
+                        var list_div = document.createElement("div");
+                        var li_head = document.createElement("h3");
+                        li_head.setAttribute("style", "font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0");
+                        li_head.innerText = live_response.topic_name;
+                        var li_par = document.createElement('p');
+                        li_par.setAttribute("style", "margin:0; color: #8499B1;");
+                        li_par.innerHTML = live_response.start_time + "-" + live_response.end_time;
+                        var join_button = document.createElement("button");
+                        join_button.setAttribute("style", "background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px");
+                        var meet_link= document.createElement("a");
+                        meet_link.setAttribute("id","meet_link_"+i);
+                        meet_link.setAttribute("class","button inner-link");
+                        meet_link.setAttribute("href",live_response.meeting_link);
+                        meet_link.setAttribute("target",'_blank');
+                        meet_link.setAttribute("style", "background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px");
+                        meet_link.innerHTML='Join Class';
+                        join_button.appendChild(meet_link);
+                        list_div.appendChild(li_par);
+                        list_div.appendChild(li_head);
+                        li_list.appendChild(join_button);
+                        li_list.appendChild(list_div);
+                        ul_list.appendChild(li_list);
+
+
+
+
+
+                
+                        
                     }
                 }
 
