@@ -384,8 +384,10 @@ from openedx.core.djangolib.js_utils import (
              </br></br>
              <input class="new-liveclass-username" id="new-liveclass-username" type="text" name="new-liveclass-username" required placeholder="${_('Enter Email')}" aria-describedby="tip-new-liveclass-username tip-error-new-liveclass-username" />
             <input type="button" value="${_('Assign User')}" class="action action-primary new-liveclass-user" />
+
           </div>
         </form>
+        <div class="assigned-liveclass-users" id="assigned-liveclass-users"></div>
       </div>
       % endif
 
