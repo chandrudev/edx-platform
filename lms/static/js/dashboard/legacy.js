@@ -369,15 +369,14 @@
                         meet_link.setAttribute("class","button inner-link");
                         meet_link.setAttribute("href",live_response.meeting_link);
                         meet_link.setAttribute("target",'_blank');
-                        meet_link.setAttribute("style", "background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px");
                         meet_link.innerHTML='Join Class';
                         join_button.appendChild(meet_link);
-                        list_div.appendChild(li_par);
                         list_div.appendChild(li_head);
-                        li_list.appendChild(join_button);
+                        list_div.appendChild(li_par);
                         li_list.appendChild(list_div);
+                        li_list.appendChild(join_button);
                         ul_list.appendChild(li_list);
-                        live_class_list.append(ul_list);
+                        live_class_list.appendChild(ul_list);
 
 
 
