@@ -1126,8 +1126,8 @@ class EnrollLiveClassDetailsView(APIView):
     # lookup_field = "username"
 
     def get(self, request):
-        log.info('-------------------',self.serializer_class(LiveClassEnrollment.objects.filter(user=self.request.user), many=True).data)
-        return Response(self.serializer_class(LiveClassEnrollment.objects.filter(user=self.request.user), many=True).data)
+        result = self.serializer_class(LiveClassEnrollment.objects.filter(user=self.request.user), many=True).data
+        return Response({"results":result})
 
 
 
