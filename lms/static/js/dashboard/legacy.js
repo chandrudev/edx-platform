@@ -377,6 +377,7 @@
                         li_list.appendChild(join_button);
                         li_list.appendChild(list_div);
                         ul_list.appendChild(li_list);
+                        live_class_list.append(ul_list);
 
 
 
