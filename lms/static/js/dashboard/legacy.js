@@ -468,20 +468,17 @@
                         var li_par = document.createElement('p');
                         li_par.setAttribute("style", "margin:0; color: #8499B1;");
                         li_par.innerHTML = live_response.start_time + "-" + live_response.end_time;
-                        var join_button = document.createElement("button");
-                        join_button.setAttribute("style", "background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px");
                         var meet_link= document.createElement("a");
                         meet_link.setAttribute("id","meet_link_"+i);
                         meet_link.setAttribute("class","button inner-link");
-                        meet_link.setAttribute("style", "background-color: #FF7F27; background-image: none; text-shadow: 0 0;  color: #fff; font-size: 16px; min-width: 86px; font-weight: 500;");
+                        meet_link.setAttribute("style", "font-size: 18px; margin-right: 20px; box-shadow: 0px 5px 0px #ee6100; border: none; color:#fff; background: #ff7f27; border-radius: 12px; padding: 12px 20px; background-image: none; text-shadow: 0 0");
                         meet_link.setAttribute("href",live_response.meeting_link);
                         meet_link.setAttribute("target",'_blank');
                         meet_link.innerHTML='Join Class';
-                        join_button.appendChild(meet_link);
                         list_div.appendChild(li_head);
                         list_div.appendChild(li_par);
                         li_list.appendChild(list_div);
-                        li_list.appendChild(join_button);
+                        li_list.appendChild(meet_link);
                         ul_list.appendChild(li_list);
                         live_class_list.appendChild(ul_list);
                     }
