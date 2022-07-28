@@ -142,12 +142,12 @@
           output.style.display = "block";
 
           //Assigning the values of Previous and Next buttons
-          response.next === null
-            ? (nextButton.value = base_url+"/live_class/details/")
-            : (nextButton.value = response.next);
-          response.previous === null
-            ? (prevButton.value = base_url+"/live_class/details/?page=" + response.num_pages)
-            : (prevButton.value = response.previous);
+          // response.next === null
+          //   ? (nextButton.value = base_url+"/live_class/details/")
+          //   : (nextButton.value = response.next);
+          // response.previous === null
+          //   ? (prevButton.value = base_url+"/live_class/details/?page=" + response.num_pages)
+          //   : (prevButton.value = response.previous);
 
           //Getting list of live classes as js object
           var response = JSON.parse(JSON.stringify(response.results));
@@ -194,8 +194,8 @@
           });
 
           output.appendChild(live_list);
-          nextButton.onclick = nextButtonPressed;
-          prevButton.onclick = prevButtonPressed;
+          // nextButton.onclick = nextButtonPressed;
+          // prevButton.onclick = prevButtonPressed;
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
           var reason = errorThrown;
