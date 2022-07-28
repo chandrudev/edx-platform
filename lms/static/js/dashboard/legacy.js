@@ -310,71 +310,7 @@
          });
      };
 
-
-    $(".teachers-link").click(function(){
-        var courses = document.querySelector("#my-courses");
-        //   document.querySelector("#main").style = "display:unset";
-        //   document.querySelector("#user-profile-view") ? document.querySelector("#user-profile-view").remove() : {};
     
-          courses.innerText = "";
-          $.ajax({
-            type: "GET",
-            url: "get/staff/list/details",
-            data: $(this).serializeArray(),
-            success: function (response) {
-              console.log(response);
-    
-              var teachersHeading = document.createElement("h2");
-              teachersHeading.innerText = "All Teachers";
-              teachersHeading.style = "font-size: 24px; font-weight: 900; margin-bottom: 24px";
-              courses.appendChild(teachersHeading);
-    
-              response.forEach((element) => {
-                console.log(element);
-                var teacher = document.createElement("div");
-                teacher.style =
-                  "background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.20); padding-bottom:0; margin-bottom: 36px; overflow: hidden; border-radius: 8px; flex: 1 1 100%; display: flex;";
-    
-                var teacher_image = document.createElement("img");
-                teacher_image.src = "https://i.pravatar.cc/150";
-                teacher_image.style = "margin:10px 30px; border-radius:50%; max-width: 150px";
-    
-                var teacher_details = document.createElement("div");
-                teacher_details.className = "wrapper-course-details";
-                teacher_details.style = "width:100%";
-    
-                var name = document.createElement("h3");
-                name.className = "course-title";
-                name.style = " font-weight:600 ; color:#000; font-family: Roboto;";
-                name.innerText = element.username;
-    
-                var email = document.createElement("p");
-                email.style = "display:inline-block";
-                email.innerText = element.email;
-    
-                var contact = document.createElement("div");
-                contact.className = "continue-button";
-    
-                var teacher_contact = document.createElement("a");
-                teacher_contact.style =
-                  "background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100; display:inline-block; padding: 4px 24px; float: right; margin-right:20px";
-                teacher_contact.innerText = "Contact";
-    
-                contact.append(email, teacher_contact);
-    
-                teacher_details.append(name, contact);
-    
-                teacher.append(teacher_image, teacher_details);
-                courses.appendChild(teacher);
-              });
-    
-              // courses.innerText = JSON.stringify(response);
-            },
-          });
-    });
-    
-
-
      $(document).ready(function(){
     if($("#live_classes_list").is(":visible")){
         $.ajax({
