@@ -653,7 +653,7 @@ class CourseTabView(EdxFragmentView):
         """
         Returns the URL to use to enroll in the specified course.
         """
-        url_to_enroll = reverse('about_course', args=[str(course_key)])
+        url_to_enroll = reverse('home', args=[str(course_key)])
         if settings.FEATURES.get('ENABLE_MKTG_SITE'):
             url_to_enroll = marketing_link('COURSES')
         return url_to_enroll
@@ -893,7 +893,7 @@ class EnrollStaffView(View):
             return redirect(_next)
 
         # In any other case redirect to the course about page.
-        return redirect(reverse('about_course', args=[str(course_key)]))
+        return redirect(reverse('home', args=[str(course_key)]))
 
 
 @ensure_csrf_cookie
@@ -927,7 +927,7 @@ def course_about(request, course_id):  # pylint: disable=too-many-statements
         if request.user.has_perm(VIEW_COURSE_HOME, course):
             course_target = course_home_url(course.id)
         else:
-            course_target = reverse('about_course', args=[str(course.id)])
+            course_target = reverse('home', args=[str(course.id)])
 
         show_courseware_link = bool(
             (

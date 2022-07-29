@@ -423,7 +423,7 @@ from lms.djangoapps.experiments.utils import UPSELL_TRACKING_FLAG
 
         % if course_requirements:
         ## Multiple pre-requisite courses are not supported on frontend that's why we are pulling first element
-        <% prc_target = reverse('about_course', args=[six.text_type(course_requirements['courses'][0]['key'])]) %>
+        <% prc_target = reverse('home', args=[six.text_type(course_requirements['courses'][0]['key'])]) %>
         <div class="prerequisites">
           <p class="tip">
             ${Text(_("You must successfully complete {link_start}{prc_display}{link_end} before you begin this course.")).format(

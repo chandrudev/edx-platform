@@ -44,7 +44,7 @@ class EmbargoMiddlewareAccessTests(UrlResetMixin, ModuleStoreTestCase):
         self.course = CourseFactory.create()
         self.client.login(username=self.USERNAME, password=self.PASSWORD)
 
-        self.courseware_url = reverse('about_course', kwargs={'course_id': str(self.course.id)})
+        self.courseware_url = reverse('home', kwargs={'course_id': str(self.course.id)})
         self.non_courseware_url = reverse('dashboard')
 
         # Clear the cache to avoid interference between tests

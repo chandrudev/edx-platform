@@ -77,7 +77,7 @@ def criteria(course_key):
     """
     Constructs the 'criteria' URL from the course about page.
     """
-    about_path = reverse('about_course', kwargs={'course_id': str(course_key)})
+    about_path = reverse('home', kwargs={'course_id': str(course_key)})
     return f'{site_prefix()}{about_path}'
 
 

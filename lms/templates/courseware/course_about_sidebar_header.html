@@ -20,7 +20,7 @@ from six import text_type
         site_domain = static.get_value('site_domain', settings.SITE_NAME)
         site_protocol = 'https' if settings.HTTPS == 'on' else 'http'
         platform_name = static.get_platform_name()
-        course_path = reverse('about_course', args=[text_type(course.id)])
+        course_path = reverse('home', args=[text_type(course.id)])
         course_url = f"{site_protocol}://{site_domain}{course_path}"
 
         ## Translators: This text will be automatically posted to the student's

@@ -301,7 +301,7 @@ endorser_org = endorser_position.get('organization_name') or corporate_endorseme
         open_course_runs = [run for run in sorted_course_runs if run['is_enrollment_open']]
         course_run = open_course_runs[0] if open_course_runs else sorted_course_runs[-1]
         course_img = course_run.get('image')
-        course_about_url = reverse('about_course', args=[course_run['key']])
+        course_about_url = reverse('home', args=[course_run['key']])
         course_purchase_url = course_run['upgrade_url'] if course_run['upgrade_url'] else course_about_url
       %>
       <div class="row course">

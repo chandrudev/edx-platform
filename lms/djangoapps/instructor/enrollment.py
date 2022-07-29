@@ -432,7 +432,7 @@ def get_email_params(course, auto_enroll, secure=True, course_key=None, display_
         course_about_url = '{proto}://{site}{path}'.format(
             proto=protocol,
             site=stripped_site_name,
-            path=reverse('about_course', kwargs={'course_id': course_key})
+            path=reverse('home', kwargs={'course_id': course_key})
         )
 
     is_shib_course = uses_shib(course)

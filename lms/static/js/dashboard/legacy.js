@@ -317,7 +317,7 @@
         alert('calling ajax');
         $.ajax({
             type: "GET",
-            url: "get/staff/list/details",
+            url: "../get/staff/list/details",
             headers: new Headers({'Content-Type':'application/json'}),
             data: $(this).serializeArray(),
             success: function(response){
@@ -328,6 +328,42 @@
                 teachersHeading.setAttribute("style","font-size: 24px; font-weight: 900; margin-bottom: 24px");
                 teachersHeading.innerText = "Teachers";
                 courses.appendChild(teachersHeading);
+                for(var i=0; i<new_response.length; i++){
+
+                    var teacher = document.createElement("div");
+                    teacher.setAttribute("background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.20); padding-bottom:0; margin-bottom: 36px; overflow: hidden; border-radius: 8px; flex: 1 1 100%; display: flex;");
+
+                    var teacher_image = document.createElement("img");
+                    teacher_image.setAttribute(src,"https://i.pravatar.cc/150");
+                    teacher_image.setAttribute("style","margin:10px 30px; border-radius:50%; max-width: 150px");
+                    
+                    var teacher_details = document.createElement("div");
+                    teacher_details.setAttribute("class","wrapper-course-details");
+                    teacher_details.setAttribute("style","width:100%");
+
+                    var name = document.createElement("h3");
+                    name.setAttribute("class","course-title");
+                    name.setAttribute("style"," font-weight:600 ; color:#000; font-family: Roboto;");
+                    name.innerText = element.username;
+
+                    var email = document.createElement("p");
+                    email.setAttribute("style","display:inline-block");
+                    email.innerText = element.email;
+
+                    var contact = document.createElement("div");
+                    contact.setAttribute("class","continue-button");
+
+                    var teacher_contact = document.createElement("a");
+                    teacher_contact.setAttribute("style","background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100; display:inline-block; padding: 4px 24px; float: right; margin-right:20px");
+                    teacher_contact.innerText = "Contact";
+                    contact.appendChild(email);
+                    contact.appendChild(teacher_contact);
+                    teacher_details.appendChild(name);
+                    teacher_details.appendChild(contact);
+                    courses.appendChild(teacher_details);
+
+
+                };
             }
         });
     };
