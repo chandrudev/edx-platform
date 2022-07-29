@@ -312,6 +312,17 @@
 
     function teacherlist(){
         alert("clickede on teacher");
+        var courses = document.querySelector("#my-courses");
+        courses.innerText = "";
+        $.ajax({
+            type: "GET",
+            url: "get/staff/list/details",
+            data: $(this).serializeArray(),
+            success: function(response){
+                alert(response);
+                console.log(response);
+            }
+        });
     };
     const teachers_tab = document.querySelector(".teachers-link");
     teachers_tab.removeAttribute("href");

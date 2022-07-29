@@ -147,8 +147,7 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
                 data=json.loads(response.text)
                 token = data.get('token')
                 return (link_url , token)
-        else:
-            return 400,json.loads(response.text)
+        return 400,json.loads(response.text)
 
     def get_queryset(self):
         return LiveClasses.objects.filter(created_by=self.request.user)
@@ -159,18 +158,19 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
             data= request.data
             room_name =data.get('topic_name')
             call_dailyco=self.rooms(room_name)
-
-            log.info(data,'before===============================')
-            data['meeting_link']=call_dailyco[0]
-            data['client_token']=call_dailyco[1]
-            log.info(data,'after===============================')
-            serializer = self.serializer_class(
-                data=request.data, context={'user':self.request.user}
-            )
-            serializer.is_valid(raise_exception=True)
-            
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            if call_dailyco[0]!= 400:
+                log.info(data,'before===============================')
+                data['meeting_link']=call_dailyco[0]
+                data['client_token']=call_dailyco[1]
+                log.info(data,'after===============================')
+                serializer = self.serializer_class(
+                    data=request.data, context={'user':self.request.user}
+                )
+                serializer.is_valid(raise_exception=True)
+                
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response({"dailyco_error":call_dailyco[1]})
         except Exception as e:
             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
