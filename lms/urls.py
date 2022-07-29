@@ -52,7 +52,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 from openedx.core.djangoapps.user_authn.views.login import redirect_to_lms_login
 from openedx.features.enterprise_support.api import enterprise_enabled
 from openedx.features.course_experience.views.course_home import outline_tab
-
+from common.djangoapps.student.views.management import StaffDetailsListApiView
 RESET_COURSE_DEADLINES_NAME = 'reset_course_deadlines'
 RENDER_XBLOCK_NAME = 'render_xblock'
 RENDER_VIDEO_XBLOCK_NAME = 'render_public_video_xblock'
@@ -78,6 +78,7 @@ notification_prefs_urls = [
     path('notification_prefs/enable/', notification_prefs_views.ajax_enable),
     path('notification_prefs/disable/', notification_prefs_views.ajax_disable),
     path('notification_prefs/status/', notification_prefs_views.ajax_status),
+    path('get/staff/list/details', StaffDetailsListApiView.as_view(), name='teacherlist'),#Teacher list
 
     re_path(
         r'^notification_prefs/unsubscribe/(?P<token>[a-zA-Z0-9-_=]+)/',

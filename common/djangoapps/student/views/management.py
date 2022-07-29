@@ -1054,7 +1054,7 @@ class AnnouncementView(APIView):
             return Response({"success":False, "message":{'error':f"{e}"}})
 
 
-class StaffDetailsListApiView(ListAPIView):
+class StaffDetailsListApiView(APIView):
 
     authentication_classes = (
         JwtAuthentication,
@@ -1067,8 +1067,9 @@ class StaffDetailsListApiView(ListAPIView):
     queryset = User.objects.all()
 
 
-    def get_queryset(self):
-        return User.objects.filter(is_staff=True , is_superuser=False)
+    def get(self, request):
+        teacher_list = self.queryset.objects.filter(is_staff=True , is_superuser=False) 
+        return Response(self.serializer_class(teacher_list, many=True).data)
 
         
 
