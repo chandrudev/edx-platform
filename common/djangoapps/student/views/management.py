@@ -1068,7 +1068,7 @@ class StaffDetailsListApiView(APIView):
 
 
     def get(self, request):
-        teacher_list = self.queryset.objects.filter(is_staff=True , is_superuser=False) 
+        teacher_list = self.queryset.filter(is_staff=True , is_superuser=False) 
         return Response(self.serializer_class(teacher_list, many=True).data)
 
         

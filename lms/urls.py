@@ -390,7 +390,7 @@ urlpatterns += [
             settings.COURSE_ID_PATTERN,
         ),
         outline_tab,
-        name='home',
+        name='home'
     ),
     re_path(
         r'^courses/{}/info$'.format(
