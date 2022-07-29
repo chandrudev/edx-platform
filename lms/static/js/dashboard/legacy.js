@@ -338,11 +338,11 @@
                     teacher_image.setAttribute("style","margin:10px 30px; border-radius:50%; max-width: 150px");
                     
                     var teacher_details = document.createElement("div");
-                    teacher_details.setAttribute("class","wrapper-course-details");
+                    teacher_details.classList.add("wrapper-course-details");
                     teacher_details.setAttribute("style","width:100%");
 
                     var name = document.createElement("h3");
-                    name.setAttribute("class","course-title");
+                    name.classList.add("course-title");
                     name.setAttribute("style"," font-weight:600 ; color:#000; font-family: Roboto;");
                     name.innerText = element.username;
 
@@ -351,7 +351,7 @@
                     email.innerText = element.email;
 
                     var contact = document.createElement("div");
-                    contact.setAttribute("class","continue-button");
+                    contact.classList.add("continue-button");
 
                     var teacher_contact = document.createElement("a");
                     teacher_contact.setAttribute("style","background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100; display:inline-block; padding: 4px 24px; float: right; margin-right:20px");
