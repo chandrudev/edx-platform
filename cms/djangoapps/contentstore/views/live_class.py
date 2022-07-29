@@ -148,7 +148,7 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
                 token = data.get('token')
                 return (link_url , token)
         else:
-            return None , None
+            return 400,json.loads(response.text)
 
     def get_queryset(self):
         return LiveClasses.objects.filter(created_by=self.request.user)
@@ -160,10 +160,10 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
             room_name =data.get('topic_name')
             call_dailyco=self.rooms(room_name)
 
-
+            log.info(data,'before===============================')
             data['meeting_link']=call_dailyco[0]
             data['client_token']=call_dailyco[1]
-
+            log.info(data,'after===============================')
             serializer = self.serializer_class(
                 data=request.data, context={'user':self.request.user}
             )
