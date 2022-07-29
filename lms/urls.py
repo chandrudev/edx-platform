@@ -51,6 +51,7 @@ from openedx.core.djangoapps.self_paced.models import SelfPacedConfiguration
 from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
 from openedx.core.djangoapps.user_authn.views.login import redirect_to_lms_login
 from openedx.features.enterprise_support.api import enterprise_enabled
+from openedx.features.course_experience.views.course_home import outline_tab
 
 RESET_COURSE_DEADLINES_NAME = 'reset_course_deadlines'
 RENDER_XBLOCK_NAME = 'render_xblock'
@@ -279,6 +280,7 @@ urlpatterns += [
     ),
 
     # xblock Handler APIs
+   
     re_path(
         r'^courses/{course_key}/xblock/{usage_key}/handler/(?P<handler>[^/]*)(?:/(?P<suffix>.*))?$'.format(
             course_key=settings.COURSE_ID_PATTERN,
@@ -381,6 +383,13 @@ urlpatterns += [
         ),
         courseware_views.course_info,
         name='course_root',
+    ),
+    re_path(
+        r'^courses/{}/home$'.format(
+            settings.COURSE_ID_PATTERN,
+        ),
+        outline_tab,
+        name='home',
     ),
     re_path(
         r'^courses/{}/info$'.format(

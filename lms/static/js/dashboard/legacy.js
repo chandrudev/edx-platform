@@ -318,12 +318,15 @@
         $.ajax({
             type: "GET",
             url: "get/staff/list/details",
+            headers: new Headers({'Content-Type':'application/json'}),
             data: $(this).serializeArray(),
             success: function(response){
-                alert(response);
-                console.log(response);
+                var new_response = JSON.parse(JSON.stringify(response));
+                alert(new_response);
+                console.log(new_response);
                 var teachersHeading = document.createElement("h2");
                 teachersHeading.setAttribute("style","font-size: 24px; font-weight: 900; margin-bottom: 24px");
+                teachersHeading.innerText = "Teachers";
                 courses.appendChild(teachersHeading);
             }
         });
