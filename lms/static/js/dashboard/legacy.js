@@ -310,6 +310,12 @@
          });
      };
 
+    function teacherlist(){
+        alert("clickede on teacher");
+    };
+    const teachers_tab = document.querySelector(".teachers-link");
+    teachers_tab.removeAttribute("href");
+    teachers_tab.onclick = teachers_list;
     
      $(document).ready(function(){
     if($("#live_classes_list").is(":visible")){

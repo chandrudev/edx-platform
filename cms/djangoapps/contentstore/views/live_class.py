@@ -124,6 +124,8 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
         }
 
         response = requests.request("POST", url, headers=headers, data= payload)
+        log.info(f"=========room=================={response}================={json.loads(response.text)}==========================================")
+
         if response.status_code==200:
             data=json.loads(response.text)
             link_url = data.get('url')
@@ -140,7 +142,7 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
             }
 
             response = requests.request("POST", url, headers=headers, data=payload)
-
+            log.info(f"=========token==========={response}========================{json.loads(response.text)}==========================================")
             if response.status_code==200:
                 data=json.loads(response.text)
                 token = data.get('token')
