@@ -314,6 +314,7 @@
         alert("clickede on teacher");
         var courses = document.querySelector("#my-courses");
         courses.innerText = "";
+        alert('calling ajax');
         $.ajax({
             type: "GET",
             url: "get/staff/list/details",
@@ -321,6 +322,9 @@
             success: function(response){
                 alert(response);
                 console.log(response);
+                var teachersHeading = document.createElement("h2");
+                teachersHeading.setAttribute("style","font-size: 24px; font-weight: 900; margin-bottom: 24px");
+                courses.appendChild(teachersHeading);
             }
         });
     };
