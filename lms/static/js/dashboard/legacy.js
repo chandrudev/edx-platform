@@ -337,11 +337,19 @@
                     teacher_image.setAttribute("style","margin:10px 30px; border-radius:50%; max-width: 150px");
                     
                     var teacher_details = document.createElement("div");
+<<<<<<< HEAD
                     teacher_details.className = "wrapper-course-details";
                     teacher_details.setAttribute("style","width:100%");
 
                     var name = document.createElement("h3");
                     name.className ="course-title";
+=======
+                    teacher_details.setAttribute("class","wrapper-course-details");
+                    teacher_details.setAttribute("style","width:100%");
+
+                    var name = document.createElement("h3");
+                    name.setAttribute("class","course-title");
+>>>>>>> parent of a2ec2572a4 (class-list)
                     name.setAttribute("style"," font-weight:600 ; color:#000; font-family: Roboto;");
                     name.innerText = element.username;
 
@@ -350,7 +358,11 @@
                     email.innerText = element.email;
 
                     var contact = document.createElement("div");
+<<<<<<< HEAD
                     contact.className="continue-button";
+=======
+                    contact.setAttribute("class","continue-button");
+>>>>>>> parent of a2ec2572a4 (class-list)
 
                     var teacher_contact = document.createElement("a");
                     teacher_contact.setAttribute("style","background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100; display:inline-block; padding: 4px 24px; float: right; margin-right:20px");
