@@ -311,14 +311,13 @@
      };
 
     function teacherlist(){
-        alert("clickede on teacher");
         var courses = document.querySelector("#my-courses");
         courses.innerText = "";
         var teachersHeading = document.createElement("h2");
         teachersHeading.setAttribute("style","font-size: 24px; font-weight: 900; margin-bottom: 24px");
         teachersHeading.innerText = "Teachers";
         courses.appendChild(teachersHeading);
-        alert('calling ajax');
+        alert("Redirecting to teachers list");
         $.ajax({
             type: "GET",
             url: "../get/staff/list/details",
@@ -326,13 +325,12 @@
             data: $(this).serializeArray(),
             success: function(response){
                 var new_response = JSON.parse(JSON.stringify(response));
-                alert(new_response);
                 console.log(new_response);
                
                 for(var i=0; i<new_response.length; i++){
 
                     var teacher = document.createElement("div");
-                    teacher.setAttribute("background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.20); padding-bottom:0; margin-bottom: 36px; overflow: hidden; border-radius: 8px; flex: 1 1 100%; display: flex;");
+                    teacher.setAttribute("style","background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.20); padding-bottom:0; margin-bottom: 36px; overflow: hidden; border-radius: 8px; flex: 1 1 100%; display: flex;");
 
                     var teacher_image = document.createElement("img");
                     teacher_image.setAttribute("src","https://i.pravatar.cc/150");
