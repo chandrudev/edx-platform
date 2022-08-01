@@ -325,7 +325,7 @@
             data: $(this).serializeArray(),
             success: function(response){
                 var new_response = JSON.parse(JSON.stringify(response));
-               
+
                 for(var i=0; i<new_response.length; i++){
                     var element = new_response[i];
 
@@ -335,21 +335,19 @@
                     var teacher_image = document.createElement("img");
                     teacher_image.setAttribute("src","https://i.pravatar.cc/150");
                     teacher_image.setAttribute("style","margin:10px 30px; border-radius:50%; max-width: 150px");
-                    
+
                     var teacher_details = document.createElement("div");
-<<<<<<< HEAD
+
                     teacher_details.className = "wrapper-course-details";
                     teacher_details.setAttribute("style","width:100%");
 
                     var name = document.createElement("h3");
                     name.className ="course-title";
-=======
                     teacher_details.setAttribute("class","wrapper-course-details");
-                    teacher_details.setAttribute("style","width:100%");
+                    teacher_details.setAttribute("style","background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.08); padding:10px; margin-bottom: 36px; overflow: hidden; border-radius: 8px; justify-content: space-between;");
 
                     var name = document.createElement("h3");
                     name.setAttribute("class","course-title");
->>>>>>> parent of a2ec2572a4 (class-list)
                     name.setAttribute("style"," font-weight:600 ; color:#000; font-family: Roboto;");
                     name.innerText = element.username;
 
@@ -358,17 +356,15 @@
                     email.innerText = element.email;
 
                     var contact = document.createElement("div");
-<<<<<<< HEAD
                     contact.className="continue-button";
-=======
                     contact.setAttribute("class","continue-button");
->>>>>>> parent of a2ec2572a4 (class-list)
 
                     var teacher_contact = document.createElement("a");
                     teacher_contact.setAttribute("style","background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100; display:inline-block; padding: 4px 24px; float: right; margin-right:20px");
                     teacher_contact.innerText = "Contact";
                     contact.appendChild(email);
                     contact.appendChild(teacher_contact);
+                    teacher_details.appendChild(teacher_image);
                     teacher_details.appendChild(name);
                     teacher_details.appendChild(contact);
                     courses.appendChild(teacher_details);
@@ -381,7 +377,7 @@
     const teachers_tab = document.querySelector(".teachers-link");
     teachers_tab.removeAttribute("href");
     teachers_tab.onclick = teacherlist;
-    
+
      $(document).ready(function(){
     if($("#live_classes_list").is(":visible")){
         $.ajax({
@@ -447,7 +443,7 @@
                         li_list.appendChild(meet_link);
                         ul_list.appendChild(li_list);
                         live_class_list.appendChild(ul_list);
-                        
+
                     }
                 }
 

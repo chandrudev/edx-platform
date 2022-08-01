@@ -1008,7 +1008,7 @@ def create_new_course(user, org, number, run, fields):
 
 
 
-def create_new_course_in_store(store, user, org, number, run, fields , course_type):
+def create_new_course_in_store(store, user, org, number, run, fields):
     """
     Create course in store w/ handling instructor enrollment, permissions, and defaulting the wiki slug.
     Separated out b/c command line course creation uses this as well as the web interface.
@@ -1027,7 +1027,6 @@ def create_new_course_in_store(store, user, org, number, run, fields , course_ty
             number,
             run,
             user.id,
-            course_type,
             fields=fields,
         )
 
@@ -1039,7 +1038,7 @@ def create_new_course_in_store(store, user, org, number, run, fields , course_ty
     return new_course
 
 
-def rerun_course(user, source_course_key, org, number, run, fields, course_type, background=True):
+def rerun_course(user, source_course_key, org, number, run, fields, background=True):
     """
     Rerun an existing course.
     """
@@ -1050,7 +1049,7 @@ def rerun_course(user, source_course_key, org, number, run, fields, course_type,
     # create destination course key
     store = modulestore()
     with store.default_store('split'):
-        destination_course_key = store.make_course_key(org, number, run, course_type)
+        destination_course_key = store.make_course_key(org, number, run)
 
     # verify org course and run don't already exist
     if store.has_course(destination_course_key, ignore_case=True):
