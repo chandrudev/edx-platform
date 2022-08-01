@@ -335,7 +335,7 @@
                     teacher.setAttribute("background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.20); padding-bottom:0; margin-bottom: 36px; overflow: hidden; border-radius: 8px; flex: 1 1 100%; display: flex;");
 
                     var teacher_image = document.createElement("img");
-                    teacher_image.setAttribute(src,"https://i.pravatar.cc/150");
+                    teacher_image.setAttribute("src","https://i.pravatar.cc/150");
                     teacher_image.setAttribute("style","margin:10px 30px; border-radius:50%; max-width: 150px");
                     
                     var teacher_details = document.createElement("div");
