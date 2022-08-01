@@ -339,7 +339,7 @@ class OutlineTabView(RetrieveAPIView):
         context['enrollment'] = enrollment
         log.info(f"==============================================Context New==========================={context}=======================")
         serializer = self.get_serializer_class()(data, context=context)
-        log.info(f"===================================================SERIALIZER DATA============================={serializer}=================================s")
+        log.info(f"===================================================SERIALIZER DATA============================={serializer.data}=================================s")
         return Response(serializer.data)
 
     def finalize_response(self, request, response, *args, **kwargs):
