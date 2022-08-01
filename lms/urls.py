@@ -53,6 +53,8 @@ from openedx.core.djangoapps.user_authn.views.login import redirect_to_lms_login
 from openedx.features.enterprise_support.api import enterprise_enabled
 from openedx.features.course_experience.views.course_home import outline_tab
 from common.djangoapps.student.views.management import StaffDetailsListApiView
+from common.djangoapps.student.views.management import uploaded_doc_view
+
 RESET_COURSE_DEADLINES_NAME = 'reset_course_deadlines'
 RENDER_XBLOCK_NAME = 'render_xblock'
 RENDER_VIDEO_XBLOCK_NAME = 'render_public_video_xblock'
@@ -97,6 +99,8 @@ notification_prefs_urls = [
 
 urlpatterns = [
     path('', branding_views.index, name='root'),  # Main marketing page, or redirect to courseware
+    path("get_doc/", uploaded_doc_view, name='uploaded_doc_view'),
+
 
     path('', include('common.djangoapps.student.urls')),
     # TODO: Move lms specific student views out of common code
@@ -254,6 +258,7 @@ if settings.WIKI_ENABLED:
         path('wiki/create-root/', course_wiki_views.root_create, name='root_create'),
         path('wiki/', include((wiki_url_patterns, wiki_app_name), namespace='wiki')),
         path('notify/', include((notify_url_patterns, notify_app_name), namespace='notify')),
+
 
         # These urls are for viewing the wiki in the context of a course. They should
         # never be returned by a reverse() so they come after the other url patterns

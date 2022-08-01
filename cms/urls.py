@@ -23,7 +23,6 @@ from openedx.core.apidocs import api_info
 from openedx.core.djangoapps.password_policy import compliance as password_policy_compliance
 from openedx.core.djangoapps.password_policy.forms import PasswordPolicyAwareAdminAuthForm
 from openedx.core import toggles as core_toggles
-from common.djangoapps.student.views.management import uploaded_doc_view
 
 from cms.djangoapps.contentstore.views.live_class import (LiveClassesApiListView ,CourseListView,UserCourseUnEnrollment, UserAttendanceDetailsListApiView ,LiveClassesDeleteUpdateApiView , UserDetailsListApiView ,EnrollLiveClassCreateView,EnrollLiveClassUserDetailsView ,EnrollLiveClassUserDeleteApiView , UserCourseEnrollment ,EnrollCourseUserDetailsView , 
 LoginStaffCourseDetailsList, StaffNotifyCallRequestRetrieveDetails , StaffNotifyCallRequestListDetails , StudentUserDetailsListApiView , StudentListbyCourseDetailsList)
