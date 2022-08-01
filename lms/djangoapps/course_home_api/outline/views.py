@@ -49,7 +49,7 @@ from openedx.features.course_experience.url_helpers import get_learning_mfe_home
 from openedx.features.course_experience.utils import get_course_outline_block_tree, get_start_block
 from openedx.features.discounts.utils import generate_offer_data
 from xmodule.course_module import COURSE_VISIBILITY_PUBLIC, COURSE_VISIBILITY_PUBLIC_OUTLINE  # lint-amnesty, pylint: disable=wrong-import-order
-
+import logging as log
 
 class UnableToDismissWelcomeMessage(APIException):
     status_code = 400
@@ -160,24 +160,26 @@ class OutlineTabView(RetrieveAPIView):
     def get(self, request, *args, **kwargs):  # pylint: disable=too-many-statements
         course_key_string = kwargs.get('course_key_string')
         course_key = CourseKey.from_string(course_key_string)
-
+        log.info(course_key, "==============================Course=======monitoring==========key=================================")
         # Enable NR tracing for this view based on course
         monitoring_utils.set_custom_attribute('course_id', course_key_string)
         monitoring_utils.set_custom_attribute('user_id', request.user.id)
         monitoring_utils.set_custom_attribute('is_staff', request.user.is_staff)
 
         course = get_course_with_access(request.user, 'load', course_key, check_if_enrolled=False)
-
+        log.info(course, "=================================COURSE====RESPONE===========================")
         masquerade_object, request.user = setup_masquerade(
             request,
             course_key,
             staff_access=has_access(request.user, 'staff', course_key),
             reset_masquerade_data=True,
         )
+        log.info('=========================Checking masquerading===========================')
 
         user_is_masquerading = is_masquerading(request.user, course_key, course_masquerade=masquerade_object)
-
+        log.info(user_is_masquerading, "===========================User is masquedering====================")
         course_overview = get_course_overview_or_404(course_key)
+        log.info(f"============================================={course_overview}=============================COURSE OVERVIEW================================")
         enrollment = CourseEnrollment.get_enrollment(request.user, course_key)
         enrollment_mode = getattr(enrollment, 'mode', None)
         allow_anonymous = COURSE_ENABLE_UNENROLLED_ACCESS_FLAG.is_enabled(course_key)
@@ -187,8 +189,9 @@ class OutlineTabView(RetrieveAPIView):
         # User locale settings
         user_timezone_locale = user_timezone_locale_prefs(request)
         user_timezone = user_timezone_locale['user_timezone']
-
+        log.info('=======================calling mfe===================================')
         dates_tab_link = get_learning_mfe_home_url(course_key=course.id, url_fragment='dates')
+        log.info(f'===========================date tabs==============={dates_tab_link}====================')
 
         # Set all of the defaults
         access_expiration = None
@@ -198,7 +201,9 @@ class OutlineTabView(RetrieveAPIView):
             'selected_goal': None,
             'weekly_learning_goal_enabled': False,
         }
+        log.info(f"==================================================CALLING COURSE TOOL======================================")
         course_tools = CourseToolsPluginManager.get_enabled_course_tools(request, course_key)
+        log.info(f"================================================={course_tools}=====================================")
         dates_widget = {
             'course_date_blocks': [],
             'dates_tab_link': dates_tab_link,
@@ -209,7 +214,7 @@ class OutlineTabView(RetrieveAPIView):
             'extra_text': None,
         }
         handouts_html = None
-        offer_data = None
+        offer_data = None   
         resume_course = {
             'has_visited_course': False,
             'url': None,
@@ -325,12 +330,16 @@ class OutlineTabView(RetrieveAPIView):
             'user_has_passing_grade': user_has_passing_grade,
             'welcome_message_html': welcome_message_html,
         }
+        log.info("=========================================creating context===========================")
         context = self.get_serializer_context()
+        log.info(f"===================================================={context}===========================================")
+        
         context['course_overview'] = course_overview
         context['enable_links'] = show_enrolled or allow_public
         context['enrollment'] = enrollment
+        log.info(f"==============================================Context New==========================={context}=======================")
         serializer = self.get_serializer_class()(data, context=context)
-
+        log.info(f"===================================================SERIALIZER DATA============================={serializer}=================================s")
         return Response(serializer.data)
 
     def finalize_response(self, request, response, *args, **kwargs):

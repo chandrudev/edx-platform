@@ -328,6 +328,7 @@
                 console.log(new_response);
                
                 for(var i=0; i<new_response.length; i++){
+                    var element = new_response[i];
 
                     var teacher = document.createElement("div");
                     teacher.setAttribute("style","background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.20); padding-bottom:0; margin-bottom: 36px; overflow: hidden; border-radius: 8px; flex: 1 1 100%; display: flex;");

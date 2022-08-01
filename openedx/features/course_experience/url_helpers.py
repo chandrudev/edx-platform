@@ -17,6 +17,7 @@ from six.moves.urllib.parse import urlencode, urlparse
 from lms.djangoapps.courseware.toggles import courseware_mfe_is_active
 from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.modulestore.search import navigation_index, path_to_location  # lint-amnesty, pylint: disable=wrong-import-order
+import logging as log
 
 User = get_user_model()
 
@@ -177,6 +178,8 @@ def get_learning_mfe_home_url(
         url_fragment: Optional[str] = None,
         params: Optional[QueryDict] = None,
 ) -> str:
+
+ 
     """
     Given a course run key and view name, return the appropriate course home (MFE) URL.
 
@@ -188,13 +191,21 @@ def get_learning_mfe_home_url(
     `url_fragment` is an optional string.
     `params` is an optional QueryDict object (e.g. request.GET)
     """
-    mfe_link = f'{settings.LEARNING_MICROFRONTEND_URL}/course/{course_key}'
 
+    log.info('==================================MFE CALLED=====================================')
+    mfe_link = f'{settings.LEARNING_MICROFRONTEND_URL}/course/{course_key}'
+    log.info(f"======================================={mfe_link}===================================MFE LINK====================================")
     if url_fragment:
         mfe_link += f'/{url_fragment}'
+        log.info("=============================url fragment================================={url_fragment}==================={mfe_link}====")
+
 
     if params:
         mfe_link += f'?{params.urlencode()}'
+        log.info("=============================url fragment================================={url_fragment}=================={mfe_link}")
+
+    
+   
 
     return mfe_link
 
