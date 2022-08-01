@@ -325,7 +325,6 @@
             data: $(this).serializeArray(),
             success: function(response){
                 var new_response = JSON.parse(JSON.stringify(response));
-                console.log(new_response);
                
                 for(var i=0; i<new_response.length; i++){
                     var element = new_response[i];

@@ -27,7 +27,7 @@ from common.djangoapps.student.views.management import uploaded_doc_view
 
 from cms.djangoapps.contentstore.views.live_class import (LiveClassesApiListView ,CourseListView,UserCourseUnEnrollment, UserAttendanceDetailsListApiView ,LiveClassesDeleteUpdateApiView , UserDetailsListApiView ,EnrollLiveClassCreateView,EnrollLiveClassUserDetailsView ,EnrollLiveClassUserDeleteApiView , UserCourseEnrollment ,EnrollCourseUserDetailsView , 
 LoginStaffCourseDetailsList, StaffNotifyCallRequestRetrieveDetails , StaffNotifyCallRequestListDetails , StudentUserDetailsListApiView , StudentListbyCourseDetailsList)
-from cms.djangoapps.contentstore.views.course import doc_upload_view, delete_doc, update_doc ,BadgeView ,PointsView # To Import
+from cms.djangoapps.contentstore.views.course import doc_upload_view, delete_doc, update_doc ,BadgeView ,PointsView ,_create_or_rerun_course# To Import
 from common.djangoapps.student.views.management import uploaded_doc_view, AnnouncementView 
 
 django_autodiscover()
@@ -62,6 +62,7 @@ urlpatterns = oauth2_urlpatterns + [
     path('transcripts/choose', contentstore_views.choose_transcripts, name='choose_transcripts'),
     path('transcripts/replace', contentstore_views.replace_transcripts, name='replace_transcripts'),
     path('transcripts/rename', contentstore_views.rename_transcripts, name='rename_transcripts'),
+    path("/course/", _create_or_rerun_course, name='course'),
     re_path(r'^preview/xblock/(?P<usage_key_string>.*?)/handler/(?P<handler>[^/]*)(?:/(?P<suffix>.*))?$',
             contentstore_views.preview_handler, name='preview_handler'),
     re_path(r'^xblock/(?P<usage_key_string>.*?)/handler/(?P<handler>[^/]*)(?:/(?P<suffix>.*))?$',
