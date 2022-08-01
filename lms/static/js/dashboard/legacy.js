@@ -454,5 +454,43 @@
     }
     });
 
+    var paid_profile = document.querySelector(".user-image-frame").parentElement;
+    paid_profile.removeAttribute("href");
+    paid_profile.style = "cursor:pointer";
+    paid_profile.onclick = display_profile;
+
+    function display_profile() {
+      var content = document.querySelector("#content");
+      document.querySelector("#main").style = "display:none";
+      content.style = "max-width:100%; padding:0";
+      $.ajax({
+        type: "GET",
+        url: "api/user/v1/accounts",
+        // data: $(this).serializeArray(),
+        success: function (response) {
+          console.log(response[0]);
+          var userProfile = document.createElement("div");
+          userProfile.id = "user-profile-view";
+          var banner = document.createElement("img");
+          banner.src = "static/images/profiles/banner.png";
+          banner.style = "width:100%; display:block";
+
+          var userDetails = document.createElement("div");
+          userDetails.style = "min-height: 50vh; display:block; position: relative; text-align: left; color: #262d33; font-family: GROBOLD; margin-left:10%"
+          userDetails.innerHTML = `
+                <img style="position: relative; top:-50px; border: 10px solid #ff7f27; border-radius: 50%; display:inline-block; overflow: hidden; max-width:175px" alt="" src="${response[0].profile_image.image_url_full}" />
+                <div style=" display:inline-block; margin-left:10px">
+                  <h1 style="position: relative; color:#262d33; letter-spacing: 0.02em; line-height: 120%; font-weight: 500; display: inline-block;">${response[0].username}</h1>
+                  <p style="font-size: 20px; color:#8499b1">${response[0].email}</p>
+                </div>
+          `;
+
+          userProfile.append(banner, userDetails);
+          content.appendChild(userProfile);
+        },
+      });
+    }
+
+
  }(jQuery, gettext, Logger, accessible_modal, interpolate));
 
