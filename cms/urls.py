@@ -112,20 +112,9 @@ urlpatterns = oauth2_urlpatterns + [
 
     path('live_class/enroll/detail/<live_class_id>', EnrollLiveClassUserDetailsView.as_view(), name='live_class_user_details' ),
     path('student_user/course/enroll/list', StudentListbyCourseDetailsList.as_view() , name='student_user_course_enroll_list'),
-
-
-
-
     path('upload_doc', doc_upload_view, name='upload_doc'),
     path('update_doc', update_doc, name='update_doc'),
     path('delete_doc/', delete_doc, name='view_doc'),
-
-
-
-    path("get_doc/", uploaded_doc_view, name='uploaded_doc_view'),
-
-
-
     path('get_badges/<str:active>/', BadgeView.as_view(), name='get_badges'),
     path('create_badge/', BadgeView.as_view(), name='create_badge'),
     path('update_badge/<int:badge_id>/', BadgeView.as_view(), name='update_badge'),
