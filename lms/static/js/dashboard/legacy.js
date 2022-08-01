@@ -343,8 +343,8 @@
 
                     var name = document.createElement("h3");
                     name.className ="course-title";
-                    teacher_details.setAttribute("class","wrapper-course-details");
-                    teacher_details.setAttribute("style","background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.08); padding:10px; margin-bottom: 36px; overflow: hidden; border-radius: 8px; justify-content: space-between;");
+                    // teacher_details.setAttribute("class","wrapper-course-details");
+                    // teacher_details.setAttribute("style","background: #fff; box-shadow: 0 2px 7px 0 rgba(0,0,0,.08); padding:10px; margin-bottom: 36px; overflow: hidden; border-radius: 8px; justify-content: space-between;");
 
                     var name = document.createElement("h3");
                     name.setAttribute("class","course-title");
@@ -364,10 +364,12 @@
                     teacher_contact.innerText = "Contact";
                     contact.appendChild(email);
                     contact.appendChild(teacher_contact);
-                    teacher_details.appendChild(teacher_image);
+                    // teacher_details.appendChild(teacher_image);
                     teacher_details.appendChild(name);
                     teacher_details.appendChild(contact);
-                    courses.appendChild(teacher_details);
+                    teacher.appendChild(teacher_image);
+                    teacher.appendChild(teacher_details);
+                    courses.appendChild(teacher);
 
 
                 };
