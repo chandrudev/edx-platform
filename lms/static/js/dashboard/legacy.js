@@ -314,6 +314,10 @@
         alert("clickede on teacher");
         var courses = document.querySelector("#my-courses");
         courses.innerText = "";
+        var teachersHeading = document.createElement("h2");
+        teachersHeading.setAttribute("style","font-size: 24px; font-weight: 900; margin-bottom: 24px");
+        teachersHeading.innerText = "Teachers";
+        courses.appendChild(teachersHeading);
         alert('calling ajax');
         $.ajax({
             type: "GET",
@@ -324,10 +328,7 @@
                 var new_response = JSON.parse(JSON.stringify(response));
                 alert(new_response);
                 console.log(new_response);
-                var teachersHeading = document.createElement("h2");
-                teachersHeading.setAttribute("style","font-size: 24px; font-weight: 900; margin-bottom: 24px");
-                teachersHeading.innerText = "Teachers";
-                courses.appendChild(teachersHeading);
+               
                 for(var i=0; i<new_response.length; i++){
 
                     var teacher = document.createElement("div");
@@ -338,11 +339,11 @@
                     teacher_image.setAttribute("style","margin:10px 30px; border-radius:50%; max-width: 150px");
                     
                     var teacher_details = document.createElement("div");
-                    teacher_details.classList.add("wrapper-course-details");
+                    teacher_details.className = "wrapper-course-details";
                     teacher_details.setAttribute("style","width:100%");
 
                     var name = document.createElement("h3");
-                    name.classList.add("course-title");
+                    name.className ="course-title";
                     name.setAttribute("style"," font-weight:600 ; color:#000; font-family: Roboto;");
                     name.innerText = element.username;
 
@@ -351,7 +352,7 @@
                     email.innerText = element.email;
 
                     var contact = document.createElement("div");
-                    contact.classList.add("continue-button");
+                    contact.className="continue-button";
 
                     var teacher_contact = document.createElement("a");
                     teacher_contact.setAttribute("style","background: #ff7f27; border: none; color: #fff; border-radius: 12px; box-shadow: 0px 5px 0px #ee6100; display:inline-block; padding: 4px 24px; float: right; margin-right:20px");
