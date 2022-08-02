@@ -380,7 +380,7 @@
     teachers_tab.removeAttribute("href");
     teachers_tab.onclick = teacherlist;
 
-     $(document).ready(function(){
+    $(document).ready(function(){
     if($("#live_classes_list").is(":visible")){
         $.ajax({
             url:  '/api/enrollment/v1/enrollment/live_class/enroll',
@@ -453,6 +453,46 @@
         });
     }
     });
+
+    function display_profile(){
+        alert("clicked on profile")
+        var content = document.querySelector("#content");
+        var main_body = document.querySelector("#main"); 
+        main_body.setAttribute("style","display:none;");
+        content.setAttribute("style","max-width:100%; padding:0;");
+        alert('Calling AJAX');
+        $.ajax({
+          type: "GET",
+          url: "api/user/v1/accounts",
+          data: $(this).serializeArray(),
+          success: function (response) {
+            var response_new = JSON.parse(JSON.stringify(response));
+            alert(response_new);
+            var userProfile = document.createElement("div");
+            userProfile.setAttribute("id","user-profile-view;");
+            var banner = document.createElement("img");
+            banner.setAttriute("src","static/images/profiles/banner.png");
+            banner.setAttribute("style","width:100%; display:block");
+  
+            var userDetails = document.createElement("div");
+            userDetails.setAttribute("style","min-height: 50vh; display:block; position: relative; text-align: left; color: #262d33; font-family: GROBOLD; margin-left:10%")
+            userDetails.innerHTML = `
+                  <img style="position: relative; top:-50px; border: 10px solid #ff7f27; border-radius: 50%; display:inline-block; overflow: hidden; max-width:175px" alt="" src="${response_new[0].profile_image.image_url_full}" />
+                  <div style=" display:inline-block; margin-left:10px">
+                    <h1 style="position: relative; color:#262d33; letter-spacing: 0.02em; line-height: 120%; font-weight: 500; display: inline-block;">${response_new[0].username}</h1>
+                    <p style="font-size: 20px; color:#8499b1">${response_new[0].email}</p>
+                  </div>
+            `;
+            userProfile.append(banner, userDetails);
+            content.appendChild(userProfile);
+          },
+        });
+      }
+      
+      const paid_profile = document.querySelector(".user-image-frame").parentElement;
+      paid_profile.removeAttribute("href");
+      paid_profile.setAttribute("style","cursor:pointer");
+      paid_profile.onclick = display_profile;
 
 
  }(jQuery, gettext, Logger, accessible_modal, interpolate));
