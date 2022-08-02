@@ -40,6 +40,14 @@ export function CourseOrLibraryListing(props) {
               </a>
               { item.lms_link && item.rerun_link &&
               <ul className="item-actions course-actions">
+                 <li className="action action-rerun">
+                  <a
+                    href={item.meeting_link}
+                    className="button rerun-button"
+                    aria-labelledby={`re-run-${idBase}-${i} title-${idBase}-${i}`}
+                    id={`re-run-${idBase}-${i}`}
+                  >{gettext('Join')}</a>
+                </li>
                 { allowReruns &&
                 <li className="action action-rerun">
                   <a
