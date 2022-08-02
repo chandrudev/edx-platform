@@ -175,6 +175,10 @@
             //Adding Buttons
             let live_list_buttons = document.createElement("ul");
             live_list_buttons.classList.add("item-actions", "course-actions");
+            let meetbutton = document.createElement("li");
+            meetbutton.classList.add("action", "action-rerun");
+            meetbutton.innerHTML = `<a class="liveclass-update-button button rerun-button" value=${item.id} href=${item.meeting_link}>Join</a>`;
+            
 
             //Update Button
             let liveUpdate = document.createElement("li");
