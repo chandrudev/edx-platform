@@ -470,7 +470,7 @@
                 var userProfile = document.createElement("div");
                 userProfile.setAttribute("id","user-profile-view;");
                 var banner = document.createElement("img");
-                banner.setAttriute("src","static/images/profiles/banner.png");
+                banner.setAttribute("src","static/images/profiles/banner.png");
                 banner.setAttribute("style","width:100%; display:block");
                 
             }
