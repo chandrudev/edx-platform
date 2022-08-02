@@ -110,7 +110,7 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
         url = "https://api.daily.co/v1/rooms/"
         payload = json.dumps({
             "name": topic_name,
-            "privacy": "private",
+            "privacy": "public",
             "properties": {
             "start_audio_off": True,
             "start_video_off": True,
