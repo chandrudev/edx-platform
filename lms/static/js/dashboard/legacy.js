@@ -474,7 +474,24 @@
                 banner.setAttribute("style","width:100%; display:block");
                 var userDetails = document.createElement("div");
             userDetails.setAttribute("style","min-height: 50vh; display:block; position: relative; text-align: left; color: #262d33; font-family: GROBOLD; margin-left:10%");
-            
+            var imageNode = document.createElement("img");
+            imageNode.setAttribute("style","position: relative; top:-50px; border: 10px solid #ff7f27; border-radius: 50%; display:inline-block; overflow: hidden; max-width:175px");
+            imageNode.setAttribute("alt","");
+            imageNode.setAttribute("src",response_new[0].profile_image.image_url_full);
+            var divNode = document.createElement("div");
+            divNode.setAttribute("style","display:inline-block; margin-left:10px");
+            var hNode = document.createElement("h1");
+            hNode.setAttribute("style","position: relative; color:#262d33; letter-spacing: 0.02em; line-height: 120%; font-weight: 500; display: inline-block;");
+            var text = document.createTextNode(response_new[0].username);
+            hNode.appendChild(text);
+            var pNode = document.createElement("p");
+            pNode.setAttribute("style","font-size: 20px; color:#8499b1");
+            var ptext = document.createTextNode(response_new[0].email);
+            pNode.appendChild(ptext);
+            divNode.appendChild(hNode);
+            divNode.appendChild(pNode);
+            userDetails.appendChild(imageNode);
+            userDetails.appendChild(divNode);
             userProfile.appendChild(banner);
             userProfile.appendChild(userDetails);
             content.appendChild(userProfile);
