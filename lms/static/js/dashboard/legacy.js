@@ -455,7 +455,7 @@
     });
 
     function display_profile(){
-        alert("clicked on profile")
+        alert("clicked on profile");
         var content = document.querySelector("#content");
         var main_body = document.querySelector("#main"); 
         main_body.setAttribute("style","display:none;");
