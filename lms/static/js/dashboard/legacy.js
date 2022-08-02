@@ -460,6 +460,16 @@
         var main_body = document.querySelector("#main"); 
         main_body.setAttribute("style","display:none;");
         content.setAttribute("style","max-width:100%; padding:0;");
+        alert("calling-ajax");
+        $.ajax({
+            type: "GET",
+            url: "api/user/v1/accounts",
+            success: function(response){
+                var response_json = JSON.parse(JSON.stringify(response));
+                alert("The response is:", response_json);
+                console.log("The response is:", response_json);
+            }
+        });
       }
       
       const paid_profile = document.querySelector(".user-image-frame").parentElement;
