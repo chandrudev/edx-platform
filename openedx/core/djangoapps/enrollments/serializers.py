@@ -311,8 +311,11 @@ class LiveClassEnrollmentSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance=LiveClassEnrollment.objects.create(live_class=validated_data.get('live_class'), user=validated_data.get('user') , user_id = validated_data.get('user').id,updated_at = datetime.datetime.now(),assigned_by=self.context['assigned_by'])
         instance.save()
-        CourseEnrollment.objects.create(course=instance.live_class.course, user=instance.user, assigned_by=self.context['assigned_by'], user_id = validated_data.get('user').id,assigned_by_id=self.context['assigned_by'].id )
-        
+        try:
+            CourseEnrollment.objects.get(course=instance.live_class.course, user=instance.user, )
+        except:
+            CourseEnrollment.objects.create(course=instance.live_class.course, user=instance.user, assigned_by=self.context['assigned_by'], user_id = validated_data.get('user').id,assigned_by_id=self.context['assigned_by'].id )
+
         return instance
 
 
