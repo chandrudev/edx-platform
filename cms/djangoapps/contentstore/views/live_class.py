@@ -156,21 +156,18 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
         """Upload documents"""
         try:
             data= request.data
-            room_name =data.get('topic_name')
-            call_dailyco=self.rooms(room_name)
-            if call_dailyco[0]!= 400:
-                log.info(data,'before===============================')
-                data['meeting_link']=call_dailyco[0]
-                data['client_token']=call_dailyco[1]
-                log.info(data,'after===============================')
-                serializer = self.serializer_class(
-                    data=request.data, context={'user':self.request.user}
-                )
-                serializer.is_valid(raise_exception=True)
-                
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response({"dailyco_error":call_dailyco[1]})
+            # room_name =data.get('topic_name')
+            # call_dailyco=self.rooms(room_name)
+            # if call_dailyco[0]!= 400:
+                # data['meeting_link']=call_dailyco[0]
+                # data['client_token']=call_dailyco[1]
+            serializer = self.serializer_class(
+                data=request.data, context={'user':self.request.user}
+            )
+            serializer.is_valid(raise_exception=True)
+            
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
