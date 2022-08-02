@@ -456,6 +456,10 @@
 
     function display_profile(){
         alert("clicked on profile");
+        var content = document.querySelector("#content");
+        var main_body = document.querySelector("#main"); 
+        main_body.setAttribute("style","display:none;");
+        content.setAttribute("style","max-width:100%; padding:0;");
       }
       
       const paid_profile = document.querySelector(".user-image-frame").parentElement;
