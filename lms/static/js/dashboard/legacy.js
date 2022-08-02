@@ -455,12 +455,10 @@
     });
 
     function display_profile(){
-        alert("clicked on profile");
         var content = document.querySelector("#content");
         var main_body = document.querySelector("#main"); 
         main_body.setAttribute("style","display:none;");
         content.setAttribute("style","max-width:100%; padding:0;");
-        alert("calling-ajax");
         $.ajax({
             type: "GET",
             url: "../api/user/v1/accounts",
@@ -477,16 +475,16 @@
             var imageNode = document.createElement("img");
             imageNode.setAttribute("style","position: relative; top:-50px; border: 10px solid #ff7f27; border-radius: 50%; display:inline-block; overflow: hidden; max-width:175px");
             imageNode.setAttribute("alt","");
-            imageNode.setAttribute("src",response_new[0].profile_image.image_url_full);
+            imageNode.setAttribute("src",response_json[0].profile_image.image_url_full);
             var divNode = document.createElement("div");
             divNode.setAttribute("style","display:inline-block; margin-left:10px");
             var hNode = document.createElement("h1");
             hNode.setAttribute("style","position: relative; color:#262d33; letter-spacing: 0.02em; line-height: 120%; font-weight: 500; display: inline-block;");
-            var text = document.createTextNode(response_new[0].username);
+            var text = document.createTextNode(response_json[0].username);
             hNode.appendChild(text);
             var pNode = document.createElement("p");
             pNode.setAttribute("style","font-size: 20px; color:#8499b1");
-            var ptext = document.createTextNode(response_new[0].email);
+            var ptext = document.createTextNode(response_json[0].email);
             pNode.appendChild(ptext);
             divNode.appendChild(hNode);
             divNode.appendChild(pNode);
