@@ -459,6 +459,7 @@
         var main_body = document.querySelector("#main"); 
         main_body.setAttribute("style","display:none;");
         content.setAttribute("style","max-width:100%; padding:0;");
+        alert("calling ajax");
         $.ajax({
             type: "GET",
             url: "../api/user/v1/accounts",
@@ -468,7 +469,7 @@
                 var userProfile = document.createElement("div");
                 userProfile.setAttribute("id","user-profile-view;");
                 var banner = document.createElement("img");
-                banner.setAttribute("src","static/images/profiles/banner.png");
+                banner.setAttribute("src","../static/images/profiles/banner.png");
                 banner.setAttribute("style","width:100%; display:block");
                 var userDetails = document.createElement("div");
             userDetails.setAttribute("style","min-height: 50vh; display:block; position: relative; text-align: left; color: #262d33; font-family: GROBOLD; margin-left:10%");
