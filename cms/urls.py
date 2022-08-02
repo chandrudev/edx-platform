@@ -107,7 +107,6 @@ urlpatterns = oauth2_urlpatterns + [
 
     path('all/users/attendance/details', UserAttendanceDetailsListApiView.as_view(), name='all_user_details' ),
     path('accounts/details', UserDetailsListApiView.as_view(), name='all_user_details' ),
-    path('live_class/user/enrollment', EnrollLiveClassCreateView.as_view(), name='enroll_live_class_to_user' ),
 
     path('live_class/enroll/detail/<live_class_id>', EnrollLiveClassUserDetailsView.as_view(), name='live_class_user_details' ),
     path('student_user/course/enroll/list', StudentListbyCourseDetailsList.as_view() , name='student_user_course_enroll_list'),
