@@ -156,11 +156,13 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
         """Upload documents"""
         try:
             data= request.data
-            # room_name =data.get('topic_name')
-            # call_dailyco=self.rooms(room_name)
-            # if call_dailyco[0]!= 400:
-                # data['meeting_link']=call_dailyco[0]
-                # data['client_token']=call_dailyco[1]
+            room_name =data.get('topic_name').replace(" ", "_")
+            call_dailyco=self.rooms(room_name)
+            
+            log.info(data,'before===============================')
+            data['meeting_link']=call_dailyco[0]
+            data['client_token']=call_dailyco[1]
+            log.info(data,'after===============================')
             serializer = self.serializer_class(
                 data=request.data, context={'user':self.request.user}
             )
