@@ -59,14 +59,6 @@ export function CourseOrLibraryListing(props) {
                     id={`view-live-${idBase}-${i}`}
                   >{gettext('View Live')}</a>
                 </li>
-                <li className="action action-rerun">
-                  <a
-                    href={item.meeting_link}
-                    className="button rerun-button"
-                    aria-labelledby={`re-run-${idBase}-${i} title-${idBase}-${i}`}
-                    id={`re-run-${idBase}-${i}`}
-                  >{gettext('Join')}</a>
-                </li>
               </ul>
               }
             </li>

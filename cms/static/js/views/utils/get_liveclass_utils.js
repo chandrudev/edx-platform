@@ -172,13 +172,13 @@
                                         </div>
                                     </a>`;
 
-            //Adding Buttons
+            //Meet Buttons
             let live_list_buttons = document.createElement("ul");
             live_list_buttons.classList.add("item-actions", "course-actions");
             let meetbutton = document.createElement("li");
             meetbutton.classList.add("action", "action-rerun");
             meetbutton.innerHTML = `<a class="liveclass-update-button button rerun-button" value=${item.id} href=${item.meeting_link}>Join</a>`;
-            
+            live_list_buttons.appendChild(meetbutton);
 
             //Update Button
             let liveUpdate = document.createElement("li");
@@ -193,7 +193,7 @@
             liveDelete.innerHTML = `<a class="liveclass-delete-button button rerun-button" value=${item.id} href="#">Delete</a>`;
             liveDelete.onclick = deleteLive;
             live_list_buttons.appendChild(liveDelete);
-
+            
             live_list_item.appendChild(live_list_buttons);
             live_list.appendChild(live_list_item);
           });
