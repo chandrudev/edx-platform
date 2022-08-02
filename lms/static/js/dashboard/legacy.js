@@ -435,7 +435,7 @@
                         var meet_link= document.createElement("a");
                         meet_link.setAttribute("id","meet_link_"+i);
                         meet_link.setAttribute("class","button inner-link");
-                        meet_link.setAttribute("style", "font-size: 18px; margin-right: 20px; box-shadow: 0px 5px 0px #ee6100; border: none; color:#fff; background: #ff7f27; border-radius: 12px; padding: 12px 20px; background-image: none; text-shadow: 0 0");
+                        meet_link.setAttribute("style","font-size: 18px;margin-right: 20px;box-shadow: 0px 5px 0px #ee6100;border: none; color:#fff;background: #ff7f27;border-radius: 12px;/* padding: 12px 20px; *//* background-image: none; */text-shadow: 0 0;width: 103px;height: 49px;font-size: 13px;");
                         meet_link.setAttribute("href",live_response.meeting_link);
                         meet_link.setAttribute("target",'_blank');
                         meet_link.innerHTML='Join Class';
