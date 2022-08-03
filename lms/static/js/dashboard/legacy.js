@@ -469,7 +469,7 @@
                 var response_json = JSON.parse(JSON.stringify(response));
                 console.log("The response is:", response_json);
                 var userProfile = document.createElement("div");
-                userProfile.setAttribute("id","user-profile-view;");
+                userProfile.setAttribute("id","user-profile-view");
                 var banner = document.createElement("img");
                 banner.setAttribute("src","../static/images/profiles/banner.png");
                 banner.setAttribute("style","width:100%; display:block");
