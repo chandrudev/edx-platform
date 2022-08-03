@@ -455,6 +455,7 @@
     });
 
     function display_profile(){
+        if($("#user-profile-view").is(":hidden")){
         var content = document.querySelector("#content");
         var main_body = document.querySelector("#main"); 
         main_body.setAttribute("style","display:none;");
@@ -497,6 +498,7 @@
                 
             }
         });
+    };
       }
       
       const paid_profile = document.querySelector(".user-image-frame").parentElement;
