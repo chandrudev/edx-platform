@@ -156,7 +156,8 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
         """Upload documents"""
         try:
             data= request.data
-            room_name =data.get('topic_name').replace(" ", "_")
+            room_name =data.get('topic_name') 
+            room_name =room_name.replace(" ", "_") if " " in room_name else room_name
             call_dailyco=self.rooms(room_name)
             
             log.info(data,'before===============================')
