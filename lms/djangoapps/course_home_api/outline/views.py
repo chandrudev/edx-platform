@@ -175,6 +175,7 @@ class OutlineTabView(RetrieveAPIView):
             reset_masquerade_data=True,
         )
         log.info('=========================Checking masquerading===========================')
+        log.info(request.user, course_key,masquerade_object)
 
         user_is_masquerading = is_masquerading(request.user, course_key, course_masquerade=masquerade_object)
         log.info(user_is_masquerading, "===========================User is masquedering====================")
