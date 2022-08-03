@@ -339,14 +339,17 @@ class EnrollCourseUserDetailsView(DeveloperErrorViewMixin, RetrieveDestroyAPIVie
 
 
     def get(self, request, course_id):
+        try:
 
-        serializer = self.serializer_class(CourseEnrollment.objects.filter(course_id=course_id), many=True)
+            serializer = self.serializer_class(CourseEnrollment.objects.filter(course_id=course_id), many=True)
 
-        data={}
-        data['course_id']=course_id
-        data['data']=serializer.data
-    
-        return Response(data, status=status.HTTP_200_OK)
+            data={}
+            data['course_id']=course_id
+            data['data']=serializer.data
+        
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(f"{e}")
 
 
 
