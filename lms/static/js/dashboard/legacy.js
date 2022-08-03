@@ -455,7 +455,7 @@
     });
 
     function display_profile(){
-        alert($("#user-profile-view").is(":hidden"));
+        alert($("#user-profile-view").is(":visible") !== true);
         if($("#user-profile-view").is(":hidden")){
         var content = document.querySelector("#content");
         var main_body = document.querySelector("#main"); 
