@@ -224,6 +224,8 @@ class OutlineTabView(RetrieveAPIView):
         welcome_message_html = None
 
         is_enrolled = enrollment and enrollment.is_active
+        log.info(f"================ENROLLMENT========={enrollment}=============ENROLLMENT-ACTIVE================================={enrollment.is_active}")
+        log.info(f"=========================================is==================================enrolled================================{is_enrolled}==========================================")
         is_staff = bool(has_access(request.user, 'staff', course_key))
         show_enrolled = is_enrolled or is_staff
         enable_proctored_exams = False
