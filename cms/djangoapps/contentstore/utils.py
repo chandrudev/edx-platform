@@ -189,7 +189,9 @@ def get_proctored_exam_settings_url(course_locator) -> str:
     proctored_exam_settings_url = ''
     if exam_setting_view_enabled():
         mfe_base_url = get_course_authoring_url(course_locator)
+        log.info(f"+++++++++++++++++++++++++++mfe base url++++++++++++++++++{mfe_base_url}++++++++++++++++++++++++++++++++++++")
         course_mfe_url = f'{mfe_base_url}/course/{course_locator}'
+        log.info(f"++++++++++++++++++++++++CALLING MFE URL++++++++++++++++++++++++++++{course_mfe_url}")
         if mfe_base_url:
             if proctoring_settings_modal_view_enabled(course_locator):
                 proctored_exam_settings_url = f'{course_mfe_url}/pages-and-resources/proctoring/settings'

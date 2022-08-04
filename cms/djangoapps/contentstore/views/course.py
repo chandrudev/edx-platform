@@ -903,6 +903,7 @@ def _create_or_rerun_course(request):
     Raises DuplicateCourseError and InvalidKeyError
     """
     try:
+        log.info(f"+++++++++++++++++++++++++++++++++++++++++++++++++++calling create and rerun++++++++++++++++++++++++++++++++++++++++++++++")
         org = request.json.get('org')
         course = request.json.get('number', request.json.get('course'))
         display_name = request.json.get('display_name')
