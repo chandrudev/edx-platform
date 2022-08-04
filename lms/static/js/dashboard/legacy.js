@@ -455,13 +455,11 @@
     });
 
     function display_profile(){
-        alert($("#user-profile-view").is(":visible"));
         if($("#user-profile-view").is(":visible") !== true){
         var content = document.querySelector("#content");
         var main_body = document.querySelector("#main"); 
         main_body.setAttribute("style","display:none;");
         content.setAttribute("style","max-width:100%; padding:0;");
-        alert("calling ajax");
         $.ajax({
             type: "GET",
             url: "../api/user/v1/accounts",
