@@ -22,5 +22,5 @@ def course_home_mfe_progress_tab_is_active(course_key):
 
 
 
-# def course_home_legacy_is_active(course_key):
-#     return COURSE_HOME_USE_LEGACY_FRONTEND.is_enabled(course_key) or course_key.deprecated
+def course_home_legacy_is_active(course_key):
+    return COURSE_HOME_USE_LEGACY_FRONTEND.is_enabled(course_key) or course_key.deprecated
