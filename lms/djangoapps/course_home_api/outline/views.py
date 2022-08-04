@@ -166,25 +166,23 @@ class OutlineTabView(RetrieveAPIView):
         monitoring_utils.set_custom_attribute('user_id', request.user.id)
         monitoring_utils.set_custom_attribute('is_staff', request.user.is_staff)
 
-        course = get_course_with_access(request.user, 'load', course_key, check_if_enrolled=False)
+        course = get_course_with_access(request.user, 'load', course_key_string, check_if_enrolled=False)
         log.info(course, "=================================COURSE====RESPONE===========================")
         masquerade_object, request.user = setup_masquerade(
             request,
-            course_key,
-            staff_access=has_access(request.user, 'staff', course_key),
+            course_key_string,
+            staff_access=has_access(request.user, 'staff', course_key_string),
             reset_masquerade_data=True,
         )
         log.info('=========================Checking masquerading===========================')
-        log.info(request.user, course_key,masquerade_object)
+        log.info(request.user, str(course_key),masquerade_object, '=========================Checking masquerading===========================iiii')
 
         user_is_masquerading = is_masquerading(request.user, course_key, course_masquerade=masquerade_object)
-        log.info(user_is_masquerading, "===========================User is masquedering====================")
-        user_is_masquerading = True
-        course_overview = get_course_overview_or_404(course_key)
+        course_overview = get_course_overview_or_404(course_key_string)
         log.info(f"============================================={course_overview}=============================COURSE OVERVIEW================================")
-        enrollment = CourseEnrollment.get_enrollment(request.user, course_key)
+        enrollment = CourseEnrollment.get_enrollment(request.user, course_key_string)
         enrollment_mode = getattr(enrollment, 'mode', None)
-        allow_anonymous = COURSE_ENABLE_UNENROLLED_ACCESS_FLAG.is_enabled(course_key)
+        allow_anonymous = COURSE_ENABLE_UNENROLLED_ACCESS_FLAG.is_enabled(course_key_string)
         allow_public = allow_anonymous and course.course_visibility == COURSE_VISIBILITY_PUBLIC
         allow_public_outline = allow_anonymous and course.course_visibility == COURSE_VISIBILITY_PUBLIC_OUTLINE
 
@@ -204,7 +202,7 @@ class OutlineTabView(RetrieveAPIView):
             'weekly_learning_goal_enabled': False,
         }
         log.info(f"==================================================CALLING COURSE TOOL======================================")
-        course_tools = CourseToolsPluginManager.get_enabled_course_tools(request, course_key)
+        course_tools = CourseToolsPluginManager.get_enabled_course_tools(request, course_key_string)
         log.info(f"================================================={course_tools}=====================================")
         dates_widget = {
             'course_date_blocks': [],
@@ -226,7 +224,7 @@ class OutlineTabView(RetrieveAPIView):
         is_enrolled = enrollment and enrollment.is_active
         log.info(f"================ENROLLMENT========={enrollment}=============ENROLLMENT-ACTIVE================================={enrollment.is_active}")
         log.info(f"=========================================is==================================enrolled================================{is_enrolled}==========================================")
-        is_staff = bool(has_access(request.user, 'staff', course_key))
+        is_staff = bool(has_access(request.user, 'staff', course_key_string))
         show_enrolled = is_enrolled or is_staff
         enable_proctored_exams = False
         if show_enrolled:
