@@ -296,6 +296,7 @@ define([
             deleteFile.onclick = () => {
               const endpoint = "../delete_doc/";
               $.postFormData(endpoint, formData, function (data) { alert("Document Deleted Successfully") });
+              fileItem.style  = "display:none;";
             }
             fileItem.appendChild(deleteFile);
 
