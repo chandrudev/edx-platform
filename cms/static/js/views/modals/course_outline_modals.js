@@ -284,14 +284,15 @@
             let fileItem = document.createElement("li");
             fileItem.innerHTML = item.document_name;
             fileItem.key = item.id;
-            fileItem.style="border-bottom: 1px solid #dddddd, padding-bottom: 4px;";
+            fileItem.style="border-bottom: 1px solid #dddddd; padding-bottom: 4px;";
 
             let deleteFile = document.createElement("button");
             deleteFile.innerText = "Delete";
             deleteFile.style="float:right";
+            let lib_info = {doc_id:item.id};
             deleteFile.onclick = () =>{
                 const endpoint = "../delete_doc";              
-                $.postJSON(endpoint, {"doc_id":item.id}, function (data) {alert("Document Deleted Successfully")});
+                $.postJSON(endpoint, lib_info, function (data) {alert("Document Deleted Successfully")});
             }
             fileItem.appendChild(deleteFile);
 
