@@ -5,7 +5,7 @@
  * and upon save parent invokes refresh function that fetches updated model and
  * re-renders edited course outline.
  */
- define([
+define([
   "jquery",
   "backbone",
   "underscore",
@@ -284,15 +284,18 @@
             let fileItem = document.createElement("li");
             fileItem.innerHTML = item.document_name;
             fileItem.key = item.id;
-            fileItem.style="border-bottom: 1px solid #dddddd; padding-bottom: 4px;";
+            fileItem.style = "border-bottom: 1px solid #dddddd; padding-bottom: 4px;";
 
             let deleteFile = document.createElement("button");
             deleteFile.innerText = "Delete";
-            deleteFile.style="float:right";
-            let lib_info = {doc_id:item.id};
-            deleteFile.onclick = () =>{
-                const endpoint = "../delete_doc";              
-                $.postJSON(endpoint, lib_info, function (data) {alert("Document Deleted Successfully")});
+            deleteFile.style = "float:right";
+
+            const formData = new FormData();
+            formData.append("doc_id", item.id);
+
+            deleteFile.onclick = () => {
+              const endpoint = "../delete_doc/";
+              $.postFormData(endpoint, formData, function (data) { alert("Document Deleted Successfully") });
             }
             fileItem.appendChild(deleteFile);
 
@@ -300,7 +303,7 @@
           });
 
           const fileListHeading = document.createElement("h1");
-          fileListHeading.innerText="Available Documents"
+          fileListHeading.innerText = "Available Documents"
           modal_content.appendChild(fileListHeading);
           modal_content.appendChild(fileListItems);
         });
@@ -339,7 +342,7 @@
         formData.append("chapter_name", chapter_name);
         formData.append("document_name", document_name);
         formData.append("document_type", document_type);
-        $.postFormData(endpoint, formData, function (data) {alert("Document Uploaded Successfully")});
+        $.postFormData(endpoint, formData, function (data) { alert("Document Uploaded Successfully") });
       });
 
       // myForm.addEventListener('submit', e =>{

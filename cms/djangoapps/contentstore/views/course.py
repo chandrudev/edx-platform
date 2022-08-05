@@ -2025,8 +2025,7 @@ def update_doc(request):
 def delete_doc(request):
     try:
         method = request.method
-        data = JSONParser().parse(request)
-        id = data.get('doc_id', None)
+        id = request.POST.get("doc_id", None)
         if id:
             if method == "POST" :
                 if request.user.is_staff:
