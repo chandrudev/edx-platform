@@ -53,6 +53,7 @@ from common.djangoapps.student.roles import (
     CourseInstructorRole,
     CourseStaffRole,
     GlobalStaff,
+    GlobalActive,
     OrgInstructorRole,
     OrgStaffRole,
     SupportStaffRole
@@ -749,12 +750,15 @@ def _has_access_to_course(user, access_level, course_key):
     debug("Deny: user did not have correct access")
     return ACCESS_DENIED
 
-
 def administrative_accesses_to_course_for_user(user, course_key):
     """
     Returns types of access a user have for given course.
     """
     global_staff = GlobalStaff().has_user(user)
+    global_active = GlobalActive().has_user(user)
+
+    
+
 
     staff_access = (
         CourseStaffRole(course_key).has_user(user) or
@@ -766,7 +770,7 @@ def administrative_accesses_to_course_for_user(user, course_key):
         OrgInstructorRole(course_key.org).has_user(user)
     )
 
-    return global_staff, staff_access, instructor_access
+    return global_active,global_staff, staff_access, instructor_access
 
 
 @function_trace('_has_instructor_access_to_descriptor')
