@@ -509,7 +509,7 @@ class UserCourseEnrollment(CreateAPIView , ApiKeyPermissionMixIn):
         """
         # Get the User, Course ID, and Mode from the request.
 
-        username = request.data.get('user', request.user.username)
+        username = request.data.get('user', request.user.email)
         course_id = request.data.get('course_details', {}).get('course_id')
 
         if not course_id:
@@ -534,8 +534,8 @@ class UserCourseEnrollment(CreateAPIView , ApiKeyPermissionMixIn):
 
         # Check that the user specified is either the same user, or this is a server-to-server request.
         if not username:
-            username = request.user.username
-        if username != request.user.username and not has_api_key_permissions \
+            username = request.user.email
+        if username != request.user.email and not has_api_key_permissions \
                 and not GlobalStaff().has_user(request.user):
             # Return a 404 instead of a 403 (Unauthorized). If one user is looking up
             # other users, do not let them deduce the existence of an enrollment.
@@ -554,7 +554,10 @@ class UserCourseEnrollment(CreateAPIView , ApiKeyPermissionMixIn):
 
         try:
             # Lookup the user, instead of using request.user, since request.user may not match the username POSTed.
-            user = User.objects.get(username=username)
+            try:
+                user = User.objects.get(username=username)
+            except:
+                user = User.objects.get(email=username)
         except ObjectDoesNotExist:
             return Response(
                 status=status.HTTP_406_NOT_ACCEPTABLE,

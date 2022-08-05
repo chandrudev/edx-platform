@@ -136,7 +136,7 @@ class GlobalActive(AccessRole):
     def users_with_role(self):
         raise Exception("This operation is un-indexed, and shouldn't be used")
 
-
+        
 class GlobalStaff(AccessRole):
     """
     The global staff role

@@ -2016,9 +2016,12 @@ def update_doc(request):
 
 
 # @api_view(['POST', 'GET'])
-@authentication_classes(())
+@authentication_classes((
+    JwtAuthentication,
+    BearerAuthenticationAllowInactiveUser,
+    SessionAuthenticationAllowInactiveUser,
+))
 @permission_classes(())
-#for retrive / delete doc
 def delete_doc(request):
     try:
         method = request.method

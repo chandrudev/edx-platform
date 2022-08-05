@@ -723,10 +723,14 @@ def _has_access_to_course(user, access_level, course_key):
     if is_masquerading_as_student(user, course_key):
         return ACCESS_DENIED
 
-    global_staff, staff_access, instructor_access = administrative_accesses_to_course_for_user(user, course_key)
+    global_staff , global_active, staff_access, instructor_access = administrative_accesses_to_course_for_user(user, course_key)
 
     if global_staff:
         debug("Allow: user.is_staff")
+        return ACCESS_GRANTED
+
+    if global_active:
+        debug("Allow: user.is_active")
         return ACCESS_GRANTED
 
     if access_level not in ('staff', 'instructor'):
