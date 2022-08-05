@@ -284,8 +284,18 @@
             let fileItem = document.createElement("li");
             fileItem.innerHTML = item.document_name;
             fileItem.key = item.id;
+
+            let deleteFile = document.createElement("button");
+            deleteFile.innerText = "Delete";
+            deleteFile.onclick = () =>{
+                const endpoint = "../delete_doc";              
+                $.postJSON(endpoint, item.id, function (data) {alert("Document Deleted Successfully")});
+            }
+            fileItem.appendChild(deleteFile);
+
             fileListItems.appendChild(fileItem);
           });
+
           const fileListHeading = document.createElement("h1");
           fileListHeading.innerText="Available Documents"
           modal_content.appendChild(fileListHeading);
