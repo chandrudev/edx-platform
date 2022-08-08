@@ -8,8 +8,8 @@ from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
 
 WAFFLE_FLAG_NAMESPACE = 'course_home'
 
-COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'course_home_mfe_progress_tab',  # lint-amnesty, pylint: disable=toggle-missing-annotation
-                                                          __name__)
+COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag('course_home_mfe_progress_tab',  # lint-amnesty, pylint: disable=toggle-missing-annotation
+                                                          __name__,WAFFLE_FLAG_NAMESPACE)
 
 # .. toggle_name: course_home.course_home_use_legacy_frontend
 # .. toggle_implementation: CourseWaffleFlag
