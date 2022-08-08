@@ -10,7 +10,7 @@ COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag(  # lint-amnesty, pyli
     f'{WAFFLE_FLAG_NAMESPACE}.course_home_mfe_progress_tab', __name__
 )
 
-COURSE_HOME_USE_LEGACY_FRONTEND = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'course_home_use_legacy_frontend', __name__)
+COURSE_HOME_USE_LEGACY_FRONTEND = CourseWaffleFlag( 'course_home_use_legacy_frontend', __name__)
 
 def course_home_mfe_progress_tab_is_active(course_key):
     # Avoiding a circular dependency
