@@ -6,7 +6,7 @@ from edx_toggles.toggles import LegacyWaffleFlagNamespace
 
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
 
-WAFFLE_FLAG_NAMESPACE = LegacyWaffleFlagNamespace(name='course_home')
+WAFFLE_FLAG_NAMESPACE = 'course_home'
 
 COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'course_home_mfe_progress_tab',  # lint-amnesty, pylint: disable=toggle-missing-annotation
                                                           __name__)
