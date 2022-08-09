@@ -2,7 +2,7 @@
 Toggles for course home experience.
 """
 
-from edx_toggles.toggles import LegacyWaffleFlagNamespace
+# from edx_toggles.toggles import LegacyWaffleFlagNamespace
 
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
 
