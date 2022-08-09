@@ -109,6 +109,7 @@ module.exports = Merge.smart({
             // Features
             CourseSock: './openedx/features/course_experience/static/course_experience/js/CourseSock.js',
             Currency: './openedx/features/course_experience/static/course_experience/js/currency.js',
+            CourseOutline: './openedx/features/course_experience/static/course_experience/js/CourseOutline.js',
 
             AnnouncementsView: './openedx/features/announcements/static/announcements/jsx/Announcements.jsx',
             CookiePolicyBanner: './common/static/js/src/CookiePolicyBanner.jsx',
