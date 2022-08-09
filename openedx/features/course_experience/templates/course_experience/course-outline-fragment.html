@@ -26,7 +26,7 @@ is_course_staff = bool(user and course and has_access(user, 'staff', course, cou
 dates_banner_displayed = False
 %>
 <main role="main" class="course-outline" id="main" tabindex="-1">
- 
+    <%include file="/dates_banner.html" />
     % if course_sections is not None:
         <button class="btn btn-outline-primary pull-right"
                 id="expand-collapse-outline-all-button"
