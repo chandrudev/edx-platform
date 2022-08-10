@@ -34,7 +34,7 @@ from openedx.core.djangoapps.util.maintenance_banner import add_maintenance_bann
 from openedx.features.course_duration_limits.access import generate_course_expired_fragment
 from openedx.features.course_experience import (
     COURSE_ENABLE_UNENROLLED_ACCESS_FLAG,
-
+    SHOW_UPGRADE_MSG_ON_COURSE_HOME
 )
 from openedx.features.course_experience.course_tools import CourseToolsPluginManager
 from openedx.features.course_experience.url_helpers import get_learning_mfe_home_url
