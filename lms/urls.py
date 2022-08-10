@@ -822,6 +822,13 @@ urlpatterns += [
     path('survey/', include('lms.djangoapps.survey.urls')),
 ]
 
+#course_GOal
+
+urlpatterns += [
+    path('api/course_goals/', include(('lms.djangoapps.course_goals.urls', 'lms.djangoapps.course_goals'),
+                                      namespace='course_goals_api')),
+]
+
 if settings.FEATURES.get('ENABLE_OAUTH2_PROVIDER'):
     urlpatterns += [
         # These URLs dispatch to django-oauth-toolkit or django-oauth2-provider as appropriate.
