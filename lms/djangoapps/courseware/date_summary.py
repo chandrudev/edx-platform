@@ -16,7 +16,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from lazy import lazy
 from pytz import utc
-
+from django.utils.formats import date_format
 from common.djangoapps.course_modes.models import CourseMode
 from lms.djangoapps.certificates.api import get_active_web_certificate, can_show_certificate_available_date_field
 from lms.djangoapps.courseware.utils import verified_upgrade_deadline_link, can_show_verified_upgrade
@@ -26,7 +26,6 @@ from openedx.core.djangolib.markup import HTML
 from openedx.features.course_duration_limits.access import get_user_course_expiration_date
 from openedx.features.course_experience import RELATIVE_DATES_FLAG
 from common.djangoapps.student.models import CourseEnrollment
-
 from .context_processor import user_timezone_locale_prefs
 
 
@@ -76,6 +75,13 @@ class DateSummary:
     def extra_info(self):
         """Extra detail to display as a tooltip."""
         return None
+
+
+    def register_alerts(self, request, course):
+        """
+        Registers any relevant course alerts given the current request.
+        """
+        pass  # lint-amnesty, pylint: disable=unnecessary-pass
 
     @property
     def date(self):
@@ -272,6 +278,12 @@ class CourseStartDate(DateSummary):
             return gettext_lazy('Enrollment Date')
         return gettext_lazy('Course starts')
 
+    def register_alerts(self, request, course):
+        """
+        Registers an alert if the course has not started yet.
+        """
+        pass
+
 
 class CourseEndDate(DateSummary):
     """
@@ -324,6 +336,11 @@ class CourseEndDate(DateSummary):
     def date_type(self):
         return 'course-end-date'
 
+    def register_alerts(self, request, course):
+        """
+        Registers an alert if the end date is approaching.
+        """
+        pass
 
 class CourseAssignmentDate(DateSummary):
     """
@@ -447,6 +464,11 @@ class CertificateAvailableDate(DateSummary):
             ) if mode.slug != CourseMode.AUDIT
         )
 
+    def register_alerts(self, request, course):
+        """
+        Registers an alert close to the certificate delivery date.
+        """
+        pass
 
 class VerifiedUpgradeDeadlineDate(DateSummary):
     """
@@ -511,13 +533,17 @@ class VerifiedUpgradeDeadlineDate(DateSummary):
 
         if self.date is None or self.deadline_has_passed():
             return ' '
-
         # Translators: This describes the time by which the user
         # should upgrade to the verified track. 'date' will be
         # their personalized verified upgrade deadline formatted
         # according to their locale.
         return _('by {date}')
 
+    def register_alerts(self, request, course):
+        """
+        Registers an alert if the verification deadline is approaching.
+        """
+        pass
 
 class VerificationDeadlineDate(DateSummary):
     """
