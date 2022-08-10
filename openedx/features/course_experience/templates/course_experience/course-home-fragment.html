@@ -169,10 +169,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
                         <div class="upgrade-container">
                             <p>
                                 <a id="green_upgrade" class="btn-brand btn-upgrade"
-                                   href="${upgrade_url}"
-                                   data-creative="sidebarupsell"
-                                   data-position="sidebar-message"
-                                >
+                                   href="${upgrade_url}"in
                                     ${Text(_("Upgrade ({price})")).format(price=upgrade_price)}
                                 </a>
                             </p>
@@ -206,10 +203,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
         courseToolLink: ".course-tool-link",
         goalApiUrl: "${goal_api_url | n, js_escaped_string}",
         username: "${username | n, js_escaped_string}",
-        courseId: "${course.id | n, js_escaped_string}",
-    });
-</%static:webpack>
-
+        courseId: "${course.id | n, js_escaped_string}",in
 <%static:webpack entry="Enrollment">
     new CourseEnrollment('.enroll-btn', '${course_key | n, js_escaped_string}');
 </%static:webpack>
