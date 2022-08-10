@@ -1,5 +1,3 @@
-
-
 /* globals gettext */
 
 import HtmlUtils from 'edx-ui-toolkit/js/utils/html-utils';
