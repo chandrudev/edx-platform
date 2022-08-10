@@ -107,6 +107,7 @@ module.exports = Merge.smart({
             CompletionOnViewService: './lms/static/completion/js/CompletionOnViewService.js',
 
             // Features
+            CourseGoals: './openedx/features/course_experience/static/course_experience/js/CourseGoals.js',
             CourseSock: './openedx/features/course_experience/static/course_experience/js/CourseSock.js',
             Currency: './openedx/features/course_experience/static/course_experience/js/currency.js',
             CourseOutline: './openedx/features/course_experience/static/course_experience/js/CourseOutline.js',
