@@ -208,14 +208,15 @@ class CourseHomeFragmentView(EdxFragmentView):
         upgrade_url = None
         has_discount = False
 
-        # TODO Add switch to control deployment
-        if SHOW_UPGRADE_MSG_ON_COURSE_HOME.is_enabled(course_key) and can_show_verified_upgrade(
-            request.user,
-            enrollment,
-            course
-        ):
-            upgrade_url = verified_upgrade_deadline_link(request.user, course_id=course_key)
-            upgrade_price, has_discount = format_strikeout_price(request.user, course_overview)
+        # # TODO Add switch to control deployment
+        # TODO uncomment
+        # if SHOW_UPGRADE_MSG_ON_COURSE_HOME.is_enabled(course_key) and can_show_verified_upgrade(
+        #     request.user,
+        #     enrollment,
+        #     course
+        # ):
+        #     upgrade_url = verified_upgrade_deadline_link(request.user, course_id=course_key)
+        #     upgrade_price, has_discount = format_strikeout_price(request.user, course_overview)
 
         show_search = (
             settings.FEATURES.get('ENABLE_COURSEWARE_SEARCH') or

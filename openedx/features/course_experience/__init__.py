@@ -43,6 +43,7 @@ SEO_WAFFLE_FLAG_NAMESPACE = 'seo'
 COURSE_ENABLE_UNENROLLED_ACCESS_FLAG = CourseWaffleFlag(  # lint-amnesty, pylint: disable=toggle-missing-annotation
     f'{SEO_WAFFLE_FLAG_NAMESPACE}.enable_anonymous_courseware_access', __name__
 )
+SHOW_UPGRADE_MSG_ON_COURSE_HOME = CourseWaffleFlag(f"{WAFFLE_FLAG_NAMESPACE}.show_upgrade_msg_on_course_home" , __name__)  # lint-amnesty, pylint: disable=toggle-missing-annotation
 
 # .. toggle_name: course_experience.relative_dates
 # .. toggle_implementation: CourseWaffleFlag
