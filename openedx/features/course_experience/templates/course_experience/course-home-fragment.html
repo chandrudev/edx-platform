@@ -1,3 +1,4 @@
+
 ## mako
 
 <%page expression_filter="h"/>
@@ -25,7 +26,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
 <%block name="content">
 <div class="course-view page-content-container" id="course-container">
     <header class="page-header has-secondary">## mako
-</%block>
+
 <%page expression_filter="h"/>
 <%namespace name='static' file='../static_content.html'/>
 
@@ -203,6 +204,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
         goalApiUrl: "${goal_api_url | n, js_escaped_string}",
         username: "${username | n, js_escaped_string}",
         courseId: "${course.id | n, js_escaped_string}",in
+<%static:webpack>
 <%static:webpack entry="Enrollment">
     new CourseEnrollment('.enroll-btn', '${course_key | n, js_escaped_string}');
 </%static:webpack>
@@ -254,7 +256,6 @@ from openedx.features.course_experience.course_tools import HttpMethod
       });
 
 </%static:require_module_async>
-    <header>
 
         <div class="page-header-main">
             <nav aria-label="${_('Course Outline')}" class="sr-is-focusable" tabindex="-1">
@@ -401,7 +402,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
         ${HTML(course_sock_fragment.body_html())}
     % endif
 </div>
-</%static:require_module_async>
+</%block>
 
 <%static:webpack entry="CourseHome">
     new CourseHome({
