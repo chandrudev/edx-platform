@@ -12,7 +12,6 @@ import PasswordResetInput from './PasswordResetInput';
 // conflict with some standard LMS ones ('alert' at least). This means that you need to do
 // something like the following on any templates that use this class:
 //
-// <link type='text/css' rel='stylesheet' href='${STATIC_URL}paragon/static/paragon.min.css'>
 //
 
 class PasswordResetConfirmation extends React.Component {
