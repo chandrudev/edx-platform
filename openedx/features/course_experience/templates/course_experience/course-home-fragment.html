@@ -204,7 +204,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
         goalApiUrl: "${goal_api_url | n, js_escaped_string}",
         username: "${username | n, js_escaped_string}",
         courseId: "${course.id | n, js_escaped_string}",in
-<%static:webpack>
+<%/static:webpack>
 <%static:webpack entry="Enrollment">
     new CourseEnrollment('.enroll-btn', '${course_key | n, js_escaped_string}');
 </%static:webpack>
