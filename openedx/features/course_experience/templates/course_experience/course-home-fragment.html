@@ -1,4 +1,3 @@
-
 ## mako
 
 <%page expression_filter="h"/>
@@ -23,10 +22,8 @@ from openedx.features.course_experience.course_tools import HttpMethod
 
 <%block name="content">
 <div class="course-view page-content-container" id="course-container">
-    <header class="page-header has-secondary">## mako
-
-<%page expression_filter="h"/>
-<%namespace name='static' file='../static_content.html'/>
+    <header class="page-header has-secondary">
+</%block>
 
 <%!
 import json
@@ -398,7 +395,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
         ${HTML(course_sock_fragment.body_html())}
     % endif
 </div>
-</%block>
+
 
 <%static:webpack entry="CourseHome">
     new CourseHome({
