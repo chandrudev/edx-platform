@@ -186,7 +186,9 @@ from openedx.features.course_experience.course_tools import HttpMethod
             % endif
         </aside>
     </div>
-
+    % if course_sock_fragment:
+        ${HTML(course_sock_fragment.body_html())}
+    % endif
 </div>
 </%block>
 
@@ -392,7 +394,9 @@ from openedx.features.course_experience.course_tools import HttpMethod
             % endif
         </aside>
     </div>
-   
+    % if course_sock_fragment:
+        ${HTML(course_sock_fragment.body_html())}
+    % endif
 </div>
 </%block>
 
