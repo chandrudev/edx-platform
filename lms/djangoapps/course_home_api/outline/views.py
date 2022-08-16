@@ -178,7 +178,6 @@ class OutlineTabView(RetrieveAPIView):
         log.info(request.user, course_key,masquerade_object)
 
         user_is_masquerading = is_masquerading(request.user, course_key, course_masquerade=masquerade_object)
-        log.info(user_is_masquerading, "===========================User is masquedering====================")
         user_is_masquerading = True
         course_overview = get_course_overview_or_404(course_key)
         log.info(f"============================================={course_overview}=============================COURSE OVERVIEW================================")
