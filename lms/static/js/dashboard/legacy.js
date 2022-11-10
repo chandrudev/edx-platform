@@ -387,6 +387,7 @@
             type: 'GET',
             headers: new Headers({'Content-Type':'application/json'}),
             data: $(this).serializeArray(),
+
             success: function(response){
                 var response_new = JSON.parse(JSON.stringify(response));
                 var output = document.getElementById('output');
