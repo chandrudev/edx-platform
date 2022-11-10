@@ -170,6 +170,7 @@ class OutlineTabView(RetrieveAPIView):
         course_key_string = kwargs.get('course_key_string')
         course_key = CourseKey.from_string(course_key_string)
         course_usage_key = modulestore().make_course_usage_key(course_key)  # pylint: disable=unused-variable
+        # log.info(">>>>>>var1>>>>>>>>>>>" , course_key_string ,course_key ,  course_usage_key )
 
         if course_home_legacy_is_active(course_key):
             raise Http404
@@ -189,17 +190,21 @@ class OutlineTabView(RetrieveAPIView):
         )
 
         user_is_masquerading = is_masquerading(request.user, course_key, course_masquerade=masquerade_object)
-
+        # log.info(">>>>>>var2>>>>>>>>>>>" , user_is_masquerading)
         course_overview = get_course_overview_or_404(course_key)
         enrollment = CourseEnrollment.get_enrollment(request.user, course_key)
         enrollment_mode = getattr(enrollment, 'mode', None)
         allow_anonymous = COURSE_ENABLE_UNENROLLED_ACCESS_FLAG.is_enabled(course_key)
         allow_public = allow_anonymous and course.course_visibility == COURSE_VISIBILITY_PUBLIC
         allow_public_outline = allow_anonymous and course.course_visibility == COURSE_VISIBILITY_PUBLIC_OUTLINE
+        # log.info(">>>>>>var3>>>>>>>>>>>" , course_overview , enrollment , enrollment_mode , allow_anonymous , allow_public , allow_public_outline)
+
+        
 
         # User locale settings
         user_timezone_locale = user_timezone_locale_prefs(request)
         user_timezone = user_timezone_locale['user_timezone']
+        # log.info(">>>>>>var4>>>>>>>>>>>" ,user_timezone_locale ,user_timezone)
 
         if course_home_legacy_is_active(course.id):
             dates_tab_link = request.build_absolute_uri(reverse('dates', args=[course.id]))
@@ -234,7 +239,7 @@ class OutlineTabView(RetrieveAPIView):
 
         is_enrolled = enrollment and enrollment.is_active
         is_staff = bool(has_access(request.user, 'staff', course_key))
-        
+        # log.info(">>>>>>var5>>>>>>>>>>>" , is_enrolled , is_staff)
         show_enrolled = is_enrolled or is_staff
         enable_proctored_exams = False
         if is_enrolled:
@@ -250,10 +255,12 @@ class OutlineTabView(RetrieveAPIView):
             cert_data = get_cert_data(request.user, course, enrollment.mode) if is_enrolled else None
 
             enable_proctored_exams = course_overview.enable_proctored_exams
+            # log.info(">>>>>>var6>>>>>>>>>>>" , course_blocks , date_blocks , dates_widget , handouts_html , welcome_message_html , offer_data , access_expiration , cert_data ,enable_proctored_exams)
 
             if (is_enrolled and ENABLE_COURSE_GOALS.is_enabled(course_key)):
                 course_goals['weekly_learning_goal_enabled'] = True
                 selected_goal = get_course_goal(request.user, course_key)
+                # log.info(">>>>>>var7>>>>>>>>>>>" , course_goals ,selected_goal )
                 if selected_goal:
                     course_goals['selected_goal'] = {
                         'days_per_week': selected_goal.days_per_week,
@@ -286,6 +293,8 @@ class OutlineTabView(RetrieveAPIView):
                     if children.get('children'):
                         children.pop('children')
             course_blocks['children'] = children_list
+            # log.info(">>>>>>var8>>>>>>>>>>>" , course_goals ,course_blocks['children'])
+
 
             # return Response (course_blocks)
 
@@ -369,8 +378,9 @@ class OutlineTabView(RetrieveAPIView):
         context['enable_links'] = show_enrolled or allow_public
         context['enrollment'] = enrollment
         serializer = self.get_serializer_class()(data, context=context)
-
+        # log.info("<<<<response>>>>1"  ,serializer.data  , serializer , context['enrollment'] ,context )
         return Response(serializer.data)
+        
 
     def finalize_response(self, request, response, *args, **kwargs):
         """
