@@ -402,7 +402,7 @@
                         parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
                         parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
                         var image = document.createElement("img");
-                        image.setAttribute('src', 'http://via.placeholder.com/220x120');
+                        image.setAttribute('src', 'https://via.placeholder.com/220x120');
                         var ele = document.createElement("div");
                         ele.setAttribute("style", "font-size: 1.2em; font-weight: 900; color:#000;");
                         ele.setAttribute("id","timedrpact"+i);
@@ -457,7 +457,7 @@
     function display_profile(){
         if($("#user-profile-view").is(":visible") !== true){
         var content = document.querySelector("#content");
-        var main_body = document.querySelector("#main"); 
+        var main_body = document.querySelector("#main");
         main_body.setAttribute("style","display:none;");
         content.setAttribute("style","max-width:100%; padding:0;");
         $.ajax({
@@ -494,12 +494,12 @@
             userProfile.appendChild(banner);
             userProfile.appendChild(userDetails);
             content.appendChild(userProfile);
-                
+
             }
         });
     };
       }
-      
+
       const paid_profile = document.querySelector(".user-image-frame").parentElement;
       paid_profile.removeAttribute("href");
       paid_profile.setAttribute("style","cursor:pointer");
