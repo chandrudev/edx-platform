@@ -27,7 +27,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
 %>
 
 <header style="display: flex; justify-content: space-between; padding: 8px 72px;">
-  <img src="https://launchpadedx.s3.us-west-1.amazonaws.com/logo.svg" width="160px"/>
+  <img src="https://launchpadedx.s3.us-west-1.amazonaws.com/logo.png" width="160px"/>
   <div style="display: flex; align-items:center; gap: 20px;">
       <ul style="list-style: none; display: flex; gap: 40px">
           <li style="color: #000; font-size: 20px; font-weight: 900">
@@ -39,7 +39,7 @@ from openedx.core.djangoapps.site_configuration import helpers as configuration_
           % endif
           </li>
           <li style="color: #000; font-size: 20px; font-weight: 900">
-            <a class="teachers-link" style="color: #000; cursor: pointer;" href="#" target="_blank">${_("Teachers")}</a> 
+            <a class="teachers-link" style="color: #000; cursor: pointer;" href="#" target="_blank">${_("Teachers")}</a>
           </li>
           <li style="color: #000; font-size: 20px; font-weight: 900">
             % if enable_help_link:
