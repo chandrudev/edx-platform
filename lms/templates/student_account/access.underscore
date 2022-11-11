@@ -1,5 +1,5 @@
 <section id="login-anchor"  class="form-type" style="border-radius: 8px; padding-top :0px; width: 100%;" >
-    <div id="login-form" class="form-wrapper <% if ( mode !== 'login' ) { %>hidden<% } %>"></div>
+    <div id="login-form" class="form-wrapper <% if ( mode !== 'login' ) { %>hidden<% } %>" style="padding-top:0px;"></div>
 </section>
 
 <section id="register-anchor" class="form-type">
