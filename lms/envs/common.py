@@ -3068,7 +3068,7 @@ INSTALLED_APPS = [
 
 
     # Coursegraph
-    'openedx.core.djangoapps.coursegraph.apps.CoursegraphConfig',
+    #'openedx.core.djangoapps.coursegraph.apps.CoursegraphConfig',
 
     # Mailchimp Syncing
     'lms.djangoapps.mailing',
