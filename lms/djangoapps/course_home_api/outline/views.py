@@ -2,12 +2,10 @@
 Outline Tab Views
 """
 from datetime import datetime, timezone
-import logging
 
 from completion.exceptions import UnavailableCompletionData  # lint-amnesty, pylint: disable=wrong-import-order
 from completion.utilities import get_key_to_last_completed_block  # lint-amnesty, pylint: disable=wrong-import-order
 from django.conf import settings  # lint-amnesty, pylint: disable=wrong-import-order
-from django.http.response import Http404  # lint-amnesty, pylint: disable=wrong-import-order
 from django.shortcuts import get_object_or_404  # lint-amnesty, pylint: disable=wrong-import-order
 from django.urls import reverse  # lint-amnesty, pylint: disable=wrong-import-order
 from django.utils.translation import gettext as _  # lint-amnesty, pylint: disable=wrong-import-order
@@ -30,15 +28,11 @@ from lms.djangoapps.course_goals.api import (
 )
 from lms.djangoapps.course_goals.models import CourseGoal
 from lms.djangoapps.course_home_api.outline.serializers import OutlineTabSerializer
-from lms.djangoapps.course_home_api.toggles import (
-    course_home_legacy_is_active,
-)
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.context_processor import user_timezone_locale_prefs
 from lms.djangoapps.courseware.courses import get_course_date_blocks, get_course_info_section, get_course_with_access
 from lms.djangoapps.courseware.date_summary import TodaysDate
 from lms.djangoapps.courseware.masquerade import is_masquerading, setup_masquerade
-from lms.djangoapps.courseware.toggles import course_is_invitation_only
 from lms.djangoapps.courseware.views.views import get_cert_data
 from lms.djangoapps.grades.course_grade_factory import CourseGradeFactory
 from openedx.core.djangoapps.content.learning_sequences.api import get_user_course_outline
@@ -55,9 +49,8 @@ from openedx.features.course_experience.url_helpers import get_learning_mfe_home
 from openedx.features.course_experience.utils import get_course_outline_block_tree, get_start_block
 from openedx.features.discounts.utils import generate_offer_data
 from xmodule.course_module import COURSE_VISIBILITY_PUBLIC, COURSE_VISIBILITY_PUBLIC_OUTLINE  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+import logging as log
 
-log = logging.getLogger(__name__)
 class UnableToDismissWelcomeMessage(APIException):
     status_code = 400
     default_detail = 'Unable to dismiss welcome message.'
@@ -164,52 +157,42 @@ class OutlineTabView(RetrieveAPIView):
 
     serializer_class = OutlineTabSerializer
 
-    def get(self, request, *args, **kwargs ):  # pylint: disable=too-many-statements
-
-        # import pdb;pdb.set_trace()
+    def get(self, request, *args, **kwargs):  # pylint: disable=too-many-statements
         course_key_string = kwargs.get('course_key_string')
         course_key = CourseKey.from_string(course_key_string)
-        course_usage_key = modulestore().make_course_usage_key(course_key)  # pylint: disable=unused-variable
-        # log.info(">>>>>>var1>>>>>>>>>>>" , course_key_string ,course_key ,  course_usage_key )
-
-        if course_home_legacy_is_active(course_key):
-            raise Http404
-
+        log.info(course_key, "==============================Course=======monitoring==========key=================================")
         # Enable NR tracing for this view based on course
         monitoring_utils.set_custom_attribute('course_id', course_key_string)
         monitoring_utils.set_custom_attribute('user_id', request.user.id)
         monitoring_utils.set_custom_attribute('is_staff', request.user.is_staff)
 
         course = get_course_with_access(request.user, 'load', course_key, check_if_enrolled=False)
-
+        log.info(course, "=================================COURSE====RESPONE===========================")
         masquerade_object, request.user = setup_masquerade(
             request,
             course_key,
             staff_access=has_access(request.user, 'staff', course_key),
             reset_masquerade_data=True,
         )
+        log.info('=========================Checking masquerading===========================')
+        log.info(request.user, course_key,masquerade_object)
 
         user_is_masquerading = is_masquerading(request.user, course_key, course_masquerade=masquerade_object)
-        # log.info(">>>>>>var2>>>>>>>>>>>" , user_is_masquerading)
+        user_is_masquerading = True
         course_overview = get_course_overview_or_404(course_key)
+        log.info(f"============================================={course_overview}=============================COURSE OVERVIEW================================")
         enrollment = CourseEnrollment.get_enrollment(request.user, course_key)
         enrollment_mode = getattr(enrollment, 'mode', None)
         allow_anonymous = COURSE_ENABLE_UNENROLLED_ACCESS_FLAG.is_enabled(course_key)
         allow_public = allow_anonymous and course.course_visibility == COURSE_VISIBILITY_PUBLIC
         allow_public_outline = allow_anonymous and course.course_visibility == COURSE_VISIBILITY_PUBLIC_OUTLINE
-        # log.info(">>>>>>var3>>>>>>>>>>>" , course_overview , enrollment , enrollment_mode , allow_anonymous , allow_public , allow_public_outline)
-
-        
 
         # User locale settings
         user_timezone_locale = user_timezone_locale_prefs(request)
         user_timezone = user_timezone_locale['user_timezone']
-        # log.info(">>>>>>var4>>>>>>>>>>>" ,user_timezone_locale ,user_timezone)
-
-        if course_home_legacy_is_active(course.id):
-            dates_tab_link = request.build_absolute_uri(reverse('dates', args=[course.id]))
-        else:
-            dates_tab_link = get_learning_mfe_home_url(course_key=course.id, url_fragment='dates')
+        log.info('=======================calling mfe===================================')
+        dates_tab_link = get_learning_mfe_home_url(course_key=course.id, url_fragment='dates')
+        log.info(f'===========================date tabs==============={dates_tab_link}====================')
 
         # Set all of the defaults
         access_expiration = None
@@ -219,7 +202,9 @@ class OutlineTabView(RetrieveAPIView):
             'selected_goal': None,
             'weekly_learning_goal_enabled': False,
         }
+        log.info(f"==================================================CALLING COURSE TOOL======================================")
         course_tools = CourseToolsPluginManager.get_enabled_course_tools(request, course_key)
+        log.info(f"================================================={course_tools}=====================================")
         dates_widget = {
             'course_date_blocks': [],
             'dates_tab_link': dates_tab_link,
@@ -230,19 +215,20 @@ class OutlineTabView(RetrieveAPIView):
             'extra_text': None,
         }
         handouts_html = None
-        offer_data = None
+        offer_data = None   
         resume_course = {
             'has_visited_course': False,
             'url': None,
         }
         welcome_message_html = None
 
-        is_enrolled = enrollment and enrollment.is_active
+        is_enrolled = enrollment and enrollment.is_active if enrollment else False
+        log.info(f"================ENROLLMENT========={enrollment}=============ENROLLMENT-ACTIVE================================={enrollment}")
+        log.info(f"=========================================is==================================enrolled================================{is_enrolled}==========================================")
         is_staff = bool(has_access(request.user, 'staff', course_key))
-        # log.info(">>>>>>var5>>>>>>>>>>>" , is_enrolled , is_staff)
         show_enrolled = is_enrolled or is_staff
         enable_proctored_exams = False
-        if is_enrolled:
+        if show_enrolled:
             course_blocks = get_course_outline_block_tree(request, course_key_string, request.user)
             date_blocks = get_course_date_blocks(course, request.user, request, num_assignments=1)
             dates_widget['course_date_blocks'] = [block for block in date_blocks if not isinstance(block, TodaysDate)]
@@ -255,12 +241,10 @@ class OutlineTabView(RetrieveAPIView):
             cert_data = get_cert_data(request.user, course, enrollment.mode) if is_enrolled else None
 
             enable_proctored_exams = course_overview.enable_proctored_exams
-            # log.info(">>>>>>var6>>>>>>>>>>>" , course_blocks , date_blocks , dates_widget , handouts_html , welcome_message_html , offer_data , access_expiration , cert_data ,enable_proctored_exams)
 
             if (is_enrolled and ENABLE_COURSE_GOALS.is_enabled(course_key)):
                 course_goals['weekly_learning_goal_enabled'] = True
                 selected_goal = get_course_goal(request.user, course_key)
-                # log.info(">>>>>>var7>>>>>>>>>>>" , course_goals ,selected_goal )
                 if selected_goal:
                     course_goals['selected_goal'] = {
                         'days_per_week': selected_goal.days_per_week,
@@ -279,45 +263,23 @@ class OutlineTabView(RetrieveAPIView):
                 start_block = get_start_block(course_blocks)
                 resume_course['url'] = start_block['lms_web_url']
 
+        elif allow_public_outline or allow_public or user_is_masquerading:
+            course_blocks = get_course_outline_block_tree(request, course_key_string, None)
+            if allow_public or user_is_masquerading:
+                handouts_html = get_course_info_section(request, request.user, course, 'handouts')
 
-
-        elif not is_enrolled:
-            course_blocks = get_course_outline_block_tree(request, course_key_string, request.user)
-
-            # course_blocks['children']=course_blocks['children'][0:2] 
-            
-            children_list=course_blocks.get('children')
-            if children_list and len(children_list)>=2:
-    
-                for children in children_list[2:]:
-                    if children.get('children'):
-                        children.pop('children')
-            course_blocks['children'] = children_list
-            # log.info(">>>>>>var8>>>>>>>>>>>" , course_goals ,course_blocks['children'])
-
-
-            # return Response (course_blocks)
-
-              
-
-
-        else:
-
+        if not is_enrolled:
             if CourseMode.is_masters_only(course_key):
                 enroll_alert['can_enroll'] = False
                 enroll_alert['extra_text'] = _(
                     'Please contact your degree administrator or '
                     '{platform_name} Support if you have questions.'
                 ).format(platform_name=settings.PLATFORM_NAME)
-            elif course_is_invitation_only(course):
+            elif CourseEnrollment.is_enrollment_closed(request.user, course_overview):
                 enroll_alert['can_enroll'] = False
-
-        @property
-        def is_locked(self):
-            pass  
-
-
-
+            elif CourseEnrollment.objects.is_course_full(course_overview):
+                enroll_alert['can_enroll'] = False
+                enroll_alert['extra_text'] = _('Course is full')
 
         # Sometimes there are sequences returned by Course Blocks that we
         # don't actually want to show to the user, such as when a sequence is
@@ -327,28 +289,26 @@ class OutlineTabView(RetrieveAPIView):
         #
         # The long term goal is to remove the Course Blocks API call entirely,
         # so this is a tiny first step in that migration.
-        # if course_blocks:
-        #     user_course_outline = get_user_course_outline(
-        #         course_key, request.user, datetime.now(tz=timezone.utc)
-        #     )
-        #     available_seq_ids = {str(usage_key) for usage_key in user_course_outline.sequences}
+        if course_blocks:
+            user_course_outline = get_user_course_outline(
+                course_key, request.user, datetime.now(tz=timezone.utc)
+            )
+            available_seq_ids = {str(usage_key) for usage_key in user_course_outline.sequences}
 
-        #     # course_blocks is a reference to the root of the course, so we go
-        #     # through the chapters (sections) to look for sequences to remove.
-        #     for chapter_data in course_blocks['children']:
-        #         chapter_data['children'] = [
-        #             seq_data
-        #             for seq_data in chapter_data['children']
-        #             if (
-        #                 seq_data['id'] in available_seq_ids or
-        #                 # Edge case: Sometimes we have weird course structures.
-        #                 # We expect only sequentials here, but if there is
-        #                 # another type, just skip it (don't filter it out).
-        #                 seq_data['type'] != 'sequential'
-        #             )
-        #         ] if 'children' in chapter_data else []
-
-
+            # course_blocks is a reference to the root of the course, so we go
+            # through the chapters (sections) to look for sequences to remove.
+            for chapter_data in course_blocks.get('children', []):
+                chapter_data['children'] = [
+                    seq_data
+                    for seq_data in chapter_data['children']
+                    if (
+                        seq_data['id'] in available_seq_ids or
+                        # Edge case: Sometimes we have weird course structures.
+                        # We expect only sequentials here, but if there is
+                        # another type, just skip it (don't filter it out).
+                        seq_data['type'] != 'sequential'
+                    )
+                ] if 'children' in chapter_data else []
 
         user_has_passing_grade = False
         if not request.user.is_anonymous:
@@ -373,14 +333,17 @@ class OutlineTabView(RetrieveAPIView):
             'user_has_passing_grade': user_has_passing_grade,
             'welcome_message_html': welcome_message_html,
         }
+        log.info("=========================================creating context===========================")
         context = self.get_serializer_context()
+        log.info(f"===================================================={context}===========================================")
+        
         context['course_overview'] = course_overview
         context['enable_links'] = show_enrolled or allow_public
         context['enrollment'] = enrollment
+        log.info(f"==============================================Context New==========================={context}=======================")
         serializer = self.get_serializer_class()(data, context=context)
-        # log.info("<<<<response>>>>1"  ,serializer.data  , serializer , context['enrollment'] ,context )
+        log.info(f"===================================================SERIALIZER DATA============================={serializer.data}=================================s")
         return Response(serializer.data)
-        
 
     def finalize_response(self, request, response, *args, **kwargs):
         """
@@ -426,7 +389,6 @@ def dismiss_welcome_message(request):  # pylint: disable=missing-function-docstr
 @permission_classes((IsAuthenticated,))
 def save_course_goal(request):  # pylint: disable=missing-function-docstring
     course_id = request.data.get('course_id')
-    goal_key = request.data.get('goal_key')
     days_per_week = request.data.get('days_per_week')
     subscribed_to_reminders = request.data.get('subscribed_to_reminders')
 

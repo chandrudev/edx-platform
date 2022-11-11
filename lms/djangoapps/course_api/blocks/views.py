@@ -17,7 +17,7 @@ from lms.djangoapps.course_goals.models import UserActivity
 from openedx.core.lib.api.view_utils import DeveloperErrorViewMixin, view_auth_classes
 from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.modulestore.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
-
+import logging
 from .api import get_blocks
 from .forms import BlockListGetForm
 
@@ -239,6 +239,7 @@ class BlocksView(DeveloperErrorViewMixin, ListAPIView):
             # If the username is an empty string, and not None, then we are requesting
             # data about the anonymous view of a course, which can be cached. In this
             # case we add the usual caching headers to the response.
+            logging.info(f"=====================================================RESPONSE++++++++++++++++++++++++++++++++++++{response}=======================================================")
             if params.cleaned_data.get('username', None) == '':
                 patch_response_headers(response)
             return response

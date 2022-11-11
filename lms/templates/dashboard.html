@@ -29,6 +29,9 @@ from common.djangoapps.student.models import CourseEnrollment
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 <link rel="stylesheet" href="../../static/css/style.css"/>
 <link rel="stylesheet" href="../../static/css/demo.css">
+<link rel="stylesheet" href="../../static/css/simple-calendar.css">
+<link rel="stylesheet" href="../../static/js/jquery.simple-calendar.js">
+
 
 <%block name="pagetitle">${_("Dashboard")}</%block>
 <%block name="bodyclass">view-dashboard is-authenticated</%block>
@@ -198,8 +201,8 @@ from common.djangoapps.student.models import CourseEnrollment
                 )
             %>
            
-            <div id="live_classes_list"  class="live_class" >
-              <h3 class="live_classes_list" style="font-size: 24px; font-weight: 900; margin-bottom: 24px">Live Classes</h3>
+            <div class="live_class" id="live_classes_list">
+              <h3 style="font-size: 24px; font-weight: 900; margin-bottom: 24px">Live Classes</h3>
               <div id="output" class="out" style="position: relative;display: none;"></div>
             </div>
 
@@ -306,7 +309,7 @@ from common.djangoapps.student.models import CourseEnrollment
           % endif
         </div>
       </div>
-      <div class="side-container" role="complementary" aria-label="messages" style="max-width: 388px; width: 100%">
+      <div class="side-container" role="complementary" aria-label="messages" style="display:none;max-width: 388px; width: 100%">
         <div>
           
             
@@ -315,30 +318,16 @@ from common.djangoapps.student.models import CourseEnrollment
             <section class="ftco-section" style="padding: 0">
               <div id="container" class="calendar-container"></div>
             </section>
-              <div class="livecalss" style="padding: 24px">
+              <div class="livecalss" id = "live_class_list" style="padding: 24px">
                   <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 24px; margin-top: 0">Live Class</h3>
-                  <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap:20px; padding:12px">
-                      <li class="liveclass1" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                          <div>
-                              <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>
-                              <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>
-                          </div>
-                          <button style="background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px">join</button>
-                      </li>
-                      <li class="liveclass2">
-                          <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>
-                          <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>
-                      </li>
-                      <li class="liveclass3">
-                          <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>
-                          <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>
-                      </li>
-                  </ul>
+                  <div class="live_class_list" id="live_class_list">
+                    
+                  </div>
               </div>
           </div>
       </div>
-      <div style="padding: 40px 20px 0">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <div style="padding: 40px 20px 0;display:none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;display:none;">
               <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 16px;">Announcements</h3>
               <button style="background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px">New</button>
           </div>
@@ -357,7 +346,7 @@ from common.djangoapps.student.models import CourseEnrollment
         %endif
 
         % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):
-          <div id="dashboard-search-bar" class="search-bar dashboard-search-bar" role="search" aria-label="Dashboard">
+          <div id="dashboard-search-bar" class="search-bar dashboard-search-bar" role="search" style="display:none;" aria-label="Dashboard">
             <form class="search-form">
               <label for="dashboard-search-input">${_('Search Your Courses')}</label>
               <div class="search-field-wrapper">
@@ -494,7 +483,6 @@ from common.djangoapps.student.models import CourseEnrollment
 </div>
 
 <%include file="dashboard/_dashboard_entitlement_unenrollment_modal.html"/>
-
 
 
 

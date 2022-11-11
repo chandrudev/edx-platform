@@ -281,7 +281,10 @@ def is_masquerading(user, course_key, course_masquerade=None):
     """
     Return if the user is masquerading at all
     """
+    log.info(f"=================================course_masquerade=========================={course_masquerade}====================BEFORE============")
+
     course_masquerade = course_masquerade or get_course_masquerade(user, course_key)
+    log.info(f"=================================course_masquerade=========================={course_masquerade}====================AFTER============")
     _is_masquerading = course_masquerade is not None
     return _is_masquerading
 
