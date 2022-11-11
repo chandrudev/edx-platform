@@ -306,73 +306,73 @@ from common.djangoapps.student.models import CourseEnrollment
           % endif
         </div>
       </div>
-      <div class="side-container" role="complementary" aria-label="messages" style="max-width: 388px; width: 100%">
-        <div>
+<!--      <div class="side-container" role="complementary" aria-label="messages" style="max-width: 388px; width: 100%; visibility:hidden;">-->
+<!--        <div>-->
 
 
-          <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 28px;">Learning Path</h3>
-          <div style="background-color: #fff; border-radius: 12px;">
-            <section class="ftco-section" style="padding: 0">
-              <div id="container" class="calendar-container"></div>
-            </section>
-              <div class="livecalss" style="padding: 24px">
-                  <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 24px; margin-top: 0">Live Class</h3>
-                  <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap:20px; padding:12px">
-                      <li class="liveclass1" style="display: flex; justify-content: space-between; align-items: flex-start;">
-                          <div>
-                              <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>
-                              <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>
-                          </div>
-                          <button style="background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px">join</button>
-                      </li>
-                      <li class="liveclass2">
-                          <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>
-                          <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>
-                      </li>
-                      <li class="liveclass3">
-                          <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>
-                          <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-      <div style="padding: 40px 20px 0">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-              <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 16px;">Announcements</h3>
-              <button style="background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px">New</button>
-          </div>
-          <div>
-              <ul style="list-style: none; padding: 0; margin: 0;">
-                  <li style="font-size: 11px; margin-bottom: 15px"> <span style="border-radius: 50px; background: #ff7f27; box-shadow:0 2px rgba(0,0,0,.8); display: inline-block; width: 10px; height: 10px; margin-right: 10px;"></span>Today will be a test in python course</li>
-                  <li style="font-size: 11px; margin-bottom: 15px"> <span style="border-radius: 50px; background: #ff7f27; box-shadow:0 2px rgba(0,0,0,.8); display: inline-block; width: 10px; height: 10px; margin-right: 10px;"></span>Announcement 2</li>
-                  <li style="font-size: 11px; margin-bottom: 15px"> <span style="border-radius: 50px; background: #ff7f27; box-shadow:0 2px rgba(0,0,0,.8); display: inline-block; width: 10px; height: 10px; margin-right: 10px;"></span>Announcement 3</li>
-              </ul>
-          </div>
-      </div>
-        %if display_sidebar_account_activation_message:
-          <div class="sidebar-notification">
-            <%include file="${static.get_template_path('registration/account_activation_sidebar_notice.html')}" />
-          </div>
-        %endif
+<!--          <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 28px;">Learning Path</h3>-->
+<!--          <div style="background-color: #fff; border-radius: 12px;">-->
+<!--            <section class="ftco-section" style="padding: 0">-->
+<!--              <div id="container" class="calendar-container"></div>-->
+<!--            </section>-->
+<!--              <div class="livecalss" style="padding: 24px">-->
+<!--                  <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 24px; margin-top: 0">Live Class</h3>-->
+<!--                  <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap:20px; padding:12px">-->
+<!--                      <li class="liveclass1" style="display: flex; justify-content: space-between; align-items: flex-start;">-->
+<!--                          <div>-->
+<!--                              <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>-->
+<!--                              <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>-->
+<!--                          </div>-->
+<!--                          <button style="background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px">join</button>-->
+<!--                      </li>-->
+<!--                      <li class="liveclass2">-->
+<!--                          <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>-->
+<!--                          <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>-->
+<!--                      </li>-->
+<!--                      <li class="liveclass3">-->
+<!--                          <h3 style="font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0">Roblox Game Maker</h3>-->
+<!--                          <p style="margin:0; color: #8499B1;">15:00-16:00 hrs</p>-->
+<!--                      </li>-->
+<!--                  </ul>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--      <div style="padding: 40px 20px 0">-->
+<!--          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">-->
+<!--              <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 16px;">Announcements</h3>-->
+<!--              <button style="background-color: #FF7F27; background-image: none; text-shadow: 0 0; padding: 4px 24px; color: #fff; font-size: 16px; min-width: 86px; font-weight: 500; border: 1px solid #FF7F27; box-shadow: 0px 5px 0px #EE6100; border-radius: 16px">New</button>-->
+<!--          </div>-->
+<!--          <div>-->
+<!--              <ul style="list-style: none; padding: 0; margin: 0;">-->
+<!--                  <li style="font-size: 11px; margin-bottom: 15px"> <span style="border-radius: 50px; background: #ff7f27; box-shadow:0 2px rgba(0,0,0,.8); display: inline-block; width: 10px; height: 10px; margin-right: 10px;"></span>Today will be a test in python course</li>-->
+<!--                  <li style="font-size: 11px; margin-bottom: 15px"> <span style="border-radius: 50px; background: #ff7f27; box-shadow:0 2px rgba(0,0,0,.8); display: inline-block; width: 10px; height: 10px; margin-right: 10px;"></span>Announcement 2</li>-->
+<!--                  <li style="font-size: 11px; margin-bottom: 15px"> <span style="border-radius: 50px; background: #ff7f27; box-shadow:0 2px rgba(0,0,0,.8); display: inline-block; width: 10px; height: 10px; margin-right: 10px;"></span>Announcement 3</li>-->
+<!--              </ul>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--        %if display_sidebar_account_activation_message:-->
+<!--          <div class="sidebar-notification">-->
+<!--            <%include file="${static.get_template_path('registration/account_activation_sidebar_notice.html')}" />-->
+<!--          </div>-->
+<!--        %endif-->
 
-        % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):
-          <div id="dashboard-search-bar" class="search-bar dashboard-search-bar" role="search" aria-label="Dashboard">
-            <form class="search-form">
-              <label for="dashboard-search-input">${_('Search Your Courses')}</label>
-              <div class="search-field-wrapper">
-                <input id="dashboard-search-input" type="text" class="search-field"/>
-                <button type="submit" class="search-button" title="${_('Search')}">
-                  <span class="icon fa fa-search" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="cancel-button" title="${_('Clear search')}">
-                  <span class="icon fa fa-remove" aria-hidden="true"></span>
-                </button>
-              </div>
-            </form>
-          </div>
-          <div id="dashboard-search-results" class="search-results dashboard-search-results"></div>
-        % endif
+<!--        % if settings.FEATURES.get('ENABLE_DASHBOARD_SEARCH'):-->
+<!--          <div id="dashboard-search-bar" class="search-bar dashboard-search-bar" role="search" aria-label="Dashboard">-->
+<!--            <form class="search-form">-->
+<!--              <label for="dashboard-search-input">${_('Search Your Courses')}</label>-->
+<!--              <div class="search-field-wrapper">-->
+<!--                <input id="dashboard-search-input" type="text" class="search-field"/>-->
+<!--                <button type="submit" class="search-button" title="${_('Search')}">-->
+<!--                  <span class="icon fa fa-search" aria-hidden="true"></span>-->
+<!--                </button>-->
+<!--                <button type="button" class="cancel-button" title="${_('Clear search')}">-->
+<!--                  <span class="icon fa fa-remove" aria-hidden="true"></span>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </form>-->
+<!--          </div>-->
+<!--          <div id="dashboard-search-results" class="search-results dashboard-search-results"></div>-->
+<!--        % endif-->
 
         <%block name="skip_links">
           % if settings.FEATURES.get('ENABLE_ANNOUNCEMENTS'):
