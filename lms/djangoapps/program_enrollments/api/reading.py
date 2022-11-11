@@ -168,7 +168,7 @@ def fetch_program_course_enrollments(
         users=None,
         external_user_keys=None,
         program_enrollment_statuses=None,
-        program_enrollment=None,
+        program_enrollments=None,
         active_only=False,
         inactive_only=False,
         realized_only=False,
@@ -214,7 +214,7 @@ def fetch_program_course_enrollments(
         "program_enrollment__user__in": users,
         "program_enrollment__external_user_key__iregex": external_user_key_regex,
         "program_enrollment__status__in": program_enrollment_statuses,
-        "program_enrollment__in": program_enrollment,
+        "program_enrollment__in": program_enrollments,
     }
     if active_only:
         filters["status"] = "active"

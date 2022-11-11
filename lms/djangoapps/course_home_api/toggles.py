@@ -2,13 +2,13 @@
 Toggles for course home experience.
 """
 
-# from edx_toggles.toggles import LegacyWaffleFlagNamespace
+from edx_toggles.toggles import LegacyWaffleFlagNamespace
 
 from openedx.core.djangoapps.waffle_utils import CourseWaffleFlag
 
-WAFFLE_FLAG_NAMESPACE ='course_home'
+WAFFLE_FLAG_NAMESPACE = LegacyWaffleFlagNamespace(name='course_home')
 
-COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag(f"{WAFFLE_FLAG_NAMESPACE}.course_home_mfe_progress_tab",  # lint-amnesty, pylint: disable=toggle-missing-annotation
+COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'course_home_mfe_progress_tab',  # lint-amnesty, pylint: disable=toggle-missing-annotation
                                                           __name__)
 
 # .. toggle_name: course_home.course_home_use_legacy_frontend
@@ -22,7 +22,7 @@ COURSE_HOME_MICROFRONTEND_PROGRESS_TAB = CourseWaffleFlag(f"{WAFFLE_FLAG_NAMESPA
 # .. toggle_creation_date: 2021-06-11
 # .. toggle_target_removal_date: 2022-05-15
 # .. toggle_tickets: https://openedx.atlassian.net/browse/AA-797
-COURSE_HOME_USE_LEGACY_FRONTEND = CourseWaffleFlag(f"{WAFFLE_FLAG_NAMESPACE}.course_home_use_legacy_frontend", __name__)
+COURSE_HOME_USE_LEGACY_FRONTEND = CourseWaffleFlag(WAFFLE_FLAG_NAMESPACE, 'course_home_use_legacy_frontend', __name__)
 
 
 def course_home_legacy_is_active(course_key):

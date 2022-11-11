@@ -114,7 +114,7 @@ from six import string_types
               href_class = "register"
           %>
           <a href="${course_target}" class="${href_class}">
-            ${_("Start Now")}
+            ${_("Purchase Now")}
           </a>
           <div id="register_error"></div>
         %endif
@@ -217,7 +217,7 @@ from six import string_types
           %endif
 
           % if pre_requisite_courses:
-          <% prc_target = reverse('home', args=[text_type(pre_requisite_courses[0]['key'])]) %>
+          <% prc_target = reverse('about_course', args=[text_type(pre_requisite_courses[0]['key'])]) %>
           <li class="prerequisite-course important-dates-item">
             <span class="icon fa fa-list-ul" aria-hidden="true"></span>
             <p class="important-dates-item-title">${_("Prerequisites")}</p>

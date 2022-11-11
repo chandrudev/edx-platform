@@ -2,6 +2,7 @@
 Course Goals Python API
 """
 
+
 from opaque_keys.edx.keys import CourseKey
 from rest_framework.reverse import reverse
 
