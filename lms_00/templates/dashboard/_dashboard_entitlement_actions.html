@@ -23,7 +23,7 @@ dropdown_btn_id = "entitlement-actions-dropdown-btn-{}".format(dashboard_index)
           data-dropdown-selector="#${dropdown_id}"
           data-dropdown-button-selector="#${dropdown_btn_id}">
     <span class="sr">${_('Course options for {courseName}').format(courseName=course_overview.display_name_with_default)}</span>
-    <span class="fa fa-cog" aria-hidden="true"></span>
+    <span class="fa fa-cog" style="visibility:hidden;"aria-hidden="true"></span>
   </button>
 
   <div id="${dropdown_id}" class="entitlement-actions-dropdown" tabindex="-1">

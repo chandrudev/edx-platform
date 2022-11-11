@@ -191,7 +191,7 @@ from openedx.core.djangolib.js_utils import (
       </div>
       % endif
 
-     
+
       %if liveclass_enabled and show_new_liveclass_button:
       <div class="wrapper-create-element wrapper-create-liveclass">
         <form class="form-create create-liveclass liveclass-info" id="create-liveclass-form" name="create-liveclass-form">
@@ -230,15 +230,15 @@ from openedx.core.djangolib.js_utils import (
                   <textarea  class="new-liveclass-notes" id="new-liveclass-notes" name="new-liveclass-notes" required placeholder="${_('e.g. Notes')}" aria-describedby="tip-new-liveclass-notes tip-error-new-liveclass-notes"></textarea>
                   <!-- <span class="tip" id="tip-new-liveclass-notes">${_("The public notes for your liveclass.")}</span> -->
                   <span class="tip tip-error is-hiding" id="tip-error-new-liveclass-notes"></span>
-                  
+
                 </li>
                 <li class="field text required" id="field-liveclass-recurrence">
                   <!-- <label for="new-liveclass-notes">${_("Meeting Notes")}</label> -->
-                  
+
                   <input type="checkbox" class="new-liveclass-recurrence" id="new-liveclass-recurrence" name="new-liveclass-recurrence" required aria-describedby="tip-new-liveclass-recurrence tip-error-new-liveclass-recurrence"/> Recurrence Meeting
                   <!-- <span class="tip" id="tip-new-liveclass-notes">${_("The public notes for your liveclass.")}</span> -->
                   <span class="tip tip-error is-hiding" id="tip-error-new-liveclass-recurrence"></span>
-                  
+
                 </li>
                 <li class="field text required" id="field-liveclass-date">
                   <table>
@@ -300,7 +300,7 @@ from openedx.core.djangolib.js_utils import (
                           <option value="week">Week</option>
                           <!-- <option value="month">Month</option>
                           <option value="year">Year</option> -->
-                        </select> 
+                        </select>
                         <span class="tip" id="tip-new-liveclass-enddate">${_("repeat type")}</span>
 
                         <!-- ><label for="new-liveclass-repeatendson">${_("Repeat Type")}</label>
@@ -330,7 +330,7 @@ from openedx.core.djangolib.js_utils import (
 
                 <li class="field text required" id="field-liveclass-zone">
                   <label for="new-liveclass-zone">${_("Zone")}</label>
-  
+
                 <div class="dummy__item">
                   <select name="category_zone" id="category_zone" class="category_zone">
                     <option value="0" disabled selected>India</option>
@@ -340,7 +340,7 @@ from openedx.core.djangolib.js_utils import (
                 </li>
 
                 </ol>
-<!-- 
+<!--
               <ol class="list-input">
                 <li class="field text required" id="field-library-name">
                   <label for="new-library-name">${_("Library Name")}</label>
@@ -372,8 +372,8 @@ from openedx.core.djangolib.js_utils import (
                   <span class="tip tip-error is-hiding" id="tip-error-new-library-number"></span>
                 </li>
               </ol> -->
-             
-            
+
+
             </fieldset>
           </div>
 
@@ -393,7 +393,7 @@ from openedx.core.djangolib.js_utils import (
       </div>
       % endif
 
-  
+
       %if optimization_enabled:
       <div class="optimization-form">
         <h2 class="title title-3">${_("Organization and Library Settings")}</h2>
@@ -629,7 +629,7 @@ from openedx.core.djangolib.js_utils import (
 
             <form id="request-coursecreator" action="${request_course_creator_url}" method="post" enctype="multipart/form-data">
               <div class="form-actions">
-                <button type="submit" id="request-coursecreator-submit" name="request-coursecreator-submit" class="action-primary action-request"><span class="icon fa fa-cog icon-inline fa fa-spin" aria-hidden="true"></span> <span class="label">${_('Request the Ability to Create Courses')}</span></button>
+                <button type="submit" id="request-coursecreator-submit" name="request-coursecreator-submit" class="action-primary action-request"><span class="icon fa fa-cog" style="visibility:hidden;" icon-inline fa fa-spin" aria-hidden="true"></span> <span class="label">${_('Request the Ability to Create Courses')}</span></button>
               </div>
             </form>
           </div>
@@ -757,7 +757,7 @@ from openedx.core.djangolib.js_utils import (
       %if len(libraries) > 0 or optimization_enabled:
       <div class="liveclass react-liveclass-listing liveclass-tab ${ 'active' if active_tab == 'liveclass' else ''}">
         <div id="output" class="out" style="position: relative;display: none;">
-   
+
         </div>
       </div>
       %else:

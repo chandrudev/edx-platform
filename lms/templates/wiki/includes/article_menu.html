@@ -53,7 +53,7 @@ ${_("This should be enabled for all non-anonymous users once the notifications a
 %if can_change_permissions(article,user):
 <li class="${"active" if selected_tab == "settings" else ""}">
   <a href="${reverse('wiki:settings', kwargs={'article_id' : article.id, 'path' : urlpath.path})}">
-    <span class="icon fa fa-cog" aria-hidden="true"></span>
+    <span class="icon fa fa-cog" style="visibility:hidden;"aria-hidden="true"></span>
     ${_("Settings")}
     ${Text(_("{span_start}active{span_end}")).format(span_start=HTML("<span class='sr'>"), span_end=HTML("</span>")) if selected_tab == "settings" else ""}
   </a>
