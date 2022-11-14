@@ -1,32 +1,5 @@
 <article style="display: flex;box-shadow: 0 2px 7px 0 rgba(0,0,0,.08); justify-content: between; background: #fff; border-radius: 8px; overflow: hidden">    <a href="/courses/<%- course %>/about">
     <div style="width: 220px; height: 110px">    
-    <!--<header class="course-image">
-            <!--<div class="cover-image">
-                <!--<img src="<%- image_url %>" alt="<%- content.display_name %> <%- content.number %>" />-->
-                <!--<div class="learn-more" aria-hidden="true"><%- gettext("LEARN MORE") %></div>-->
-            </div>-->
-        </header>
-        <section class="course-info" aria-hidden="true">
-            <h2 class="course-name">
-                <span class="course-organization"><%- org %></span>
-                <span class="course-code"><%- content.number %></span>
-                <span class="course-title"><%- content.display_name %></span>
-            </h2>
-            <div class="course-date" aria-hidden="true">
-                <%- interpolate(
-                      gettext("Starts: %(start_date)s"),
-                      { start_date: start }, true
-                    ) %>
-            </div>
-        </section>
-        <div class="sr">
-            <ul>
-                <li><%- org %></li>
-                <li><%- content.number %></li>
-                <li><%- gettext("Starts") %><time itemprop="startDate" datetime="<%- start %>"><%- start %></time></li>
-            </ul>
-        </div>
-    </a>-->
     <div style="width: 220px; height: 110px">
         <img src="<%- content.course_image_url%>" style="width: 100%; object-fit: cover; height: 100%" alt="<%- content.display_name %> <%- content.number %>">
       </div>
