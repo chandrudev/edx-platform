@@ -15,7 +15,6 @@ from six import text_type
   <div style="width: 100%; display: flex; align-items:center; justify-content: space-between; padding: 20px; ">
     <div>
       <h2 class="course-name">
-
         <span class="course-title" style="padding-top : 20px; font-weight:700;">${course.display_name_with_default}</span>
       </h2>
       <%
@@ -31,11 +30,9 @@ from six import text_type
       % endif
     </div>
     <div>
-      <a href="${reverse('about_course', args=[text_type(course.id)])}" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">${_("Join Course")}</a>
+<!--      <a href="${reverse('about_course', args=[text_type(course.id)])}" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">${_("Course")}</a>-->
       <a href="" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">Purchase</a>
-
     </div>
-
   </div>
 </article>
 
