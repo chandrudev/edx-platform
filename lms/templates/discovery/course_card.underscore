@@ -16,7 +16,7 @@
         </div>        </div>
         <div>
           <a href="/courses/course-v1:edX+DemoX+Demo_Course/about" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">Join Course</a>
-          <a href="" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">Purchase</a>
+          <a href="#" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">Purchase</a>
         </div>
         
       </div>
