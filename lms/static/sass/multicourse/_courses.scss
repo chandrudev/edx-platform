@@ -56,7 +56,7 @@ $facet-background-color: #007db8;
 
         margin: ($baseline*0.75) 0 ($baseline*1.5) 0;
         max-height: $course-card-height;
-        width: 100%;
+        width: 100% !important;
       }
 
       // CASE: Course Discovery Search enabled
@@ -79,7 +79,7 @@ $facet-background-color: #007db8;
           @include media($bp-medium) {
             @include span-columns(4); // 4 of 8
             @include omega(2n);
-            
+
           }
 
           @include media($bp-large) {
