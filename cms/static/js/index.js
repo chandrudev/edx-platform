@@ -229,7 +229,7 @@ define([
 
     let crt_room = {
       name: display_name,
-      privacy: "private",
+      privacy: "public",
       properties: {
         start_audio_off: true,
         start_video_off: true,
