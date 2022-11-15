@@ -160,10 +160,10 @@ class LiveClassesApiListView(DeveloperErrorViewMixin, ListCreateAPIView):
             room_name =room_name.replace(" ", "_") if " " in room_name else room_name
             call_dailyco=self.rooms(room_name)
             
-            log.info(data,'before===============================')
-            data['meeting_link']=call_dailyco[0]
-            data['client_token']=call_dailyco[1]
-            log.info(data,'after===============================')
+            # log.info(data,'before===============================')
+            # data['meeting_link']=call_dailyco[0]
+            # data['client_token']=call_dailyco[1]
+            # log.info(data,'after===============================')
             serializer = self.serializer_class(
                 data=request.data, context={'user':self.request.user}
             )
