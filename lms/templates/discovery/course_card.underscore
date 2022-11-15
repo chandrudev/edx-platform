@@ -1,12 +1,10 @@
 <article style="display: flex;box-shadow: 0 2px 7px 0 rgba(0,0,0,.08); justify-content: between; background: #fff; border-radius: 8px; overflow: hidden">    <a href="/courses/<%- course %>/about">
-    <div style="width: 220px; height: 110px">    
     <div style="width: 220px; height: 110px">
         <img src="<%- content.course_image_url%>" style="width: 100%; object-fit: cover; height: 100%" alt="<%- content.display_name %> <%- content.number %>">
       </div>
       <div style="width: 100%; display: flex; align-items:center; justify-content: space-between; padding: 20px; ">
         <div>
           <h2 class="course-name">
-           
             <span class="course-title" style="padding-top : 20px; font-weight:700;"><%- content.display_name %></span>
           </h2>
           
@@ -19,7 +17,6 @@
         <div>
           <a href="/courses/course-v1:edX+DemoX+Demo_Course/about" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">Join Course</a>
           <a href="" style="color: #fff; background: #ff7f27; padding: 9px 16px; border-radius: 12px; box-shadow: 0px 4px 0px #EE6100">Purchase</a>
-    
         </div>
         
       </div>
