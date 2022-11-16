@@ -379,81 +379,128 @@
     const teachers_tab = document.querySelector(".teachers-link");
     teachers_tab.removeAttribute("href");
     teachers_tab.onclick = teacherlist;
-
+    
     $(document).ready(function(){
-    if($("#live_classes_list").is(":visible")){
-        $.ajax({
-            url:  '/api/enrollment/v1/enrollment/live_class/enroll',
-            type: 'GET',
-            headers: new Headers({'Content-Type':'application/json'}),
-            data: $(this).serializeArray(),
-
-            success: function(response){
-                var response_new = JSON.parse(JSON.stringify(response));
-                var output = document.getElementById('output');
-                var live_class_list = document.querySelector("#live_class_list");
-                var ul_list = document.createElement('ul');
-                ul_list.setAttribute("style", "list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap:20px; padding:12px");
-                output.style.display = 'block';
-                for(var i=0; i<response_new.results.length; i++){
-                    var live_response = response_new.results[i].live_class;
-                    if(live_response != undefined || live_response != null){
-                        var parent = document.createElement("div");
-                        parent.classList.add('d-flex', 'justify-content-between', 'align-items-center');
-                        parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
-                        parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
-                        var image = document.createElement("img");
-                        image.setAttribute('src', 'https://via.placeholder.com/220x120');
-                        var ele = document.createElement("div");
-                        ele.setAttribute("style", "font-size: 1.2em; font-weight: 900; color:#000;");
-                        ele.setAttribute("id","timedrpact"+i);
-                        ele.setAttribute("class","inner");
-                        ele.appendChild(image);
-                        var span = document.createElement("span");
-                        span.innerText = live_response.topic_name;
-                        span.style.marginLeft = '40px';
-                        ele.appendChild(span);
-                        parent.appendChild(ele);
-                        var meet_link= document.createElement("a");
-                        meet_link.setAttribute("id","meet_link_"+i);
-                        meet_link.setAttribute("class","button inner-link");
-                        meet_link.setAttribute("href",live_response.meeting_link);
-                        meet_link.setAttribute("target",'_blank');
-                        meet_link.setAttribute("style", "font-size: 18px; margin-right: 20px; box-shadow: 0px 5px 0px #ee6100; border: none; color:#fff; background: #ff7f27; border-radius: 12px; padding: 12px 20px; background-image: none; text-shadow: 0 0");
-                        meet_link.innerHTML='Join Class';
-                        parent.appendChild(meet_link);
-                        output.appendChild(parent);
-                        var li_list = document.createElement('li')
-                        li_list.setAttribute("class", "liveclass"+i);
-                        li_list.setAttribute("style", "display: flex; justify-content: space-between; align-items: flex-start;");
-                        var list_div = document.createElement("div");
-                        var li_head = document.createElement("h3");
-                        li_head.setAttribute("style", "font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0");
-                        li_head.innerText = live_response.topic_name;
-                        var li_par = document.createElement('p');
-                        li_par.setAttribute("style", "margin:0; color: #8499B1;");
-                        li_par.innerHTML = live_response.start_time + "-" + live_response.end_time;
-                        var meet_link= document.createElement("a");
-                        meet_link.setAttribute("id","meet_link_"+i);
-                        meet_link.setAttribute("class","button inner-link");
-                        meet_link.setAttribute("style","font-size: 18px;margin-right: 20px;box-shadow: 0px 5px 0px #ee6100;border: none; color:#fff;background: #ff7f27;border-radius: 12px;/* padding: 12px 20px; *//* background-image: none; */text-shadow: 0 0;width: 103px;height: 49px;font-size: 13px;");
-                        meet_link.setAttribute("href",live_response.meeting_link);
-                        meet_link.setAttribute("target",'_blank');
-                        meet_link.innerHTML='Join Class';
-                        list_div.appendChild(li_head);
-                        list_div.appendChild(li_par);
-                        li_list.appendChild(list_div);
-                        li_list.appendChild(meet_link);
-                        ul_list.appendChild(li_list);
-                        live_class_list.appendChild(ul_list);
-
+        if($("#live_classes_list").is(":visible")){
+            $.ajax({
+                url:  '/api/enrollment/v1/enrollment/live_class/enroll',
+                type: 'GET',
+                headers: new Headers({'Content-Type':'application/json'}),
+                data: $(this).serializeArray(),
+                success: function(response){
+                    var response_new = JSON.parse(JSON.stringify(response));
+                    var output = document.getElementById('output');
+    
+                    output.style.display = 'block';
+                    for(var i=0; i<response_new.results.length; i++){
+                        var live_response = response_new.results[i].live_class;
+                        if(live_response != undefined || live_response != null){
+                            var parent = document.createElement("div");
+                            parent.classList.add('d-flex', 'justify-content-between', 'align-items-center');
+                            parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
+                            parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
+                            var image = document.createElement("img");
+                            image.setAttribute('src', 'https://via.placeholder.com/220x120');
+                            var ele = document.createElement("div");
+                            ele.setAttribute("style", "font-size: 1.2em; font-weight: 900; color:#000;");
+                            ele.setAttribute("id","timedrpact"+i);
+                            ele.setAttribute("class","inner");
+                            ele.appendChild(image);
+                            var span = document.createElement("span");
+                            span.innerText = live_response.topic_name;
+                            span.style.marginLeft = '40px';
+                            ele.appendChild(span);
+                            parent.appendChild(ele);
+                            var meet_link= document.createElement("a");
+                            meet_link.setAttribute("id","meet_link_"+i);
+                            meet_link.setAttribute("class","button inner-link");
+                            meet_link.setAttribute("href",live_response.meeting_link);
+                            meet_link.setAttribute("target",'_blank');
+                            meet_link.setAttribute("style", "font-size: 18px; margin-right: 20px; box-shadow: 0px 5px 0px #ee6100; border: none; color:#fff; background: #ff7f27; border-radius: 12px; padding: 12px 20px; background-image: none; text-shadow: 0 0");
+                            meet_link.innerHTML='Join Class';
+                            parent.appendChild(meet_link);
+                            output.appendChild(parent);
+                        }
                     }
-                }
-
-              }
+    
+                  }
+            });
+        }
         });
-    }
-    });
+    // $(document).ready(function(){
+    // if($("#live_classes_list").is(":visible")){
+    //     $.ajax({
+    //         url:  '/api/enrollment/v1/enrollment/live_class/enroll',
+    //         type: 'GET',
+    //         headers: new Headers({'Content-Type':'application/json'}),
+    //         data: $(this).serializeArray(),
+
+    //         success: function(response){
+    //             var response_new = JSON.parse(JSON.stringify(response));
+    //             var output = document.getElementById('output');
+    //             var live_class_list = document.querySelector("#live_class_list");
+    //             var ul_list = document.createElement('ul');
+    //             ul_list.setAttribute("style", "list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap:20px; padding:12px");
+    //             output.style.display = 'block';
+    //             for(var i=0; i<response_new.results.length; i++){
+    //                 var live_response = response_new.results[i].live_class;
+    //                 if(live_response != undefined || live_response != null){
+    //                     var parent = document.createElement("div");
+    //                     parent.classList.add('d-flex', 'justify-content-between', 'align-items-center');
+    //                     parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
+    //                     parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
+    //                     var image = document.createElement("img");
+    //                     image.setAttribute('src', 'https://via.placeholder.com/220x120');
+    //                     var ele = document.createElement("div");
+    //                     ele.setAttribute("style", "font-size: 1.2em; font-weight: 900; color:#000;");
+    //                     ele.setAttribute("id","timedrpact"+i);
+    //                     ele.setAttribute("class","inner");
+    //                     ele.appendChild(image);
+    //                     var span = document.createElement("span");
+    //                     span.innerText = live_response.topic_name;
+    //                     span.style.marginLeft = '40px';
+    //                     ele.appendChild(span);
+    //                     parent.appendChild(ele);
+    //                     var meet_link= document.createElement("a");
+    //                     meet_link.setAttribute("id","meet_link_"+i);
+    //                     meet_link.setAttribute("class","button inner-link");
+    //                     meet_link.setAttribute("href",live_response.meeting_link);
+    //                     meet_link.setAttribute("target",'_blank');
+    //                     meet_link.setAttribute("style", "font-size: 18px; margin-right: 20px; box-shadow: 0px 5px 0px #ee6100; border: none; color:#fff; background: #ff7f27; border-radius: 12px; padding: 12px 20px; background-image: none; text-shadow: 0 0");
+    //                     meet_link.innerHTML='Join Class';
+    //                     parent.appendChild(meet_link);
+    //                     output.appendChild(parent);
+    //                     var li_list = document.createElement('li')
+    //                     li_list.setAttribute("class", "liveclass"+i);
+    //                     li_list.setAttribute("style", "display: flex; justify-content: space-between; align-items: flex-start;");
+    //                     var list_div = document.createElement("div");
+    //                     var li_head = document.createElement("h3");
+    //                     li_head.setAttribute("style", "font-size: 16px; font-weight: 500; margin-bottom: 4px; margin-top:0");
+    //                     li_head.innerText = live_response.topic_name;
+    //                     var li_par = document.createElement('p');
+    //                     li_par.setAttribute("style", "margin:0; color: #8499B1;");
+    //                     li_par.innerHTML = live_response.start_time + "-" + live_response.end_time;
+    //                     var meet_link= document.createElement("a");
+    //                     meet_link.setAttribute("id","meet_link_"+i);
+    //                     meet_link.setAttribute("class","button inner-link");
+    //                     meet_link.setAttribute("style","font-size: 18px;margin-right: 20px;box-shadow: 0px 5px 0px #ee6100;border: none; color:#fff;background: #ff7f27;border-radius: 12px;/* padding: 12px 20px; *//* background-image: none; */text-shadow: 0 0;width: 103px;height: 49px;font-size: 13px;");
+    //                     meet_link.setAttribute("href",live_response.meeting_link);
+    //                     meet_link.setAttribute("target",'_blank');
+    //                     meet_link.innerHTML='Join Class';
+    //                     list_div.appendChild(li_head);
+    //                     list_div.appendChild(li_par);
+    //                     li_list.appendChild(list_div);
+    //                     li_list.appendChild(meet_link);
+    //                     ul_list.appendChild(li_list);
+    //                     live_class_list.appendChild(ul_list);
+
+    //                 }
+    //             }
+
+    //           }
+    //     });
+    // }
+    // });
 
     function display_profile(){
         if($("#user-profile-view").is(":visible") !== true){
