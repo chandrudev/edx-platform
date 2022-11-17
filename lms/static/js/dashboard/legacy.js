@@ -458,7 +458,8 @@
                         parent.setAttribute("style", "background: #fff; box-shadow: 0 2px 7px 0 rgb(0, 0, 0,.8%); overflow: hidden; border-radius: 8px; margin-bottom: 24px");
                         var image = document.createElement("img");
                         image.setAttribute('src', 'https://launchpadedx.s3.us-west-1.amazonaws.com/testlive.jpg');
-                        image.setAttribute("style","height:120px; width:200px;");                        var ele = document.createElement("div");
+                        image.setAttribute("style","height:120px; width:200px;");
+                        var ele = document.createElement("div");
                         ele.setAttribute("style", "font-size: 1.2em; font-weight: 900; color:#000;");
                         ele.setAttribute("id","timedrpact"+i);
                         ele.setAttribute("class","inner");
