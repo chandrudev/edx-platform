@@ -85,7 +85,7 @@ function TabPage({ intl, ...props }) {
         {metadataModel === 'courseHomeMeta' && (<LaunchCourseHomeTourButton srOnly />)}
         {/* <Header /> */}
         <div className="header">
-          <img src={logo} style={{width: 135}} />
+          <img src="https://launchpadedx.s3.us-west-1.amazonaws.com/logo.png" style={{width: 135}} />
           <div className="menu-list">
             <ul  className= "menu">
               <li><a href={`${getConfig().LMS_BASE_URL}/dashboard`} style={{color: 'black'}}>Dashboard</a></li>
