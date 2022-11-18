@@ -95,7 +95,7 @@ function TabPage({ intl, ...props }) {
           <ul className='right-menu'>
             <li><img src={icon_coin_back} /> <span>3</span> </li>
             <li><img src={icon} /> <span>1</span> </li>
-            <li><img src="profile.svg" /></li>
+            <li><img src="https://launchpadedx.s3.us-west-1.amazonaws.com/profile.png" /></li>
           </ul>
         </div>
         </div>
