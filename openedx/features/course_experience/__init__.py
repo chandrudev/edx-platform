@@ -108,6 +108,18 @@ def course_home_url(course_key):
 
     return get_learning_mfe_home_url(course_key, url_fragment='home')
 
+def course_home_url_name(course_key):
+    """
+    Returns the course home page's URL name for the current user.
+
+    Arguments:
+        course_key (CourseKey): The course key for which the home url is being
+            requested.
+
+    """
+    if DISABLE_UNIFIED_COURSE_TAB_FLAG.is_enabled(course_key):
+        return 'info'
+    return 'openedx.course_experience.course_home'
 
 class CourseHomeMessages(UserMessageCollection):
     """
