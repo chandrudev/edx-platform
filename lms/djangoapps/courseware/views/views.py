@@ -137,7 +137,7 @@ from openedx.features.course_experience.url_helpers import (
 from openedx.features.course_experience.utils import dates_banner_should_display
 from openedx.features.course_experience.views.course_dates import CourseDatesFragmentView
 from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBAR_HTML
-from openedx.features.course_experience.waffle import waffle as course_experience_waffle
+#from openedx.features.course_experience.waffle import waffle as course_experience_waffle
 from openedx.features.enterprise_support.api import data_sharing_consent_required
 
 from ..context_processor import user_timezone_locale_prefs
@@ -995,7 +995,7 @@ def course_about(request, course_id):
         # Overview
         overview = CourseOverview.get_from_id(course.id)
 
-        sidebar_html_enabled = course_experience_waffle().is_enabled(ENABLE_COURSE_ABOUT_SIDEBAR_HTML)
+        #sidebar_html_enabled = course_experience_waffle().is_enabled(ENABLE_COURSE_ABOUT_SIDEBAR_HTML)
 
         allow_anonymous = check_public_access(course, [COURSE_VISIBILITY_PUBLIC, COURSE_VISIBILITY_PUBLIC_OUTLINE])
 
@@ -1024,7 +1024,7 @@ def course_about(request, course_id):
             'disable_courseware_header': True,
             'pre_requisite_courses': pre_requisite_courses,
             'course_image_urls': overview.image_urls,
-            'sidebar_html_enabled': sidebar_html_enabled,
+            'sidebar_html_enabled': True,
             'allow_anonymous': allow_anonymous,
         }
         log.info("-----context------", context)
