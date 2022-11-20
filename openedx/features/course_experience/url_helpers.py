@@ -5,6 +5,7 @@ Centralized in openedx/features/course_experience instead of lms/djangoapps/cour
 because the Studio course outline may need these utilities.
 """
 from typing import Optional
+from enum import Enum
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
