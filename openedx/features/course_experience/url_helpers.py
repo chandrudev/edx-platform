@@ -22,6 +22,21 @@ import logging as log
 User = get_user_model()
 
 
+class ExperienceOption(Enum):
+    """
+    Versions of the courseware experience that can be requested.
+
+    `ACTIVE` indicates that the default experience (in the context of the
+    course run) should be used.
+
+    To be removed as part of DEPR-109.
+    """
+    ACTIVE = 'courseware-experience-active'
+    NEW = 'courseware-experience-new'
+    LEGACY = 'courseware-experience-legacy'
+
+
+
 def get_courseware_url(
         usage_key: UsageKey,
         request: Optional[HttpRequest] = None,
