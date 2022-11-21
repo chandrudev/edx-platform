@@ -41,6 +41,7 @@ class ExperienceOption(Enum):
 def get_courseware_url(
         usage_key: UsageKey,
         request: Optional[HttpRequest] = None,
+        experience=None
 ) -> str:
     """
     Return the URL to the canonical learning experience for a given block.
