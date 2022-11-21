@@ -433,7 +433,7 @@ def jump_to(request, course_id, location):
         redirect_url = get_courseware_url(
             usage_key=usage_key,
             request=request,
-            experience=experience,
+            
         )
     except (ItemNotFoundError, NoPathToItem):
         # We used to 404 here, but that's ultimately a bad experience. There are real world use cases where a user
@@ -443,7 +443,7 @@ def jump_to(request, course_id, location):
         redirect_url = get_courseware_url(
             usage_key=course_location_from_key(course_key),
             request=request,
-            experience=experience,
+            
         )
 
     return redirect(redirect_url)
