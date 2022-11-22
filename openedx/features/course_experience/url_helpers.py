@@ -68,7 +68,7 @@ def get_courseware_url(
         get_url_fn = _get_new_courseware_url
     elif experience == ExperienceOption.LEGACY:
         get_url_fn = _get_legacy_courseware_url
-    elif courseware_mfe_is_active(course_key):
+    elif courseware_mfe_is_active():
         get_url_fn = _get_new_courseware_url
     else:
         get_url_fn = _get_legacy_courseware_url
