@@ -69,10 +69,16 @@ class CourseHomeView(CourseTabView):
 
     def render_to_fragment(self, request, course=None, tab=None, **kwargs):  # lint-amnesty, pylint: disable=arguments-differ, unused-argument
         course_id = str(course.id)
+        logging.info(f"{course_home_legacy_is_active(course.id)} ======course_home_legacy_is_active(course.id)")
+        logging.info(f"{request.user.is_staff}=======request.user.is_staff")
         if course_home_legacy_is_active(course.id) or request.user.is_staff:
+            logging.info("Under if condition========????>>>>")
             home_fragment_view = CourseHomeFragmentView()
+            logging.info(f"{home_fragment_view}>>>>>>>home_fragment_view")
             return home_fragment_view.render_to_fragment(request, course_id=course_id, **kwargs)
+        logging.info("Out if condition....>>>>>>")
         microfrontend_url = get_learning_mfe_home_url(course_key=course_id, url_fragment='home', params=request.GET)
+        logging.info((f"{microfrontend_url}>>>>>>>>>>>>>>>>>microfrontend_url"))
         raise Redirect(microfrontend_url)
 
 
