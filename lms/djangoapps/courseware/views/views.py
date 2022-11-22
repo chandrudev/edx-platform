@@ -755,6 +755,7 @@ class CourseTabView(EdxFragmentView):
             str(course_key),
         )
         try:
+            log.info("Rendering to courseware error file try")
             return render_to_response(
                 'courseware/courseware-error.html',
                 {
@@ -766,6 +767,7 @@ class CourseTabView(EdxFragmentView):
         except:
             # Let the exception propagate, relying on global config to
             # at least return a nice error message
+            log.info("printRendering to courseware error file try except====================")
             log.exception("Error while rendering courseware-error page")
             raise
 
