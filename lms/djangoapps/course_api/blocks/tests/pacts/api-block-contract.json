@@ -25,7 +25,7 @@
               "id": "block-v1:edX+DemoX+Demo_Course+type@course+block@course",
               "block_id": "course",
               "lms_web_url": "/courses/course-v1:edX+DemoX+Demo_Course/jump_to/block-v1:edX+DemoX+Demo_Course+type@course+block@course",
-              "legacy_web_url": "/courses/course-v1:edX+DemoX+Demo_Course/jump_to/block-v1:edX+DemoX+Demo_Course+type@course+block@course?experience=legacy",
+              "legacy_web_url": "/courses/course-v1:edX+DemoX+Demo_Course/jump_to/block-v1:edX+DemoX+Demo_Course+type@course+block@course",
               "student_view_url": "/xblock/block-v1:edX+DemoX+Demo_Course+type@course+block@course",
               "type": "course",
               "display_name": "Demonstration Course"

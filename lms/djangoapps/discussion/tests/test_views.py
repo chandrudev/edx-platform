@@ -2319,7 +2319,7 @@ class ForumMFETestCase(ForumsEnableMixin, SharedModuleStoreTestCase):
             url = reverse("forum_form_discussion", args=[self.course.id])
             experience_in_url = ""
             if experience is not None:
-                experience_in_url = f""
+                experience_in_url = f"discussions_experience={experience}"
             response = self.client.get(f"{url}?{experience_in_url}")
             content = response.content.decode('utf8')
         if toggle_enabled and experience != "legacy":
