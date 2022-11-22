@@ -15,3 +15,16 @@
                     </form>
                 </div>-->
             % endif
+
+            ===================================2==================
+
+<%static:webpack entry="CourseHome">
+new CourseHome({
+    courseRunKey: "${course_key | n, js_escaped_string}",
+    resumeCourseLink: ".action-resume-course",
+    courseToolLink: ".course-tool-link",
+    goalApiUrl: "${goal_api_url | n, js_escaped_string}",
+    username: "${username | n, js_escaped_string}",
+    courseId: "${course.id | n, js_escaped_string}",
+});
+</%static:webpack>
