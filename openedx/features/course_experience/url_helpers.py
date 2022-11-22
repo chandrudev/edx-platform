@@ -197,6 +197,8 @@ def make_learning_mfe_courseware_url(
     if params:
         mfe_link += f'?{params.urlencode()}'
 
+    log.info(f"{mfe_link}======================_get_new_courseware_url")
+
     return mfe_link
 
 
