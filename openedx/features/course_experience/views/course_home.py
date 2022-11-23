@@ -256,5 +256,7 @@ class CourseHomeFragmentView(EdxFragmentView):
             'has_discount': has_discount,
             'show_search': show_search,
         }
+        logging.info("data======show============")
+        logging.info(context)
         html = render_to_string('course_experience/course-home-fragment.html', context)
         return Fragment(html)

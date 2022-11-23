@@ -64,59 +64,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
                 ${HTML(outline_fragment.body_html())}
             % endif
         </div>
-        <!--<aside class="page-content-secondary course-sidebar">-->
-            <!-- <div class="proctoring-info-panel"-->
-                    <!-- data-course-id="${course_key}" data-username="${username}"></div>-->
-           <!--  % if has_goal_permission:-->
-               <!--  <div class="section section-goals ${'' if current_goal else 'hidden'}">-->
-                <!--     <div class="current-goal-container">-->
-                <!--         <label class="title title-label hd-6" for="goal">-->
-                <!--             <h3 class="hd-6">${_("Goal: ")}</h3>-->
-                <!--         </label>-->
-                <!--         <h3 class="title hd-6">${_("Goal: ")}</h3>-->
-                <!--         <div class="goal">-->
-                <!--             <span class="text">${goal_options[current_goal.goal_key] if current_goal else ""}</span>-->
-                <!--         </div>-->
-                <!--         <select class="edit-goal-select" id="goal">-->
-                <!--             % for goal, goal_text in goal_options.items():-->
-                <!--                 <option value="${goal}" ${"selected" if current_goal and current_goal.goal_key == goal else ""}>${goal_text}</option>-->
-                <!--             % endfor-->
-                <!--         </select>-->
-                <!--         <span class="sr sr-update-response-msg" aria-live="polite"></span>-->
-                <!--         <span class="response-icon" aria-hidden="true"></span>-->
-                    <!--     <span class="sr">${_("Edit your course goal:")}</span>-->
-                    <!--     <button class="edit-icon">-->
-                    <!--         <span class="sr">${_("Edit your course goal:")}</span>-->
-                    <!--         <span class="fa fa-pencil" aria-hidden="true"></span>-->
-                    <!--     </button>-->
-                     <!--</div>-->
-                <!-- </div>-->
-             <!--% endif {% endcomment %}-->
-           <!--% if course_tools:--> 
-                <!--<div class="section section-tools">--> 
-                   <!-- <h3 class="hd-6 section-title">${_("Course Tools")}</h3>--> 
-                   <!-- <ul class="list-unstyled">--> 
-                     <!--   % for course_tool in course_tools:--> 
-                       <!--     <li class="course-tool">--> 
-                         <!--            % if course_tool.http_method == HttpMethod.GET:--> 
-                      <!--              <a class="course-tool-link" data-analytics-id="${course_tool.analytics_id()}" href="${course_tool.url(course_key)}">--> 
-                      <!--                  <span class="icon ${course_tool.icon_classes()}" aria-hidden="true"></span>${course_tool.title()}--> 
-                      <!--              </a>--> 
-                      <!--          % elif course_tool.http_method == HttpMethod.POST:--> 
-                      <!--              <form class="course-tool-form" action="${course_tool.url(course_key)}" method="post">--> 
-                      <!--                  <input type="hidden" id="csrf_token" name="csrfmiddlewaretoken" value="${csrf_token}">--> 
-                      <!--                  <input type="hidden" name="tool_data" value="${course_tool.data()}">--> 
-                      <!--                  <button class="course-tool-button" data-analytics-id="${course_tool.analytics_id()}" aria-hidden="true">--> 
-                      <!--                      <span class="icon ${course_tool.icon_classes()}" aria-hidden="true"></span>--> 
-                      <!--                      ${course_tool.title()}--> 
-                      <!--                  </button>--> 
-                      <!--              </form>--> 
-                      <!--          % endif--> 
-                      <!--      </li>--> 
-                      <!--  % endfor--> 
-                   <!-- </ul>--> 
-               <!-- </div>--> 
-           <!-- % endif--> 
+        <!--Moved to scrap 4==================-->
             % if upgrade_url and upgrade_price:
                 <div class="section section-upgrade course-home-sidebar-upgrade ${'discount' if has_discount else 'no-discount'}">
                     <h3 class="hd hd-6">${_("Pursue a verified certificate")}</h3>
