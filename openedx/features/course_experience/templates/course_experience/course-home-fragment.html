@@ -92,7 +92,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
                     </div>
                 </div>
             % endif
-            % if course_tools:
+           <!--% if course_tools:
                 <div class="section section-tools">
                     <h3 class="hd-6 section-title">${_("Course Tools")}</h3>
                     <ul class="list-unstyled">
@@ -116,7 +116,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
                         % endfor
                     </ul>
                 </div>
-            % endif
+            % endif--> 
             % if upgrade_url and upgrade_price:
                 <div class="section section-upgrade course-home-sidebar-upgrade ${'discount' if has_discount else 'no-discount'}">
                     <h3 class="hd hd-6">${_("Pursue a verified certificate")}</h3>

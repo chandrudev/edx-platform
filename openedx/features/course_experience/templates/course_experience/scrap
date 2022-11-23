@@ -35,3 +35,22 @@ new CourseHome({
 <%static:webpack entry="Enrollment">
     new CourseEnrollment('.enroll-btn', '${course_key | n, js_escaped_string}');
 </%static:webpack>
+
+
+//////////////couse-list.underscore
+else {%>
+
+    <div class="bookmarks-empty">
+        <h3 class="hd-4 bookmarks-empty-header">
+            <span class="icon fa fa-bookmark-o bookmarks-empty-header-icon" aria-hidden="true"></span>
+            <%- gettext("You have not bookmarked any courseware pages yet") %>
+            <br>
+        </h3>
+        <div  class="bookmarks-empty-detail">
+            <span class="bookmarks-empty-detail-title">
+                <%- gettext('Use bookmarks to help you easily return to courseware pages. To bookmark a page, click "Bookmark this page" under the page title.') %>
+            </span>
+        </div>
+    </div>
+
+<% }
