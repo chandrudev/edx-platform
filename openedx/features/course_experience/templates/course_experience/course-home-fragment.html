@@ -64,7 +64,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
                 ${HTML(outline_fragment.body_html())}
             % endif
         </div>
-        <aside class="page-content-secondary course-sidebar">
+        {% comment %} <aside class="page-content-secondary course-sidebar">
             <div class="proctoring-info-panel"
                     data-course-id="${course_key}" data-username="${username}"></div>
             % if has_goal_permission:
@@ -91,7 +91,7 @@ from openedx.features.course_experience.course_tools import HttpMethod
                         </button>
                     </div>
                 </div>
-            % endif
+            % endif {% endcomment %}
            <!--% if course_tools:
                 <div class="section section-tools">
                     <h3 class="hd-6 section-title">${_("Course Tools")}</h3>
