@@ -28,3 +28,10 @@ new CourseHome({
     courseId: "${course.id | n, js_escaped_string}",
 });
 </%static:webpack>
+
+
+===============3======================
+
+<%static:webpack entry="Enrollment">
+    new CourseEnrollment('.enroll-btn', '${course_key | n, js_escaped_string}');
+</%static:webpack>
