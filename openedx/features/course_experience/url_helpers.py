@@ -59,6 +59,7 @@ def get_courseware_url(
         * ItemNotFoundError if no data at the `usage_key`.
         * NoPathToItem if we cannot build a path to the `usage_key`.
     """
+    logging.info(courseware_mfe_is_active(), "adsknflkan;jjjjjjjjjjjjjj")
     # if courseware_mfe_is_active():
     #     get_url_fn = _get_new_courseware_url
     # else:
@@ -96,6 +97,7 @@ def _get_legacy_courseware_url(
     # choose the appropriate view (and provide the necessary args) based on the
     # args provided by the redirect.
     # Rely on index to do all error handling and access control.
+    logging.info()
     if chapter is None:
         redirect_url = reverse('courseware', args=(str(course_key), ))
     elif section is None:
