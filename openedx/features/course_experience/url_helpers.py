@@ -14,7 +14,7 @@ from django.http.request import QueryDict
 from django.urls import reverse
 from opaque_keys.edx.keys import CourseKey, UsageKey
 from six.moves.urllib.parse import urlencode, urlparse
-
+import logging
 from lms.djangoapps.courseware.toggles import courseware_mfe_is_active
 from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 from xmodule.modulestore.search import navigation_index, path_to_location  # lint-amnesty, pylint: disable=wrong-import-order
@@ -72,6 +72,8 @@ def get_courseware_url(
         get_url_fn = _get_new_courseware_url
     else:
         get_url_fn = _get_legacy_courseware_url
+    logging.info("get_url_fn---------------------================")
+    logging.info(get_url_fn)
     return get_url_fn(usage_key=usage_key, request=request)
 
 
