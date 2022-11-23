@@ -174,6 +174,11 @@ new CourseHome({
     new CourseEnrollment('.enroll-btn', '${course_key | n, js_escaped_string}');
 </%static:webpack>
 
+
+<%static:webpack entry="Enrollment">
+    new CourseEnrollment('.enroll-btn', '${course_key | n, js_escaped_string}');
+</%static:webpack>
+
 <%static:require_module_async module_name="js/commerce/track_ecommerce_events" class_name="TrackECommerceEvents">
 
   var personalizedLearnerSchedulesLink = $(".personalized_learner_schedules_button");
