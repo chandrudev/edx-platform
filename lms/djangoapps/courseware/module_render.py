@@ -928,6 +928,7 @@ def xqueue_callback(request, course_id, userid, mod_id, dispatch):
 @xframe_options_exempt
 @transaction.non_atomic_requests
 def handle_xblock_callback_noauth(request, course_id, usage_id, handler, suffix=None):
+    logging.info("handle_xblock_callback_noauth")
     """
     Entry point for unauthenticated XBlock handlers.
     """
@@ -936,6 +937,8 @@ def handle_xblock_callback_noauth(request, course_id, usage_id, handler, suffix=
     course_key = CourseKey.from_string(course_id)
     with modulestore().bulk_operations(course_key):
         course = modulestore().get_course(course_key, depth=0)
+        logging.info("_invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=course)")
+        logging.info(_invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=course))
         return _invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=course)
 
 
@@ -943,6 +946,7 @@ def handle_xblock_callback_noauth(request, course_id, usage_id, handler, suffix=
 @xframe_options_exempt
 @transaction.non_atomic_requests
 def handle_xblock_callback(request, course_id, usage_id, handler, suffix=None):
+    logging.info("Calling handle_xblock_callback ")
     """
     Generic view for extensions. This is where AJAX calls go.
 
@@ -999,7 +1003,8 @@ def handle_xblock_callback(request, course_id, usage_id, handler, suffix=None):
             course = modulestore().get_course(course_key)
         except ItemNotFoundError:
             raise Http404(f'{course_id} does not exist in the modulestore')  # lint-amnesty, pylint: disable=raise-missing-from
-
+        logging.info("_invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=course)")
+        logging.info(_invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=course))
         return _invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course=course)
 
 
@@ -1183,6 +1188,7 @@ def _invoke_xblock_handler(request, course_id, usage_id, handler, suffix, course
 @api_view(['GET'])
 @view_auth_classes(is_authenticated=True)
 def xblock_view(request, course_id, usage_id, view_name):
+    logging.info("calling xblock_view")
     """
     Returns the rendered view of a given XBlock, with related resources
 
@@ -1204,7 +1210,8 @@ def xblock_view(request, course_id, usage_id, view_name):
     with modulestore().bulk_operations(course_key):
         course = modulestore().get_course(course_key)
         instance, _ = get_module_by_usage_id(request, course_id, usage_id, course=course)
-
+        logging.info("instance===================", instance)
+        logging.info(_, "___________________________________________________")
         try:
             fragment = instance.render(view_name, context=request.GET)
         except NoSuchViewError:
@@ -1214,6 +1221,11 @@ def xblock_view(request, course_id, usage_id, view_name):
         hashed_resources = OrderedDict()
         for resource in fragment.resources:
             hashed_resources[hash_resource(resource)] = resource
+        logging.info({
+            'html': fragment.content,
+            'resources': list(hashed_resources.items()),
+            'csrf_token': str(csrf(request)['csrf_token']),
+        }, "{'html': fragment.content,'resources': list(hashed_resources.items()),'csrf_token': str(csrf(request)['csrf_token']),}")
 
         return JsonResponse({
             'html': fragment.content,

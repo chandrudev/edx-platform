@@ -240,6 +240,7 @@ class BlocksView(DeveloperErrorViewMixin, ListAPIView):
             # data about the anonymous view of a course, which can be cached. In this
             # case we add the usual caching headers to the response.
             logging.info(f"=====================================================RESPONSE++++++++++++++++++++++++++++++++++++{response}=======================================================")
+            logging.info(response)
             if params.cleaned_data.get('username', None) == '':
                 patch_response_headers(response)
             return response

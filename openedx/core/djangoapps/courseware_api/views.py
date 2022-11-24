@@ -31,7 +31,7 @@ from lms.djangoapps.course_api.api import course_detail
 from lms.djangoapps.course_goals.models import UserActivity
 from lms.djangoapps.course_goals.api import get_course_goal
 from lms.djangoapps.courseware.access import has_access
-
+import logging
 from lms.djangoapps.courseware.context_processor import user_timezone_locale_prefs
 from lms.djangoapps.courseware.entrance_exams import course_has_entrance_exam, user_has_passed_entrance_exam
 from lms.djangoapps.courseware.masquerade import (
@@ -491,6 +491,7 @@ class CoursewareInformation(RetrieveAPIView):
                     user=user,
                     defaults={'last_seen_courseware_timezone': browser_timezone},
                 )
+       
 
     def get_object(self):
         """
@@ -508,11 +509,15 @@ class CoursewareInformation(RetrieveAPIView):
             self.request,
             username=username,
         )
+        logging.info("self.kwargs['course_key_string']")
+        logging.info(self.kwargs['course_key_string'])
         # Record course goals user activity for learning mfe courseware on web
         UserActivity.record_user_activity(self.request.user, course_key)
 
         # Record a user's browser timezone
         self.set_last_seen_courseware_timezone(original_user)
+        logging.info("Calling Get object")
+        logging.info(overview)
 
         return overview
 
@@ -522,6 +527,8 @@ class CoursewareInformation(RetrieveAPIView):
         """
         context = super().get_serializer_context()
         context['requested_fields'] = self.request.GET.get('requested_fields', None)
+        logging.info("Calling courseware get serializer==========================")
+        logging.info(context)
         return context
 
     def finalize_response(self, request, response, *args, **kwargs):
@@ -536,6 +543,8 @@ class CoursewareInformation(RetrieveAPIView):
         """
         response = super().finalize_response(request, response, *args, **kwargs)
         # Adding this header should be moved to global middleware, not just this endpoint
+        logging.info("Calling final response")
+        logging.info(response)
         return expose_header('Date', response)
 
 
@@ -590,7 +599,10 @@ class SequenceMetadata(DeveloperErrorViewMixin, APIView):
             str(usage_key),
             disable_staff_debug_info=True,
             will_recheck_access=True)
-
+        logging.info("22222222222222@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        logging.info(sequence)
+        logging.info("hasattr(sequence, 'get_metadata')====================")
+        logging.info(hasattr(sequence, 'get_metadata'))
         if not hasattr(sequence, 'get_metadata'):
             # Looks like we were asked for metadata on something that is not a sequence (or section).
             return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY)
@@ -598,8 +610,12 @@ class SequenceMetadata(DeveloperErrorViewMixin, APIView):
         view = STUDENT_VIEW
         if request.user.is_anonymous:
             view = PUBLIC_VIEW
+        logging.info("Checking view=========================//////////////////")
+        logging.info(view)
 
         context = {'specific_masquerade': is_masquerading_as_specific_student(request.user, usage_key.course_key)}
+        logging.info("Context==============================-----------------")
+        logging.info(context)
         return Response(sequence.get_metadata(view=view, context=context))
 
 
