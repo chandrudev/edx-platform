@@ -12,7 +12,7 @@
       "request": {
         "method": "GET",
         "path": "/api/courses/v2/blocks/",
-        "query": "course_id=course-v1%3AedX%2BDemoX%2BDemo_Course&username=Mock+User&depth=3&requested_fields=children%2Ceffort_activities%2Ceffort_time%2Cshow_gated_sections%2Cgraded%2Cspecial_exam_info%2Chas_scheduled_content"
+        "query": "course_id=course-v1%3AedX%2BDemoX%2BDemo_Course&username=Mock+User&depth=3&requested_fields=children%2Ceffort_activities%2Ceffort_time%2Cshow_gated_sections%2Cgraded%2Cspecial_exam_info%2Chas_scheduled_content?experience=legacy"
       },
       "response": {
         "status": 200,

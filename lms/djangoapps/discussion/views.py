@@ -744,8 +744,8 @@ def _discussions_mfe_context(query_params: Dict,
     forum_url = reverse("forum_form_discussion", args=[course_key])
     return {
         "show_mfe": show_mfe,
-        "legacy_url": f"{forum_url}",
-        "mfe_url": f"{forum_url}",
+        "legacy_url": f"{forum_url}?discussion_experience=legacy",
+        "mfe_url": f"{forum_url}?experience=new",
         "share_feedback_url": settings.DISCUSSIONS_MFE_FEEDBACK_URL,
         "course_key": course_key,
         "show_banner": enable_mfe and is_privileged,
