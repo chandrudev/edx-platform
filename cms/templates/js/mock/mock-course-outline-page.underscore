@@ -40,7 +40,7 @@
                 <div class=course-status"">
                     <div class="status-highlights-enabled"></div>
                 </div>
-                <div class="wrapper-dnd">
+                <div class="wrapper-dnd" style="width:100%;">
                     <article class="outline outline-course" data-locator="mock-course" data-course-key="slashes:MockCourse">
                         <div class="no-content add-xblock-component">
                             <p>You haven't added any content to this course yet.
