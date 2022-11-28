@@ -447,6 +447,7 @@ def jump_to(request, course_id, location):
             experience=experience,
             
         )
+    logging.info("Redirect URL>>>>>",redirect_url)
 
     return redirect(redirect_url)
 
