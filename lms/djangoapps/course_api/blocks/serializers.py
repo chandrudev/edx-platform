@@ -155,8 +155,8 @@ class BlockSerializer(serializers.Serializer):  # pylint: disable=abstract-metho
         data = {
             'id': str(block_key),
             'block_id': str(block_key.block_id),
-            'lms_web_url': jump_to_courseware_url,
-            'legacy_web_url': jump_to_courseware_url,
+            'lms_web_url': jump_to_courseware_url.replace("http://student","http://preview.student"),
+            'legacy_web_url': jump_to_courseware_url.replace("http://student","http://preview.student"),
             'student_view_url': reverse(
                 'render_xblock',
                 kwargs={'usage_key_string': str(block_key)},
