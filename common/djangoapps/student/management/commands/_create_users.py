@@ -1,7 +1,7 @@
 """ Shared behavior between create_test_users and create_random_users """
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 
 from lms.djangoapps.instructor.access import allow_access

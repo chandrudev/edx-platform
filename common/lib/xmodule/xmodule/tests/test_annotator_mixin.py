@@ -7,7 +7,7 @@ import unittest
 
 from lxml import etree
 
-from xmodule.annotator_mixin import get_extension, get_instructions, html_to_text
+from common.lib.xmodule.xmodule.annotator_mixin import get_extension, get_instructions, html_to_text
 
 
 class HelperFunctionTest(unittest.TestCase):

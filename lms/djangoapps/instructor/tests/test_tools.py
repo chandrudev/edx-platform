@@ -16,11 +16,11 @@ from edx_when.api import set_dates_for_course
 from edx_when.field_data import DateLookupFieldData
 from opaque_keys.edx.keys import CourseKey
 from pytz import UTC
-from xmodule.fields import Date
-from xmodule.modulestore.tests.django_utils import (
+from common.lib.xmodule.xmodule.fields import Date
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase, SharedModuleStoreTestCase,
 )
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 from openedx.core.djangoapps.course_date_signals import handlers

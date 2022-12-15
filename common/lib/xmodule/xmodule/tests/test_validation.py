@@ -8,7 +8,7 @@ import unittest
 import pytest
 from xblock.validation import Validation, ValidationMessage
 
-from xmodule.validation import StudioValidation, StudioValidationMessage
+from common.lib.xmodule.xmodule.validation import StudioValidation, StudioValidationMessage
 
 
 class StudioValidationMessageTest(unittest.TestCase):

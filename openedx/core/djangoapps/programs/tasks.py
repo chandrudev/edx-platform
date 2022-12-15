@@ -13,7 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from edx_django_utils.monitoring import set_code_owner_attribute
 from opaque_keys.edx.keys import CourseKey
 from requests.exceptions import HTTPError
-from xmodule.data import CertificatesDisplayBehaviors
+from common.lib.xmodule.xmodule.data import CertificatesDisplayBehaviors
 
 from common.djangoapps.course_modes.models import CourseMode
 from lms.djangoapps.certificates.api import available_date_for_certificate

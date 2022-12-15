@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from edx_toggles.toggles.testutils import override_waffle_flag
 from pytz import UTC
-from xmodule.modulestore.tests.factories import ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.models import CourseEnrollment

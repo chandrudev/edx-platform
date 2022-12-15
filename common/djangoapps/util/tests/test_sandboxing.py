@@ -9,9 +9,9 @@ from django.test.utils import override_settings
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator, LibraryLocator
 
-from xmodule.contentstore.django import contentstore
-from xmodule.modulestore.tests.django_utils import upload_file_to_course
-from xmodule.util.sandboxing import can_execute_unsafe_code, SandboxService
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import upload_file_to_course
+from common.lib.xmodule.xmodule.util.sandboxing import can_execute_unsafe_code, SandboxService
 
 
 class SandboxingTest(TestCase):

@@ -2,8 +2,8 @@ import logging
 from django.db import migrations, models
 from django.db.utils import IntegrityError
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from ..models import SplitModulestoreCourseIndex as SplitModulestoreCourseIndex_Real
 

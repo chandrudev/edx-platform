@@ -15,11 +15,11 @@ from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator
 
 from openedx.core.lib.tests import attr
-from xmodule.assetstore import AssetMetadata
-from xmodule.modulestore import IncorrectlySortedList, ModuleStoreEnum, SortedAssetList
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.utils import (
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.modulestore import IncorrectlySortedList, ModuleStoreEnum, SortedAssetList
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.utils import (
     MIXED_MODULESTORE_BOTH_SETUP,
     MODULESTORE_SETUPS,
     MixedModulestoreBuilder,

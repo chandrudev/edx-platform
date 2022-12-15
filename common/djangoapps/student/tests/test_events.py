@@ -28,8 +28,8 @@ from openedx_events.learning.signals import (  # lint-amnesty, pylint: disable=w
 from openedx_events.tests.utils import OpenEdxEventsTestMixin  # lint-amnesty, pylint: disable=wrong-import-order
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
 
 
 class TestUserProfileEvents(UserSettingsEventTestMixin, TestCase):

@@ -13,13 +13,13 @@ from fs.osfs import OSFS
 from opaque_keys.edx.locator import CourseLocator, LibraryLocator
 from xblock.fields import Reference, ReferenceList, ReferenceValueDict, Scope
 
-from xmodule.assetstore import AssetMetadata
-from xmodule.contentstore.content import StaticContent
-from xmodule.exceptions import NotFoundError
-from xmodule.modulestore import LIBRARY_ROOT, EdxJSONEncoder, ModuleStoreEnum
-from xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES
-from xmodule.modulestore.inheritance import own_metadata
-from xmodule.modulestore.store_utilities import draft_node_constructor, get_draft_subtree_roots
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.modulestore import LIBRARY_ROOT, EdxJSONEncoder, ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES
+from common.lib.xmodule.xmodule.modulestore.inheritance import own_metadata
+from common.lib.xmodule.xmodule.modulestore.store_utilities import draft_node_constructor, get_draft_subtree_roots
 
 DRAFT_DIR = "drafts"
 PUBLISHED_DIR = "published"

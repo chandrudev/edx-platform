@@ -14,7 +14,7 @@ from edx_ace.channel import ChannelType, get_channel_for_message
 from edx_ace.recipient import Recipient
 from edx_ace.renderers import EmailRenderer
 from edx_ace.utils import date
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 import openedx.core.djangoapps.django_comment_common.comment_client as cc
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory

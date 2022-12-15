@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import ddt
 from django.core.management import call_command
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 from common.djangoapps.student.tests.factories import UserFactory

@@ -17,12 +17,12 @@ from django.utils import translation
 
 from cms.djangoapps.contentstore.tests.utils import mock_requests_get
 from common.djangoapps.student.tests.factories import UserFactory
-from xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.exceptions import NotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.video_module import transcripts_utils  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.exceptions import NotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.video_module import transcripts_utils  # lint-amnesty, pylint: disable=wrong-import-order
 
 TEST_DATA_CONTENTSTORE = copy.deepcopy(settings.CONTENTSTORE)
 TEST_DATA_CONTENTSTORE['DOC_STORE_CONFIG']['db'] = 'test_xcontent_%s' % uuid4().hex

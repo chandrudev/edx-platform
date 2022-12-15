@@ -6,15 +6,15 @@ Tests for the Studio authoring XBlock mixin.
 from django.conf import settings
 from django.test.utils import override_settings
 from xblock.core import XBlock
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
-from xmodule.partitions.partitions import (
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.partitions.partitions import (
     ENROLLMENT_TRACK_PARTITION_ID,
     MINIMUM_STATIC_PARTITION_ID,
     Group,
     UserPartition
 )
-from xmodule.tests.test_export import PureXBlock
+from common.lib.xmodule.xmodule.tests.test_export import PureXBlock
 
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 

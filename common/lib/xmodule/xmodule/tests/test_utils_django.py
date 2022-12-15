@@ -3,7 +3,7 @@
 
 from unittest import TestCase
 
-from xmodule.util.xmodule_django import get_current_request, get_current_request_hostname
+from common.lib.xmodule.xmodule.util.xmodule_django import get_current_request, get_current_request_hostname
 
 
 class UtilDjangoTests(TestCase):

@@ -3,8 +3,8 @@ Tests for the public Python API functions of the Bulk Email app.
 """
 from testfixtures import LogCapture
 
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.tests.factories import InstructorFactory

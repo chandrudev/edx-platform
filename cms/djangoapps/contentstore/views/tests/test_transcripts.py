@@ -18,12 +18,12 @@ from opaque_keys.edx.keys import UsageKey
 
 from cms.djangoapps.contentstore.tests.utils import CourseTestCase, mock_requests_get
 from openedx.core.djangoapps.contentserver.caching import del_cached_content
-from xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.exceptions import NotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.video_module import VideoBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.video_module.transcripts_utils import (  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.exceptions import NotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.video_module import VideoBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.video_module.transcripts_utils import (  # lint-amnesty, pylint: disable=wrong-import-order
     GetTranscriptsFromYouTubeException,
     Transcript,
     get_video_transcript_content,

@@ -7,9 +7,9 @@ import pytest
 import ddt
 from edx_toggles.toggles.testutils import override_waffle_switch
 from opaque_keys.edx.locator import CourseLocator, LibraryLocator
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from ..api import get_block_structure_manager
 from ..config import INVALIDATE_CACHE_ON_PUBLISH

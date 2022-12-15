@@ -19,11 +19,11 @@ from django.utils.translation import gettext as _
 from edx_django_utils.cache import RequestCache
 from opaque_keys.edx.keys import CourseKey
 from pytz import UTC
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, SampleCourseFactory
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, SampleCourseFactory
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 from capa.tests.response_xml_factory import StringResponseXMLFactory
 from common.djangoapps.edxmako.shortcuts import render_to_response
@@ -1012,7 +1012,7 @@ class TestCCXGrades(FieldOverrideTestMixin, SharedModuleStoreTestCase, LoginEnro
         setup_students_and_grades(self)
         self.client.login(username=coach.username, password="test")
         self.addCleanup(RequestCache.clear_all_namespaces)
-        from xmodule.modulestore.django import SignalHandler
+        from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
 
         # using CCX object as sender here.
         SignalHandler.course_published.send(

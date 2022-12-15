@@ -6,7 +6,7 @@ from django.contrib import admin
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from .models import CourseEntitlement, CourseEntitlementPolicy, CourseEntitlementSupportDetail
 

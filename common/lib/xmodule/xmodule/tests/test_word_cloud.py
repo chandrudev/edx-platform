@@ -10,7 +10,7 @@ from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
 from webob.multidict import MultiDict
 from xblock.field_data import DictFieldData
 
-from xmodule.word_cloud_module import WordCloudBlock
+from common.lib.xmodule.xmodule.word_cloud_module import WordCloudBlock
 from . import get_test_descriptor_system, get_test_system
 
 

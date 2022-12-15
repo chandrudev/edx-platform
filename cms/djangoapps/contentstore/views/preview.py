@@ -16,16 +16,16 @@ from xblock.django.request import django_to_webob_request, webob_to_django_respo
 from xblock.exceptions import NoSuchHandlerError
 from xblock.runtime import KvsFieldData
 
-from xmodule.contentstore.django import contentstore
-from xmodule.error_module import ErrorBlock
-from xmodule.exceptions import NotFoundError, ProcessingError
-from xmodule.modulestore.django import ModuleI18nService, modulestore
-from xmodule.partitions.partitions_service import PartitionService
-from xmodule.services import SettingsService, TeamsConfigurationService
-from xmodule.studio_editable import has_author_view
-from xmodule.util.sandboxing import SandboxService
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.x_module import AUTHOR_VIEW, PREVIEW_VIEWS, STUDENT_VIEW, ModuleSystem
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.error_module import ErrorBlock
+from common.lib.xmodule.xmodule.exceptions import NotFoundError, ProcessingError
+from common.lib.xmodule.xmodule.modulestore.django import ModuleI18nService, modulestore
+from common.lib.xmodule.xmodule.partitions.partitions_service import PartitionService
+from common.lib.xmodule.xmodule.services import SettingsService, TeamsConfigurationService
+from common.lib.xmodule.xmodule.studio_editable import has_author_view
+from common.lib.xmodule.xmodule.util.sandboxing import SandboxService
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.x_module import AUTHOR_VIEW, PREVIEW_VIEWS, STUDENT_VIEW, ModuleSystem
 from cms.djangoapps.xblock_config.models import StudioConfig
 from cms.djangoapps.contentstore.toggles import individualize_anonymous_user_id
 from cms.lib.xblock.field_data import CmsFieldData

@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from lti_consumer.api import get_lti_pii_sharing_state_for_course
 from lti_consumer.models import LtiConfiguration
 from rest_framework import serializers
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from lms.djangoapps.discussion.toggles import ENABLE_REPORTED_CONTENT_EMAIL_NOTIFICATIONS
 from openedx.core.djangoapps.discussions.tasks import update_discussions_settings_from_course_task

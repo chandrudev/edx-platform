@@ -3,8 +3,8 @@ Utilities for the credit app.
 """
 
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 
 def get_course_blocks(course_key, category):

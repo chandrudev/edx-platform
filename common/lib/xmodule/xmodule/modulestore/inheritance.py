@@ -8,8 +8,8 @@ from xblock.core import XBlockMixin
 from xblock.fields import Boolean, Dict, Float, Integer, List, Scope, String
 from xblock.runtime import KeyValueStore, KvsFieldData
 
-from xmodule.fields import Date, Timedelta
-from xmodule.partitions.partitions import UserPartition
+from common.lib.xmodule.xmodule.fields import Date, Timedelta
+from common.lib.xmodule.xmodule.partitions.partitions import UserPartition
 
 from ..course_metadata_utils import DEFAULT_START_DATE
 

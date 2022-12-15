@@ -31,30 +31,30 @@ from xblock.runtime import DictKeyValueStore, KvsFieldData
 from xblock.test.tools import TestRuntime
 
 from openedx.core.lib.tests import attr
-from xmodule.contentstore.content import StaticContent
-from xmodule.exceptions import InvalidVersionError
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES, UnsupportedRevisionError
-from xmodule.modulestore.edit_info import EditInfoMixin
-from xmodule.modulestore.exceptions import (
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.exceptions import InvalidVersionError
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES, UnsupportedRevisionError
+from common.lib.xmodule.xmodule.modulestore.edit_info import EditInfoMixin
+from common.lib.xmodule.xmodule.modulestore.exceptions import (
     DuplicateCourseError,
     ItemNotFoundError,
     NoPathToItem,
     ReferentialIntegrityError
 )
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore.mixed import MixedModuleStore
-from xmodule.modulestore.search import navigation_index, path_to_location
-from xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
-from xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
-from xmodule.modulestore.tests.factories import check_exact_number_of_calls, check_mongo_calls, mongo_uses_error_check
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
-from xmodule.modulestore.tests.test_asides import AsideTestType
-from xmodule.modulestore.tests.utils import MongoContentstoreBuilder, create_modulestore_instance
-from xmodule.modulestore.xml_exporter import export_course_to_xml
-from xmodule.modulestore.xml_importer import LocationMixin, import_course_from_xml
-from xmodule.tests import DATA_DIR, CourseComparisonTest
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.mixed import MixedModuleStore
+from common.lib.xmodule.xmodule.modulestore.search import navigation_index, path_to_location
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
+from common.lib.xmodule.xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
+from common.lib.xmodule.xmodule.modulestore.tests.factories import check_exact_number_of_calls, check_mongo_calls, mongo_uses_error_check
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.modulestore.tests.test_asides import AsideTestType
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MongoContentstoreBuilder, create_modulestore_instance
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.modulestore.xml_importer import LocationMixin, import_course_from_xml
+from common.lib.xmodule.xmodule.tests import DATA_DIR, CourseComparisonTest
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 if not settings.configured:
     settings.configure()

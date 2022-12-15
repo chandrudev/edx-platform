@@ -41,22 +41,22 @@ from xblock.test.tools import TestRuntime  # lint-amnesty, pylint: disable=wrong
 
 from capa.tests.response_xml_factory import OptionResponseXMLFactory  # lint-amnesty, pylint: disable=reimported
 from capa.xqueue_interface import XQueueInterface
-from xmodule.capa_module import ProblemBlock
-from xmodule.contentstore.django import contentstore
-from xmodule.html_module import AboutBlock, CourseInfoBlock, HtmlBlock, StaticTabBlock
-from xmodule.lti_module import LTIBlock
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import (
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.html_module import AboutBlock, CourseInfoBlock, HtmlBlock, StaticTabBlock
+from common.lib.xmodule.xmodule.lti_module import LTIBlock
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_AMNESTY_MODULESTORE,
     ModuleStoreTestCase,
     SharedModuleStoreTestCase,
     upload_file_to_course,
 )
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, ToyCourseFactory, check_mongo_calls  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.modulestore.tests.test_asides import AsideTestType  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.video_module import VideoBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.x_module import STUDENT_VIEW, CombinedSystem  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, ToyCourseFactory, check_mongo_calls  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.test_asides import AsideTestType  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.video_module import VideoBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.x_module import STUDENT_VIEW, CombinedSystem  # lint-amnesty, pylint: disable=wrong-import-order
 from common.djangoapps import static_replace
 from common.djangoapps.course_modes.models import CourseMode  # lint-amnesty, pylint: disable=reimported
 from common.djangoapps.student.tests.factories import GlobalStaffFactory

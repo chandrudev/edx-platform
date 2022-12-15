@@ -12,8 +12,8 @@ import ddt
 from bson.objectid import ObjectId
 from opaque_keys.edx.locator import CourseLocator
 
-from xmodule.modulestore.split_mongo.mongo_connection import MongoPersistenceBackend
-from xmodule.modulestore.split_mongo.split import SplitBulkWriteMixin
+from common.lib.xmodule.xmodule.modulestore.split_mongo.mongo_connection import MongoPersistenceBackend
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split import SplitBulkWriteMixin
 
 VERSION_GUID_DICT = {
     'SAMPLE_VERSION_GUID': 'deadbeef1234' * 2,

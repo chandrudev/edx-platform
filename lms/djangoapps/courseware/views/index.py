@@ -24,9 +24,9 @@ from edx_django_utils.monitoring import set_custom_attributes_for_course_key
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
 from web_fragments.fragment import Fragment
-from xmodule.course_module import COURSE_VISIBILITY_PUBLIC
-from xmodule.modulestore.django import modulestore
-from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
+from common.lib.xmodule.xmodule.course_module import COURSE_VISIBILITY_PUBLIC
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
 
 from common.djangoapps.edxmako.shortcuts import render_to_response, render_to_string
 from common.djangoapps.student.models import CourseEnrollment

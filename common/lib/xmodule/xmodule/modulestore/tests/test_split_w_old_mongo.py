@@ -9,13 +9,13 @@ from unittest import mock
 import pytest
 from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore.mongo import DraftMongoModuleStore
-from xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
-from xmodule.modulestore.tests.utils import MemoryCache
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.mongo import DraftMongoModuleStore
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MemoryCache
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 
 @pytest.mark.mongo

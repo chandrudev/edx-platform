@@ -15,11 +15,11 @@ from django.test.client import RequestFactory
 
 from edx_django_utils.cache import TieredCache
 from edx_toggles.toggles.testutils import override_waffle_flag
-from xmodule.data import CertificatesDisplayBehaviors
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
-from xmodule.modulestore.tests.factories import ItemFactory, ToyCourseFactory
-from xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
+from common.lib.xmodule.xmodule.data import CertificatesDisplayBehaviors
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory, ToyCourseFactory
+from common.lib.xmodule.xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory

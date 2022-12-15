@@ -27,8 +27,8 @@ from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from path import Path as path
 
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
 
 
 class Command(BaseCommand):

@@ -14,9 +14,9 @@ from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imp
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from xmodule.contentstore.django import contentstore
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
 
 log = logging.getLogger(__name__)
 

@@ -5,7 +5,7 @@ Miscellaneous utility functions.
 
 import re
 
-from xmodule.annotator_mixin import html_to_text
+from common.lib.xmodule.xmodule.annotator_mixin import html_to_text
 from opaque_keys.edx.locator import (
     CourseLocator,
     LibraryLocator,

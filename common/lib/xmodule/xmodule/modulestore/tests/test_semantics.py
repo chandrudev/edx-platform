@@ -14,12 +14,12 @@ from xblock.fields import Scope, String
 from xblock.runtime import DictKeyValueStore, KvsFieldData
 from xblock.test.tools import TestRuntime
 
-from xmodule.course_module import CourseSummary
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_MONGO_MODULESTORE
+from common.lib.xmodule.xmodule.course_module import CourseSummary
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_MONGO_MODULESTORE
 
 DETACHED_BLOCK_TYPES = dict(XBlock.load_tagged_classes('detached'))
 

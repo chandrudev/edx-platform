@@ -16,12 +16,12 @@ from path import Path as path
 from xblock.fields import List, Scope, ScopeIds, String
 from xblock.runtime import DictKeyValueStore, KvsFieldData, Runtime
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
-from xmodule.modulestore.xml_importer import StaticContentImporter, _update_and_import_module, _update_module_location
-from xmodule.tests import DATA_DIR
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.modulestore.xml_importer import StaticContentImporter, _update_and_import_module, _update_module_location
+from common.lib.xmodule.xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 OPEN_BUILTIN = 'builtins.open'
 

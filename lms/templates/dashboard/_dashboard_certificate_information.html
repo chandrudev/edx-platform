@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 from openedx.core.djangolib.markup import HTML, Text
 from common.djangoapps.course_modes.models import CourseMode
 from lms.djangoapps.certificates.data import CertificateStatuses
-from xmodule.data import CertificatesDisplayBehaviors
+from common.lib.xmodule.xmodule.data import CertificatesDisplayBehaviors
 from common.djangoapps.student.helpers import user_has_passing_grade_in_course
 %>
 <%namespace name='static' file='../static_content.html'/>

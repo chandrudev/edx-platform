@@ -10,7 +10,7 @@ from web_fragments.fragment import Fragment
 from xblock.core import XBlockAside
 from xblock.fields import Scope, String
 
-from xmodule.modulestore.tests.utils import XmlModulestoreBuilder
+from common.lib.xmodule.xmodule.modulestore.tests.utils import XmlModulestoreBuilder
 
 
 class AsideTestType(XBlockAside):

@@ -5,8 +5,8 @@ from unittest import mock
 
 from django.test import TestCase
 from edx_django_utils.cache import RequestCache
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import (
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import (
     CourseFactory,
     ItemFactory
 )

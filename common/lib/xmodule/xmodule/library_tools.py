@@ -14,10 +14,10 @@ from openedx.core.djangoapps.content_libraries import api as library_api
 from openedx.core.djangoapps.xblock.api import load_block
 from openedx.core.lib import blockstore_api
 from common.djangoapps.student.auth import has_studio_write_access
-from xmodule.capa_module import ProblemBlock
-from xmodule.library_content_module import ANY_CAPA_TYPE_VALUE
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.library_content_module import ANY_CAPA_TYPE_VALUE
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 
 def normalize_key_for_search(library_key):

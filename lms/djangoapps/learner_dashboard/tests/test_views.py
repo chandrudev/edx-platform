@@ -9,8 +9,8 @@ from django.urls import reverse_lazy
 from edx_toggles.toggles.testutils import override_waffle_flag
 from lti_consumer.models import LtiConfiguration
 from markupsafe import Markup
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory as ModuleStoreCourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory as ModuleStoreCourseFactory
 
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.learner_dashboard.config.waffle import ENABLE_PROGRAM_TAB_VIEW, ENABLE_MASTERS_PROGRAM_TAB_VIEW

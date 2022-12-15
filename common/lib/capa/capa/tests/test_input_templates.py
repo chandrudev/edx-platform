@@ -14,7 +14,7 @@ from six.moves import range
 from capa.inputtypes import Status
 from capa.tests.helpers import capa_render_template
 from openedx.core.djangolib.markup import HTML
-from xmodule.stringify import stringify_children
+from common.lib.xmodule.xmodule.stringify import stringify_children
 
 
 class TemplateError(Exception):

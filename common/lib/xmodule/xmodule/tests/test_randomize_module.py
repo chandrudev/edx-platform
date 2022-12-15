@@ -6,10 +6,10 @@ from unittest.mock import Mock
 from fs.memoryfs import MemoryFS
 from lxml import etree
 
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.utils import MixedSplitTestCase
-from xmodule.randomize_module import RandomizeBlock
-from xmodule.tests import get_test_system
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MixedSplitTestCase
+from common.lib.xmodule.xmodule.randomize_module import RandomizeBlock
+from common.lib.xmodule.xmodule.tests import get_test_system
 
 from .test_course_module import DummySystem as TestImportSystem
 

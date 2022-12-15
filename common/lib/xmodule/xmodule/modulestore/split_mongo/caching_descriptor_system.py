@@ -9,19 +9,19 @@ from opaque_keys.edx.locator import BlockUsageLocator, DefinitionLocator, LocalI
 from xblock.fields import ScopeIds
 from xblock.runtime import KeyValueStore, KvsFieldData
 
-from xmodule.error_module import ErrorBlock
-from xmodule.errortracker import exc_info_to_str
-from xmodule.library_tools import LibraryToolsService
-from xmodule.mako_module import MakoDescriptorSystem
-from xmodule.modulestore.edit_info import EditInfoRuntimeMixin
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.inheritance import InheritanceMixin, inheriting_field_data
-from xmodule.modulestore.split_mongo import BlockKey, CourseEnvelope
-from xmodule.modulestore.split_mongo.definition_lazy_loader import DefinitionLazyLoader
-from xmodule.modulestore.split_mongo.id_manager import SplitMongoIdManager
-from xmodule.modulestore.split_mongo.split_mongo_kvs import SplitMongoKVS
-from xmodule.util.misc import get_library_or_course_attribute
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.error_module import ErrorBlock
+from common.lib.xmodule.xmodule.errortracker import exc_info_to_str
+from common.lib.xmodule.xmodule.library_tools import LibraryToolsService
+from common.lib.xmodule.xmodule.mako_module import MakoDescriptorSystem
+from common.lib.xmodule.xmodule.modulestore.edit_info import EditInfoRuntimeMixin
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin, inheriting_field_data
+from common.lib.xmodule.xmodule.modulestore.split_mongo import BlockKey, CourseEnvelope
+from common.lib.xmodule.xmodule.modulestore.split_mongo.definition_lazy_loader import DefinitionLazyLoader
+from common.lib.xmodule.xmodule.modulestore.split_mongo.id_manager import SplitMongoIdManager
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split_mongo_kvs import SplitMongoKVS
+from common.lib.xmodule.xmodule.util.misc import get_library_or_course_attribute
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 log = logging.getLogger(__name__)
 

@@ -8,8 +8,8 @@ from urllib.parse import urlencode
 
 import ddt
 from django.urls import reverse
-from xmodule.modulestore.tests.factories import ItemFactory
-from xmodule.tabs import CourseTabList
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory
+from common.lib.xmodule.xmodule.tabs import CourseTabList
 
 from cms.djangoapps.contentstore.tests.utils import CourseTestCase
 

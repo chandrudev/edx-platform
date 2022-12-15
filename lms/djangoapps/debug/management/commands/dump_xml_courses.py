@@ -12,7 +12,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from path import Path as path
 
-from xmodule.modulestore.xml import XMLModuleStore
+from common.lib.xmodule.xmodule.modulestore.xml import XMLModuleStore
 
 
 class Command(BaseCommand):

@@ -4,7 +4,7 @@ API Serializers for Contentstore
 
 from rest_framework import serializers
 
-from xmodule.course_module import get_available_providers
+from common.lib.xmodule.xmodule.course_module import get_available_providers
 
 
 class ProctoredExamSettingsSerializer(serializers.Serializer):

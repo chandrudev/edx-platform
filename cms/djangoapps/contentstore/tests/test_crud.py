@@ -1,15 +1,15 @@
 """Tests for CRUD Operations"""
 
 
-from xmodule import templates
-from xmodule.capa_module import ProblemBlock
-from xmodule.course_module import CourseBlock
-from xmodule.html_module import HtmlBlock
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.exceptions import DuplicateCourseError
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
-from xmodule.seq_module import SequenceBlock
+from common.lib.xmodule.xmodule import templates
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.course_module import CourseBlock
+from common.lib.xmodule.xmodule.html_module import HtmlBlock
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.exceptions import DuplicateCourseError
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.seq_module import SequenceBlock
 
 
 class TemplateTests(ModuleStoreTestCase):

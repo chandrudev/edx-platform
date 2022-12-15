@@ -5,7 +5,7 @@ Test the draft modulestore
 
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase
 
 
 class TestDraftModuleStore(ModuleStoreTestCase):

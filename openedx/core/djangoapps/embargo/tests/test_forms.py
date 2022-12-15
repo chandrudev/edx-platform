@@ -8,8 +8,8 @@ from config_models.models import cache
 from django.test import TestCase
 from opaque_keys.edx.locator import CourseLocator
 
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from ..forms import IPFilterForm, RestrictedCourseForm
 from ..models import IPFilter

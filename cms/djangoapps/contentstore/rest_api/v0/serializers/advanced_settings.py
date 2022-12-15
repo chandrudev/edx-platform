@@ -14,8 +14,8 @@ from xblock.fields import (
     List,
     String,
 )
-from xmodule.course_module import CourseFields, EmailString
-from xmodule.fields import Date
+from common.lib.xmodule.xmodule.course_module import CourseFields, EmailString
+from common.lib.xmodule.xmodule.fields import Date
 
 from cms.djangoapps.models.settings.course_metadata import CourseMetadata
 

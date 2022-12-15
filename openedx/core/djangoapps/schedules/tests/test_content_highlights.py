@@ -3,8 +3,8 @@ import datetime
 from unittest.mock import patch
 
 import pytest
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from openedx.core.djangoapps.schedules.content_highlights import (
     course_has_highlights_from_store,

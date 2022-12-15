@@ -8,7 +8,7 @@ from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
 from opaque_keys.edx.locator import AssetLocator
 
-from xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
 
 log = logging.getLogger(__name__)
 XBLOCK_STATIC_RESOURCE_PREFIX = '/static/xblock'

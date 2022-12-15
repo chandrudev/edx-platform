@@ -6,8 +6,8 @@ import pytest
 from django.test.utils import override_settings
 from xblock.field_data import DictFieldData
 
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from ..field_overrides import (
     FieldOverrideProvider,

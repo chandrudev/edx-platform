@@ -11,9 +11,9 @@ from fs.osfs import OSFS
 from lxml import etree
 from xblock.mixins import HierarchyMixin
 
-from xmodule.modulestore import only_xmodules
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore import only_xmodules
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 
 class XmlImportData:

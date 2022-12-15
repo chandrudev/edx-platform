@@ -3,9 +3,9 @@ Unit tests for the unit page.
 """
 
 
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.factories import ItemFactory
-from xmodule.x_module import STUDENT_VIEW
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory
+from common.lib.xmodule.xmodule.x_module import STUDENT_VIEW
 
 from .utils import StudioPageTestCase
 

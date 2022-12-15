@@ -4,8 +4,8 @@ Bookmarks Python API.
 from django.conf import settings
 from eventtracking import tracker
 
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 from . import DEFAULT_FIELDS, OPTIONAL_FIELDS
 from .models import Bookmark

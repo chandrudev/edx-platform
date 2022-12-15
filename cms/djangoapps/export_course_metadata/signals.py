@@ -3,7 +3,7 @@ This file calls the task that exports metadata about the course
 """
 
 from django.dispatch import receiver
-from xmodule.modulestore.django import SignalHandler
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
 
 from .tasks import export_course_metadata_task
 from .toggles import EXPORT_COURSE_METADATA_FLAG

@@ -24,21 +24,21 @@ from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import AssetKey, CourseKey, UsageKey
 from opaque_keys.edx.locations import CourseLocator
 from path import Path as path
-from xmodule.capa_module import ProblemBlock
-from xmodule.contentstore.content import StaticContent
-from xmodule.contentstore.django import contentstore
-from xmodule.contentstore.utils import empty_asset_trashcan, restore_asset_from_trashcan
-from xmodule.course_module import CourseBlock, Textbook
-from xmodule.exceptions import InvalidVersionError
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.inheritance import own_metadata
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
-from xmodule.modulestore.xml_exporter import export_course_to_xml
-from xmodule.modulestore.xml_importer import import_course_from_xml, perform_xlint
-from xmodule.seq_module import SequenceBlock
-from xmodule.video_module import VideoBlock
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.contentstore.utils import empty_asset_trashcan, restore_asset_from_trashcan
+from common.lib.xmodule.xmodule.course_module import CourseBlock, Textbook
+from common.lib.xmodule.xmodule.exceptions import InvalidVersionError
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.inheritance import own_metadata
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml, perform_xlint
+from common.lib.xmodule.xmodule.seq_module import SequenceBlock
+from common.lib.xmodule.xmodule.video_module import VideoBlock
 
 from cms.djangoapps.contentstore.config import waffle
 from cms.djangoapps.contentstore.tests.utils import AjaxEnabledTestClient, CourseTestCase, get_url, parse_json

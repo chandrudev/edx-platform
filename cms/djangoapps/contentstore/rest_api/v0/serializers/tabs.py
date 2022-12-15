@@ -3,7 +3,7 @@ from typing import Dict
 
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from xmodule.tabs import CourseTab
+from common.lib.xmodule.xmodule.tabs import CourseTab
 
 from openedx.core.lib.api.serializers import UsageKeyField
 

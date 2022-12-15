@@ -3,7 +3,7 @@
 
 from unittest import TestCase
 
-from xmodule.util.misc import escape_html_characters
+from common.lib.xmodule.xmodule.util.misc import escape_html_characters
 
 
 class UtilHtmlEscapeTests(TestCase):

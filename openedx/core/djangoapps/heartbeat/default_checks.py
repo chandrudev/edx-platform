@@ -13,8 +13,8 @@ from django.core.cache import cache
 from django.db import connection
 from django.db.utils import DatabaseError
 
-from xmodule.exceptions import HeartbeatFailure
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.exceptions import HeartbeatFailure
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from .tasks import sample_task
 

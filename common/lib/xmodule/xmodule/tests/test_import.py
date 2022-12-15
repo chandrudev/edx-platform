@@ -16,13 +16,13 @@ from xblock.core import XBlock
 from xblock.fields import Integer, Scope, String
 from xblock.runtime import DictKeyValueStore, KvsFieldData
 
-from xmodule.fields import Date
-from xmodule.modulestore import only_xmodules
-from xmodule.modulestore.inheritance import InheritanceMixin, compute_inherited_metadata
-from xmodule.modulestore.xml import ImportSystem, LibraryXMLModuleStore, XMLModuleStore
-from xmodule.tests import DATA_DIR
-from xmodule.x_module import XModuleMixin
-from xmodule.xml_module import is_pointer_tag
+from common.lib.xmodule.xmodule.fields import Date
+from common.lib.xmodule.xmodule.modulestore import only_xmodules
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin, compute_inherited_metadata
+from common.lib.xmodule.xmodule.modulestore.xml import ImportSystem, LibraryXMLModuleStore, XMLModuleStore
+from common.lib.xmodule.xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.xml_module import is_pointer_tag
 
 ORG = 'test_org'
 COURSE = 'test_course'

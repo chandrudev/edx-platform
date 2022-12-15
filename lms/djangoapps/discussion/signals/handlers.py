@@ -9,7 +9,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.utils.html import strip_tags
 from opaque_keys.edx.locator import LibraryLocator
-from xmodule.modulestore.django import SignalHandler
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
 
 from lms.djangoapps.discussion import tasks
 from openedx.core.djangoapps.django_comment_common import signals

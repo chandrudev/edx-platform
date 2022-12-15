@@ -9,12 +9,12 @@ import ddt
 from django.http import QueryDict
 from django.urls import reverse
 from rest_framework.test import APITestCase
-from xmodule.modulestore.tests.django_utils import (
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
     TEST_DATA_SPLIT_MODULESTORE,
     SharedModuleStoreTestCase,
 )
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.factories import ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory
 
 from common.djangoapps.student.tests.factories import StaffFactory
 from lms.djangoapps.ora_staff_grader.constants import (

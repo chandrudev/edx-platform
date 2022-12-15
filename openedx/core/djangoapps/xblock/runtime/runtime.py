@@ -20,10 +20,10 @@ from xblock.field_data import SplitFieldData
 from xblock.fields import Scope
 from xblock.runtime import KvsFieldData, MemoryIdManager, Runtime
 
-from xmodule.errortracker import make_error_tracker
-from xmodule.contentstore.django import contentstore
-from xmodule.modulestore.django import ModuleI18nService
-from xmodule.util.sandboxing import SandboxService
+from common.lib.xmodule.xmodule.errortracker import make_error_tracker
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.modulestore.django import ModuleI18nService
+from common.lib.xmodule.xmodule.util.sandboxing import SandboxService
 from common.djangoapps.edxmako.services import MakoService
 from common.djangoapps.static_replace.services import ReplaceURLService
 from common.djangoapps.track import contexts as track_contexts

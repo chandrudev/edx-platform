@@ -3,8 +3,8 @@ Tests for StudioEditableModule.
 """
 
 
-from xmodule.tests.test_vertical import BaseVerticalBlockTest
-from xmodule.x_module import AUTHOR_VIEW
+from common.lib.xmodule.xmodule.tests.test_vertical import BaseVerticalBlockTest
+from common.lib.xmodule.xmodule.x_module import AUTHOR_VIEW
 
 
 class StudioEditableModuleTestCase(BaseVerticalBlockTest):

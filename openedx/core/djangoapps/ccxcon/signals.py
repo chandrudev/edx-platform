@@ -3,7 +3,7 @@ Signal handler for posting course updated to CCXCon
 """
 from django.dispatch.dispatcher import receiver
 
-from xmodule.modulestore.django import SignalHandler
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
 
 
 @receiver(SignalHandler.course_published, dispatch_uid='ccxcon_course_publish_handler')

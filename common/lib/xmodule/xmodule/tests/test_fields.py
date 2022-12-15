@@ -6,8 +6,8 @@ import unittest
 import pytest
 from pytz import UTC
 
-from xmodule.fields import Date, RelativeTime, Timedelta
-from xmodule.timeinfo import TimeInfo
+from common.lib.xmodule.xmodule.fields import Date, RelativeTime, Timedelta
+from common.lib.xmodule.xmodule.timeinfo import TimeInfo
 
 
 class DateTest(unittest.TestCase):  # lint-amnesty, pylint: disable=missing-class-docstring

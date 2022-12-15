@@ -13,12 +13,12 @@ from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import CourseLocator
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.tests.test_modulestore import check_has_course_method
-from xmodule.modulestore.tests.utils import TILDA_FILES_DICT, add_temp_files_from_dict, remove_temp_files_from_list
-from xmodule.modulestore.xml import XMLModuleStore
-from xmodule.tests import DATA_DIR
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.tests.test_modulestore import check_has_course_method
+from common.lib.xmodule.xmodule.modulestore.tests.utils import TILDA_FILES_DICT, add_temp_files_from_dict, remove_temp_files_from_list
+from common.lib.xmodule.xmodule.modulestore.xml import XMLModuleStore
+from common.lib.xmodule.xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 
 def glob_tildes_at_end(path):

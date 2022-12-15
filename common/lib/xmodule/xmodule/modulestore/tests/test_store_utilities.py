@@ -8,7 +8,7 @@ from unittest.mock import Mock
 
 import ddt
 
-from xmodule.modulestore.store_utilities import draft_node_constructor, get_draft_subtree_roots
+from common.lib.xmodule.xmodule.modulestore.store_utilities import draft_node_constructor, get_draft_subtree_roots
 
 
 @ddt.ddt

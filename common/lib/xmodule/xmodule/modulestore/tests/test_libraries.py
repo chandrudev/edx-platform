@@ -9,9 +9,9 @@ import ddt
 from bson.objectid import ObjectId
 from opaque_keys.edx.locator import LibraryLocator
 
-from xmodule.modulestore.exceptions import DuplicateCourseError
-from xmodule.modulestore.tests.factories import ItemFactory, LibraryFactory, check_mongo_calls
-from xmodule.modulestore.tests.utils import MixedSplitTestCase
+from common.lib.xmodule.xmodule.modulestore.exceptions import DuplicateCourseError
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory, LibraryFactory, check_mongo_calls
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MixedSplitTestCase
 
 
 @ddt.ddt

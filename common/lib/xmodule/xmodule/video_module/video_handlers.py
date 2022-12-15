@@ -18,8 +18,8 @@ from webob import Response
 from xblock.core import XBlock
 from xblock.exceptions import JsonHandlerError
 
-from xmodule.exceptions import NotFoundError
-from xmodule.fields import RelativeTime
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.fields import RelativeTime
 
 from .transcripts_utils import (
     Transcript,

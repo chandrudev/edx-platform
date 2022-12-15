@@ -11,8 +11,8 @@ from ddt import data, ddt, unpack
 from django.conf import settings
 from milestones import api as milestones_api
 from milestones.tests.utils import MilestonesTestCaseMixin
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.gating import api as lms_gating_api

@@ -7,7 +7,7 @@ perform some LMS-specific tab display gymnastics for the Entrance Exams feature
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_noop
-from xmodule.tabs import CourseTab, CourseTabList, key_checker
+from common.lib.xmodule.xmodule.tabs import CourseTab, CourseTabList, key_checker
 
 from lms.djangoapps.courseware.access import has_access
 from lms.djangoapps.courseware.entrance_exams import user_can_skip_entrance_exam
@@ -338,7 +338,7 @@ class DatesTab(EnrolledTab):
 
 def get_course_tab_list(user, course):
     """
-    Retrieves the course tab list from xmodule.tabs and manipulates the set as necessary
+    Retrieves the course tab list from common.lib.xmodule.xmodule.tabs and manipulates the set as necessary
     """
     xmodule_tab_list = CourseTabList.iterate_displayable(course, user=user)
 

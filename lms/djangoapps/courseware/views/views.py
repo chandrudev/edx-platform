@@ -45,17 +45,17 @@ from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle
 from web_fragments.fragment import Fragment
-from xmodule.course_module import (
+from common.lib.xmodule.xmodule.course_module import (
     COURSE_VISIBILITY_PUBLIC,
     COURSE_VISIBILITY_PUBLIC_OUTLINE
 )
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import (
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import (
     ItemNotFoundError,
     NoPathToItem
 )
-from xmodule.tabs import CourseTabList
-from xmodule.x_module import STUDENT_VIEW
+from common.lib.xmodule.xmodule.tabs import CourseTabList
+from common.lib.xmodule.xmodule.x_module import STUDENT_VIEW
 
 from common.djangoapps.course_modes.models import CourseMode, get_course_prices
 from common.djangoapps.edxmako.shortcuts import marketing_link, render_to_response, render_to_string

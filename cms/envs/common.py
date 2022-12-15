@@ -127,7 +127,7 @@ from django.urls import reverse_lazy
 
 from lms.djangoapps.lms_xblock.mixin import LmsBlockMixin
 from cms.lib.xblock.authoring_mixin import AuthoringMixin
-from xmodule.modulestore.edit_info import EditInfoMixin
+from common.lib.xmodule.xmodule.modulestore.edit_info import EditInfoMixin
 from openedx.core.djangoapps.theming.helpers_dirs import (
     get_themes_unchecked,
     get_theme_base_dirs_from_settings
@@ -949,9 +949,9 @@ P3P_HEADER = 'CP="Open EdX does not have a P3P policy."'
 ############# XBlock Configuration ##########
 
 # Import after sys.path fixup
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore import prefer_xmodules
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore import prefer_xmodules
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 # These are the Mixins that should be added to every XBlock.
 # This should be moved into an XBlock Runtime/Application object

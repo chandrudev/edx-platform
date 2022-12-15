@@ -7,7 +7,7 @@ import inspect
 
 from config_models.models import ConfigurationModel
 from django.conf import settings
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 
 class SettingsService:

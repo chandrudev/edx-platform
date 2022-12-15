@@ -12,9 +12,9 @@ Search for the error message to detect any issues.
 import logging
 
 from django.core.management.base import BaseCommand
-from xmodule.tabs import CourseTabList
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.tabs import CourseTabList
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from cms.djangoapps.contentstore.models import BackfillCourseTabsConfig
 

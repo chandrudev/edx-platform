@@ -8,8 +8,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from opaque_keys.edx.keys import CourseKey, UsageKey
-from xmodule.modulestore.tests.django_utils import ModuleStoreIsolationMixin
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, ToyCourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreIsolationMixin
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, ToyCourseFactory
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory

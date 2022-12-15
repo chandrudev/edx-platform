@@ -9,7 +9,7 @@ import warnings
 import opaque_keys.edx.django.models
 from django.db import models
 
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 log = logging.getLogger(__name__)
 

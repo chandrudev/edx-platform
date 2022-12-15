@@ -14,8 +14,8 @@ from lazy import lazy
 from opaque_keys.edx.django.models import CourseKeyField, UsageKeyField
 from pytz import utc
 
-from xmodule.error_module import ErrorBlock
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.error_module import ErrorBlock
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 log = logging.getLogger("edx.ccx")
 

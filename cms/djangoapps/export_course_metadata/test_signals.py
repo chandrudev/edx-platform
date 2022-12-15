@@ -5,9 +5,9 @@ Tests for signals.py
 from unittest.mock import patch
 
 from edx_toggles.toggles.testutils import override_waffle_flag
-from xmodule.modulestore.django import SignalHandler
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from .signals import export_course_metadata
 from .toggles import EXPORT_COURSE_METADATA_FLAG

@@ -90,7 +90,7 @@ from openedx.core.djangoapps.enrollments.serializers import StaffListSerializer 
 from common.djangoapps.student.signals import REFUND_ORDER
 from common.djangoapps.util.db import outer_atomic
 from common.djangoapps.util.json_request import JsonResponse
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
 from common.djangoapps.student.models import DocumentStorage  # To import
 from rest_framework.parsers import JSONParser
 log = logging.getLogger("edx.student")

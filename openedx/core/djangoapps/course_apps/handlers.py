@@ -3,7 +3,7 @@ Signal handlers for course apps.
 """
 from django.dispatch import receiver
 from opaque_keys.edx.keys import CourseKey
-from xmodule.modulestore.django import SignalHandler
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
 
 from .models import CourseAppStatus
 from .signals import COURSE_APP_STATUS_INIT

@@ -7,7 +7,7 @@ from unittest.mock import Mock
 
 from xblock.field_data import DictFieldData
 from xblock.fields import ScopeIds
-from xmodule.poll_module import PollBlock
+from common.lib.xmodule.xmodule.poll_module import PollBlock
 
 from . import get_test_system
 from .test_import import DummySystem

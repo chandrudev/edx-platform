@@ -86,8 +86,8 @@ Data Extraction
   You'll also want to be careful to make sure you're only pulling from the published branch when you extract this data (saving a draft also generates a ``course_published`` event). You can force a read from the publish branch by
   writing something like::
 
-    from xmodule.modulestore import ModuleStoreEnum
-    from xmodule.modulestore.django import modulestore
+    from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+    from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
     # ...
 

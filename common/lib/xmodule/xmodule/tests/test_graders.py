@@ -10,8 +10,8 @@ import ddt
 from pytz import UTC
 
 from lms.djangoapps.grades.scores import compute_percent
-from xmodule import graders
-from xmodule.graders import AggregatedScore, ProblemScore, ShowCorrectness, aggregate_scores
+from common.lib.xmodule.xmodule import graders
+from common.lib.xmodule.xmodule.graders import AggregatedScore, ProblemScore, ShowCorrectness, aggregate_scores
 
 
 class GradesheetTest(unittest.TestCase):

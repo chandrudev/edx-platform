@@ -6,7 +6,7 @@ Simple test to ensure that modulestore base classes remain abstract
 from unittest import TestCase
 import pytest
 
-from xmodule.modulestore import ModuleStoreRead, ModuleStoreWrite
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreRead, ModuleStoreWrite
 
 
 class AbstractionTest(TestCase):

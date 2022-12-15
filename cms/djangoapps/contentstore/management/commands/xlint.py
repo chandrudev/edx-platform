@@ -7,7 +7,7 @@ from argparse import REMAINDER
 
 from django.core.management.base import BaseCommand
 
-from xmodule.modulestore.xml_importer import perform_xlint
+from common.lib.xmodule.xmodule.modulestore.xml_importer import perform_xlint
 
 
 class Command(BaseCommand):

@@ -8,14 +8,14 @@ from django.conf import settings
 from django.core.management import call_command
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.contentstore.content import XASSET_LOCATION_TAG
-from xmodule.contentstore.django import contentstore
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.mongo.base import location_to_query
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.utils import DOT_FILES_DICT, add_temp_files_from_dict, remove_temp_files_from_list
-from xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.contentstore.content import XASSET_LOCATION_TAG
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.mongo.base import location_to_query
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.utils import DOT_FILES_DICT, add_temp_files_from_dict, remove_temp_files_from_list
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
 
 TEST_DATA_DIR = settings.COMMON_TEST_DATA_ROOT
 

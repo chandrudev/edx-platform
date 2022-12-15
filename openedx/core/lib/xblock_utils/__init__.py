@@ -28,10 +28,10 @@ from xblock.scorable import ScorableXBlockMixin
 
 from common.djangoapps import static_replace
 from common.djangoapps.edxmako.shortcuts import render_to_string
-from xmodule.seq_module import SequenceBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.util.xmodule_django import add_webpack_to_fragment  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.vertical_block import VerticalBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.x_module import (  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.seq_module import SequenceBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.vertical_block import VerticalBlock  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.x_module import (  # lint-amnesty, pylint: disable=wrong-import-order
     PREVIEW_VIEWS, STUDENT_VIEW, STUDIO_VIEW, shim_xmodule_js,
 )
 

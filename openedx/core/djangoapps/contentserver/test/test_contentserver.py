@@ -17,13 +17,13 @@ from django.test import RequestFactory
 from django.test.client import Client
 from django.test.utils import override_settings
 from opaque_keys import InvalidKeyError
-from xmodule.contentstore.django import contentstore
-from xmodule.contentstore.content import StaticContent, VERSIONED_ASSETS_PREFIX
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, SharedModuleStoreTestCase
-from xmodule.modulestore.xml_importer import import_course_from_xml
-from xmodule.assetstore.assetmgr import AssetManager
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent, VERSIONED_ASSETS_PREFIX
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.assetstore.assetmgr import AssetManager
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory, AdminFactory

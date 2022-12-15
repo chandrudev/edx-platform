@@ -14,7 +14,7 @@ from django.test.utils import override_settings
 from xblock.runtime import Mixologist
 
 from opaque_keys.edx.locator import CourseLocator
-from xmodule.services import ConfigurationService, SettingsService, TeamsConfigurationService
+from common.lib.xmodule.xmodule.services import ConfigurationService, SettingsService, TeamsConfigurationService
 from openedx.core.lib.teams_config import TeamsConfig
 
 

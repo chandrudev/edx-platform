@@ -11,9 +11,9 @@ from lxml import etree
 from opaque_keys.edx.keys import CourseKey
 from xblock.runtime import DictKeyValueStore, KvsFieldData
 
-from xmodule.mako_module import MakoDescriptorSystem
-from xmodule.modulestore.xml import CourseLocationManager
-from xmodule.x_module import XMLParsingSystem, policy_key
+from common.lib.xmodule.xmodule.mako_module import MakoDescriptorSystem
+from common.lib.xmodule.xmodule.modulestore.xml import CourseLocationManager
+from common.lib.xmodule.xmodule.x_module import XMLParsingSystem, policy_key
 
 
 class InMemorySystem(XMLParsingSystem, MakoDescriptorSystem):  # pylint: disable=abstract-method

@@ -13,15 +13,15 @@ from edx_toggles.toggles.testutils import override_waffle_flag
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock, XBlockAside
 
-from xmodule.contentstore.django import contentstore
-from xmodule.lti_module import LTIBlock
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import (
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.lti_module import LTIBlock
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase, upload_file_to_course,
 )
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
-from xmodule.modulestore.tests.test_asides import AsideTestType
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.test_asides import AsideTestType
 from cms.djangoapps.contentstore.utils import reverse_usage_url
 from cms.djangoapps.contentstore.toggles import INDIVIDUALIZE_ANONYMOUS_USER_ID
 from cms.djangoapps.xblock_config.models import StudioConfig

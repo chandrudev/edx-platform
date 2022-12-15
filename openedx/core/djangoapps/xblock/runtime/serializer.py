@@ -12,7 +12,7 @@ from fs.wrapfs import WrapFS
 from lxml.etree import Element
 from lxml.etree import tostring as etree_tostring
 
-from xmodule.xml_module import XmlParserMixin
+from common.lib.xmodule.xmodule.xml_module import XmlParserMixin
 
 log = logging.getLogger(__name__)
 

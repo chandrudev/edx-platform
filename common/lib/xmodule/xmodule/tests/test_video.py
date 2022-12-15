@@ -35,10 +35,10 @@ from opaque_keys.edx.locator import CourseLocator
 from xblock.field_data import DictFieldData
 from xblock.fields import ScopeIds
 
-from xmodule.tests import get_test_descriptor_system
-from xmodule.validation import StudioValidationMessage
-from xmodule.video_module import EXPORT_IMPORT_STATIC_DIR, VideoBlock, create_youtube_string
-from xmodule.video_module.transcripts_utils import download_youtube_subs, save_subs_to_store, save_to_store
+from common.lib.xmodule.xmodule.tests import get_test_descriptor_system
+from common.lib.xmodule.xmodule.validation import StudioValidationMessage
+from common.lib.xmodule.xmodule.video_module import EXPORT_IMPORT_STATIC_DIR, VideoBlock, create_youtube_string
+from common.lib.xmodule.xmodule.video_module.transcripts_utils import download_youtube_subs, save_subs_to_store, save_to_store
 
 from .test_import import DummySystem
 

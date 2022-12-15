@@ -16,14 +16,14 @@ from django.urls import reverse
 from django.utils import translation
 from edx_django_utils.cache import RequestCache
 from edx_toggles.toggles.testutils import override_waffle_flag
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import (
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_AMNESTY_MODULESTORE,
     ModuleStoreTestCase,
     SharedModuleStoreTestCase
 )
-from xmodule.modulestore.tests.factories import (
+from common.lib.xmodule.xmodule.modulestore.tests.factories import (
     CourseFactory,
     ItemFactory,
     check_mongo_calls

@@ -7,7 +7,7 @@ from xblock.core import XBlockAside
 from xblock.exceptions import InvalidScopeError
 from xblock.fields import Scope
 
-from xmodule.modulestore.inheritance import InheritanceKeyValueStore
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceKeyValueStore
 
 from .definition_lazy_loader import DefinitionLazyLoader
 

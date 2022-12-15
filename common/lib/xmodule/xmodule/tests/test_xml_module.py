@@ -11,16 +11,16 @@ from xblock.field_data import DictFieldData
 from xblock.fields import Any, Boolean, Dict, Float, Integer, List, Scope, String
 from xblock.runtime import DictKeyValueStore, KvsFieldData
 
-from xmodule.course_module import CourseBlock
-from xmodule.fields import Date, RelativeTime, Timedelta
-from xmodule.modulestore.inheritance import InheritanceKeyValueStore, InheritanceMixin, InheritingFieldData
-from xmodule.modulestore.split_mongo.split_mongo_kvs import SplitMongoKVS
-from xmodule.seq_module import SequenceBlock
-from xmodule.tests import get_test_descriptor_system
-from xmodule.tests.xml import XModuleXmlImportTest
-from xmodule.tests.xml.factories import CourseFactory, ProblemFactory, SequenceFactory
-from xmodule.x_module import XModuleMixin
-from xmodule.xml_module import XmlDescriptor, deserialize_field, serialize_field
+from common.lib.xmodule.xmodule.course_module import CourseBlock
+from common.lib.xmodule.xmodule.fields import Date, RelativeTime, Timedelta
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceKeyValueStore, InheritanceMixin, InheritingFieldData
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split_mongo_kvs import SplitMongoKVS
+from common.lib.xmodule.xmodule.seq_module import SequenceBlock
+from common.lib.xmodule.xmodule.tests import get_test_descriptor_system
+from common.lib.xmodule.xmodule.tests.xml import XModuleXmlImportTest
+from common.lib.xmodule.xmodule.tests.xml.factories import CourseFactory, ProblemFactory, SequenceFactory
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.xml_module import XmlDescriptor, deserialize_field, serialize_field
 
 
 class CrazyJsonString(String):
@@ -35,7 +35,7 @@ class TestFields:
     due = Date(scope=Scope.settings)
     # Will not be returned by editable_metadata_fields because is not Scope.settings.
     student_answers = Dict(scope=Scope.user_state)
-    # Will be returned, and can override the inherited value from XModule.
+    # Will be returned, and can override the inherited value from common.lib.xmodule.xmodule.
     display_name = String(
         scope=Scope.settings,
         default='local default',

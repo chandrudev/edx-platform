@@ -4,8 +4,8 @@ import re
 
 from lxml import etree
 from xblock.fields import Scope, String
-from xmodule.editing_module import XMLEditingDescriptor  # pylint: disable=unused-import
-from xmodule.xml_module import XmlDescriptor  # pylint: disable=unused-import
+from common.lib.xmodule.xmodule.editing_module import XMLEditingDescriptor  # pylint: disable=unused-import
+from common.lib.xmodule.xmodule.xml_module import XmlDescriptor  # pylint: disable=unused-import
 
 from .exceptions import SerializationError
 
@@ -16,7 +16,7 @@ PRE_TAG_REGEX = re.compile(r'<pre\b[^>]*>(?:(?=([^<]+))\1|<(?!pre\b[^>]*>))*?</p
 
 class RawMixin:
     """
-    Common code between RawDescriptor and XBlocks converted from XModules.
+    Common code between RawDescriptor and XBlocks converted from common.lib.xmodule.xmodules.
     """
     resources_dir = None
 
@@ -87,7 +87,7 @@ class RawMixin:
 
 class EmptyDataRawMixin:
     """
-    Common code between EmptyDataRawDescriptor and XBlocks converted from XModules.
+    Common code between EmptyDataRawDescriptor and XBlocks converted from common.lib.xmodule.xmodules.
     """
     resources_dir = None
 

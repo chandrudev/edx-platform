@@ -10,8 +10,8 @@ from celery.states import REVOKED
 import ddt
 from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from common.djangoapps.student.tests.factories import (
     GlobalStaffFactory,

@@ -39,12 +39,12 @@ from xblock.exceptions import NoSuchHandlerError, NoSuchViewError
 from xblock.reference.plugins import FSService
 from xblock.runtime import KvsFieldData
 
-from xmodule.contentstore.django import contentstore
-from xmodule.error_module import ErrorBlock, NonStaffErrorBlock
-from xmodule.exceptions import NotFoundError, ProcessingError
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.util.sandboxing import SandboxService
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.error_module import ErrorBlock, NonStaffErrorBlock
+from common.lib.xmodule.xmodule.exceptions import NotFoundError, ProcessingError
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.util.sandboxing import SandboxService
 from common.djangoapps.static_replace.services import ReplaceURLService
 from common.djangoapps.static_replace.wrapper import replace_urls_wrapper
 from common.djangoapps.xblock_django.constants import ATTR_KEY_USER_ID

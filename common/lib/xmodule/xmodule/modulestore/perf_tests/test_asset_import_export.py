@@ -14,12 +14,12 @@ import pytest
 from bson.code import Code
 from path import Path as path
 
-from xmodule.assetstore import AssetMetadata
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.perf_tests.generate_asset_xml import ASSET_XSD_FILE, make_asset_xml, validate_xml
-from xmodule.modulestore.tests.utils import MODULESTORE_SETUPS, SHORT_NAME_MAP, TEST_DATA_DIR
-from xmodule.modulestore.xml_exporter import export_course_to_xml
-from xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.perf_tests.generate_asset_xml import ASSET_XSD_FILE, make_asset_xml, validate_xml
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MODULESTORE_SETUPS, SHORT_NAME_MAP, TEST_DATA_DIR
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
 
 # Number of assets saved in the modulestore per test run.
 ASSET_AMOUNT_PER_TEST = (0, 1, 10, 100, 1000, 10000)

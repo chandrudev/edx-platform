@@ -10,8 +10,8 @@ from django.http import HttpResponse
 from django.utils.translation import gettext as _
 from opaque_keys.edx.keys import UsageKey
 from xblock.core import XBlock
-from xmodule.modulestore.django import modulestore
-from xmodule.tabs import StaticTab
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.tabs import StaticTab
 
 from cms.djangoapps.models.settings.course_grading import CourseGradingModel
 from common.djangoapps.student import auth

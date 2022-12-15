@@ -6,8 +6,8 @@ Tests for discussion API permission logic
 import itertools
 
 import ddt
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from lms.djangoapps.discussion.rest_api.permissions import (
     can_delete,

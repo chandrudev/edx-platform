@@ -45,9 +45,9 @@ from openedx.core.djangoapps.django_comment_common.models import (
     FORUM_ROLE_ADMINISTRATOR, FORUM_ROLE_MODERATOR, FORUM_ROLE_GROUP_MODERATOR)
 from openedx.core.lib.cache_utils import request_cached
 from openedx.core.lib.courses import get_course_by_id
-from xmodule.modulestore.django import modulestore
-from xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
-from xmodule.partitions.partitions_service import PartitionService
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
+from common.lib.xmodule.xmodule.partitions.partitions_service import PartitionService
 
 log = logging.getLogger(__name__)
 

@@ -73,20 +73,20 @@ from webob import Response
 from web_fragments.fragment import Fragment
 from xblock.core import List, Scope, String, XBlock
 from xblock.fields import Boolean, Float
-from xmodule.mako_module import MakoTemplateBlockBase
+from common.lib.xmodule.xmodule.mako_module import MakoTemplateBlockBase
 
 from openedx.core.djangolib.markup import HTML, Text
-from xmodule.editing_module import EditingMixin
+from common.lib.xmodule.xmodule.editing_module import EditingMixin
 
 from common.djangoapps.xblock_django.constants import (
     ATTR_KEY_ANONYMOUS_USER_ID,
     ATTR_KEY_USER_ROLE,
 )
-from xmodule.lti_2_util import LTI20BlockMixin, LTIError
-from xmodule.raw_module import EmptyDataRawMixin
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.xml_module import XmlMixin
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.lti_2_util import LTI20BlockMixin, LTIError
+from common.lib.xmodule.xmodule.raw_module import EmptyDataRawMixin
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.xml_module import XmlMixin
+from common.lib.xmodule.xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     shim_xmodule_js,

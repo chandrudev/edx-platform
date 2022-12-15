@@ -23,13 +23,13 @@ from xblock.fields import ScopeIds
 from xblock.runtime import DictKeyValueStore
 
 from common.djangoapps.util.monitoring import monitor_import_failure
-from xmodule.error_module import ErrorBlock
-from xmodule.errortracker import exc_info_to_str, make_error_tracker
-from xmodule.mako_module import MakoDescriptorSystem
-from xmodule.modulestore import COURSE_ROOT, LIBRARY_ROOT, ModuleStoreEnum, ModuleStoreReadBase
-from xmodule.modulestore.xml_exporter import DEFAULT_CONTENT_FIELDS
-from xmodule.tabs import CourseTabList
-from xmodule.x_module import (  # lint-amnesty, pylint: disable=unused-import
+from common.lib.xmodule.xmodule.error_module import ErrorBlock
+from common.lib.xmodule.xmodule.errortracker import exc_info_to_str, make_error_tracker
+from common.lib.xmodule.xmodule.mako_module import MakoDescriptorSystem
+from common.lib.xmodule.xmodule.modulestore import COURSE_ROOT, LIBRARY_ROOT, ModuleStoreEnum, ModuleStoreReadBase
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import DEFAULT_CONTENT_FIELDS
+from common.lib.xmodule.xmodule.tabs import CourseTabList
+from common.lib.xmodule.xmodule.x_module import (  # lint-amnesty, pylint: disable=unused-import
     AsideKeyGenerator,
     OpaqueKeyReader,
     XMLParsingSystem,

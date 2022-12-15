@@ -10,7 +10,7 @@ tests (https://code.djangoproject.com/ticket/11505).
 
 from django.core.cache import caches
 
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, SharedModuleStoreTestCase
 
 
 class CacheCheckMixin:

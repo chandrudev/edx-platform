@@ -17,10 +17,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError, NoPathToItem
-from xmodule.modulestore.search import path_to_location
-from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError, NoPathToItem
+from common.lib.xmodule.xmodule.modulestore.search import path_to_location
+from common.lib.xmodule.xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.util.views import expose_header

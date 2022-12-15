@@ -10,7 +10,7 @@ from django.test import TestCase
 from edx_django_utils.cache import RequestCache
 from opaque_keys.edx.keys import CourseKey
 from testfixtures import LogCapture
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from common.djangoapps.student.api import get_course_access_role
 from common.djangoapps.student.roles import CourseStaffRole

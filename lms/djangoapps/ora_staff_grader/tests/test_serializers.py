@@ -5,7 +5,7 @@ from unittest.mock import Mock, MagicMock, patch
 
 import ddt
 from django.test import TestCase
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 
 from lms.djangoapps.ora_staff_grader.errors import ERR_UNKNOWN, ErrorSerializer
 from lms.djangoapps.ora_staff_grader.serializers import (

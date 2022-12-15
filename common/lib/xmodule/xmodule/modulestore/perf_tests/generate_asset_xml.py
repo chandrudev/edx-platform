@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from lxml import etree
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
 
 try:
     import click

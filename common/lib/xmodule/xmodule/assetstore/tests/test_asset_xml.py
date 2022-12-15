@@ -9,8 +9,8 @@ from lxml import etree
 from opaque_keys.edx.locator import CourseLocator
 from path import Path as path
 
-from xmodule.assetstore import AssetMetadata
-from xmodule.modulestore.tests.test_assetstore import AssetStoreTestData
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.modulestore.tests.test_assetstore import AssetStoreTestData
 
 
 class TestAssetXml(unittest.TestCase):

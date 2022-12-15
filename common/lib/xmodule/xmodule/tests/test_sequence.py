@@ -18,12 +18,12 @@ from web_fragments.fragment import Fragment
 
 from edx_toggles.toggles.testutils import override_waffle_flag
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
-from xmodule.seq_module import TIMED_EXAM_GATING_WAFFLE_FLAG, SequenceBlock
-from xmodule.tests import get_test_system
-from xmodule.tests.helpers import StubUserService
-from xmodule.tests.xml import XModuleXmlImportTest
-from xmodule.tests.xml import factories as xml
-from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
+from common.lib.xmodule.xmodule.seq_module import TIMED_EXAM_GATING_WAFFLE_FLAG, SequenceBlock
+from common.lib.xmodule.xmodule.tests import get_test_system
+from common.lib.xmodule.xmodule.tests.helpers import StubUserService
+from common.lib.xmodule.xmodule.tests.xml import XModuleXmlImportTest
+from common.lib.xmodule.xmodule.tests.xml import factories as xml
+from common.lib.xmodule.xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
 
 TODAY = now()
 DUE_DATE = TODAY + timedelta(days=7)

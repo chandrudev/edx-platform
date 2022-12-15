@@ -31,21 +31,21 @@ from capa.capa_problem import LoncapaProblem, LoncapaSystem
 from capa.inputtypes import Status
 from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
 from capa.util import convert_files_to_filenames, get_inner_html_from_xpath
-from xmodule.contentstore.django import contentstore
-from xmodule.editing_module import EditingMixin
-from xmodule.exceptions import NotFoundError, ProcessingError
-from xmodule.graders import ShowCorrectness
-from xmodule.raw_module import RawMixin
-from xmodule.util.sandboxing import get_python_lib_zip
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.editing_module import EditingMixin
+from common.lib.xmodule.xmodule.exceptions import NotFoundError, ProcessingError
+from common.lib.xmodule.xmodule.graders import ShowCorrectness
+from common.lib.xmodule.xmodule.raw_module import RawMixin
+from common.lib.xmodule.xmodule.util.sandboxing import get_python_lib_zip
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     XModuleMixin,
     XModuleToXBlockMixin,
     shim_xmodule_js
 )
-from xmodule.xml_module import XmlMixin
+from common.lib.xmodule.xmodule.xml_module import XmlMixin
 from common.djangoapps.xblock_django.constants import (
     ATTR_KEY_ANONYMOUS_USER_ID,
     ATTR_KEY_USER_IS_STAFF,

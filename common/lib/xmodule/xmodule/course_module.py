@@ -20,12 +20,12 @@ from xblock.fields import Boolean, Dict, Float, Integer, List, Scope, String
 from openedx.core.djangoapps.video_pipeline.models import VideoUploadsEnabledByDefault
 from openedx.core.lib.license import LicenseMixin
 from openedx.core.lib.teams_config import TeamsConfig  # lint-amnesty, pylint: disable=unused-import
-from xmodule import course_metadata_utils
-from xmodule.course_metadata_utils import DEFAULT_GRADING_POLICY, DEFAULT_START_DATE
-from xmodule.data import CertificatesDisplayBehaviors
-from xmodule.graders import grader_from_conf
-from xmodule.seq_module import SequenceBlock
-from xmodule.tabs import CourseTabList, InvalidTabsException
+from common.lib.xmodule.xmodule import course_metadata_utils
+from common.lib.xmodule.xmodule.course_metadata_utils import DEFAULT_GRADING_POLICY, DEFAULT_START_DATE
+from common.lib.xmodule.xmodule.data import CertificatesDisplayBehaviors
+from common.lib.xmodule.xmodule.graders import grader_from_conf
+from common.lib.xmodule.xmodule.seq_module import SequenceBlock
+from common.lib.xmodule.xmodule.tabs import CourseTabList, InvalidTabsException
 
 from .fields import Date
 from .modulestore.exceptions import InvalidProctoringProvider

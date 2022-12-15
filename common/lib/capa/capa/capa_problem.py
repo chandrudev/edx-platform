@@ -36,7 +36,7 @@ from capa.safe_exec import safe_exec
 from capa.util import contextualize_text, convert_files_to_filenames, get_course_id_from_capa_module
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.core.lib.edx_six import get_gettext
-from xmodule.stringify import stringify_children
+from common.lib.xmodule.xmodule.stringify import stringify_children
 
 # extra things displayed after "show answers" is pressed
 solution_tags = ['solution']

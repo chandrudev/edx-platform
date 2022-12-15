@@ -4,16 +4,16 @@ Module for the dual-branch fall-back Draft->Published Versioning ModuleStore
 from edx_django_utils.monitoring import function_trace
 from opaque_keys.edx.locator import CourseLocator, LibraryLocator, LibraryUsageLocator
 
-from xmodule.exceptions import InvalidVersionError
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.draft_and_published import (
+from common.lib.xmodule.xmodule.exceptions import InvalidVersionError
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import (
     DIRECT_ONLY_CATEGORIES,
     ModuleStoreDraftAndPublished,
     UnsupportedRevisionError
 )
-from xmodule.modulestore.exceptions import InsufficientSpecificationError, ItemNotFoundError
-from xmodule.modulestore.split_mongo import BlockKey
-from xmodule.modulestore.split_mongo.split import EXCLUDE_ALL, SplitMongoModuleStore
+from common.lib.xmodule.xmodule.modulestore.exceptions import InsufficientSpecificationError, ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.split_mongo import BlockKey
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split import EXCLUDE_ALL, SplitMongoModuleStore
 
 
 class DraftVersioningModuleStore(SplitMongoModuleStore, ModuleStoreDraftAndPublished):

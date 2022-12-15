@@ -6,8 +6,8 @@ mechanism.
 
 from opaque_keys.edx.locator import DefinitionLocator, LocalId
 
-from xmodule.modulestore.split_mongo import BlockKey
-from xmodule.x_module import AsideKeyGenerator, OpaqueKeyReader
+from common.lib.xmodule.xmodule.modulestore.split_mongo import BlockKey
+from common.lib.xmodule.xmodule.x_module import AsideKeyGenerator, OpaqueKeyReader
 
 
 # TODO: Migrate split_mongo to use this class for all key mapping/creation.

@@ -5,7 +5,7 @@ Unit tests for the Course Blocks tasks
 
 from unittest.mock import patch
 
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from ..tasks import update_course_in_cache_v2
 

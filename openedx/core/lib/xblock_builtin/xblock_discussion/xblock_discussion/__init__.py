@@ -14,7 +14,7 @@ from xblock.core import XBlock
 from xblock.fields import UNIQUE_ID, Scope, String
 from xblockutils.resources import ResourceLoader
 from xblockutils.studio_editable import StudioEditableXBlockMixin
-from xmodule.xml_module import XmlParserMixin
+from common.lib.xmodule.xmodule.xml_module import XmlParserMixin
 
 from lms.djangoapps.discussion.toggles import ENABLE_DISCUSSIONS_MFE
 from openedx.core.djangoapps.discussions.url_helpers import get_discussions_mfe_topic_url

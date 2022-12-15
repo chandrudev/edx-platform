@@ -5,7 +5,7 @@ Tests for xmodule.x_module.ResourceTemplates
 
 import unittest
 
-from xmodule.x_module import ResourceTemplates
+from common.lib.xmodule.xmodule.x_module import ResourceTemplates
 
 
 class ResourceTemplatesTests(unittest.TestCase):

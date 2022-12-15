@@ -13,11 +13,11 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from pyquery import PyQuery as pq
-from xmodule.modulestore.tests.django_utils import (
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase, SharedModuleStoreTestCase,
 )
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
-from xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
 
 from lms.djangoapps.course_api.blocks.api import get_blocks
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory

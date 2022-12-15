@@ -5,7 +5,7 @@ Higher order functions built on the BlockStructureManager to interact with a dja
 
 from django.core.cache import cache
 
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from .manager import BlockStructureManager
 

@@ -8,7 +8,7 @@ import logging
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import Boolean, List, Scope, String
-from xmodule.studio_editable import StudioEditableModule
+from common.lib.xmodule.xmodule.studio_editable import StudioEditableModule
 
 log = logging.getLogger(__name__)
 

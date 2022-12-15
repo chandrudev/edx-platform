@@ -16,11 +16,11 @@ import path
 from opaque_keys.edx.keys import AssetKey
 from opaque_keys.edx.locator import AssetLocator, CourseLocator
 
-from xmodule.contentstore.content import StaticContent
-from xmodule.contentstore.mongo import MongoContentStore
-from xmodule.exceptions import NotFoundError
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
-from xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.contentstore.mongo import MongoContentStore
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.tests import DATA_DIR
 
 log = logging.getLogger(__name__)
 

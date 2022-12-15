@@ -5,8 +5,8 @@ Tests for exporting course metadata for all courses.
 from unittest.mock import patch
 
 from edx_toggles.toggles.testutils import override_waffle_flag
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from cms.djangoapps.export_course_metadata.toggles import EXPORT_COURSE_METADATA_FLAG
 

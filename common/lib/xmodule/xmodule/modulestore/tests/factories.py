@@ -21,11 +21,11 @@ from opaque_keys.edx.keys import UsageKey
 from opaque_keys.edx.locator import BlockUsageLocator
 from xblock.core import XBlock
 
-from xmodule.course_module import Textbook
-from xmodule.modulestore import ModuleStoreEnum, prefer_xmodules
-from xmodule.modulestore.mixed import strip_key
-from xmodule.modulestore.tests.sample_courses import TOY_BLOCK_INFO_TREE, default_block_info_tree
-from xmodule.tabs import CourseTab
+from common.lib.xmodule.xmodule.course_module import Textbook
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum, prefer_xmodules
+from common.lib.xmodule.xmodule.modulestore.mixed import strip_key
+from common.lib.xmodule.xmodule.modulestore.tests.sample_courses import TOY_BLOCK_INFO_TREE, default_block_info_tree
+from common.lib.xmodule.xmodule.tabs import CourseTab
 
 
 LOG = logging.getLogger(__name__)
@@ -89,7 +89,7 @@ class XModuleFactory(Factory):
         msg = "XMODULE_FACTORY_LOCK not enabled. Please use ModuleStoreTestCase as your test baseclass."
         assert XMODULE_FACTORY_LOCK.is_enabled(), msg
 
-        from xmodule.modulestore.django import modulestore
+        from common.lib.xmodule.xmodule.modulestore.django import modulestore
         return modulestore()
 
 

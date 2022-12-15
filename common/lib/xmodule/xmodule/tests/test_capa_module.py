@@ -32,8 +32,8 @@ from capa import responsetypes
 from capa.correctmap import CorrectMap
 from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
 from capa.xqueue_interface import XQueueInterface
-from xmodule.capa_module import ComplexEncoder, ProblemBlock
-from xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.capa_module import ComplexEncoder, ProblemBlock
+from common.lib.xmodule.xmodule.tests import DATA_DIR
 
 from ..capa_module import RANDOMIZATION, SHOWANSWER
 from . import get_test_system

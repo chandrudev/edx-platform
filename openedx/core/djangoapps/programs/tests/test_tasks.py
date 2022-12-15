@@ -18,7 +18,7 @@ from django.conf import settings
 from django.test import TestCase, override_settings
 from edx_rest_api_client.auth import SuppliedJwtAuth
 from requests.exceptions import HTTPError
-from xmodule.data import CertificatesDisplayBehaviors  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.data import CertificatesDisplayBehaviors  # lint-amnesty, pylint: disable=wrong-import-order
 
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory
 from common.djangoapps.student.tests.factories import UserFactory

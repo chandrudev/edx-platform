@@ -23,18 +23,18 @@ import ddt
 from path import Path as path
 
 from openedx.core.lib.tests import attr
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.tests.utils import (
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.tests.utils import (
     CONTENTSTORE_SETUPS,
     MODULESTORE_SETUPS,
     SPLIT_MODULESTORE_SETUP,
     TEST_DATA_DIR,
     MongoContentstoreBuilder,
 )
-from xmodule.modulestore.xml_exporter import export_course_to_xml
-from xmodule.modulestore.xml_importer import import_course_from_xml
-from xmodule.partitions.tests.test_partitions import PartitionTestCase
-from xmodule.tests import CourseComparisonTest
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.partitions.tests.test_partitions import PartitionTestCase
+from common.lib.xmodule.xmodule.tests import CourseComparisonTest
 
 COURSE_DATA_NAMES = (
     'toy',

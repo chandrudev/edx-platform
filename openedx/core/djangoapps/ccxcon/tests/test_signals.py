@@ -7,7 +7,7 @@ from unittest import mock
 from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.modulestore.django import SignalHandler, modulestore
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler, modulestore
 
 
 class CCXConSignalTestCase(TestCase):

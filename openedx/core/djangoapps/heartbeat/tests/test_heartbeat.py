@@ -10,8 +10,8 @@ from django.db.utils import DatabaseError
 from django.test.client import Client
 from django.urls import reverse
 
-from xmodule.exceptions import HeartbeatFailure
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.exceptions import HeartbeatFailure
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 
 class HeartbeatTestCase(ModuleStoreTestCase):

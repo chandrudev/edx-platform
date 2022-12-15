@@ -18,13 +18,13 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from django.urls import reverse
 from opaque_keys.edx.keys import CourseKey
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import _get_modulestore_branch_setting, modulestore
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
-from xmodule.modulestore.xml_importer import import_course_from_xml
-from xmodule.tests.xml import XModuleXmlImportTest
-from xmodule.tests.xml import factories as xml
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import _get_modulestore_branch_setting, modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, check_mongo_calls
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.tests.xml import XModuleXmlImportTest
+from common.lib.xmodule.xmodule.tests.xml import factories as xml
 
 from lms.djangoapps.courseware.courses import (
     course_open_for_self_enrollment,

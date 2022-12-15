@@ -11,9 +11,9 @@ from edx_rest_api_client.client import OAuthAPIClient
 from oauth2_provider.models import Application
 from pytz import utc  # lint-amnesty, pylint: disable=wrong-import-order
 from rest_framework import status
-from xmodule.partitions.partitions import \
+from common.lib.xmodule.xmodule.partitions.partitions import \
     ENROLLMENT_TRACK_PARTITION_ID  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.partitions.partitions_service import PartitionService  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.partitions.partitions_service import PartitionService  # lint-amnesty, pylint: disable=wrong-import-order
 
 from common.djangoapps.course_modes.models import CourseMode
 from lms.djangoapps.commerce.utils import EcommerceService

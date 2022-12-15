@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
 
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 from ..api import get_cache
 from ..block_structure import BlockStructureBlockData

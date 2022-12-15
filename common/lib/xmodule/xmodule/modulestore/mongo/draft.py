@@ -15,23 +15,23 @@ from opaque_keys.edx.locator import BlockUsageLocator
 from xblock.core import XBlock
 
 from openedx.core.lib.cache_utils import request_cached
-from xmodule.exceptions import InvalidVersionError
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES, UnsupportedRevisionError
-from xmodule.modulestore.exceptions import (
+from common.lib.xmodule.xmodule.exceptions import InvalidVersionError
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES, UnsupportedRevisionError
+from common.lib.xmodule.xmodule.modulestore.exceptions import (
     DuplicateCourseError,
     DuplicateItemError,
     InvalidBranchSetting,
     ItemNotFoundError
 )
-from xmodule.modulestore.mongo.base import (
+from common.lib.xmodule.xmodule.modulestore.mongo.base import (
     SORT_REVISION_FAVOR_DRAFT,
     MongoModuleStore,
     MongoRevisionKey,
     as_draft,
     as_published
 )
-from xmodule.modulestore.store_utilities import rewrite_nonportable_content_links
+from common.lib.xmodule.xmodule.modulestore.store_utilities import rewrite_nonportable_content_links
 
 log = logging.getLogger(__name__)
 

@@ -23,8 +23,8 @@ from xblock.exceptions import NoSuchServiceError
 from xblock.fields import Boolean, Integer, List, Scope, String
 
 from edx_toggles.toggles import WaffleFlag, SettingDictToggle
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     shim_xmodule_js,

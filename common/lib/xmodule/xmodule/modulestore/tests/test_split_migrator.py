@@ -11,8 +11,8 @@ from unittest import mock
 from xblock.fields import UNIQUE_ID, Reference, ReferenceList, ReferenceValueDict
 
 from openedx.core.lib.tests import attr
-from xmodule.modulestore.split_migrator import SplitMigrator
-from xmodule.modulestore.tests.test_split_w_old_mongo import SplitWMongoCourseBootstrapper
+from common.lib.xmodule.xmodule.modulestore.split_migrator import SplitMigrator
+from common.lib.xmodule.xmodule.modulestore.tests.test_split_w_old_mongo import SplitWMongoCourseBootstrapper
 
 
 @attr('mongo')

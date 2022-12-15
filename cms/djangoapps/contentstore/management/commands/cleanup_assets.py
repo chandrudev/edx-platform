@@ -8,7 +8,7 @@ import logging
 
 from django.core.management.base import BaseCommand
 
-from xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
 
 log = logging.getLogger(__name__)
 

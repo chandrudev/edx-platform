@@ -1,6 +1,6 @@
 # lint-amnesty, pylint: disable=missing-module-docstring
 
-from xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
 
 from .django import contentstore
 

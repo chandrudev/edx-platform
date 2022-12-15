@@ -29,10 +29,10 @@ from organizations.tests.factories import OrganizationFactory
 from pytz import UTC
 from rest_framework import status
 from social_django.models import UserSocialAuth
-from xmodule.modulestore.tests.django_utils import (
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import (
     TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase, SharedModuleStoreTestCase,
 )
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory

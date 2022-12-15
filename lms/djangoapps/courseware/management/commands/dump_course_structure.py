@@ -26,8 +26,8 @@ from opaque_keys.edx.keys import CourseKey
 from xblock.fields import Scope
 
 from xblock_discussion import DiscussionXBlock
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.inheritance import compute_inherited_metadata, own_metadata
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.inheritance import compute_inherited_metadata, own_metadata
 
 FILTER_LIST = ['xml_attributes']
 INHERITED_FILTER_LIST = ['children', 'xml_attributes']

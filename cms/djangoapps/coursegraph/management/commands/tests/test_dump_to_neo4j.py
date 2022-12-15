@@ -10,8 +10,8 @@ import ddt
 from django.core.management import call_command
 from django.test.utils import override_settings
 from edx_toggles.toggles.testutils import override_waffle_switch
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 import openedx.core.djangoapps.content.block_structure.config as block_structure_config
 from openedx.core.djangoapps.content.block_structure.signals import update_block_structure_on_course_publish

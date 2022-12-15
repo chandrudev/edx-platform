@@ -10,9 +10,9 @@ import ddt
 from django.conf import settings
 from edx_proctoring.api import get_all_exams_for_course, get_review_policy_by_exam_id
 from pytz import UTC
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
 from cms.djangoapps.contentstore.signals.handlers import listen_for_course_publish
 from common.djangoapps.student.tests.factories import UserFactory

@@ -14,7 +14,7 @@ from common.djangoapps.student.tests.factories import (
     UserProfileFactory
 )
 from openedx.features.name_affirmation_api.utils import is_name_affirmation_installed
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
 
 name_affirmation_installed = is_name_affirmation_installed()
 if name_affirmation_installed:

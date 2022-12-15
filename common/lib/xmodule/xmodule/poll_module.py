@@ -20,17 +20,17 @@ from lxml import etree
 from openedx.core.djangolib.markup import Text, HTML
 from xblock.core import XBlock
 from xblock.fields import Boolean, Dict, List, Scope, String  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.mako_module import MakoTemplateBlockBase
-from xmodule.stringify import stringify_children
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.mako_module import MakoTemplateBlockBase
+from common.lib.xmodule.xmodule.stringify import stringify_children
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     shim_xmodule_js,
     XModuleMixin,
     XModuleToXBlockMixin,
 )
-from xmodule.xml_module import XmlMixin
+from common.lib.xmodule.xmodule.xml_module import XmlMixin
 
 log = logging.getLogger(__name__)
 _ = lambda text: text

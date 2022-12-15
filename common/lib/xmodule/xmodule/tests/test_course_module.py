@@ -18,9 +18,9 @@ from xblock.runtime import DictKeyValueStore, KvsFieldData
 
 from openedx.core.lib.teams_config import TeamsConfig, DEFAULT_COURSE_RUN_MAX_TEAM_SIZE
 import xmodule.course_module
-from xmodule.data import CertificatesDisplayBehaviors
-from xmodule.modulestore.xml import ImportSystem, XMLModuleStore
-from xmodule.modulestore.exceptions import InvalidProctoringProvider
+from common.lib.xmodule.xmodule.data import CertificatesDisplayBehaviors
+from common.lib.xmodule.xmodule.modulestore.xml import ImportSystem, XMLModuleStore
+from common.lib.xmodule.xmodule.modulestore.exceptions import InvalidProctoringProvider
 
 ORG = 'test_org'
 COURSE = 'test_course'

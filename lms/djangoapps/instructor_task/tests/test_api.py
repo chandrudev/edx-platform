@@ -12,7 +12,7 @@ import pytz
 import ddt
 from testfixtures import LogCapture
 from celery.states import FAILURE, SUCCESS
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 from common.djangoapps.student.tests.factories import UserFactory
 from common.test.utils import normalize_repr

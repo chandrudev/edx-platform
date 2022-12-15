@@ -24,8 +24,8 @@ from openedx.features.course_experience import (
 )
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.roles import CourseBetaTesterRole
-from xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-order
-from xmodule.course_module import COURSE_VISIBILITY_PUBLIC  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.course_module import COURSE_VISIBILITY_PUBLIC  # lint-amnesty, pylint: disable=wrong-import-order
 
 DEBUG_ACCESS = False
 log = getLogger(__name__)
@@ -153,7 +153,7 @@ def check_public_access(course, visibilities):
     This checks if the unenrolled access waffle flag for the course is set
     and the course visibility matches any of the input visibilities.
 
-    The "visibilities" argument is one of these constants from xmodule.course_module:
+    The "visibilities" argument is one of these constants from common.lib.xmodule.xmodule.course_module:
     - COURSE_VISIBILITY_PRIVATE
     - COURSE_VISIBILITY_PUBLIC
     - COURSE_VISIBILITY_PUBLIC_OUTLINE

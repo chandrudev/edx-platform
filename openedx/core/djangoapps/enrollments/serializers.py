@@ -6,7 +6,7 @@ Serializers for all Course Enrollment related return objects.
 from asyncore import read
 import logging
 from opaque_keys.edx.keys import CourseKey
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 from lms.djangoapps.courseware.courses import (
     get_course_with_access,get_permission_for_course_about,)
 from django.db import transaction

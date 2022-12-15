@@ -7,8 +7,8 @@ from unittest.mock import patch
 import pytest
 from pymongo.errors import ConnectionFailure
 
-from xmodule.exceptions import HeartbeatFailure
-from xmodule.modulestore.split_mongo.mongo_connection import MongoPersistenceBackend
+from common.lib.xmodule.xmodule.exceptions import HeartbeatFailure
+from common.lib.xmodule.xmodule.modulestore.split_mongo.mongo_connection import MongoPersistenceBackend
 
 
 class TestHeartbeatFailureException(unittest.TestCase):

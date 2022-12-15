@@ -17,15 +17,15 @@ from web_fragments.fragment import Fragment
 from webob import Response
 from xblock.core import XBlock
 from xblock.fields import Integer, ReferenceValueDict, Scope, String
-from xmodule.mako_module import MakoTemplateBlockBase
-from xmodule.modulestore.inheritance import UserPartitionList
-from xmodule.progress import Progress
-from xmodule.seq_module import ProctoringFields, SequenceMixin
-from xmodule.studio_editable import StudioEditableBlock
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.validation import StudioValidation, StudioValidationMessage
-from xmodule.xml_module import XmlMixin
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.mako_module import MakoTemplateBlockBase
+from common.lib.xmodule.xmodule.modulestore.inheritance import UserPartitionList
+from common.lib.xmodule.xmodule.progress import Progress
+from common.lib.xmodule.xmodule.seq_module import ProctoringFields, SequenceMixin
+from common.lib.xmodule.xmodule.studio_editable import StudioEditableBlock
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.validation import StudioValidation, StudioValidationMessage
+from common.lib.xmodule.xmodule.xml_module import XmlMixin
+from common.lib.xmodule.xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     shim_xmodule_js,

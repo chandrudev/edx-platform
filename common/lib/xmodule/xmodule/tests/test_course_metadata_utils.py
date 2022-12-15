@@ -9,12 +9,12 @@ from unittest import TestCase
 
 from pytz import utc
 import pytest
-from xmodule.block_metadata_utils import (
+from common.lib.xmodule.xmodule.block_metadata_utils import (
     display_name_with_default,
     display_name_with_default_escaped,
     url_name_for_block
 )
-from xmodule.course_metadata_utils import (
+from common.lib.xmodule.xmodule.course_metadata_utils import (
     DEFAULT_START_DATE,
     clean_course_key,
     course_start_date_is_default,
@@ -22,7 +22,7 @@ from xmodule.course_metadata_utils import (
     has_course_started,
     number_for_course_location
 )
-from xmodule.modulestore.tests.utils import (
+from common.lib.xmodule.xmodule.modulestore.tests.utils import (
     MixedModulestoreBuilder,
     MongoModulestoreBuilder,
     VersioningModulestoreBuilder

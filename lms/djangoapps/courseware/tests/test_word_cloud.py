@@ -4,7 +4,7 @@
 import json
 from operator import itemgetter
 
-from xmodule.x_module import STUDENT_VIEW
+from common.lib.xmodule.xmodule.x_module import STUDENT_VIEW
 
 from .helpers import BaseTestXmodule
 

@@ -20,7 +20,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from common.djangoapps.util.file import store_uploaded_file
 from lms.djangoapps.course_goals.models import UserActivity

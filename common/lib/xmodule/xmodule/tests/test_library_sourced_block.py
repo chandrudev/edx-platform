@@ -4,10 +4,10 @@ Tests for Source from Library XBlock
 
 from openedx.core.djangoapps.content_libraries.tests.base import ContentLibrariesRestApiTest
 from common.djangoapps.student.roles import CourseInstructorRole
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
-from xmodule.tests import get_test_system
-from xmodule.x_module import STUDENT_VIEW  # lint-amnesty, pylint: disable=unused-import
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
+from common.lib.xmodule.xmodule.tests import get_test_system
+from common.lib.xmodule.xmodule.x_module import STUDENT_VIEW  # lint-amnesty, pylint: disable=unused-import
 
 
 class LibrarySourcedBlockTestCase(ContentLibrariesRestApiTest):

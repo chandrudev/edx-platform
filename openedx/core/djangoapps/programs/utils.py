@@ -18,7 +18,7 @@ from django.utils.functional import cached_property
 from opaque_keys.edx.keys import CourseKey
 from pytz import utc
 from requests.exceptions import RequestException
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from common.djangoapps.course_modes.api import get_paid_modes_for_course
 from common.djangoapps.course_modes.models import CourseMode

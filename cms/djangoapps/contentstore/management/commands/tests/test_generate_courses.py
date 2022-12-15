@@ -9,8 +9,8 @@ from unittest import mock
 import ddt
 from django.core.management import CommandError, call_command
 
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 
 @ddt.ddt

@@ -12,9 +12,9 @@ from opaque_keys.edx.keys import AssetKey, CourseKey
 from opaque_keys.edx.locator import AssetLocator, LibraryLocatorV2
 from PIL import Image
 
-from xmodule.assetstore.assetmgr import AssetManager
-from xmodule.exceptions import NotFoundError
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.assetstore.assetmgr import AssetManager
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 STATIC_CONTENT_VERSION = 1
 XASSET_LOCATION_TAG = 'c4x'

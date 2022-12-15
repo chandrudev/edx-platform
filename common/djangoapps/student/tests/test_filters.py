@@ -7,8 +7,8 @@ from django.urls import reverse
 from openedx_filters import PipelineStep
 from openedx_filters.learning.filters import DashboardRenderStarted, CourseEnrollmentStarted, CourseUnenrollmentStarted
 from rest_framework import status
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from common.djangoapps.student.models import CourseEnrollment, EnrollmentNotAllowed, UnenrollmentNotAllowed
 from common.djangoapps.student.tests.factories import UserFactory, UserProfileFactory

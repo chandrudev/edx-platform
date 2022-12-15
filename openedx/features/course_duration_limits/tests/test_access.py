@@ -9,7 +9,7 @@ from crum import set_current_request
 from django.test import RequestFactory
 from django.utils import timezone
 from pytz import UTC
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.course_modes.tests.factories import CourseModeFactory

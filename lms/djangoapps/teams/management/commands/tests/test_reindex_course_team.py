@@ -10,7 +10,7 @@ from django.core.management import CommandError, call_command
 from opaque_keys.edx.keys import CourseKey
 from search.search_engine_base import SearchEngine
 
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 
 from ....search_indexes import CourseTeamIndexer
 from ....tests.factories import CourseTeamFactory

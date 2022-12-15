@@ -34,22 +34,22 @@ from xblock.exceptions import InvalidScopeError
 from xblock.fields import Reference, ReferenceList, ReferenceValueDict, Scope, ScopeIds
 from xblock.runtime import KvsFieldData
 
-from xmodule.assetstore import AssetMetadata, CourseAssetsFromStorage
-from xmodule.course_module import CourseSummary
-from xmodule.error_module import ErrorBlock
-from xmodule.errortracker import exc_info_to_str, null_error_tracker
-from xmodule.exceptions import HeartbeatFailure
-from xmodule.mako_module import MakoDescriptorSystem
-from xmodule.modulestore import BulkOperationsMixin, BulkOpsRecord, ModuleStoreEnum, ModuleStoreWriteBase
-from xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES, ModuleStoreDraftAndPublished
-from xmodule.modulestore.edit_info import EditInfoRuntimeMixin
-from xmodule.modulestore.exceptions import DuplicateCourseError, ItemNotFoundError, ReferentialIntegrityError
-from xmodule.modulestore.inheritance import InheritanceKeyValueStore, InheritanceMixin, inherit_metadata
-from xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
-from xmodule.modulestore.xml import CourseLocationManager
-from xmodule.mongo_utils import connect_to_mongodb, create_collection_index
-from xmodule.partitions.partitions_service import PartitionService
-from xmodule.services import SettingsService
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata, CourseAssetsFromStorage
+from common.lib.xmodule.xmodule.course_module import CourseSummary
+from common.lib.xmodule.xmodule.error_module import ErrorBlock
+from common.lib.xmodule.xmodule.errortracker import exc_info_to_str, null_error_tracker
+from common.lib.xmodule.xmodule.exceptions import HeartbeatFailure
+from common.lib.xmodule.xmodule.mako_module import MakoDescriptorSystem
+from common.lib.xmodule.xmodule.modulestore import BulkOperationsMixin, BulkOpsRecord, ModuleStoreEnum, ModuleStoreWriteBase
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import DIRECT_ONLY_CATEGORIES, ModuleStoreDraftAndPublished
+from common.lib.xmodule.xmodule.modulestore.edit_info import EditInfoRuntimeMixin
+from common.lib.xmodule.xmodule.modulestore.exceptions import DuplicateCourseError, ItemNotFoundError, ReferentialIntegrityError
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceKeyValueStore, InheritanceMixin, inherit_metadata
+from common.lib.xmodule.xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
+from common.lib.xmodule.xmodule.modulestore.xml import CourseLocationManager
+from common.lib.xmodule.xmodule.mongo_utils import connect_to_mongodb, create_collection_index
+from common.lib.xmodule.xmodule.partitions.partitions_service import PartitionService
+from common.lib.xmodule.xmodule.services import SettingsService
 
 log = logging.getLogger(__name__)
 

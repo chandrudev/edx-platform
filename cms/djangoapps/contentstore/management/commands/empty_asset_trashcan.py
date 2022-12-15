@@ -4,8 +4,8 @@
 from django.core.management.base import BaseCommand
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.contentstore.utils import empty_asset_trashcan
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.contentstore.utils import empty_asset_trashcan
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from .prompt import query_yes_no
 

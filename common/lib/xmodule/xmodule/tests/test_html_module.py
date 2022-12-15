@@ -10,7 +10,7 @@ from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
 from xblock.field_data import DictFieldData
 from xblock.fields import ScopeIds
 
-from xmodule.html_module import CourseInfoBlock, HtmlBlock
+from common.lib.xmodule.xmodule.html_module import CourseInfoBlock, HtmlBlock
 
 from ..x_module import PUBLIC_VIEW, STUDENT_VIEW
 from . import get_test_descriptor_system, get_test_system

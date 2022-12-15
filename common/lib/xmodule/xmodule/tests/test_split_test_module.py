@@ -8,22 +8,22 @@ import ddt
 import lxml
 from fs.memoryfs import MemoryFS
 
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.utils import MixedSplitTestCase
-from xmodule.partitions.partitions import MINIMUM_STATIC_PARTITION_ID, Group, UserPartition
-from xmodule.partitions.tests.test_partitions import MockPartitionService, MockUserPartitionScheme, PartitionTestCase
-from xmodule.split_test_module import (
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MixedSplitTestCase
+from common.lib.xmodule.xmodule.partitions.partitions import MINIMUM_STATIC_PARTITION_ID, Group, UserPartition
+from common.lib.xmodule.xmodule.partitions.tests.test_partitions import MockPartitionService, MockUserPartitionScheme, PartitionTestCase
+from common.lib.xmodule.xmodule.split_test_module import (
     SplitTestBlock,
     SplitTestFields,
     get_split_user_partitions,
     user_partition_values,
 )
-from xmodule.tests import get_test_system
-from xmodule.tests.test_course_module import DummySystem as TestImportSystem
-from xmodule.tests.xml import XModuleXmlImportTest
-from xmodule.tests.xml import factories as xml
-from xmodule.validation import StudioValidationMessage
-from xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW
+from common.lib.xmodule.xmodule.tests import get_test_system
+from common.lib.xmodule.xmodule.tests.test_course_module import DummySystem as TestImportSystem
+from common.lib.xmodule.xmodule.tests.xml import XModuleXmlImportTest
+from common.lib.xmodule.xmodule.tests.xml import factories as xml
+from common.lib.xmodule.xmodule.validation import StudioValidationMessage
+from common.lib.xmodule.xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW
 
 
 class SplitTestBlockFactory(xml.XmlImportFactory):

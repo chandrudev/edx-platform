@@ -12,7 +12,7 @@ from xblock.core import XBlock
 from xblock.completable import XBlockCompletionMode
 from xblock.test.test_parsing import XmlTest
 
-from xmodule.unit_block import UnitBlock
+from common.lib.xmodule.xmodule.unit_block import UnitBlock
 
 
 class FakeHTMLBlock(XBlock):

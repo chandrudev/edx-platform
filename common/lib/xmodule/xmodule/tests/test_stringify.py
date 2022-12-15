@@ -5,7 +5,7 @@ Tests stringify functions used in xmodule html
 
 from lxml import etree
 
-from xmodule.stringify import stringify_children
+from common.lib.xmodule.xmodule.stringify import stringify_children
 
 
 def test_stringify():

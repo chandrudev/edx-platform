@@ -9,9 +9,9 @@ from unittest.mock import Mock
 from pytz import UTC
 from xblock.field_data import DictFieldData
 
-from xmodule.lti_2_util import LTIError
-from xmodule.lti_module import LTIBlock
-from xmodule.tests.helpers import StubUserService
+from common.lib.xmodule.xmodule.lti_2_util import LTIError
+from common.lib.xmodule.xmodule.lti_module import LTIBlock
+from common.lib.xmodule.xmodule.tests.helpers import StubUserService
 
 from . import get_test_system
 

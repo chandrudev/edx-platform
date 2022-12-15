@@ -24,9 +24,9 @@ from xblock.runtime import Mixologist
 # The below import is not used within this module, but ir is still needed becuase
 # other modules are imorting EdxJSONEncoder from here
 from openedx.core.lib.json_utils import EdxJSONEncoder
-from xmodule.assetstore import AssetMetadata
-from xmodule.errortracker import make_error_tracker
-from xmodule.util.misc import get_library_or_course_attribute
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.errortracker import make_error_tracker
+from common.lib.xmodule.xmodule.util.misc import get_library_or_course_attribute
 
 from .exceptions import InsufficientSpecificationError, InvalidLocationError
 

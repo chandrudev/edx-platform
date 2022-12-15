@@ -6,7 +6,7 @@ import logging
 from pkg_resources import resource_string
 from xblock.fields import Scope, String
 
-from xmodule.mako_module import MakoModuleDescriptor, MakoTemplateBlockBase
+from common.lib.xmodule.xmodule.mako_module import MakoModuleDescriptor, MakoTemplateBlockBase
 
 log = logging.getLogger(__name__)
 
@@ -52,7 +52,7 @@ class EditingDescriptor(EditingMixin, MakoModuleDescriptor):  # lint-amnesty, py
 
 class TabsEditingMixin(EditingFields, MakoTemplateBlockBase):
     """
-    Common code between TabsEditingDescriptor and XBlocks converted from XModules.
+    Common code between TabsEditingDescriptor and XBlocks converted from common.lib.xmodule.xmodules.
     """
 
     mako_template = "widgets/tabs-aggregator.html"

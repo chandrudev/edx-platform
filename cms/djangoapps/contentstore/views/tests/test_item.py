@@ -27,21 +27,21 @@ from xblock.fields import Scope, ScopeIds, String
 from xblock.runtime import DictKeyValueStore, KvsFieldData
 from xblock.test.tools import TestRuntime
 from xblock.validation import ValidationMessage
-from xmodule.capa_module import ProblemBlock
-from xmodule.course_module import DEFAULT_START_DATE
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, LibraryFactory, check_mongo_calls
-from xmodule.partitions.partitions import (
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.course_module import DEFAULT_START_DATE
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_SPLIT_MODULESTORE, ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory, LibraryFactory, check_mongo_calls
+from common.lib.xmodule.xmodule.partitions.partitions import (
     ENROLLMENT_TRACK_PARTITION_ID,
     MINIMUM_STATIC_PARTITION_ID,
     Group,
     UserPartition
 )
-from xmodule.partitions.tests.test_partitions import MockPartitionService
-from xmodule.x_module import STUDENT_VIEW, STUDIO_VIEW
+from common.lib.xmodule.xmodule.partitions.tests.test_partitions import MockPartitionService
+from common.lib.xmodule.xmodule.x_module import STUDENT_VIEW, STUDIO_VIEW
 
 from cms.djangoapps.contentstore.tests.utils import CourseTestCase
 from cms.djangoapps.contentstore.utils import reverse_course_url, reverse_usage_url

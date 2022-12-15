@@ -10,7 +10,7 @@ from unittest.mock import patch
 import ddt
 from django.core.management import call_command
 from django.utils import timezone
-from xmodule.modulestore.tests.django_utils import \
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import \
     SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
 
 from common.djangoapps.student.models import CourseEnrollment

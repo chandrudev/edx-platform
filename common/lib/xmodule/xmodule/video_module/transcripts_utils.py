@@ -20,9 +20,9 @@ from pysrt.srtexc import Error
 
 from openedx.core.djangolib import blockstore_cache
 from openedx.core.lib import blockstore_api
-from xmodule.contentstore.content import StaticContent
-from xmodule.contentstore.django import contentstore
-from xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
 
 from .bumper_utils import get_bumper_settings
 

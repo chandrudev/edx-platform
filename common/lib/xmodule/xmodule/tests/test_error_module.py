@@ -9,10 +9,10 @@ import pytest
 from opaque_keys.edx.locator import CourseLocator
 from xblock.test.tools import unabc
 
-from xmodule.error_module import ErrorBlock, NonStaffErrorBlock
-from xmodule.modulestore.xml import CourseLocationManager
-from xmodule.tests import get_test_system
-from xmodule.x_module import STUDENT_VIEW
+from common.lib.xmodule.xmodule.error_module import ErrorBlock, NonStaffErrorBlock
+from common.lib.xmodule.xmodule.modulestore.xml import CourseLocationManager
+from common.lib.xmodule.xmodule.tests import get_test_system
+from common.lib.xmodule.xmodule.x_module import STUDENT_VIEW
 
 
 class SetupTestErrorBlock(unittest.TestCase):

@@ -45,7 +45,7 @@ def serialize_item(item):
         block_type: the name of the XBlock's type (i.e. 'course'
         or 'problem')
     """
-    from xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
+    from common.lib.xmodule.xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
 
     # convert all fields to a dict and filter out parent and children field
     fields = {
@@ -177,7 +177,7 @@ def serialize_course(course_id):
         relationships: a list of py2neo Relationships objects
     """
     # Import is placed here to avoid model import at project startup.
-    from xmodule.modulestore.django import modulestore
+    from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
     # create a location to node mapping we'll need later for
     # writing relationships
@@ -334,7 +334,7 @@ class ModuleStoreSerializer:
             skip: Also a list of string serializations of course keys.
         """
         # Import is placed here to avoid model import at project startup.
-        from xmodule.modulestore.django import modulestore
+        from common.lib.xmodule.xmodule.modulestore.django import modulestore
         if courses:
             course_keys = [CourseKey.from_string(course.strip()) for course in courses]
         else:

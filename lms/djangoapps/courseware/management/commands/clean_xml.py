@@ -12,7 +12,7 @@ from django.core.management.base import BaseCommand
 from fs.osfs import OSFS
 from path import Path as path
 
-from xmodule.modulestore.xml import XMLModuleStore
+from common.lib.xmodule.xmodule.modulestore.xml import XMLModuleStore
 
 
 def traverse_tree(course):

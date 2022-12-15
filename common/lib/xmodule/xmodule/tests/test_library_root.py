@@ -7,9 +7,9 @@ from unittest.mock import patch
 from web_fragments.fragment import Fragment
 from xblock.runtime import Runtime as VanillaRuntime
 
-from xmodule.modulestore.tests.factories import ItemFactory, LibraryFactory
-from xmodule.modulestore.tests.utils import MixedSplitTestCase
-from xmodule.x_module import AUTHOR_VIEW
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory, LibraryFactory
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MixedSplitTestCase
+from common.lib.xmodule.xmodule.x_module import AUTHOR_VIEW
 
 dummy_render = lambda block, _: Fragment(block.data)  # pylint: disable=invalid-name
 

@@ -34,20 +34,20 @@ from openedx.core.djangoapps.video_config.models import HLSPlaybackEnabledFlag, 
 from openedx.core.djangoapps.video_pipeline.config.waffle import DEPRECATE_YOUTUBE
 from openedx.core.lib.cache_utils import request_cached
 from openedx.core.lib.license import LicenseMixin
-from xmodule.contentstore.content import StaticContent
-from xmodule.editing_module import EditingMixin, TabsEditingMixin
-from xmodule.exceptions import NotFoundError
-from xmodule.modulestore.inheritance import InheritanceKeyValueStore, own_metadata
-from xmodule.raw_module import EmptyDataRawMixin
-from xmodule.validation import StudioValidation, StudioValidationMessage
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.video_module import manage_video_subtitles_save
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.editing_module import EditingMixin, TabsEditingMixin
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceKeyValueStore, own_metadata
+from common.lib.xmodule.xmodule.raw_module import EmptyDataRawMixin
+from common.lib.xmodule.xmodule.validation import StudioValidation, StudioValidationMessage
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.video_module import manage_video_subtitles_save
+from common.lib.xmodule.xmodule.x_module import (
     PUBLIC_VIEW, STUDENT_VIEW,
     HTMLSnippet, ResourceTemplates, shim_xmodule_js,
     XModuleMixin, XModuleToXBlockMixin,
 )
-from xmodule.xml_module import XmlMixin, deserialize_field, is_pointer_tag, name_to_pathname
+from common.lib.xmodule.xmodule.xml_module import XmlMixin, deserialize_field, is_pointer_tag, name_to_pathname
 
 from .bumper_utils import bumperize
 from .transcripts_utils import (

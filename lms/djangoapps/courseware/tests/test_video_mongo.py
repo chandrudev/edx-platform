@@ -34,17 +34,17 @@ from fs.osfs import OSFS
 from fs.path import combine
 from lxml import etree
 from path import Path as path
-from xmodule.contentstore.content import StaticContent
-from xmodule.exceptions import NotFoundError
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.inheritance import own_metadata
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, TEST_DATA_SPLIT_MODULESTORE
-from xmodule.tests.test_import import DummySystem
-from xmodule.tests.test_video import VideoBlockTestBase
-from xmodule.video_module import VideoBlock, bumper_utils, video_utils
-from xmodule.video_module.transcripts_utils import Transcript, save_to_store, subs_filename
-from xmodule.video_module.video_module import EXPORT_IMPORT_COURSE_DIR, EXPORT_IMPORT_STATIC_DIR
-from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.inheritance import own_metadata
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, TEST_DATA_SPLIT_MODULESTORE
+from common.lib.xmodule.xmodule.tests.test_import import DummySystem
+from common.lib.xmodule.xmodule.tests.test_video import VideoBlockTestBase
+from common.lib.xmodule.xmodule.video_module import VideoBlock, bumper_utils, video_utils
+from common.lib.xmodule.xmodule.video_module.transcripts_utils import Transcript, save_to_store, subs_filename
+from common.lib.xmodule.xmodule.video_module.video_module import EXPORT_IMPORT_COURSE_DIR, EXPORT_IMPORT_STATIC_DIR
+from common.lib.xmodule.xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW
 
 from common.djangoapps.xblock_django.constants import ATTR_KEY_REQUEST_COUNTRY_CODE
 from lms.djangoapps.courseware.tests.helpers import get_context_dict_from_string

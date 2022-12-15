@@ -5,8 +5,8 @@ Tests for tasks.
 
 import ddt
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.tests.factories import ItemFactory, check_mongo_calls
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory, check_mongo_calls
 
 from ..models import XBlockCache
 from ..tasks import _calculate_course_xblocks_data, _update_xblocks_cache

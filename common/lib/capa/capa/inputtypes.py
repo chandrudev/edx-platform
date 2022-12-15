@@ -60,7 +60,7 @@ from six import text_type
 from capa.xqueue_interface import XQUEUE_TIMEOUT
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.core.lib import edx_six
-from xmodule.stringify import stringify_children
+from common.lib.xmodule.xmodule.stringify import stringify_children
 
 from . import xqueue_interface
 from .registry import TagRegistry

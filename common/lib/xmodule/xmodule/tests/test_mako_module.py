@@ -6,7 +6,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from xmodule.mako_module import MakoModuleDescriptor
+from common.lib.xmodule.xmodule.mako_module import MakoModuleDescriptor
 
 
 class MakoModuleTest(TestCase):

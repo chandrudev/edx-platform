@@ -8,10 +8,10 @@ However for these tests, we make sure it also works when copying from course to 
 import ddt
 import pytest
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.tests.factories import CourseFactory, LibraryFactory
-from xmodule.modulestore.tests.utils import MixedSplitTestCase
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, LibraryFactory
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MixedSplitTestCase
 
 
 @ddt.ddt

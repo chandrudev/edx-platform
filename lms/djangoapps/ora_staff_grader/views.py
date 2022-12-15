@@ -18,8 +18,8 @@ from openassessment.xblock.config_mixin import WAFFLE_NAMESPACE, ENHANCED_STAFF_
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 from lms.djangoapps.ora_staff_grader.constants import (
     PARAM_ORA_LOCATION,

@@ -13,7 +13,7 @@ import pytz
 from django.test import TestCase
 from opaque_keys.edx.locator import CourseLocator
 from submissions.models import score_reset, score_set
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 from common.djangoapps.track.event_transaction_utils import get_event_transaction_id, get_event_transaction_type

@@ -6,9 +6,9 @@ Tests for functionality in openedx/core/lib/courses.py.
 import ddt
 from django.test.utils import override_settings
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from ..courses import course_image_url
 

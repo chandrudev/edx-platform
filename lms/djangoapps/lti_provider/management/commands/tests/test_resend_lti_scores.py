@@ -7,9 +7,9 @@ from unittest.mock import patch
 
 from django.test import TestCase
 from opaque_keys.edx.keys import CourseKey, UsageKey
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, SharedModuleStoreTestCase
-from xmodule.modulestore.tests.utils import TEST_DATA_DIR
-from xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.utils import TEST_DATA_DIR
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
 
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.lti_provider.management.commands import resend_lti_scores

@@ -4,7 +4,7 @@ Test that various filters are executed for models in the course_groups app.
 from django.test import override_settings
 from openedx_filters import PipelineStep
 from openedx_filters.learning.filters import CohortChangeRequested
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 
 from common.djangoapps.student.tests.factories import UserFactory
 from openedx.core.djangoapps.content.course_overviews.tests.factories import CourseOverviewFactory

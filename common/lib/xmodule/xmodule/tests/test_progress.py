@@ -3,7 +3,7 @@
 
 import unittest
 
-from xmodule.progress import Progress
+from common.lib.xmodule.xmodule.progress import Progress
 
 
 class ProgressTest(unittest.TestCase):

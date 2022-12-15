@@ -13,7 +13,7 @@ from opaque_keys.edx.locator import CourseLocator
 from stevedore.extension import Extension, ExtensionManager
 
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
-from xmodule.partitions.partitions import (
+from common.lib.xmodule.xmodule.partitions.partitions import (
     ENROLLMENT_TRACK_PARTITION_ID,
     USER_PARTITION_SCHEME_NAMESPACE,
     Group,
@@ -21,7 +21,7 @@ from xmodule.partitions.partitions import (
     UserPartition,
     UserPartitionError
 )
-from xmodule.partitions.partitions_service import FEATURES, PartitionService, get_all_partitions_for_course
+from common.lib.xmodule.xmodule.partitions.partitions_service import FEATURES, PartitionService, get_all_partitions_for_course
 
 
 class TestGroup(TestCase):

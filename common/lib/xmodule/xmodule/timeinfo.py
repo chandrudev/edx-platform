@@ -2,7 +2,7 @@
 
 import logging
 
-from xmodule.fields import Timedelta
+from common.lib.xmodule.xmodule.fields import Timedelta
 
 log = logging.getLogger(__name__)
 

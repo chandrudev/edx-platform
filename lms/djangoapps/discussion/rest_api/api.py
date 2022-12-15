@@ -19,9 +19,9 @@ from opaque_keys import InvalidKeyError
 from opaque_keys.edx.locator import CourseKey
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.request import Request
-from xmodule.course_module import CourseBlock
-from xmodule.modulestore.django import modulestore
-from xmodule.tabs import CourseTabList
+from common.lib.xmodule.xmodule.course_module import CourseBlock
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.tabs import CourseTabList
 
 from lms.djangoapps.course_blocks.api import get_course_blocks
 from lms.djangoapps.courseware.courses import get_course_with_access

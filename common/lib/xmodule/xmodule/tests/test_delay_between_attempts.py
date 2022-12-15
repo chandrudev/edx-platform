@@ -21,7 +21,7 @@ from xblock.fields import ScopeIds
 from xblock.scorable import Score
 
 import xmodule
-from xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
 
 from . import get_test_system
 

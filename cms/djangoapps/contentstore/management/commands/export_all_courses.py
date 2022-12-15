@@ -5,9 +5,9 @@ Script for exporting all courseware from Mongo to a directory and listing the co
 
 from django.core.management.base import BaseCommand
 
-from xmodule.contentstore.django import contentstore
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
 
 
 class Command(BaseCommand):

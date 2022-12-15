@@ -7,8 +7,8 @@ from django.urls import reverse
 from openedx_filters import PipelineStep
 from openedx_filters.learning.filters import CourseAboutRenderStarted
 from rest_framework import status
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 

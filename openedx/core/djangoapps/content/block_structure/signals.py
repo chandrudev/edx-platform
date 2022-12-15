@@ -8,7 +8,7 @@ from django.conf import settings
 from django.dispatch.dispatcher import receiver
 from opaque_keys.edx.locator import LibraryLocator
 
-from xmodule.modulestore.django import SignalHandler
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler
 
 from . import config
 from .api import clear_course_from_cache

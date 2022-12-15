@@ -11,8 +11,8 @@ from lxml.etree import Element, ElementTree, XMLParser
 from xblock.core import XBlock, XML_NAMESPACES
 from xblock.fields import Dict, Scope, ScopeIds
 from xblock.runtime import KvsFieldData
-from xmodule.modulestore import EdxJSONEncoder
-from xmodule.modulestore.inheritance import InheritanceKeyValueStore, own_metadata
+from common.lib.xmodule.xmodule.modulestore import EdxJSONEncoder
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceKeyValueStore, own_metadata
 
 from .x_module import XModuleMixin
 

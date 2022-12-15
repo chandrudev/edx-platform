@@ -78,12 +78,12 @@ from pytz import UTC
 from xblock.core import XBlock
 from xblock.fields import Reference, ReferenceList, ReferenceValueDict, Scope
 
-from xmodule.assetstore import AssetMetadata
-from xmodule.course_module import CourseSummary
-from xmodule.error_module import ErrorBlock
-from xmodule.errortracker import null_error_tracker
-from xmodule.library_content_module import LibrarySummary
-from xmodule.modulestore import (
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.course_module import CourseSummary
+from common.lib.xmodule.xmodule.error_module import ErrorBlock
+from common.lib.xmodule.xmodule.errortracker import null_error_tracker
+from common.lib.xmodule.xmodule.library_content_module import LibrarySummary
+from common.lib.xmodule.xmodule.modulestore import (
     BlockData,
     BulkOperationsMixin,
     BulkOpsRecord,
@@ -92,7 +92,7 @@ from xmodule.modulestore import (
     SortedAssetList,
     inheritance
 )
-from xmodule.modulestore.exceptions import (
+from common.lib.xmodule.xmodule.modulestore.exceptions import (
     DuplicateCourseError,
     DuplicateItemError,
     InsufficientSpecificationError,
@@ -100,11 +100,11 @@ from xmodule.modulestore.exceptions import (
     MultipleLibraryBlocksFound,
     VersionConflictError
 )
-from xmodule.modulestore.split_mongo import BlockKey, CourseEnvelope
-from xmodule.modulestore.split_mongo.mongo_connection import DuplicateKeyError, DjangoFlexPersistenceBackend
-from xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
-from xmodule.partitions.partitions_service import PartitionService
-from xmodule.util.misc import get_library_or_course_attribute
+from common.lib.xmodule.xmodule.modulestore.split_mongo import BlockKey, CourseEnvelope
+from common.lib.xmodule.xmodule.modulestore.split_mongo.mongo_connection import DuplicateKeyError, DjangoFlexPersistenceBackend
+from common.lib.xmodule.xmodule.modulestore.store_utilities import DETACHED_XBLOCK_TYPES
+from common.lib.xmodule.xmodule.partitions.partitions_service import PartitionService
+from common.lib.xmodule.xmodule.util.misc import get_library_or_course_attribute
 
 from ..exceptions import ItemNotFoundError
 from .caching_descriptor_system import CachingDescriptorSystem

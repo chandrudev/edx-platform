@@ -10,7 +10,7 @@ from uuid import uuid4
 import ddt
 from pymongo import ReadPreference
 
-from xmodule.mongo_utils import connect_to_mongodb
+from common.lib.xmodule.xmodule.mongo_utils import connect_to_mongodb
 
 
 @ddt.ddt

@@ -24,7 +24,7 @@ from django.conf import settings
 from edx_django_utils.cache import DEFAULT_REQUEST_CACHE
 from xblock.field_data import FieldData
 
-from xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
 
 NOTSET = object()
 ENABLED_OVERRIDE_PROVIDERS_KEY = 'lms.djangoapps.courseware.field_overrides.enabled_providers.{course_id}'

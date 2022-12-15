@@ -2,7 +2,7 @@
 Mixin to support editing in Studio.
 """
 from xblock.core import XBlock, XBlockMixin
-from xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW
+from common.lib.xmodule.xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW
 
 
 @XBlock.needs('mako')

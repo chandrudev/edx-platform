@@ -20,7 +20,7 @@ from django.core.mail import EmailMessage, SafeMIMEText
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from eventtracking import tracker
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from common.djangoapps.edxmako.shortcuts import render_to_string
 from common.djangoapps.edxmako.template import Template

@@ -8,14 +8,14 @@ from unittest.mock import Mock
 
 from opaque_keys.edx.locator import CourseLocator
 
-from xmodule.modulestore.tests.utils import (
+from common.lib.xmodule.xmodule.modulestore.tests.utils import (
     DOT_FILES_DICT,
     TILDA_FILES_DICT,
     add_temp_files_from_dict,
     remove_temp_files_from_list
 )
-from xmodule.modulestore.xml_importer import StaticContentImporter
-from xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.modulestore.xml_importer import StaticContentImporter
+from common.lib.xmodule.xmodule.tests import DATA_DIR
 
 
 class IgnoredFilesTestCase(unittest.TestCase):

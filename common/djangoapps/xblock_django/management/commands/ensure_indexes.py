@@ -5,8 +5,8 @@ Creates Indexes on contentstore and modulestore databases.
 
 from django.core.management.base import BaseCommand
 
-from xmodule.contentstore.django import contentstore
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 
 class Command(BaseCommand):

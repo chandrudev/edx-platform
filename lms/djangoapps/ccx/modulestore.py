@@ -16,7 +16,7 @@ from functools import partial
 from ccx_keys.locator import CCXBlockUsageLocator, CCXLocator
 from opaque_keys.edx.locator import BlockUsageLocator, CourseLocator
 
-from xmodule.modulestore import XMODULE_FIELDS_WITH_USAGE_KEYS
+from common.lib.xmodule.xmodule.modulestore import XMODULE_FIELDS_WITH_USAGE_KEYS
 
 
 def strip_ccx(val):

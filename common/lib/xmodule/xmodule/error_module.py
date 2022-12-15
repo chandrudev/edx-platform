@@ -15,9 +15,9 @@ from xblock.core import XBlock
 from xblock.field_data import DictFieldData
 from xblock.fields import Scope, ScopeIds, String
 
-from xmodule.errortracker import exc_info_to_str
-from xmodule.modulestore import EdxJSONEncoder
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.errortracker import exc_info_to_str
+from common.lib.xmodule.xmodule.modulestore import EdxJSONEncoder
+from common.lib.xmodule.xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     XModuleMixin,

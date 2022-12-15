@@ -13,7 +13,7 @@ Note: Hotfix (PLAT-734) No asset calls find_asset_metadata, and directly accesse
 
 """
 
-from xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
 
 
 class AssetException(Exception):

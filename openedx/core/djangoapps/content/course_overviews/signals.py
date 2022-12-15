@@ -10,7 +10,7 @@ from django.dispatch import Signal
 from django.dispatch.dispatcher import receiver
 
 from openedx.core.djangoapps.signals.signals import COURSE_CERT_DATE_CHANGE
-from xmodule.modulestore.django import SignalHandler  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler  # lint-amnesty, pylint: disable=wrong-import-order
 
 from .models import CourseOverview
 

@@ -8,8 +8,8 @@ import logging
 from django.core.exceptions import ObjectDoesNotExist
 from edx_django_utils.cache import DEFAULT_REQUEST_CACHE
 
-from xmodule.modulestore.django import modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 from . import DEFAULT_FIELDS, api
 

@@ -12,7 +12,7 @@ from xblock.core import XBlock
 from xblock.fields import ScopeIds
 from xblock.test.tools import TestRuntime
 
-from xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
 
 
 class TestXBlock:

@@ -11,9 +11,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_save
 from django.dispatch.dispatcher import receiver
 
-from xmodule.modulestore.django import SignalHandler, modulestore
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler, modulestore
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.partitions.partitions import ENROLLMENT_TRACK_PARTITION_ID
 
 from .models import CourseMode, CourseModeExpirationConfig
 

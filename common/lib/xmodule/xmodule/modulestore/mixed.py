@@ -13,7 +13,7 @@ from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import LibraryLocator
 
-from xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
 
 from . import XMODULE_FIELDS_WITH_USAGE_KEYS, ModuleStoreEnum, ModuleStoreWriteBase
 from .draft_and_published import ModuleStoreDraftAndPublished

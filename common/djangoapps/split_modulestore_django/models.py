@@ -8,8 +8,8 @@ from opaque_keys.edx.locator import CourseLocator, LibraryLocator
 from opaque_keys.edx.django.models import LearningContextKeyField
 from simple_history.models import HistoricalRecords
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.util.misc import get_library_or_course_attribute
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.util.misc import get_library_or_course_attribute
 
 User = get_user_model()
 

@@ -7,7 +7,7 @@ import json
 from django.utils.html import escapejs
 from mako.filters import decode
 
-from xmodule.modulestore import EdxJSONEncoder
+from common.lib.xmodule.xmodule.modulestore import EdxJSONEncoder
 
 
 def _escape_json_for_js(json_dumps_string):

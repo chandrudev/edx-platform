@@ -10,7 +10,7 @@ from pytz import UTC
 from openedx.core.djangoapps.waffle_utils.testutils import WAFFLE_TABLES
 from openedx.features.content_type_gating.models import ContentTypeGatingConfig
 from openedx.features.course_experience.tests import BaseCourseUpdatesTestCase
-from xmodule.modulestore.tests.factories import check_mongo_calls  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.factories import check_mongo_calls  # lint-amnesty, pylint: disable=wrong-import-order
 
 QUERY_COUNT_TABLE_IGNORELIST = WAFFLE_TABLES
 

@@ -13,14 +13,14 @@ from lxml import etree
 from web_fragments.fragment import Fragment
 from xblock.core import XBlock  # lint-amnesty, pylint: disable=wrong-import-order
 from xblock.fields import Boolean, Scope
-from xmodule.mako_module import MakoTemplateBlockBase
-from xmodule.progress import Progress
-from xmodule.seq_module import SequenceFields
-from xmodule.studio_editable import StudioEditableBlock
-from xmodule.util.misc import is_xblock_an_assignment
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW, XModuleFields
-from xmodule.xml_module import XmlParserMixin
+from common.lib.xmodule.xmodule.mako_module import MakoTemplateBlockBase
+from common.lib.xmodule.xmodule.progress import Progress
+from common.lib.xmodule.xmodule.seq_module import SequenceFields
+from common.lib.xmodule.xmodule.studio_editable import StudioEditableBlock
+from common.lib.xmodule.xmodule.util.misc import is_xblock_an_assignment
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.x_module import PUBLIC_VIEW, STUDENT_VIEW, XModuleFields
+from common.lib.xmodule.xmodule.xml_module import XmlParserMixin
 
 log = logging.getLogger(__name__)
 

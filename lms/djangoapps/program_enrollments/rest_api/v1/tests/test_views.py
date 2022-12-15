@@ -20,9 +20,9 @@ from organizations.tests.factories import OrganizationFactory as LMSOrganization
 from rest_framework import status
 from rest_framework.test import APITestCase
 from social_django.models import UserSocialAuth
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, SharedModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory as ModulestoreCourseFactory
-from xmodule.modulestore.tests.factories import ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory as ModulestoreCourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory
 
 from common.djangoapps.course_modes.models import CourseMode
 from common.djangoapps.student.models import CourseEnrollment

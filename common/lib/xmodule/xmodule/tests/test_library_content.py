@@ -14,15 +14,15 @@ from web_fragments.fragment import Fragment
 from xblock.runtime import Runtime as VanillaRuntime
 from rest_framework import status
 
-from xmodule.library_content_module import ANY_CAPA_TYPE_VALUE, LibraryContentBlock
-from xmodule.library_tools import LibraryToolsService
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.tests.factories import CourseFactory, LibraryFactory
-from xmodule.modulestore.tests.utils import MixedSplitTestCase
-from xmodule.tests import get_test_system
-from xmodule.validation import StudioValidationMessage
-from xmodule.x_module import AUTHOR_VIEW
-from xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.library_content_module import ANY_CAPA_TYPE_VALUE, LibraryContentBlock
+from common.lib.xmodule.xmodule.library_tools import LibraryToolsService
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, LibraryFactory
+from common.lib.xmodule.xmodule.modulestore.tests.utils import MixedSplitTestCase
+from common.lib.xmodule.xmodule.tests import get_test_system
+from common.lib.xmodule.xmodule.validation import StudioValidationMessage
+from common.lib.xmodule.xmodule.x_module import AUTHOR_VIEW
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
 
 from .test_course_module import DummySystem as TestImportSystem
 

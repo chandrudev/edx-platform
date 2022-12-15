@@ -2,7 +2,7 @@
 
 import factory
 from factory.django import DjangoModelFactory
-from xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 
 from ..models import Country, CountryAccessRule, RestrictedCourse
 

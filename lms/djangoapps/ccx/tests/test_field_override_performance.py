@@ -20,9 +20,9 @@ from edx_django_utils.cache import RequestCache
 from opaque_keys.edx.keys import CourseKey
 from pytz import UTC
 from xblock.core import XBlock
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls, check_sum_of_calls
-from xmodule.modulestore.tests.utils import ProceduralCourseTestMixin
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, check_mongo_calls, check_sum_of_calls
+from common.lib.xmodule.xmodule.modulestore.tests.utils import ProceduralCourseTestMixin
 
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory

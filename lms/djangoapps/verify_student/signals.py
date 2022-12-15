@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_save
 from django.dispatch import Signal
 from django.dispatch.dispatcher import receiver
-from xmodule.modulestore.django import SignalHandler, modulestore
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler, modulestore
 
 from common.djangoapps.student.models_api import get_name, get_pending_name_change
 from openedx.core.djangoapps.user_api.accounts.signals import USER_RETIRE_LMS_CRITICAL

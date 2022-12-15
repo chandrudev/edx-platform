@@ -7,7 +7,7 @@ import logging
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from xmodule.partitions.partitions import (
+from common.lib.xmodule.xmodule.partitions.partitions import (
     get_partition_from_id,
     ENROLLMENT_TRACK_PARTITION_ID,
     UserPartition,

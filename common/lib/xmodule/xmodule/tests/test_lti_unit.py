@@ -17,10 +17,10 @@ from xblock.field_data import DictFieldData
 from xblock.fields import ScopeIds
 
 from common.djangoapps.xblock_django.constants import ATTR_KEY_ANONYMOUS_USER_ID
-from xmodule.fields import Timedelta
-from xmodule.lti_2_util import LTIError
-from xmodule.lti_module import LTIBlock
-from xmodule.tests.helpers import StubUserService
+from common.lib.xmodule.xmodule.fields import Timedelta
+from common.lib.xmodule.xmodule.lti_2_util import LTIError
+from common.lib.xmodule.xmodule.lti_module import LTIBlock
+from common.lib.xmodule.xmodule.tests.helpers import StubUserService
 
 from . import get_test_system
 

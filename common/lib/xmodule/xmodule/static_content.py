@@ -19,18 +19,18 @@ import django
 from docopt import docopt
 from path import Path as path
 
-from xmodule.annotatable_module import AnnotatableBlock
-from xmodule.capa_module import ProblemBlock
-from xmodule.conditional_module import ConditionalBlock
-from xmodule.html_module import AboutBlock, CourseInfoBlock, HtmlBlock, StaticTabBlock
-from xmodule.library_content_module import LibraryContentBlock
-from xmodule.lti_module import LTIBlock
-from xmodule.poll_module import PollBlock
-from xmodule.seq_module import SequenceBlock
-from xmodule.split_test_module import SplitTestBlock
-from xmodule.template_module import CustomTagBlock
-from xmodule.word_cloud_module import WordCloudBlock
-from xmodule.x_module import HTMLSnippet
+from common.lib.xmodule.xmodule.annotatable_module import AnnotatableBlock
+from common.lib.xmodule.xmodule.capa_module import ProblemBlock
+from common.lib.xmodule.xmodule.conditional_module import ConditionalBlock
+from common.lib.xmodule.xmodule.html_module import AboutBlock, CourseInfoBlock, HtmlBlock, StaticTabBlock
+from common.lib.xmodule.xmodule.library_content_module import LibraryContentBlock
+from common.lib.xmodule.xmodule.lti_module import LTIBlock
+from common.lib.xmodule.xmodule.poll_module import PollBlock
+from common.lib.xmodule.xmodule.seq_module import SequenceBlock
+from common.lib.xmodule.xmodule.split_test_module import SplitTestBlock
+from common.lib.xmodule.xmodule.template_module import CustomTagBlock
+from common.lib.xmodule.xmodule.word_cloud_module import WordCloudBlock
+from common.lib.xmodule.xmodule.x_module import HTMLSnippet
 
 LOG = logging.getLogger(__name__)
 

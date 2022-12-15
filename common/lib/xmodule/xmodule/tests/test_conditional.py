@@ -13,14 +13,14 @@ from web_fragments.fragment import Fragment
 from xblock.field_data import DictFieldData
 from xblock.fields import ScopeIds
 
-from xmodule.conditional_module import ConditionalBlock
-from xmodule.error_module import NonStaffErrorBlock
-from xmodule.modulestore.xml import CourseLocationManager, ImportSystem, XMLModuleStore
-from xmodule.tests import DATA_DIR, get_test_descriptor_system, get_test_system
-from xmodule.tests.xml import XModuleXmlImportTest
-from xmodule.tests.xml import factories as xml
-from xmodule.validation import StudioValidationMessage
-from xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW
+from common.lib.xmodule.xmodule.conditional_module import ConditionalBlock
+from common.lib.xmodule.xmodule.error_module import NonStaffErrorBlock
+from common.lib.xmodule.xmodule.modulestore.xml import CourseLocationManager, ImportSystem, XMLModuleStore
+from common.lib.xmodule.xmodule.tests import DATA_DIR, get_test_descriptor_system, get_test_system
+from common.lib.xmodule.xmodule.tests.xml import XModuleXmlImportTest
+from common.lib.xmodule.xmodule.tests.xml import factories as xml
+from common.lib.xmodule.xmodule.validation import StudioValidationMessage
+from common.lib.xmodule.xmodule.x_module import AUTHOR_VIEW, STUDENT_VIEW
 
 ORG = 'test_org'
 COURSE = 'conditional'      # name of directory with course data

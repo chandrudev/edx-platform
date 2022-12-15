@@ -16,12 +16,12 @@ from django.contrib.auth.models import AnonymousUser
 from django.db import connections, transaction
 from django.test import TestCase
 from django.test.utils import override_settings
-from xmodule.contentstore.content import StaticContent
-from xmodule.contentstore.django import _CONTENTSTORE
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.django import SignalHandler, clear_existing_modulestores, modulestore
-from xmodule.modulestore.tests.factories import XMODULE_FACTORY_LOCK
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.contentstore.django import _CONTENTSTORE
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.django import SignalHandler, clear_existing_modulestores, modulestore
+from common.lib.xmodule.xmodule.modulestore.tests.factories import XMODULE_FACTORY_LOCK
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
 
 from lms.djangoapps.courseware.field_overrides import OverrideFieldData
 from openedx.core.djangolib.testing.utils import CacheIsolationMixin, CacheIsolationTestCase, FilteredQueryCountMixin
@@ -412,7 +412,7 @@ class SharedModuleStoreTestCase(
 
     How to use::
 
-        from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+        from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
         from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 
         class MyModuleStoreTestCase(SharedModuleStoreTestCase):

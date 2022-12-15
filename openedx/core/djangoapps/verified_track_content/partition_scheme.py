@@ -15,7 +15,7 @@ from lms.djangoapps.courseware.masquerade import (
     is_masquerading_as_specific_student
 )
 from common.djangoapps.student.models import CourseEnrollment
-from xmodule.partitions.partitions import Group, UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.partitions.partitions import Group, UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
 
 LOGGER = logging.getLogger(__name__)
 

@@ -27,17 +27,17 @@ from xblock.field_data import DictFieldData
 from xblock.fields import Reference, ReferenceList, ReferenceValueDict, ScopeIds
 
 from capa.xqueue_interface import XQueueService
-from xmodule.assetstore import AssetMetadata
-from xmodule.contentstore.django import contentstore
-from xmodule.error_module import ErrorBlock
-from xmodule.mako_module import MakoDescriptorSystem
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.draft_and_published import ModuleStoreDraftAndPublished
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore.xml import CourseLocationManager
-from xmodule.tests.helpers import StubReplaceURLService, mock_render_template, StubMakoService, StubUserService
-from xmodule.util.sandboxing import SandboxService
-from xmodule.x_module import DoNothingCache, ModuleSystem, XModuleMixin
+from common.lib.xmodule.xmodule.assetstore import AssetMetadata
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.error_module import ErrorBlock
+from common.lib.xmodule.xmodule.mako_module import MakoDescriptorSystem
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import ModuleStoreDraftAndPublished
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.xml import CourseLocationManager
+from common.lib.xmodule.xmodule.tests.helpers import StubReplaceURLService, mock_render_template, StubMakoService, StubUserService
+from common.lib.xmodule.xmodule.util.sandboxing import SandboxService
+from common.lib.xmodule.xmodule.x_module import DoNothingCache, ModuleSystem, XModuleMixin
 from openedx.core.lib.cache_utils import CacheService
 
 

@@ -17,7 +17,7 @@ from openedx.core.djangolib.testing.utils import skip_unless_lms
 
 from openedx.core.djangoapps.course_groups.tests.helpers import CohortFactory
 
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase  # lint-amnesty, pylint: disable=wrong-import-order
 
 
 @skip_unless_lms

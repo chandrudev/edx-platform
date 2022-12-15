@@ -18,7 +18,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
 import lms.startup as startup  # lint-amnesty, pylint: disable=wrong-import-position
 startup.run()
 
-from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-position
+from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-position
 
 # Trigger a forced initialization of our modulestores since this can take a
 # while to complete and we want this done before HTTP requests are accepted.

@@ -7,7 +7,7 @@ from django.test import override_settings
 from openedx_filters import PipelineStep
 from openedx_filters.learning.filters import CertificateRenderStarted
 from rest_framework import status
-from xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import SharedModuleStoreTestCase
 
 from lms.djangoapps.certificates.models import CertificateTemplate
 from lms.djangoapps.certificates.tests.test_webview_views import CommonCertificatesTestCase

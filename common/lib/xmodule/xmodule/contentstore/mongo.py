@@ -14,11 +14,11 @@ from gridfs.errors import NoFile, FileExists
 from mongodb_proxy import autoretry_read
 from opaque_keys.edx.keys import AssetKey
 
-from xmodule.contentstore.content import XASSET_LOCATION_TAG
-from xmodule.exceptions import NotFoundError
-from xmodule.modulestore.django import ASSET_IGNORE_REGEX
-from xmodule.mongo_utils import connect_to_mongodb, create_collection_index
-from xmodule.util.misc import escape_invalid_characters, get_library_or_course_attribute
+from common.lib.xmodule.xmodule.contentstore.content import XASSET_LOCATION_TAG
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.modulestore.django import ASSET_IGNORE_REGEX
+from common.lib.xmodule.xmodule.mongo_utils import connect_to_mongodb, create_collection_index
+from common.lib.xmodule.xmodule.util.misc import escape_invalid_characters, get_library_or_course_attribute
 
 from .content import ContentStore, StaticContent, StaticContentStream
 

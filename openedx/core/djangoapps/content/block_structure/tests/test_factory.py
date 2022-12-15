@@ -5,7 +5,7 @@ Tests for block_structure_factory.py
 import pytest
 from django.test import TestCase
 
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 from ..exceptions import BlockStructureNotFound
 from ..factory import BlockStructureFactory

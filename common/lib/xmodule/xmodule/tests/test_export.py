@@ -22,10 +22,10 @@ from xblock.core import XBlock
 from xblock.fields import Integer, Scope, String
 from xblock.test.tools import blocks_are_equivalent
 
-from xmodule.modulestore import EdxJSONEncoder
-from xmodule.modulestore.xml import XMLModuleStore
-from xmodule.tests import DATA_DIR
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore import EdxJSONEncoder
+from common.lib.xmodule.xmodule.modulestore.xml import XMLModuleStore
+from common.lib.xmodule.xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 
 def strip_filenames(descriptor):

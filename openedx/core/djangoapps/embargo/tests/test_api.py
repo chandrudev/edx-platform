@@ -17,8 +17,8 @@ from django.db import connection
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from edx_toggles.toggles.testutils import override_waffle_switch
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, mixed_store_config
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, mixed_store_config
 
 from openedx.core.djangolib.testing.utils import skip_unless_lms
 from common.djangoapps.student.tests.factories import UserFactory

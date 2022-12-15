@@ -11,19 +11,19 @@ from uuid import uuid4
 from contextlib2 import ExitStack
 from path import Path as path
 
-from xmodule.contentstore.mongo import MongoContentStore
-from xmodule.modulestore.draft_and_published import ModuleStoreDraftAndPublished
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore.mixed import MixedModuleStore
-from xmodule.modulestore.mongo.base import ModuleStoreEnum
-from xmodule.modulestore.mongo.draft import DraftModuleStore
-from xmodule.modulestore.split_mongo.split_draft import DraftVersioningModuleStore
-from xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_ONLY_SPLIT_MODULESTORE_DRAFT_PREFERRED
-from xmodule.modulestore.tests.factories import ItemFactory
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
-from xmodule.modulestore.xml import XMLModuleStore
-from xmodule.tests import DATA_DIR
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.contentstore.mongo import MongoContentStore
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import ModuleStoreDraftAndPublished
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.mixed import MixedModuleStore
+from common.lib.xmodule.xmodule.modulestore.mongo.base import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.mongo.draft import DraftModuleStore
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split_draft import DraftVersioningModuleStore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase, TEST_DATA_ONLY_SPLIT_MODULESTORE_DRAFT_PREFERRED
+from common.lib.xmodule.xmodule.modulestore.tests.factories import ItemFactory
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.modulestore.xml import XMLModuleStore
+from common.lib.xmodule.xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 
 def load_function(path):  # lint-amnesty, pylint: disable=redefined-outer-name

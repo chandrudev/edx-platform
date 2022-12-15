@@ -13,8 +13,8 @@ from xblockutils.studio_editable import StudioEditableXBlockMixin
 from webob import Response
 from web_fragments.fragment import Fragment
 
-from xmodule.studio_editable import StudioEditableBlock as EditableChildrenMixin
-from xmodule.validation import StudioValidation, StudioValidationMessage
+from common.lib.xmodule.xmodule.studio_editable import StudioEditableBlock as EditableChildrenMixin
+from common.lib.xmodule.xmodule.validation import StudioValidation, StudioValidationMessage
 
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)

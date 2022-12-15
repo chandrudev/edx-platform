@@ -18,21 +18,21 @@ from web_fragments.fragment import Fragment
 from xblock.core import XBlock
 from xblock.fields import Boolean, List, Scope, String
 from common.djangoapps.xblock_django.constants import ATTR_KEY_ANONYMOUS_USER_ID
-from xmodule.contentstore.content import StaticContent
-from xmodule.editing_module import EditingMixin
-from xmodule.edxnotes_utils import edxnotes
-from xmodule.html_checker import check_html
-from xmodule.stringify import stringify_children
-from xmodule.util.misc import escape_html_characters
-from xmodule.util.xmodule_django import add_webpack_to_fragment
-from xmodule.x_module import (
+from common.lib.xmodule.xmodule.contentstore.content import StaticContent
+from common.lib.xmodule.xmodule.editing_module import EditingMixin
+from common.lib.xmodule.xmodule.edxnotes_utils import edxnotes
+from common.lib.xmodule.xmodule.html_checker import check_html
+from common.lib.xmodule.xmodule.stringify import stringify_children
+from common.lib.xmodule.xmodule.util.misc import escape_html_characters
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.x_module import (
     HTMLSnippet,
     ResourceTemplates,
     shim_xmodule_js,
     XModuleMixin,
     XModuleToXBlockMixin,
 )
-from xmodule.xml_module import XmlMixin, name_to_pathname
+from common.lib.xmodule.xmodule.xml_module import XmlMixin, name_to_pathname
 
 log = logging.getLogger("edx.courseware")
 

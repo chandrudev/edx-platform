@@ -36,7 +36,7 @@ from openedx.core.djangoapps.video_pipeline.config.waffle import (
     ENABLE_DEVSTACK_VIDEO_UPLOADS,
 )
 from openedx.core.djangoapps.waffle_utils.models import WaffleFlagCourseOverrideModel
-from xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory  # lint-amnesty, pylint: disable=wrong-import-order
 
 from ..videos import (
     ENABLE_VIDEO_UPLOAD_PAGINATION,

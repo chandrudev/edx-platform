@@ -13,8 +13,8 @@ import logging
 from opaque_keys.edx.locator import CourseLocator
 from xblock.fields import Reference, ReferenceList, ReferenceValueDict
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
 
 log = logging.getLogger(__name__)
 

@@ -11,14 +11,14 @@ from django.conf import settings
 from django.contrib.auth.models import User  # lint-amnesty, pylint: disable=imported-auth-user
 from django.test.client import Client
 from opaque_keys.edx.keys import AssetKey, CourseKey
-from xmodule.contentstore.django import contentstore
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.inheritance import own_metadata
-from xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
-from xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase
-from xmodule.modulestore.tests.factories import CourseFactory
-from xmodule.modulestore.tests.utils import ProceduralCourseTestMixin
-from xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.contentstore.django import contentstore
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.inheritance import own_metadata
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
+from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_MODULESTORE, ModuleStoreTestCase
+from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
+from common.lib.xmodule.xmodule.modulestore.tests.utils import ProceduralCourseTestMixin
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
 
 from cms.djangoapps.contentstore.utils import reverse_url
 from common.djangoapps.student.models import Registration

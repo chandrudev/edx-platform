@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_noop as _
 from opaque_keys.edx.keys import CourseKey
 
-from xmodule.modulestore.django import modulestore
+from common.lib.xmodule.xmodule.modulestore.django import modulestore
 
 from cms.djangoapps.contentstore.utils import get_proctored_exam_settings_url
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview

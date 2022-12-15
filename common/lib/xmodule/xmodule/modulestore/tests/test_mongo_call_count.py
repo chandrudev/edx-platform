@@ -11,17 +11,17 @@ from unittest import skip
 import ddt
 from django.test import TestCase  # lint-amnesty, pylint: disable=reimported
 
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.tests.factories import check_mongo_calls
-from xmodule.modulestore.tests.utils import (
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.tests.factories import check_mongo_calls
+from common.lib.xmodule.xmodule.modulestore.tests.utils import (
     TEST_DATA_DIR,
     MemoryCache,
     MixedModulestoreBuilder,
     MongoModulestoreBuilder,
     VersioningModulestoreBuilder
 )
-from xmodule.modulestore.xml_exporter import export_course_to_xml
-from xmodule.modulestore.xml_importer import import_course_from_xml
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
 
 MIXED_OLD_MONGO_MODULESTORE_BUILDER = MixedModulestoreBuilder([('draft', MongoModulestoreBuilder())])
 MIXED_SPLIT_MODULESTORE_BUILDER = MixedModulestoreBuilder([('split', VersioningModulestoreBuilder())])

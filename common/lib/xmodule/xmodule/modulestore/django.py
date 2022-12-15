@@ -24,10 +24,10 @@ import django.utils  # lint-amnesty, pylint: disable=wrong-import-position
 from django.utils.translation import get_language, to_locale  # lint-amnesty, pylint: disable=wrong-import-position
 from edx_django_utils.cache import DEFAULT_REQUEST_CACHE  # lint-amnesty, pylint: disable=wrong-import-position
 
-from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-position
-from xmodule.modulestore.draft_and_published import BranchSettingMixin  # lint-amnesty, pylint: disable=wrong-import-position
-from xmodule.modulestore.mixed import MixedModuleStore  # lint-amnesty, pylint: disable=wrong-import-position
-from xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-position
+from common.lib.xmodule.xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-position
+from common.lib.xmodule.xmodule.modulestore.draft_and_published import BranchSettingMixin  # lint-amnesty, pylint: disable=wrong-import-position
+from common.lib.xmodule.xmodule.modulestore.mixed import MixedModuleStore  # lint-amnesty, pylint: disable=wrong-import-position
+from common.lib.xmodule.xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-position
 
 # We also may not always have the current request user (crum) module available
 try:
@@ -139,7 +139,7 @@ class SignalHandler:
         from django.dispatch import receiver
         from celery import shared_task
         from edx_django_utils.monitoring import set_code_owner_attribute
-        from xmodule.modulestore.django import modulestore, SignalHandler
+        from common.lib.xmodule.xmodule.modulestore.django import modulestore, SignalHandler
 
         @receiver(SignalHandler.course_published)
         def listen_for_course_publish(sender, course_key, **kwargs):

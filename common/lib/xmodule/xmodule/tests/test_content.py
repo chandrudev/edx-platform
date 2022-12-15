@@ -10,8 +10,8 @@ from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import AssetLocator, CourseLocator
 from path import Path as path
 
-from xmodule.contentstore.content import ContentStore, StaticContent, StaticContentStream
-from xmodule.static_content import XBLOCK_CLASSES, _write_js
+from common.lib.xmodule.xmodule.contentstore.content import ContentStore, StaticContent, StaticContentStream
+from common.lib.xmodule.xmodule.static_content import XBLOCK_CLASSES, _write_js
 
 SAMPLE_STRING = """
 This is a sample string with more than 1024 bytes, the default STREAM_DATA_CHUNK_SIZE

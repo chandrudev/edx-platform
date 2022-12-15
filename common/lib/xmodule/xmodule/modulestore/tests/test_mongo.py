@@ -25,20 +25,20 @@ from xblock.exceptions import InvalidScopeError
 from xblock.fields import Reference, ReferenceList, ReferenceValueDict, Scope
 from xblock.runtime import KeyValueStore
 
-from xmodule.contentstore.mongo import MongoContentStore
-from xmodule.exceptions import NotFoundError
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.draft import DraftModuleStore
-from xmodule.modulestore.edit_info import EditInfoMixin
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore.mongo import MongoKeyValueStore
-from xmodule.modulestore.mongo.base import as_draft
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
-from xmodule.modulestore.xml_exporter import export_course_to_xml
-from xmodule.modulestore.xml_importer import LocationMixin, import_course_from_xml, perform_xlint
-from xmodule.tests import DATA_DIR
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.contentstore.mongo import MongoContentStore
+from common.lib.xmodule.xmodule.exceptions import NotFoundError
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.draft import DraftModuleStore
+from common.lib.xmodule.xmodule.modulestore.edit_info import EditInfoMixin
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.mongo import MongoKeyValueStore
+from common.lib.xmodule.xmodule.modulestore.mongo.base import as_draft
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.modulestore.xml_exporter import export_course_to_xml
+from common.lib.xmodule.xmodule.modulestore.xml_importer import LocationMixin, import_course_from_xml, perform_xlint
+from common.lib.xmodule.xmodule.tests import DATA_DIR
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 log = logging.getLogger(__name__)
 

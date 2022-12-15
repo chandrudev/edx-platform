@@ -22,25 +22,25 @@ from xblock.fields import Reference, ReferenceList, ReferenceValueDict
 from openedx.core.djangolib.testing.utils import CacheIsolationMixin
 from openedx.core.lib import tempdir
 from openedx.core.lib.tests import attr
-from xmodule.course_module import CourseBlock
-from xmodule.fields import Date, Timedelta
-from xmodule.modulestore import ModuleStoreEnum
-from xmodule.modulestore.edit_info import EditInfoMixin
-from xmodule.modulestore.exceptions import (
+from common.lib.xmodule.xmodule.course_module import CourseBlock
+from common.lib.xmodule.xmodule.fields import Date, Timedelta
+from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
+from common.lib.xmodule.xmodule.modulestore.edit_info import EditInfoMixin
+from common.lib.xmodule.xmodule.modulestore.exceptions import (
     DuplicateCourseError,
     DuplicateItemError,
     InsufficientSpecificationError,
     ItemNotFoundError,
     VersionConflictError
 )
-from xmodule.modulestore.inheritance import InheritanceMixin
-from xmodule.modulestore.split_mongo import BlockKey
-from xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
-from xmodule.modulestore.tests.factories import check_mongo_calls
-from xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
-from xmodule.modulestore.tests.test_modulestore import check_has_course_method
-from xmodule.tabs import CourseTab
-from xmodule.x_module import XModuleMixin
+from common.lib.xmodule.xmodule.modulestore.inheritance import InheritanceMixin
+from common.lib.xmodule.xmodule.modulestore.split_mongo import BlockKey
+from common.lib.xmodule.xmodule.modulestore.split_mongo.split import SplitMongoModuleStore
+from common.lib.xmodule.xmodule.modulestore.tests.factories import check_mongo_calls
+from common.lib.xmodule.xmodule.modulestore.tests.mongo_connection import MONGO_HOST, MONGO_PORT_NUM
+from common.lib.xmodule.xmodule.modulestore.tests.test_modulestore import check_has_course_method
+from common.lib.xmodule.xmodule.tabs import CourseTab
+from common.lib.xmodule.xmodule.x_module import XModuleMixin
 
 BRANCH_NAME_DRAFT = ModuleStoreEnum.BranchName.draft
 BRANCH_NAME_PUBLISHED = ModuleStoreEnum.BranchName.published
