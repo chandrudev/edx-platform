@@ -34,7 +34,7 @@ from xblock.fields import (
 )
 from xblock.runtime import IdGenerator, IdReader, Runtime
 
-from xmodule import block_metadata_utils
+from common.lib.xmodule.xmodule import block_metadata_utils
 from xmodule.errortracker import exc_info_to_str
 from xmodule.exceptions import UndefinedContext
 from xmodule.fields import RelativeTime
