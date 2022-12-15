@@ -35,11 +35,11 @@ from xblock.fields import (
 from xblock.runtime import IdGenerator, IdReader, Runtime
 
 from common.lib.xmodule.xmodule import block_metadata_utils
-from xmodule.errortracker import exc_info_to_str
-from xmodule.exceptions import UndefinedContext
-from xmodule.fields import RelativeTime
-from xmodule.modulestore.exceptions import ItemNotFoundError
-from xmodule.util.xmodule_django import add_webpack_to_fragment
+from common.lib.xmodule.xmodule.errortracker import exc_info_to_str
+from common.lib.xmodule.xmodule.exceptions import UndefinedContext
+from common.lib.xmodule.xmodule.fields import RelativeTime
+from common.lib.xmodule.xmodule.modulestore.exceptions import ItemNotFoundError
+from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment
 from openedx.core.djangolib.markup import HTML
 
 from common.djangoapps.xblock_django.constants import (
@@ -824,7 +824,7 @@ class XModuleMixin(XModuleFields, XBlock):
 
 class XModuleToXBlockMixin:
     """
-    Common code needed by XModule and XBlocks converted from XModules.
+    Common code needed by XModule and XBlocks converted from common.lib.xmodule.xmodules.
     """
     @property
     def ajax_url(self):
@@ -1192,7 +1192,7 @@ class DescriptorSystem(MetricsMixin, ConfigurableFragmentWrapper, Runtime):
         block.add_xml_to_node(child)
 
     def publish(self, block, event_type, event):  # lint-amnesty, pylint: disable=arguments-differ
-        # A stub publish method that doesn't emit any events from XModuleDescriptors.
+        # A stub publish method that doesn't emit any events from common.lib.xmodule.xmoduleDescriptors.
         pass
 
     def service(self, block, service_name):
