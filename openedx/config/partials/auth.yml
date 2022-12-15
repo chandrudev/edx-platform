@@ -4,7 +4,7 @@ SECRET_KEY: "{{ OPENEDX_SECRET_KEY }}"
 AWS_ACCESS_KEY_ID: "{{ OPENEDX_AWS_ACCESS_KEY }}"
 AWS_SECRET_ACCESS_KEY: "{{ OPENEDX_AWS_SECRET_ACCESS_KEY }}"
 DOC_STORE_CONFIG: null
-{{ patch("openedx-auth") }}
+-{{ patch("openedx-auth") }}
 XQUEUE_INTERFACE:
   django_auth: null
   url: null
@@ -12,7 +12,7 @@ DATABASES:
   default:
     ENGINE: "django.db.backends.mysql"
     HOST: "{{ MYSQL_HOST }}"
-    PORT: {{ MYSQL_PORT }}
+    PORT: "{{ MYSQL_PORT }}"
     NAME: "{{ OPENEDX_MYSQL_DATABASE }}"
     USER: "{{ OPENEDX_MYSQL_USERNAME }}"
     PASSWORD: "{{ OPENEDX_MYSQL_PASSWORD }}"
