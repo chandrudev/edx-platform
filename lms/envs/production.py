@@ -34,7 +34,7 @@ from common.lib.xmodule.xmodule.modulestore.modulestore_settings import convert_
 
 from .common import *
 
-
+import json
 def get_env_setting(setting):
     """ Get the environment setting or return exception """
     try:
@@ -176,6 +176,8 @@ LMS_INTERNAL_ROOT_URL = ENV_TOKENS.get('LMS_INTERNAL_ROOT_URL', LMS_ROOT_URL)
 IDA_LOGOUT_URI_LIST = ENV_TOKENS.get('IDA_LOGOUT_URI_LIST', [])
 
 ENV_FEATURES = ENV_TOKENS.get('FEATURES', {})
+if type(ENV_FEATURES) == str:
+    ENV_FEATURES = json.loads(ENV_FEATURES)
 for feature, value in ENV_FEATURES.items():
     FEATURES[feature] = value
 
