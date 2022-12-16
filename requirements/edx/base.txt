@@ -6,7 +6,7 @@
 #
 -e git+https://github.com/openedx/blockstore.git@1.2.1#egg=blockstore==1.2.1
     # via -r requirements/edx/github.in
--e git+https://github.com/chandrudev/edx-platform/tree/rest3_replica2/common/lib/capa#egg=capa
+-e git+https://github.com/chandrudev/edx-platform/tree/rest3_replica2/common/lib/capa/capa#egg=capa
     # via
     #   -r requirements/edx/local.in
     #   xmodule
