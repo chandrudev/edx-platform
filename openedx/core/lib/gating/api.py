@@ -19,7 +19,7 @@ from lms.djangoapps.grades.api import SubsectionGradeFactory
 from openedx.core.lib.gating.exceptions import GatingValidationError
 from common.djangoapps.util import milestones_helpers
 from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
-from common.lib.xmodule.xmodule.exceptions import ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.exceptions import NotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
 
 log = logging.getLogger(__name__)
 
@@ -444,7 +444,7 @@ def get_subsection_grade_percentage(subsection_usage_key, user):
             if subsection_usage_key in subsection_structure:
                 subsection_grade = subsection_grade_factory.update(subsection_structure[subsection_usage_key])
                 return _get_subsection_percentage(subsection_grade)
-    except ItemNotFoundError as err:
+    except NotFoundError as err:
         log.warning("Could not find course_block for subsection=%s error=%s", subsection_usage_key, err)
     return 0.0
 
@@ -486,7 +486,7 @@ def get_subsection_completion_percentage(subsection_usage_key, user):
                 100 * (subsection_completion_total / float(len(completable_blocks))), 100
             )
 
-    except ItemNotFoundError as err:
+    except NotFoundError as err:
         log.warning("Could not find course_block for subsection=%s error=%s", subsection_usage_key, err)
 
     return subsection_completion_percentage
