@@ -10,7 +10,7 @@ from milestones.tests.utils import MilestonesTestCaseMixin
 from common.lib.xmodule.xmodule.modulestore.tests.django_utils import ModuleStoreTestCase
 from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
-from capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
+from common.lib.capa.capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
 from lms.djangoapps.courseware.entrance_exams import (
     course_has_entrance_exam,
     get_entrance_exam_content,

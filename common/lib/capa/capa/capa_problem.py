@@ -31,9 +31,9 @@ import capa.customrender as customrender
 import capa.inputtypes as inputtypes
 import capa.responsetypes as responsetypes
 import capa.xqueue_interface as xqueue_interface
-from capa.correctmap import CorrectMap
-from capa.safe_exec import safe_exec
-from capa.util import contextualize_text, convert_files_to_filenames, get_course_id_from_capa_module
+from common.lib.capa.capa.correctmap import CorrectMap
+from common.lib.capa.capa.safe_exec import safe_exec
+from common.lib.capa.capa.util import contextualize_text, convert_files_to_filenames, get_course_id_from_capa_module
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.core.lib.edx_six import get_gettext
 from common.lib.xmodule.xmodule.stringify import stringify_children

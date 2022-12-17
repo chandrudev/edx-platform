@@ -22,10 +22,10 @@ import six
 from pytz import UTC
 from six import text_type
 
-from capa.correctmap import CorrectMap
-from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
-from capa.tests.helpers import load_fixture, new_loncapa_problem, test_capa_system
-from capa.tests.response_xml_factory import (
+from common.lib.capa.capa.correctmap import CorrectMap
+from common.lib.capa.capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
+from common.lib.capa.capa.tests.helpers import load_fixture, new_loncapa_problem, test_capa_system
+from common.lib.capa.capa.tests.response_xml_factory import (
     AnnotationResponseXMLFactory,
     ChoiceResponseXMLFactory,
     ChoiceTextResponseXMLFactory,
@@ -41,8 +41,8 @@ from capa.tests.response_xml_factory import (
     SymbolicResponseXMLFactory,
     TrueFalseResponseXMLFactory
 )
-from capa.util import convert_files_to_filenames
-from capa.xqueue_interface import dateformat
+from common.lib.capa.capa.util import convert_files_to_filenames
+from common.lib.capa.capa.xqueue_interface import dateformat
 
 
 class ResponseTest(unittest.TestCase):

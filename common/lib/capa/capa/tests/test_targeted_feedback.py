@@ -6,7 +6,7 @@ i.e. those with the <multiplechoiceresponse> element
 
 import textwrap
 import unittest
-from capa.tests.helpers import load_fixture, new_loncapa_problem, test_capa_system
+from common.lib.capa.capa.tests.helpers import load_fixture, new_loncapa_problem, test_capa_system
 
 
 class CapaTargetedFeedbackTest(unittest.TestCase):

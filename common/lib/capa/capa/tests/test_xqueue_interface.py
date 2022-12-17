@@ -6,7 +6,7 @@ Tests the xqueue service interface.
 from unittest import TestCase
 from django.conf import settings
 
-from capa.xqueue_interface import XQueueInterface, XQueueService
+from common.lib.capa.capa.xqueue_interface import XQueueInterface, XQueueService
 
 
 class XQueueServiceTest(TestCase):

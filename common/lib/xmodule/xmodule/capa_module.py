@@ -22,15 +22,15 @@ from lxml import etree
 from pkg_resources import resource_string
 from pytz import utc
 from web_fragments.fragment import Fragment
+
 from xblock.core import XBlock
 from xblock.fields import Boolean, Dict, Float, Integer, Scope, String, XMLString
 from xblock.scorable import ScorableXBlockMixin, Score
-
-from capa import responsetypes
-from capa.capa_problem import LoncapaProblem, LoncapaSystem
-from capa.inputtypes import Status
-from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
-from capa.util import convert_files_to_filenames, get_inner_html_from_xpath
+from common.lib.capa.capa import responsetypes
+from common.lib.capa.capa.capa_problem import LoncapaProblem, LoncapaSystem
+from common.lib.capa.capa.inputtypes import Status
+from common.lib.capa.capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
+from common.lib.capa.capa.util import convert_files_to_filenames, get_inner_html_from_xpath
 from common.lib.xmodule.xmodule.contentstore.django import contentstore
 from common.lib.xmodule.xmodule.editing_module import EditingMixin
 from common.lib.xmodule.xmodule.exceptions import NotFoundError, ProcessingError

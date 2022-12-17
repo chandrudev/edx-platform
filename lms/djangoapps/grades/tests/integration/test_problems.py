@@ -14,7 +14,7 @@ from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory
 from common.lib.xmodule.xmodule.modulestore.tests.utils import TEST_DATA_DIR
 from common.lib.xmodule.xmodule.modulestore.xml_importer import import_course_from_xml
 
-from capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
+from common.lib.capa.capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
 from common.djangoapps.student.models import CourseEnrollment
 from common.djangoapps.student.tests.factories import UserFactory
 from lms.djangoapps.course_blocks.api import get_course_blocks

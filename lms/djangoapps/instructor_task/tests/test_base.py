@@ -23,7 +23,7 @@ from common.lib.xmodule.xmodule.modulestore.django import modulestore
 from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, ModuleStoreTestCase
 from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
-from capa.tests.response_xml_factory import OptionResponseXMLFactory
+from common.lib.capa.capa.tests.response_xml_factory import OptionResponseXMLFactory
 from common.djangoapps.student.tests.factories import CourseEnrollmentFactory, UserFactory
 from lms.djangoapps.courseware.model_data import StudentModule
 from lms.djangoapps.courseware.tests.tests import LoginEnrollmentTestCase

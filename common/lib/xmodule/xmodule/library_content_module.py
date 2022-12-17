@@ -24,7 +24,7 @@ from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Integer, List, Scope, String, Boolean
 
-from capa.responsetypes import registry
+from common.lib.capa.capa.responsetypes import registry
 from common.lib.xmodule.xmodule.mako_module import MakoTemplateBlockBase
 from common.lib.xmodule.xmodule.studio_editable import StudioEditableBlock
 from common.lib.xmodule.xmodule.util.xmodule_django import add_webpack_to_fragment

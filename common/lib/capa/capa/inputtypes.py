@@ -57,7 +57,7 @@ from chem import chemcalc
 from lxml import etree
 from six import text_type
 
-from capa.xqueue_interface import XQUEUE_TIMEOUT
+from common.lib.capa.capa.xqueue_interface import XQUEUE_TIMEOUT
 from openedx.core.djangolib.markup import HTML, Text
 from openedx.core.lib import edx_six
 from common.lib.xmodule.xmodule.stringify import stringify_children

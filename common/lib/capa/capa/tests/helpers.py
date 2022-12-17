@@ -13,8 +13,8 @@ from mako.lookup import TemplateLookup
 from mock import MagicMock, Mock
 from path import Path
 
-from capa.capa_problem import LoncapaProblem, LoncapaSystem
-from capa.inputtypes import Status
+from common.lib.capa.capa.capa_problem import LoncapaProblem, LoncapaSystem
+from common.lib.capa.capa.inputtypes import Status
 
 TEST_DIR = os.path.dirname(os.path.realpath(__file__))
 

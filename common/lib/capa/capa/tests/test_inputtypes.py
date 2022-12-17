@@ -33,9 +33,9 @@ from pyparsing import ParseException
 from six.moves import zip
 
 from capa import inputtypes
-from capa.checker import DemoSystem
-from capa.tests.helpers import test_capa_system
-from capa.xqueue_interface import XQUEUE_TIMEOUT
+from common.lib.capa.capa.checker import DemoSystem
+from common.lib.capa.capa.tests.helpers import test_capa_system
+from common.lib.capa.capa.xqueue_interface import XQUEUE_TIMEOUT
 from openedx.core.djangolib.markup import HTML
 
 # just a handy shortcut

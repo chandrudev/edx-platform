@@ -12,7 +12,7 @@ from common.lib.xmodule.xmodule.modulestore import ModuleStoreEnum
 from common.lib.xmodule.xmodule.modulestore.tests.django_utils import TEST_DATA_MONGO_AMNESTY_MODULESTORE, SharedModuleStoreTestCase
 from common.lib.xmodule.xmodule.modulestore.tests.factories import CourseFactory, ItemFactory
 
-from capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
+from common.lib.capa.capa.tests.response_xml_factory import MultipleChoiceResponseXMLFactory
 from common.djangoapps.student.tests.factories import GlobalStaffFactory
 from common.djangoapps.student.tests.factories import StaffFactory
 from common.djangoapps.student.tests.factories import UserFactory

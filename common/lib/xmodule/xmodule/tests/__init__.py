@@ -26,7 +26,7 @@ from xblock.core import XBlock
 from xblock.field_data import DictFieldData
 from xblock.fields import Reference, ReferenceList, ReferenceValueDict, ScopeIds
 
-from capa.xqueue_interface import XQueueService
+from common.lib.capa.capa.xqueue_interface import XQueueService
 from common.lib.xmodule.xmodule.assetstore import AssetMetadata
 from common.lib.xmodule.xmodule.contentstore.django import contentstore
 from common.lib.xmodule.xmodule.error_module import ErrorBlock

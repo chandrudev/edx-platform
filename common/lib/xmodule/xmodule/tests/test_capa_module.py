@@ -29,9 +29,9 @@ from xblock.scorable import Score
 
 import xmodule
 from capa import responsetypes
-from capa.correctmap import CorrectMap
-from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
-from capa.xqueue_interface import XQueueInterface
+from common.lib.capa.capa.correctmap import CorrectMap
+from common.lib.capa.capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
+from common.lib.capa.capa.xqueue_interface import XQueueInterface
 from common.lib.xmodule.xmodule.capa_module import ComplexEncoder, ProblemBlock
 from common.lib.xmodule.xmodule.tests import DATA_DIR
 
