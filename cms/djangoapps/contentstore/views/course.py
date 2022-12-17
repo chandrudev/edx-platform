@@ -109,12 +109,11 @@ from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBA
 from common.lib.xmodule.xmodule.contentstore.content import StaticContent  # lint-amnesty, pylint: disable=wrong-import-order
 from common.lib.xmodule.xmodule.course_module import CourseBlock, DEFAULT_START_DATE, CourseFields  # lint-amnesty, pylint: disable=wrong-import-order
 from common.lib.xmodule.xmodule.error_module import ErrorBlock  # lint-amnesty, pylint: disable=wrong-import-order
-from common.lib.xmodule.xmodule import EdxJSONEncoder  # lint-amnesty, pylint: disable=wrong-import-order
-from common.lib.xmodule.xmodule.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
-from common.lib.xmodule.xmodule.exceptions import DuplicateCourseError, ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
+from openedx.core.lib.json_utils import EdxJSONEncoder  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-order
+from common.lib.xmodule.xmodule.modulestore.exceptions import DuplicateCourseError, ItemNotFoundError  # lint-amnesty, pylint: disable=wrong-import-order
 from common.lib.xmodule.xmodule.partitions.partitions import UserPartition  # lint-amnesty, pylint: disable=wrong-import-order
 from common.lib.xmodule.xmodule.tabs import CourseTab, CourseTabList, InvalidTabsException  # lint-amnesty, pylint: disable=wrong-import-order
-
 from ..course_group_config import (
     COHORT_SCHEME,
     ENROLLMENT_SCHEME,
