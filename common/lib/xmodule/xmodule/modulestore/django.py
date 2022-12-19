@@ -300,7 +300,8 @@ def create_modulestore_instance(
         fs_service=fs_service or xblock.reference.plugins.FSService(),
         user_service=user_service or xb_user_service,
         signal_handler=signal_handler or SignalHandler(class_),
-        **_options
+        create_modulestore_instance = create_modulestore_instance,
+        **_options,
     )
 
 
