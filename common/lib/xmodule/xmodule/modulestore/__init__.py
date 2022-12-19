@@ -1147,12 +1147,13 @@ class ModuleStoreReadBase(BulkOperationsMixin, ModuleStoreRead):
         # temporary parms to enable backward compatibility. remove once all envs migrated
         db=None, collection=None, host=None, port=None, tz_aware=True, user=None, password=None,
         # allow lower level init args to pass harmlessly
+        *args,
         ** kwargs
     ):
         '''
         Set up the error-tracking logic.
         '''
-        super().__init__(**kwargs)
+        super().__init__(*args,**kwargs)
         self._course_errors = defaultdict(make_error_tracker)  # location -> ErrorLog
         # TODO move the inheritance_cache_subsystem to classes which use it
         self.metadata_inheritance_cache_subsystem = metadata_inheritance_cache_subsystem
