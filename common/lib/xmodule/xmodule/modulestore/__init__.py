@@ -1259,7 +1259,7 @@ class ModuleStoreWriteBase(ModuleStoreReadBase, ModuleStoreWrite):
     Implement interface functionality that can be shared.
     '''
     def __init__(self, contentstore, **kwargs):
-        super().__init__(contentstore=contentstore, **kwargs)
+        super().__init__(self,contentstore, **kwargs)
         self.mixologist = Mixologist(self.xblock_mixins)
 
     def partition_fields_by_scope(self, category, fields):
