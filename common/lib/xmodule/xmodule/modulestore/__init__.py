@@ -171,7 +171,7 @@ class BulkOperationsMixin:
     mongo_connection.
     """
     def __init__(self, *args, **kwargs):
-        super().__init__(self,*args, **kwargs)
+        super().__init__(**kwargs)
         self._active_bulk_ops = ActiveBulkThread(self._bulk_ops_record_type)
         self.signal_handler = None
 
