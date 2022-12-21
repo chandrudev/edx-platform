@@ -167,7 +167,7 @@ class ScheduledInstructorTaskSubmissionTests(InstructorTaskCourseTestCase):
                 "user_id": self.instructor.id,
                 "ip": "192.168.1.100",
                 "agent": "Mozilla",
-                "host": "localhost:18000"
+                "host": "student.launchpadlearning.ca"
             },
             "task_id": self.task.task_id
         }

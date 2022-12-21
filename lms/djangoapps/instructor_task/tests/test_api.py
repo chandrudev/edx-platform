@@ -293,7 +293,7 @@ class InstructorTaskCourseSubmitTest(TestReportMixin, InstructorTaskCourseTestCa
                 "user_id": self.instructor.id,
                 "ip": "127.0.0.1",
                 "agent": "Mozilla",
-                "host": "localhost:18000"
+                "host": "student.launchpadlearning.ca"
             },
             "task_id": "622748b3-2831-432e-b519-4fde2706ca59"
         }

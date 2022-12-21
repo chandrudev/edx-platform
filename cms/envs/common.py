@@ -357,7 +357,7 @@ FEATURES = {
     # Prevent auto auth from creating superusers or modifying existing users
     'RESTRICT_AUTOMATIC_AUTH': True,
 
-    'PREVIEW_LMS_BASE': "preview.localhost:18000",
+    'PREVIEW_LMS_BASE': "preview.student.launchpadlearning.ca",
     'ENABLE_GRADE_DOWNLOADS': True,
     'ENABLE_MKTG_SITE': False,
     'ENABLE_DISCUSSION_HOME_PANEL': True,
@@ -757,8 +757,8 @@ ICP_LICENSE_INFO = {}
 
 LOGGING_ENV = 'sandbox'
 
-LMS_BASE = 'localhost:18000'
-LMS_ROOT_URL = "http://localhost:18000"
+LMS_BASE = 'http://student.launchpadlearning.ca'
+LMS_ROOT_URL = "http://student.launchpadlearning.ca"
 LMS_INTERNAL_ROOT_URL = LMS_ROOT_URL
 
 # Use LMS SSO for login, once enabled by setting LOGIN_URL (see docs/guides/studio_oauth.rst)
@@ -778,7 +778,7 @@ ENTERPRISE_CONSENT_API_URL = LMS_INTERNAL_ROOT_URL + '/consent/api/v1/'
 ENTERPRISE_MARKETING_FOOTER_QUERY_PARAMS = {}
 
 # Public domain name of Studio (should be resolvable from the end-user's browser)
-CMS_BASE = 'localhost:18010'
+CMS_BASE = 'studio.launchpadlearning.ca'
 
 LOG_DIR = '/edx/var/log/edx'
 
@@ -2570,7 +2570,7 @@ XBLOCK_RUNTIME_V2_EPHEMERAL_DATA_CACHE = 'default'
 BLOCKSTORE_BUNDLE_CACHE_TIMEOUT = 3000
 
 ###################### LEARNER PORTAL ################################
-LEARNER_PORTAL_URL_ROOT = 'https://learner-portal-localhost:18000'
+LEARNER_PORTAL_URL_ROOT = 'https://learner-portal-student.launchpadlearning.ca'
 
 ############################ JWT #################################
 JWT_ISSUER = 'http://127.0.0.1:8000/oauth2'
