@@ -4,6 +4,7 @@ Module that provides a connection to the ModuleStore specified in the django set
 Passes settings.MODULESTORE as kwargs to MongoModuleStore
 """
 
+from contextlib import contextmanager
 from importlib import import_module
 import gettext
 import logging
@@ -24,10 +25,10 @@ import django.utils  # lint-amnesty, pylint: disable=wrong-import-position
 from django.utils.translation import get_language, to_locale  # lint-amnesty, pylint: disable=wrong-import-position
 from edx_django_utils.cache import DEFAULT_REQUEST_CACHE  # lint-amnesty, pylint: disable=wrong-import-position
 
-from common.lib.xmodule.xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-position
-from common.lib.xmodule.xmodule.modulestore.draft_and_published import BranchSettingMixin  # lint-amnesty, pylint: disable=wrong-import-position
-from common.lib.xmodule.xmodule.modulestore.mixed import MixedModuleStore  # lint-amnesty, pylint: disable=wrong-import-position
-from common.lib.xmodule.xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-position
+from xmodule.contentstore.django import contentstore  # lint-amnesty, pylint: disable=wrong-import-position
+from xmodule.modulestore.draft_and_published import BranchSettingMixin  # lint-amnesty, pylint: disable=wrong-import-position
+from xmodule.modulestore.mixed import MixedModuleStore  # lint-amnesty, pylint: disable=wrong-import-position
+from xmodule.util.xmodule_django import get_current_request_hostname  # lint-amnesty, pylint: disable=wrong-import-position
 
 # We also may not always have the current request user (crum) module available
 try:
@@ -87,6 +88,18 @@ class SwitchedSignal(django.dispatch.Signal):
         """
         self._allow_signals = True
 
+    @contextmanager
+    def for_state(self, *, is_enabled: bool):
+        """
+        Set signal handling to be on or off for the duration of the context.
+        """
+        old_state = self._allow_signals
+        try:
+            self._allow_signals = is_enabled
+            yield
+        finally:
+            self._allow_signals = old_state
+
     def send(self, *args, **kwargs):
         """
         See `django.dispatch.Signal.send()`
@@ -139,7 +152,7 @@ class SignalHandler:
         from django.dispatch import receiver
         from celery import shared_task
         from edx_django_utils.monitoring import set_code_owner_attribute
-        from common.lib.xmodule.xmodule.modulestore.django import modulestore, SignalHandler
+        from xmodule.modulestore.django import modulestore, SignalHandler
 
         @receiver(SignalHandler.course_published)
         def listen_for_course_publish(sender, course_key, **kwargs):
@@ -292,7 +305,6 @@ def create_modulestore_instance(
         metadata_inheritance_cache_subsystem=metadata_inheritance_cache,
         request_cache=request_cache,
         xblock_mixins=getattr(settings, 'XBLOCK_MIXINS', ()),
-        xblock_select=getattr(settings, 'XBLOCK_SELECT_FUNCTION', None),
         xblock_field_data_wrappers=xblock_field_data_wrappers,
         disabled_xblock_types=fetch_disabled_xblock_types,
         doc_store_config=doc_store_config,
@@ -300,8 +312,7 @@ def create_modulestore_instance(
         fs_service=fs_service or xblock.reference.plugins.FSService(),
         user_service=user_service or xb_user_service,
         signal_handler=signal_handler or SignalHandler(class_),
-        create_modulestore_instance = create_modulestore_instance,
-        **_options,
+        **_options
     )
 
 
