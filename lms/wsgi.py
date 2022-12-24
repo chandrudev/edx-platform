@@ -11,9 +11,11 @@ It exposes a module-level variable named ``application``. Django's
 # Patch the xml libs
 from openedx.core.lib.safe_lxml import defuse_xml_libs
 import logging as log
+import os  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
+
 defuse_xml_libs()
 
-import os  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "lms.envs.aws")
 
 import lms.startup as startup  

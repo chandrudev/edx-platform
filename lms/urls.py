@@ -53,7 +53,7 @@ from openedx.core.djangoapps.user_authn.views.login import redirect_to_lms_login
 from openedx.features.enterprise_support.api import enterprise_enabled
 from openedx.features.course_experience.views.course_home import outline_tab
 from common.djangoapps.student.views.management import StaffDetailsListApiView
-from common.djangoapps.student.views.management import uploaded_doc_view
+from common.djangoapps.student.views.management import uploaded_doc_view, testing_data
 
 RESET_COURSE_DEADLINES_NAME = 'reset_course_deadlines'
 RENDER_XBLOCK_NAME = 'render_xblock'
@@ -100,8 +100,7 @@ notification_prefs_urls = [
 urlpatterns = [
     path('', branding_views.index, name='root'),  # Main marketing page, or redirect to courseware
     path("get_doc/", uploaded_doc_view, name='uploaded_doc_view'),
-
-
+    path("testing-path",testing_data, name="testing_data"),
     path('', include('common.djangoapps.student.urls')),
     # TODO: Move lms specific student views out of common code
     re_path(r'^dashboard/?$', student_views.student_dashboard, name='dashboard'),

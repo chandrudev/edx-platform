@@ -984,8 +984,12 @@ def uploaded_doc_view(request):
             return JsonResponse({"success":False, "message":{"method":f"{method} is invalid"}})
         return JsonResponse({"success":False, 'message':{'id':'Document Id not provided.'}})  
     except Exception as e:
-        return JsonResponse({"success":False, "message":{"error":f"{e}"} })    
+        return JsonResponse({"success":False, "message":{"error":f"{e}"} })   
 
+
+@csrf_exempt
+def testing_data(request):
+    return JsonResponse({"success": True,"message":{"Call": "Calling test"}}) 
 
 
 class AnnouncementView(APIView):
