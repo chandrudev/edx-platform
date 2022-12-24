@@ -26,6 +26,10 @@ startup.run()
 
 from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=wrong-import-position
 
+from django.core.wsgi import get_wsgi_application  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
+log.info("wsgi application")
+log.info(get_wsgi_application(),"======================================")
+application = get_wsgi_application()
 # Trigger a forced initialization of our modulestores since this can take a
 # while to complete and we want this done before HTTP requests are accepted.
 modulestore()
@@ -33,7 +37,4 @@ modulestore()
 
 # This application object is used by the development server
 # as well as any WSGI server configured to use this file.
-from django.core.wsgi import get_wsgi_application  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
-log.info("wsgi application")
-log.info(get_wsgi_application(),"======================================")
-application = get_wsgi_application()
+
