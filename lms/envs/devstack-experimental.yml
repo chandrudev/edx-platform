@@ -181,7 +181,7 @@ CONTENTSTORE:
         ssl: false
         user: edxapp
 CORS_ORIGIN_ALLOW_ALL: false
-CORS_ORIGIN_WHITELIST: ["http://apps.launchpadlearning.ca"]
+CORS_ORIGIN_WHITELIST: ["http://apps.launchpadlearning.ca","http://studio.launchpadlearning.ca"]
 COURSES_WITH_UNSAFE_CODE: []
 COURSE_ABOUT_VISIBILITY_PERMISSION: see_exists
 COURSE_CATALOG_API_URL: http://localhost:8008/api/v1

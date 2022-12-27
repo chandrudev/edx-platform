@@ -256,7 +256,7 @@ ENTERPRISE_ADMIN_PORTAL_BASE_URL = 'http://' + ENTERPRISE_ADMIN_PORTAL_NETLOC
 ###################### Cross-domain requests ######################
 FEATURES['ENABLE_CORS_HEADERS'] = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ("http://apps.student.launchpadlearning.ca",)
+CORS_ORIGIN_WHITELIST = ("http://apps.student.launchpadlearning.ca","http://studio.launchpadlearning.ca")
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = corsheaders_default_headers + (
     'use-jwt-cookie',
