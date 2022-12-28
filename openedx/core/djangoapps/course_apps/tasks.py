@@ -15,7 +15,7 @@ from openedx.core.djangoapps.course_apps.plugins import CourseAppsPluginManager
 log = get_task_logger(__name__)
 
 
-@shared_task(name='openedx.core.djangoapps.course_apps.tasks.cache_all_course_apps_status')
+# @shared_task(name='openedx.core.djangoapps.course_apps.tasks.cache_all_course_apps_status')
 @set_code_owner_attribute
 def cache_all_course_apps_status():
     """
@@ -24,13 +24,13 @@ def cache_all_course_apps_status():
     for idx, course_key in enumerate(CourseOverview.objects.values_list('id', flat=True)):
         if isinstance(course_key, LibraryLocator):
             continue
-        update_course_apps_status.delay(str(course_key))
+        update_course_apps_status(str(course_key))
         if (idx + 1) % 100 == 0:
             log.info("Cached course app status for %s courses successfully", idx + 1)
     log.info("Cached course app status for all courses successfully")
 
 
-@shared_task(name='openedx.core.djangoapps.course_apps.tasks.update_course_apps_status')
+# @shared_task(name='openedx.core.djangoapps.course_apps.tasks.update_course_apps_status')
 @set_code_owner_attribute
 def update_course_apps_status(course_key_str: str):
     """
