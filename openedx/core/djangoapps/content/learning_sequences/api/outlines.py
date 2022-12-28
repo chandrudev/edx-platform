@@ -416,6 +416,11 @@ def _update_course_context(course_outline: CourseOutlineData):
     """
     Update CourseContext with given param:course_outline data.
     """
+    defaults={
+            'title': course_outline.title,
+            'published_at': course_outline.published_at,
+            'published_version': course_outline.published_version,
+        }
     log.info(course_outline, "sending data to create learning_out================")
     learning_context, _ = LearningContext.objects.update_or_create(
         context_key=course_outline.course_key,
@@ -425,6 +430,7 @@ def _update_course_context(course_outline: CourseOutlineData):
             'published_version': course_outline.published_version,
         }
     )
+    log.info(defaults,"defaults===============================================")
     course_context, created = CourseContext.objects.update_or_create(
         learning_context=learning_context,
         defaults={

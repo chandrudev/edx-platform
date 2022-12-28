@@ -936,6 +936,7 @@ def _create_or_rerun_course(request):
 
         source_course_key = request.json.get('source_course_key')
         if source_course_key:
+            log.info("In source data=========================================key=============")
             source_course_key = CourseKey.from_string(source_course_key)
             destination_course_key = rerun_course(request.user, source_course_key, org, course, run, fields)
             return JsonResponse({
@@ -944,6 +945,7 @@ def _create_or_rerun_course(request):
             })
         else:
             try:
+                log.info("In source data=========================================key else=============")
                 new_course = create_new_course(request.user, org, course, run, fields)
                 return JsonResponse({
                     'url': reverse_course_url('course_handler', new_course.id),
