@@ -15,4 +15,4 @@ def export_course_metadata(sender, course_key, **kwargs):  # pylint: disable=unu
     Export course metadata on course publish.
     """
     if EXPORT_COURSE_METADATA_FLAG.is_enabled():
-        export_course_metadata_task.delay(str(course_key))
+        export_course_metadata_task(str(course_key))

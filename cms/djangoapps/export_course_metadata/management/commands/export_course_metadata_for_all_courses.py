@@ -29,4 +29,4 @@ def export_course_metadata_for_all_courses():
     """
     courses = modulestore().get_course_summaries()
     for course in courses:
-        export_course_metadata_task.delay(str(course.id))
+        export_course_metadata_task(str(course.id))

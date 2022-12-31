@@ -591,11 +591,13 @@ FAVICON_URL = ENV_TOKENS.get('FAVICON_URL', FAVICON_URL)
 ######################## CELERY ROTUING ########################
 
 # Defines alternate environment tasks, as a dict of form { task_name: alternate_queue }
-ALTERNATE_ENV_TASKS = {
-    'completion_aggregator.tasks.update_aggregators': 'lms',
-    'openedx.core.djangoapps.content.block_structure.tasks.update_course_in_cache': 'lms',
-    'openedx.core.djangoapps.content.block_structure.tasks.update_course_in_cache_v2': 'lms',
-}
+# ALTERNATE_ENV_TASKS = {
+#     'completion_aggregator.tasks.update_aggregators': 'lms',
+#     'openedx.core.djangoapps.content.block_structure.tasks.update_course_in_cache': 'lms',
+#     'openedx.core.djangoapps.content.block_structure.tasks.update_course_in_cache_v2': 'lms',
+# }
+
+ALTERNATE_ENV_TASKS = {}
 
 # Defines the task -> alternate worker queue to be used when routing.
 EXPLICIT_QUEUES = {

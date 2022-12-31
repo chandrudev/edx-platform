@@ -1074,7 +1074,7 @@ def rerun_course(user, source_course_key, org, number, run, fields, background=T
     args = [str(source_course_key), str(destination_course_key), user.id, json_fields]
 
     if background:
-        rerun_course_task.delay(*args)
+        rerun_course_task(*args)
     else:
         rerun_course_task(*args)
 

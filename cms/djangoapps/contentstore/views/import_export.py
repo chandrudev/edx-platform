@@ -212,7 +212,7 @@ def _write_chunk(request, courselike_key):  # lint-amnesty, pylint: disable=too-
         with open(temp_filepath, 'rb') as local_file:
             django_file = File(local_file)
             storage_path = course_import_export_storage.save('olx_import/' + filename, django_file)
-        import_olx.delay(
+        import_olx(
             request.user.id, str(courselike_key), storage_path, filename, request.LANGUAGE_CODE)
 
     # Send errors to client with stage at which error occurred.
@@ -334,7 +334,7 @@ def export_handler(request, course_key_string):
     requested_format = request.GET.get('_accept', request.META.get('HTTP_ACCEPT', 'text/html'))
 
     if request.method == 'POST':
-        export_olx.delay(request.user.id, course_key_string, request.LANGUAGE_CODE)
+        export_olx(request.user.id, course_key_string, request.LANGUAGE_CODE)
         return JsonResponse({'ExportStatus': 1})
     elif 'text/html' in requested_format:
         return render_to_response('export.html', context)

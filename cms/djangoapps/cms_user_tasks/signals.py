@@ -65,6 +65,6 @@ def user_task_stopped_handler(sender, **kwargs):  # pylint: disable=unused-argum
         olx_validation_text = get_olx_validation_from_artifact()
         task_args = [task_name, str(status.state_text), user_email, detail_url, olx_validation_text]
         try:
-            send_task_complete_email.delay(*task_args)
+            send_task_complete_email(*task_args)
         except Exception:  # pylint: disable=broad-except
             LOGGER.exception("Unable to queue send_task_complete_email")
