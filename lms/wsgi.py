@@ -22,6 +22,7 @@ from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-am
 
 # Trigger a forced initialization of our modulestores since this can take a
 # while to complete and we want this done before HTTP requests are accepted.
+modulestore()
 
 
 # This application object is used by the development server
@@ -29,5 +30,4 @@ from common.lib.xmodule.xmodule.modulestore.django import modulestore  # lint-am
 from django.core.wsgi import get_wsgi_application  # lint-amnesty, pylint: disable=wrong-import-order, wrong-import-position
 application = get_wsgi_application()
 
-modulestore()
 
