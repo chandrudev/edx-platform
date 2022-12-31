@@ -23,7 +23,7 @@ def course_published_handler(sender, course_key, **kwargs):  # pylint: disable=u
     Consume signals that indicate course published. If course already a CCX, do nothing.
     """
     if not isinstance(course_key, CCXLocator):
-        send_ccx_course_published.delay(str(course_key))
+        send_ccx_course_published(str(course_key))
 
 
 @CELERY_APP.task

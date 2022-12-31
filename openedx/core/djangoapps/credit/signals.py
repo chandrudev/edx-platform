@@ -28,7 +28,7 @@ def on_course_publish(course_key):
     from openedx.core.djangoapps.credit import api, tasks
 
     if api.is_credit_course(course_key):
-        tasks.update_credit_course_requirements.delay(str(course_key))
+        tasks.update_credit_course_requirements(str(course_key))
         log.info('Added task to update credit requirements for course "%s" to the task queue', course_key)
 
 

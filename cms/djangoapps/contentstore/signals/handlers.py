@@ -70,14 +70,14 @@ def listen_for_course_publish(sender, course_key, **kwargs):  # pylint: disable=
 
     if settings.COURSEGRAPH_DUMP_COURSE_ON_PUBLISH:
         # Push the course out to CourseGraph asynchronously.
-        dump_course_to_neo4j.delay(course_key_str)
+        dump_course_to_neo4j(course_key_str)
 
     # Finally, call into the course search subsystem
     # to kick off an indexing action
     if CoursewareSearchIndexer.indexing_is_enabled() and CourseAboutSearchIndexer.indexing_is_enabled():
-        update_search_index.delay(course_key_str, datetime.now(UTC).isoformat())
+        update_search_index(course_key_str, datetime.now(UTC).isoformat())
 
-    update_discussions_settings_from_course_task.delay(course_key_str)
+    update_discussions_settings_from_course_task(course_key_str)
 
 
 @receiver(SignalHandler.course_deleted)
