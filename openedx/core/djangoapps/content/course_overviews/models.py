@@ -325,7 +325,7 @@ class CourseOverview(TimeStampedModel):
                         CourseOverviewImageSet.objects.filter(course_overview=course_overview).delete()
                         CourseOverviewImageSet.create(course_overview, course)
 
-                except IntegrityError:
+                except IntegrityError as ie:
                     # There is a rare race condition that will occur if
                     # CourseOverview.get_from_id is called while a
                     # another identical overview is already in the process
@@ -339,7 +339,10 @@ class CourseOverview(TimeStampedModel):
                         "simultaneously; will only save one.",
                         course_id,
                     )
-                except Exception:
+                    log.error(f"Integrity error while load-module==========>>>>>>>> {ie}")
+                except Exception as e:
+
+                    log.error(f"Exceptional error at load from module ======>>>>> {e}")
                     log.exception(
                         "Saving CourseOverview for course %s failed with "
                         "unexpected exception!",
