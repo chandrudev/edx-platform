@@ -302,6 +302,7 @@ class CourseOverview(TimeStampedModel):
         store = modulestore()
         with store.bulk_operations(course_id):
             course = store.get_course(course_id)
+            log.info(f"Modustore ")
             if isinstance(course, CourseBlock):
                 try:
                     course_overview = cls._create_or_update(course)

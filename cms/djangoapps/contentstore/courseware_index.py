@@ -521,24 +521,24 @@ class AboutInfo:
         """ gets the value from the kwargs provided 'about_dictionary' """
         about_dictionary = kwargs.get('about_dictionary', None)
         if not about_dictionary:
-            raise ValueError("Context dictionary does not contain expected argument 'about_dictionary'")
-
+            log.error("Context dictionary does not contain expected argument 'about_dictionary'")
+            return None
         return about_dictionary.get(self.property_name, None)
 
     def from_course_property(self, **kwargs):
         """ gets the value from the kwargs provided 'course' """
         course = kwargs.get('course', None)
         if not course:
-            raise ValueError("Context dictionary does not contain expected argument 'course'")
-
+            log.error("Context dictionary does not contain expected argument 'course'")
+            return None
         return getattr(course, self.property_name, None)
 
     def from_course_mode(self, **kwargs):
         """ fetches the available course modes from the CourseMode model """
         course = kwargs.get('course', None)
         if not course:
-            raise ValueError("Context dictionary does not contain expected argument 'course'")
-
+            log.error("Context dictionary does not contain expected argument 'course'")
+            return None
         return [mode.slug for mode in CourseMode.modes_for_course(course.id)]
 
     # Source location options - either from the course or the about info
