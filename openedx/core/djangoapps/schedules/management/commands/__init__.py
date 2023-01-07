@@ -57,7 +57,7 @@ class SendEmailBaseCommand(PrefixedDebugLoggerMixin, BaseCommand):  # lint-amnes
         self.send_emails(site, current_date, override_recipient_email)
 
     def enqueue(self, day_offset, site, current_date, override_recipient_email=None):
-        self.async_send_task.enqueue(
+        self.async_send_task(
             site,
             current_date,
             day_offset,

@@ -30,4 +30,4 @@ class Command(SendEmailBaseCommand):
         override_recipient_email = options.get('override_recipient_email')
 
         # day_offset set to 1 as we'll always be looking for yesterday
-        self.async_send_task.enqueue(site, current_date, 1, override_recipient_email)
+        self.async_send_task(site, current_date, 1, override_recipient_email)

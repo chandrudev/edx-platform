@@ -95,7 +95,7 @@ class BinnedSchedulesBaseResolver(PrefixedDebugLoggerMixin, RecipientResolver):
                 context,
             )
             with function_trace('enqueue_send_task'):
-                self.async_send_task.apply_async((self.site.id, str(msg)), retry=False)
+                self.async_send_task((self.site.id, str(msg)), retry=False)
 
     @classmethod
     def bin_num_for_user_id(cls, user_id):
@@ -377,7 +377,7 @@ class CourseUpdateResolver(BinnedSchedulesBaseResolver):
                 context,
             )
             with function_trace('enqueue_send_task'):
-                self.async_send_task.apply_async((self.site.id, str(msg)), retry=False)  # pylint: disable=no-member
+                self.async_send_task((self.site.id, str(msg)), retry=False)  # pylint: disable=no-member
 
     def schedules_for_bin(self):
         week_num = abs(self.day_offset) // 7
@@ -464,7 +464,7 @@ class CourseNextSectionUpdate(PrefixedDebugLoggerMixin, RecipientResolver):
                 )
             )
             with function_trace('enqueue_send_task'):
-                self.async_send_task.apply_async((self.site.id, str(msg)), retry=False)
+                self.async_send_task((self.site.id, str(msg)), retry=False)
 
     def get_schedules(self):
         """
