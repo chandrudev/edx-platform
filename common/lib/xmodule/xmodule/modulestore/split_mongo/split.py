@@ -292,7 +292,7 @@ class SplitBulkWriteMixin(BulkOperationsMixin):
 
         return dirty
 
-    def get_course_index(self, course_key, ignore_case=False):
+    def get_course_index(self, course_key, ignore_case=True):
         """
         Return the index for course_key.
         """

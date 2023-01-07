@@ -405,7 +405,7 @@ class CourseOverview(TimeStampedModel):
                 course from the module store.
         """
         try:
-            course_overview = cls.objects.select_related('image_set').get(id=course_id)
+            course_overview = cls.objects.get(id=course_id)
             if course_overview.version < cls.VERSION:
                 # Reload the overview from the modulestore to update the version
                 course_overview = cls.load_from_module_store(course_id)
